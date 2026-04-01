@@ -291,6 +291,56 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   .mcq-choices{padding:0 12px 8px}
   .img-ph{margin:8px 14px}
 }
+
+/* ── STATISTICS OVERLAY ── */
+#stats-overlay{display:none;position:fixed;inset:0;background:rgba(27,58,107,.6);backdrop-filter:blur(6px);z-index:250;align-items:center;justify-content:center;padding:20px;}
+#stats-overlay.visible{display:flex;}
+.stats-box{background:#fff;border-radius:18px;padding:32px;max-width:780px;width:97%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);position:relative;}
+.stats-box h2{font-family:var(--font-h);color:var(--navy);margin-bottom:20px;font-size:1.3rem;display:flex;align-items:center;gap:10px;}
+.stats-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6b7280;padding:4px;line-height:1;}
+.stats-close:hover{color:var(--red);}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stat-box{border-radius:12px;padding:16px;text-align:center;}
+.stat-box.total{background:var(--blue-lt);}
+.stat-box.correct{background:var(--green-lt);}
+.stat-box.wrong{background:var(--red-lt);}
+.stat-box.again{background:var(--red-lt);}
+.stat-box.good{background:var(--gold-lt);}
+.stat-box.easy{background:var(--teal-lt);}
+.stat-n{font-size:2rem;font-weight:700;font-family:var(--font-h);}
+.stat-box.total .stat-n{color:var(--blue);}
+.stat-box.correct .stat-n{color:var(--green);}
+.stat-box.wrong .stat-n{color:var(--red);}
+.stat-box.again .stat-n{color:var(--red);}
+.stat-box.good .stat-n{color:var(--gold);}
+.stat-box.easy .stat-n{color:var(--teal);}
+.stat-lbl{font-size:.72rem;color:#6b7280;margin-top:4px;}
+.stats-section{margin-bottom:22px;}
+.stats-section h3{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.78rem;}
+.bar-row .lec-name{flex:0 0 200px;color:var(--navy);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.74rem;}
+.bar-wrap{flex:1;background:#f0f2f7;border-radius:20px;height:10px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--teal),var(--teal-mid));transition:width .4s;}
+.bar-fill.zero{background:#e5e7eb;}
+.bar-pct{flex:0 0 38px;text-align:right;color:#6b7280;font-size:.72rem;}
+.bar-cnt{flex:0 0 55px;text-align:right;color:#6b7280;font-size:.7rem;}
+.stats-pbar-wrap{background:var(--border);border-radius:20px;height:12px;margin-bottom:6px;overflow:hidden;}
+.stats-pbar{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--teal),var(--teal-mid));transition:width .5s;}
+.stats-pbar-lbl{display:flex;justify-content:space-between;font-size:.75rem;color:#6b7280;margin-bottom:14px;}
+.stats-pbar-lbl strong{color:var(--teal);}
+.mcq-bar{display:flex;height:18px;border-radius:20px;overflow:hidden;margin-bottom:8px;}
+.mcq-bar-c{background:var(--green-mid);}
+.mcq-bar-w{background:#f87171;}
+.mcq-bar-u{background:#e5e7eb;}
+.flash-bar{display:flex;height:18px;border-radius:20px;overflow:hidden;margin-bottom:8px;}
+.flash-bar-a{background:#f87171;}
+.flash-bar-g{background:#C49A00;}
+.flash-bar-e{background:var(--teal-mid);}
+.flash-bar-u{background:#e5e7eb;}
+.bar-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;margin-bottom:16px;}
+.leg-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);} .bar-row .lec-name{flex:0 0 130px;}}
+
 </style>
 </head>
 <body>
@@ -364,6 +414,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
         <button class="btn btn-out" onclick="shuffleDeck()">🔀 Shuffle</button>
         <button class="btn btn-out" onclick="resetDeck()">↺ Reset</button>
         <button class="btn btn-navy" onclick="showScore()">📊 Score</button>
+        <button class="btn btn-navy" onclick="showStats()" style="background:#5B21B6;">📈 Stats</button>
       </div>
     </div>
     <div class="prog-label"><span>Progress</span><strong id="prog-txt">0 / 0</strong></div>
@@ -982,8 +1033,6 @@ function loadProgress(){
   try {
     const d = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
     if(!d) return;
-
-    // Step 1: restore filters & answers
     mcqAnswers   = d.mcqAnswers   || {};
     osceResults  = d.osceResults  || {};
     flashRatings = d.flashRatings || {};
@@ -992,27 +1041,14 @@ function loadProgress(){
     activeType   = d.activeType   || '';
     activeLec    = d.activeLec    || null;
     activeLecType= d.activeLecType|| 'all';
-
-    // Step 2: applyFilter rebuilds deck (loadDeck resets reviewed/scores/idx)
     applyFilter();
-
-    // Step 3: restore stats AFTER loadDeck reset them
     reviewed = d.reviewed || 0;
-    scores   = d.scores   || {again:0, good:0, easy:0};
-    mcqRes   = d.mcqRes   || {correct:0, wrong:0};
-    idx      = Math.min(d.idx||0, deck.length - 1);
-
-    // Step 4: restore sidebar active highlight
-    document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
-    if(activeLec){
-      document.querySelectorAll('.sb-item').forEach(el => {
-        if(el.dataset.k === activeLec) el.classList.add('active');
-      });
-    }
-
-    // Step 5: re-render UI
+    scores   = d.scores   || {again:0,good:0,easy:0};
+    mcqRes   = d.mcqRes   || {correct:0,wrong:0};
+    idx      = Math.min(d.idx||0, deck.length-1);
+    document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+    if(activeLec) document.querySelectorAll('.sb-item').forEach(el=>{ if(el.dataset.k===activeLec) el.classList.add('active'); });
     renderCard(); updateNav(); updateStats(); updateProgress();
-
   } catch(e){ console.warn('loadProgress failed', e); }
 }
 
@@ -1029,7 +1065,151 @@ function clearProgress(){
 // ═══════════════════════════════════
 buildSidebar();
 updateCounts();
-applyFilter();
+loadProgress();
+
+// ═══════════════════════════════════
+// STATISTICS
+// ═══════════════════════════════════
+function showStats(){
+  const allCards = ALL_CARDS;
+
+  // Total answered
+  const totalAnswered = Object.keys(mcqAnswers).length + Object.keys(flashRatings).length;
+  const total = allCards.length;
+  const pct = total ? Math.round(totalAnswered/total*100) : 0;
+  document.getElementById('st-overall-bar').style.width = pct + '%';
+  document.getElementById('st-overall-lbl').textContent = totalAnswered + ' of ' + total + ' answered';
+  document.getElementById('st-overall-pct').textContent = pct + '%';
+
+  // MCQ breakdown
+  const mcqCards = allCards.filter(c=>c.cardType==='MCQ');
+  const mcqTotal = mcqCards.length;
+  let mcqC=0, mcqW=0;
+  mcqCards.forEach(c=>{ if(mcqAnswers[c.id]){ if(mcqAnswers[c.id]===c.ans) mcqC++; else mcqW++; } });
+  const mcqU = mcqTotal - mcqC - mcqW;
+  document.getElementById('st-mcq-cn').textContent = mcqC;
+  document.getElementById('st-mcq-wn').textContent = mcqW;
+  document.getElementById('st-mcq-un').textContent = mcqU;
+  if(mcqTotal){
+    document.getElementById('st-mcq-c').style.width = (mcqC/mcqTotal*100)+'%';
+    document.getElementById('st-mcq-w').style.width = (mcqW/mcqTotal*100)+'%';
+    document.getElementById('st-mcq-u').style.width = (mcqU/mcqTotal*100)+'%';
+  }
+
+  // Flash/SAQ breakdown
+  const flashCards = allCards.filter(c=>c.cardType==='FLASHCARD'||c.cardType==='SAQ');
+  const flashTotal = flashCards.length;
+  let flA=0, flG=0, flE=0;
+  flashCards.forEach(c=>{ const r=flashRatings[c.id]; if(r==='again') flA++; else if(r==='good') flG++; else if(r==='easy') flE++; });
+  const flU = flashTotal - flA - flG - flE;
+  document.getElementById('st-fl-an').textContent = flA;
+  document.getElementById('st-fl-gn').textContent = flG;
+  document.getElementById('st-fl-en').textContent = flE;
+  if(flashTotal){
+    document.getElementById('st-fl-a').style.width = (flA/flashTotal*100)+'%';
+    document.getElementById('st-fl-g').style.width = (flG/flashTotal*100)+'%';
+    document.getElementById('st-fl-e').style.width = (flE/flashTotal*100)+'%';
+    document.getElementById('st-fl-u').style.width = (flU/flashTotal*100)+'%';
+  }
+
+  // Per-lecture rows
+  const lectures = [...new Set(allCards.map(c=>c.lecture))];
+  const container = document.getElementById('st-lec-rows');
+  container.innerHTML = '';
+  lectures.forEach(lec=>{
+    const lecCards = allCards.filter(c=>c.lecture===lec);
+    const lecTotal = lecCards.length;
+    let lecAnswered = 0;
+    lecCards.forEach(c=>{
+      if(c.cardType==='MCQ' && mcqAnswers[c.id]) lecAnswered++;
+      else if((c.cardType==='FLASHCARD'||c.cardType==='SAQ') && flashRatings[c.id]) lecAnswered++;
+      else if(c.cardType==='OSCE'){
+        const subs = c.subParts||[];
+        if(subs.length>0 && osceResults[c.id] && Object.keys(osceResults[c.id]).length>0) lecAnswered++;
+      }
+    });
+    const lecPct = lecTotal ? Math.round(lecAnswered/lecTotal*100) : 0;
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = '<span class="lec-name" title="'+lec+'">'+lec+'</span>'
+      +'<div class="bar-wrap"><div class="bar-fill'+(lecPct===0?' zero':'')+'" style="width:'+lecPct+'%"></div></div>'
+      +'<span class="bar-cnt">'+lecAnswered+'/'+lecTotal+'</span>'
+      +'<span class="bar-pct">'+lecPct+'%</span>';
+    container.appendChild(row);
+  });
+
+  document.getElementById('stats-overlay').classList.add('visible');
+}
+
+function closeStats(){
+  document.getElementById('stats-overlay').classList.remove('visible');
+}
+
 </script>
+
+<!-- STATS OVERLAY -->
+<div id="stats-overlay" onclick="if(event.target===this)closeStats()">
+<div class="stats-box">
+  <button class="stats-close" onclick="closeStats()">✕</button>
+  <h2>📈 Progress Statistics</h2>
+
+  <!-- Overall progress bar -->
+  <div class="stats-section">
+    <h3>Overall Progress</h3>
+    <div class="stats-pbar-wrap"><div class="stats-pbar" id="st-overall-bar" style="width:0%"></div></div>
+    <div class="stats-pbar-lbl"><span id="st-overall-lbl">0 answered</span><strong id="st-overall-pct">0%</strong></div>
+  </div>
+
+  <!-- MCQ breakdown -->
+  <div class="stats-section">
+    <h3>MCQ Results</h3>
+    <div class="bar-legend">
+      <span><span class="leg-dot" style="background:#166534"></span>Correct</span>
+      <span><span class="leg-dot" style="background:#f87171"></span>Wrong</span>
+      <span><span class="leg-dot" style="background:#e5e7eb"></span>Unanswered</span>
+    </div>
+    <div class="mcq-bar" id="st-mcq-bar">
+      <div class="mcq-bar-c" id="st-mcq-c" style="width:0%"></div>
+      <div class="mcq-bar-w" id="st-mcq-w" style="width:0%"></div>
+      <div class="mcq-bar-u" id="st-mcq-u" style="width:100%"></div>
+    </div>
+    <div class="bar-legend" style="justify-content:space-between;">
+      <span>✅ Correct: <strong id="st-mcq-cn">0</strong></span>
+      <span>❌ Wrong: <strong id="st-mcq-wn">0</strong></span>
+      <span>⬜ Unanswered: <strong id="st-mcq-un">0</strong></span>
+    </div>
+  </div>
+
+  <!-- Flash/SAQ breakdown -->
+  <div class="stats-section">
+    <h3>Flashcard / SAQ Ratings</h3>
+    <div class="bar-legend">
+      <span><span class="leg-dot" style="background:#f87171"></span>Again</span>
+      <span><span class="leg-dot" style="background:#C49A00"></span>Good</span>
+      <span><span class="leg-dot" style="background:#2E9E85"></span>Easy</span>
+      <span><span class="leg-dot" style="background:#e5e7eb"></span>Unreviewed</span>
+    </div>
+    <div class="flash-bar" id="st-flash-bar">
+      <div class="flash-bar-a" id="st-fl-a" style="width:0%"></div>
+      <div class="flash-bar-g" id="st-fl-g" style="width:0%"></div>
+      <div class="flash-bar-e" id="st-fl-e" style="width:0%"></div>
+      <div class="flash-bar-u" id="st-fl-u" style="width:100%"></div>
+    </div>
+    <div class="bar-legend" style="justify-content:space-between;">
+      <span>🔴 Again: <strong id="st-fl-an">0</strong></span>
+      <span>🟡 Good: <strong id="st-fl-gn">0</strong></span>
+      <span>🟢 Easy: <strong id="st-fl-en">0</strong></span>
+    </div>
+  </div>
+
+  <!-- Per-lecture breakdown -->
+  <div class="stats-section">
+    <h3>Progress by Lecture</h3>
+    <div id="st-lec-rows"></div>
+  </div>
+
+</div>
+</div>
+
 </body>
 </html>
