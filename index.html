@@ -979,26 +979,42 @@ function saveProgress(){
 }
 
 function loadProgress(){
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if(!raw) return;
-    const d = JSON.parse(raw);
+  try{
+    const d=JSON.parse(localStorage.getItem(LS_KEY)||'null');
+    if(!d) return;
+
+    // Step 1: restore filters
     mcqAnswers   = d.mcqAnswers   || {};
     osceResults  = d.osceResults  || {};
     flashRatings = d.flashRatings || {};
-    reviewed     = d.reviewed     || 0;
-    scores       = d.scores       || {again:0, good:0, easy:0};
-    mcqRes       = d.mcqRes       || {correct:0, wrong:0};
     activeFilter = d.activeFilter || 'all';
     activeSrc    = d.activeSrc    || '';
     activeType   = d.activeType   || '';
     activeLec    = d.activeLec    || null;
     activeLecType= d.activeLecType|| 'all';
-    const savedIdx = d.idx || 0;
+
+    // Step 2: apply filter (this calls loadDeck which RESETS reviewed/scores/idx)
     applyFilter();
-    idx = Math.min(savedIdx, deck.length - 1);
+
+    // Step 3: restore stats AFTER loadDeck resets them
+    reviewed = d.reviewed || 0;
+    scores   = d.scores   || {again:0, good:0, easy:0};
+    mcqRes   = d.mcqRes   || {correct:0, wrong:0};
+    idx      = Math.min(d.idx||0, deck.length-1);
+
+    // Step 4: restore sidebar active state
+    document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+    if(activeLec){
+      const sb = document.querySelector(`.sb-item[data-k]`);
+      document.querySelectorAll('.sb-item').forEach(el=>{
+        if(el.dataset.k === activeLec) el.classList.add('active');
+      });
+    }
+
+    // Step 5: re-render
     renderCard(); updateNav(); updateStats(); updateProgress();
-  } catch(e){ console.warn('loadProgress failed', e); }
+
+  }catch(e){ console.warn('loadProgress failed', e); }
 }
 
 function clearProgress(){
