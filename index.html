@@ -334,6 +334,52 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 .practice-btn:disabled{background:#ccc;cursor:not-allowed;transform:none;}
 .wq-empty{padding:24px;text-align:center;color:var(--green);font-weight:600;font-size:.9rem;}
 
+/* FOOTER */
+.footer-site{
+  margin-top:32px;
+  background:linear-gradient(135deg,var(--navy),#234a84);
+  color:#fff;
+  border-top:4px solid var(--teal-mid);
+  box-shadow:0 -4px 24px rgba(27,58,107,.10);
+}
+.footer-site .footer-in{
+  max-width:1340px;
+  margin:0 auto;
+  padding:18px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.footer-site .footer-title{
+  font-family:var(--font-h);
+  font-size:1rem;
+  font-weight:700;
+}
+.footer-site .footer-sub{
+  font-size:.78rem;
+  opacity:.82;
+  margin-top:2px;
+}
+.footer-site .footer-credit{
+  font-size:.82rem;
+  font-weight:600;
+  text-align:right;
+}
+.footer-site .footer-credit span{
+  color:#7ee8d0;
+}
+@media (max-width:700px){
+  .footer-site .footer-in{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .footer-site .footer-credit{
+    text-align:left;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -342,8 +388,8 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <div class="hdr">
 <div class="hdr-in">
 <div>
-  <div class="hdr-title">OBG Complete Study Bank + Unique Previous Exams</div>
-  <div class="hdr-sub">Dof3a 39 · Mid Exam · All Sources · MCQ + OSCE + Flashcard + SAQ</div>
+  <div class="hdr-title">OBG Question Bank</div>
+  <div class="hdr-sub">MU-MED 40</div>
 </div>
 <div class="stats">
   <div class="stat">Total <span id="s-total">—</span></div>
@@ -1262,5 +1308,16 @@ if (window.SRS_UI) window.SRS_UI.init();
   </div>
 </div>
 </div>
+<footer class="footer-site">
+<div class="footer-in">
+  <div>
+    <div class="footer-title">OBG Study Bank</div>
+    <div class="footer-sub">Essential review, practice, and spaced repetition in one place.</div>
+  </div>
+  <div class="footer-credit">
+    Created by <span>MOHAMED SAID</span>
+  </div>
+</div>
+</footer>
 </body>
 </html>
