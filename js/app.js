@@ -6,7 +6,10 @@ const questionResolutionHelpers = window.questionResolutionHelpers || window.OBG
   cardHasLectureAssociation: () => true,
   questionIsActive: (card) => card && card.active !== false,
   lectureNames: [],
+  examNames: [],
+  contentMetadata: {},
 };
+const CONTENT_METADATA = window.OBG_CONTENT_METADATA || questionResolutionHelpers.contentMetadata || {};
 
 const NOTES = {"Antenatal Care (ANC)":["Note 22.\nجه عليها اسئلة في الامتحان\nvery important note\n○ Immunizations: -\n→ Safe immunizations (include antigens from killed or inactivated organisms):\nInfluenza (all pregnant women in flu season).\nTetanus, diphtheria, pertussis (Tdap)\nHepatitis B (pre- and postexposure).\nHepatitis A (pre- and postexposure).\nPneumococcus (only high-risk women).\nMeningococcus (in unusual outbreaks).\nTyphoid (not routinely recommended).\n→ Unsafe immunizations (include antigens from live attenuated organisms):\nMMR (measles, mumps, rubella)\nPolio\nYellow fever\nVaricella","Note 23.\nجه عليها اسئلة في الامتحان\nvery important note\n• Daily dietary requirement Of a woman during pregnancy (2nd half)\nFood element\nPregnancy\nKilocalories\n2500\nProtein\n60 gm\nIron\n40 gm\nFolic acid\n400 μg\nCalcium\n1000 mg\nVitamin A\n6000 I.U."],"Cardiac Disorders & Anaemia with Pregnancy":["Important notes:\n*minimal level of Hb to allow delivery is\n10 gm/dl\n(جت في امتحان ساتة)\n*iron needed in pregnancy is\n27 mg/dl\n*anemia of chronic infection is\nnormocytic normochromic anemia\n*Iron absorption differs during pregnancy\n*There is threshold for iron absorption\n*Iron stores is 500 mg\n*Folic acid given in megaloblastic anemia"],"Normal Labour":["في الفورماتيف بتاعكم لأنه جه في امتحان سنة رابعة السنة الي فاتت حاولوا تتأكدوا من اجابة السؤال ده"]};
 
@@ -33,11 +36,22 @@ function getVisibleCards(options = {}){
 }
 
 function getLectureOptions(){
+  const metadataLectures = Array.isArray(CONTENT_METADATA.lectures)
+    ? CONTENT_METADATA.lectures.filter(lecture => lecture && lecture.active !== false).map(lecture => lecture.name)
+    : [];
   const allLectures = getVisibleCards({ dedupe:false })
     .flatMap(c => [c.lecture].concat(Array.isArray(c.alsoInLectures) ? c.alsoInLectures : []))
     .filter(Boolean);
   const fallbackLectures = Array.isArray(questionResolutionHelpers.lectureNames) ? questionResolutionHelpers.lectureNames : [];
-  return [...new Set([...allLectures, ...fallbackLectures])].sort((a,b)=>String(a).localeCompare(String(b)));
+  return [...new Set([...metadataLectures, ...allLectures, ...fallbackLectures])].sort((a,b)=>String(a).localeCompare(String(b)));
+}
+function getExamOptions(){
+  const metadataExams = Array.isArray(CONTENT_METADATA.exams)
+    ? CONTENT_METADATA.exams.filter(exam => exam && exam.active !== false).map(exam => exam.label)
+    : [];
+  const cardExams = getVisibleCards({ dedupe:false }).map(c => String(c.exam || '').trim()).filter(Boolean);
+  const fallbackExams = Array.isArray(questionResolutionHelpers.examNames) ? questionResolutionHelpers.examNames : [];
+  return [...new Set([...metadataExams, ...cardExams, ...fallbackExams])].sort((a,b)=>String(a).localeCompare(String(b)));
 }
 function normalizeLectureFilter(value){
   if(value == null) return 'all';
@@ -208,9 +222,7 @@ function setST(e,k,t){
 }
 function applyFilter(){
   let d=getVisibleCards({ dedupe:false });
-  if(activeFilter==='mid')    d=d.filter(c=>c.exam==='mid');
-  if(activeFilter==='paper1') d=d.filter(c=>c.exam==='paper1');
-  if(activeFilter==='paper2') d=d.filter(c=>c.exam==='paper2');
+  if(activeFilter!=='all') d=d.filter(c=>String(c.exam||'')===activeFilter);
   if(activeSrc) d=d.filter(c=>(c.source||'').toLowerCase().includes(activeSrc.replace('_',' ')));
   // Special: extra_from_bank has _extra flag
   if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
@@ -232,9 +244,7 @@ function loadDeck(d){
   osceSubIdx={};
   let title='All Questions';
   if(activeLec) title=activeLec+(activeLecType!=='all'?' — '+activeLecType:'');
-  else if(activeFilter==='mid') title='Mid Exam';
-  else if(activeFilter==='paper1') title='Paper 1';
-  else if(activeFilter==='paper2') title='Paper 2';
+  else if(activeFilter!=='all') title=activeFilter;
   if(activeSrc) title+=' · '+srcLabel(activeSrc);
   if(activeType) title+=' · '+activeType;
   document.getElementById('deck-title').textContent=title;
@@ -603,13 +613,13 @@ function updateStats(){
 // COUNTS
 // ═══════════════════════════════════
 function updateCounts(){
-  const ids={all:0,mid:0,p1:0,p2:0,mcq:0,osce:0,flash:0,saq:0};
+  const ids={all:0,mcq:0,osce:0,flash:0,saq:0};
+  const examCounts={};
   const srcCounts={old_formative:0,new_formative:0,previous_exam:0,osce:0,extra_from_bank:0};
   getVisibleCards({ dedupe:false }).forEach(c=>{
     ids.all++;
-    if(c.exam==='mid')    ids.mid++;
-    if(c.exam==='paper1') ids.p1++;
-    if(c.exam==='paper2') ids.p2++;
+    const examKey=String(c.exam||'').trim() || 'mid';
+    examCounts[examKey]=(examCounts[examKey]||0)+1;
     if(c.cardType==='MCQ')       ids.mcq++;
     if(c.cardType==='OSCE')      ids.osce++;
     if(c.cardType==='FLASHCARD') ids.flash++;
@@ -622,6 +632,11 @@ function updateCounts(){
     else if(sl.includes('osce') || sl.includes('ospe')) srcCounts.osce++;
   });
   Object.entries(ids).forEach(([k,v])=>{const el=document.getElementById('c-'+k);if(el)el.textContent=v;});
+  Object.entries(examCounts).forEach(([k,v])=>{
+    const key = k.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const el=document.getElementById('c-exam-'+key);
+    if(el) el.textContent=v;
+  });
   const _s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   _s('c-src-old',srcCounts.old_formative);
   _s('c-src-new',srcCounts.new_formative);
@@ -769,6 +784,20 @@ function loadProgress(){
     renderCard(); updateNav(); updateStats(); updateProgress();
   } catch(e){ console.warn('loadProgress failed', e); applyFilter(); }
 }
+function renderExamTabs(){
+  const tabs=document.getElementById('exam-tabs');
+  if(!tabs) return;
+  const exams=getExamOptions();
+  const labelMap={mid:'Mid',paper1:'Paper 1',paper2:'Paper 2'};
+  const html=[
+    `<button class="ftab ${activeFilter==='all'?'active':''}" data-f="all" onclick="setFilter(this,'all')">All <span class="cnt" id="c-all">0</span></button>`
+  ].concat(exams.map(exam=>{
+    const safe=String(exam).toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const label=labelMap[exam] || exam;
+    return `<button class="ftab ${activeFilter===exam?'active':''}" data-f="${esc(exam)}" onclick="setFilter(this,'${esc(exam)}')">${esc2(label)} <span class="cnt" id="c-exam-${safe}">0</span></button>`;
+  })).join('');
+  tabs.innerHTML=html;
+}
 
 function clearProgress(){
   if(!confirm('Clear all saved progress?')) return;
@@ -785,6 +814,7 @@ function clearProgress(){
 // INIT
 // ═══════════════════════════════════
 buildSidebar();
+renderExamTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
 syncPracticeControls();
 loadProgress();

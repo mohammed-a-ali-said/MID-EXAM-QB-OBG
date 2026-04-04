@@ -1,0 +1,21 @@
+{
+  "lectures": [
+    { "id": "placental-hormones-maternal-physiological-changes", "name": "Placental Hormones & Maternal Physiological Changes", "active": true, "order": 1 },
+    { "id": "diagnosis-of-pregnancy", "name": "Diagnosis of Pregnancy", "active": true, "order": 2 },
+    { "id": "antenatal-care-anc", "name": "Antenatal Care (ANC)", "active": true, "order": 3 },
+    { "id": "ectopic-pregnancy", "name": "Ectopic Pregnancy", "active": true, "order": 4 },
+    { "id": "abortion-vesicular-mole", "name": "Abortion & Vesicular Mole", "active": true, "order": 5 },
+    { "id": "ectopic-pregnancy-abortion-vesicular-mole", "name": "Ectopic Pregnancy, Abortion & Vesicular Mole", "active": true, "order": 6 },
+    { "id": "antepartum-hemorrhage-aph", "name": "Antepartum Hemorrhage (APH)", "active": true, "order": 7 },
+    { "id": "hyperemesis-gravidarum-heg", "name": "Hyperemesis Gravidarum (HEG)", "active": true, "order": 8 },
+    { "id": "hypertensive-disorders-with-pregnancy", "name": "Hypertensive Disorders with Pregnancy", "active": true, "order": 9 },
+    { "id": "diabetes-with-pregnancy", "name": "Diabetes with Pregnancy", "active": true, "order": 10 },
+    { "id": "cardiac-disorders-anaemia-with-pregnancy", "name": "Cardiac Disorders & Anaemia with Pregnancy", "active": true, "order": 11 },
+    { "id": "vte-uti-thyroid", "name": "VTE, UTI & Thyroid", "active": true, "order": 12 },
+    { "id": "normal-labour", "name": "Normal Labour", "active": true, "order": 13 },
+    { "id": "intrapartum-fetal-monitoring", "name": "Intrapartum Fetal Monitoring", "active": true, "order": 14 }
+  ],
+  "exams": [
+    { "id": "mid", "label": "mid", "active": true, "order": 1 }
+  ]
+}

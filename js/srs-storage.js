@@ -2,6 +2,9 @@
   const STORAGE_KEY = "obg_srs_data";
   const PROGRESS_KEY = "obg_progress_v1";
   const SUPPORTED_TYPES = new Set(["MCQ", "FLASHCARD", "SAQ"]);
+  const resolutionHelpers = window.questionResolutionHelpers || window.OBG_QB_Utils || {
+    questionIsActive: (question) => question && question.active !== false,
+  };
 
   const state = {
     cards: {},
@@ -158,7 +161,7 @@
 
       const usedQids = new Set();
       cards.forEach((question, index) => {
-        if (!isSupported(question) || question.unresolvedStub || question.active === false) {
+        if (!isSupported(question) || question.unresolvedStub || !resolutionHelpers.questionIsActive(question)) {
           return;
         }
         const fallbackKey = question.id || `auto_${index}`;

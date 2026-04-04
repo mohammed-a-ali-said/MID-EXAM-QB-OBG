@@ -17,9 +17,11 @@
   const state = {
     original: [],
     working: [],
+    metadata: { lectures: [], exams: [] },
     selectedId: null,
     dirty: false,
     fileSha: "",
+    metadataSha: "",
     repo: null,
     user: readBootUser(),
     saving: false,
@@ -37,6 +39,32 @@
 
   function uniqueStrings(values) {
     return [...new Set((values || []).map((value) => String(value || "").trim()).filter(Boolean))];
+  }
+
+  function slugify(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .trim();
+  }
+
+  function normalizeMetadata(metadata) {
+    const input = metadata && typeof metadata === "object" ? metadata : {};
+    return {
+      lectures: Array.isArray(input.lectures) ? input.lectures.map((lecture, index) => ({
+        id: String(lecture?.id || slugify(lecture?.name) || `lecture-${index + 1}`),
+        name: String(lecture?.name || "").trim(),
+        active: lecture?.active !== false,
+        order: Number(lecture?.order || index + 1),
+      })).filter((lecture) => lecture.name) : [],
+      exams: Array.isArray(input.exams) ? input.exams.map((exam, index) => ({
+        id: String(exam?.id || slugify(exam?.label) || `exam-${index + 1}`),
+        label: String(exam?.label || "").trim(),
+        active: exam?.active !== false,
+        order: Number(exam?.order || index + 1),
+      })).filter((exam) => exam.label) : [],
+    };
   }
 
   function escapeHtml(value) {
@@ -93,7 +121,15 @@
 
   function getLectureOptions() {
     return uniqueStrings(
-      state.working.flatMap((question) => [question.lecture].concat(question.alsoInLectures || []))
+      (state.metadata.lectures || []).map((lecture) => lecture.name)
+        .concat(state.working.flatMap((question) => [question.lecture].concat(question.alsoInLectures || [])))
+    ).sort((a, b) => a.localeCompare(b));
+  }
+
+  function getExamOptions() {
+    return uniqueStrings(
+      (state.metadata.exams || []).map((exam) => exam.label)
+        .concat(state.working.map((question) => question.exam))
     ).sort((a, b) => a.localeCompare(b));
   }
 
@@ -147,9 +183,11 @@
     const payload = await response.json();
     if (!Array.isArray(payload?.questions)) throw new Error("Question bank payload is invalid.");
     state.fileSha = String(payload.sha || "");
+    state.metadataSha = String(payload.metadataSha || "");
     state.repo = payload.repo || null;
     state.original = payload.questions.map((question) => normalizeQuestion(question));
     state.working = deepClone(state.original);
+    state.metadata = normalizeMetadata(payload.metadata);
     state.selectedId = state.working[0]?.id || null;
     setDirty(false);
   }
@@ -203,11 +241,12 @@
     const active = state.working.filter((question) => question.active !== false).length;
     const inactive = total - active;
     const repeated = state.working.filter((question) => Array.isArray(question.alsoInLectures) && question.alsoInLectures.length > 0).length;
+    const hiddenLectures = (state.metadata.lectures || []).filter((lecture) => lecture.active === false).length;
     const validation = validateAll();
     els.summaryGrid.innerHTML = [
       summaryCard("Questions", total, `${active} active, ${inactive} inactive`),
       summaryCard("Repeated", repeated, "Cross-lecture links"),
-      summaryCard("Lectures", getLectureOptions().length, "Available lecture buckets"),
+      summaryCard("Lectures", getLectureOptions().length, `${hiddenLectures} hidden`),
       summaryCard("Validation", `${validation.errorCount} errors`, `${validation.warningCount} warnings`),
     ].join("");
   }
@@ -219,6 +258,47 @@
       .join("");
     if ([...els.searchLecture.options].some((option) => option.value === currentLecture)) {
       els.searchLecture.value = currentLecture;
+    }
+  }
+
+  function renderExamOptions(selectedValue) {
+    return getExamOptions()
+      .map((exam) => `<option value="${escapeHtml(exam)}" ${exam === selectedValue ? "selected" : ""}>${escapeHtml(exam)}</option>`)
+      .join("");
+  }
+
+  function renderBucketLists() {
+    if (els.lectureBuckets) {
+      els.lectureBuckets.innerHTML = (state.metadata.lectures || []).map((lecture) => `
+        <div class="bucket-item ${lecture.active === false ? "inactive" : ""}">
+          <div>
+            <div class="bucket-name">${escapeHtml(lecture.name)}</div>
+            <div class="bucket-meta">${escapeHtml(lecture.id)} · ${lecture.active === false ? "Hidden from students" : "Visible to students"}</div>
+          </div>
+          <div class="bucket-actions">
+            <button class="mini-btn" type="button" data-bucket-action="toggle-lecture" data-bucket-id="${escapeHtml(lecture.id)}">${lecture.active === false ? "Show" : "Hide"}</button>
+            <button class="mini-btn" type="button" data-bucket-action="rename-lecture" data-bucket-id="${escapeHtml(lecture.id)}">Rename</button>
+          </div>
+        </div>`).join("") || '<div class="subtle">No lectures configured yet.</div>';
+    }
+    if (els.examBuckets) {
+      els.examBuckets.innerHTML = (state.metadata.exams || []).map((exam) => `
+        <div class="bucket-item ${exam.active === false ? "inactive" : ""}">
+          <div>
+            <div class="bucket-name">${escapeHtml(exam.label)}</div>
+            <div class="bucket-meta">${escapeHtml(exam.id)} · ${exam.active === false ? "Inactive" : "Active"}</div>
+          </div>
+          <div class="bucket-actions">
+            <button class="mini-btn" type="button" data-bucket-action="toggle-exam" data-bucket-id="${escapeHtml(exam.id)}">${exam.active === false ? "Enable" : "Disable"}</button>
+            <button class="mini-btn" type="button" data-bucket-action="rename-exam" data-bucket-id="${escapeHtml(exam.id)}">Rename</button>
+          </div>
+        </div>`).join("") || '<div class="subtle">No exam sections configured yet.</div>';
+    }
+    if (els.templateLecture) {
+      els.templateLecture.innerHTML = getLectureOptions().map((lecture) => `<option value="${escapeHtml(lecture)}">${escapeHtml(lecture)}</option>`).join("");
+    }
+    if (els.templateExam) {
+      els.templateExam.innerHTML = getExamOptions().map((exam) => `<option value="${escapeHtml(exam)}">${escapeHtml(exam)}</option>`).join("");
     }
   }
 
@@ -376,7 +456,7 @@
       </div>`;
   }
 
-  function validateQuestion(question, lectureOptions) {
+  function validateQuestion(question, lectureOptions, examOptions) {
     const errors = [];
     const warnings = [];
 
@@ -386,6 +466,9 @@
     if (!String(question.q || "").trim()) errors.push("Question stem/body is required.");
     if (question.lecture && lectureOptions.length && !lectureOptions.includes(question.lecture)) {
       warnings.push("Lecture is not part of the current lecture list.");
+    }
+    if (question.exam && examOptions.length && !examOptions.includes(question.exam)) {
+      warnings.push("Exam section is not part of the current exam list.");
     }
     if ((question.alsoInLectures || []).some((lecture) => !lectureOptions.includes(lecture))) {
       warnings.push("One or more repeated lecture links are not recognized.");
@@ -423,22 +506,37 @@
 
   function validateAll() {
     const lectureOptions = getLectureOptions();
+    const examOptions = getExamOptions();
     const idCounts = new Map();
+    const metadataErrors = [];
+    const lectureIds = new Set();
+    const examIds = new Set();
+    (state.metadata.lectures || []).forEach((lecture) => {
+      if (!lecture.id || !lecture.name) metadataErrors.push("Lecture bucket is missing id or name.");
+      if (lecture.id && lectureIds.has(lecture.id)) metadataErrors.push(`Duplicate lecture id: ${lecture.id}`);
+      lectureIds.add(lecture.id);
+    });
+    (state.metadata.exams || []).forEach((exam) => {
+      if (!exam.id || !exam.label) metadataErrors.push("Exam section is missing id or label.");
+      if (exam.id && examIds.has(exam.id)) metadataErrors.push(`Duplicate exam id: ${exam.id}`);
+      examIds.add(exam.id);
+    });
     state.working.forEach((question) => {
       const key = String(question.id || "").trim();
       idCounts.set(key, (idCounts.get(key) || 0) + 1);
     });
     const results = state.working.map((question) => {
-      const result = validateQuestion(question, lectureOptions);
+      const result = validateQuestion(question, lectureOptions, examOptions);
       if ((idCounts.get(String(question.id || "").trim()) || 0) > 1) {
         result.errors.unshift("Duplicate question ID.");
       }
       return { id: question.id, title: questionTitle(question), ...result };
     });
     return {
-      errorCount: results.reduce((sum, item) => sum + item.errors.length, 0),
+      errorCount: results.reduce((sum, item) => sum + item.errors.length, 0) + metadataErrors.length,
       warningCount: results.reduce((sum, item) => sum + item.warnings.length, 0),
       results,
+      metadataErrors,
     };
   }
 
@@ -451,6 +549,9 @@
 
     els.validationSummary.textContent = `${validation.errorCount} errors, ${validation.warningCount} warnings across ${state.working.length} questions.`;
     const items = [];
+    (validation.metadataErrors || []).forEach((message) => {
+      items.push(`<div class="validation-item error"><strong>Metadata</strong>: ${escapeHtml(message)}</div>`);
+    });
     selectedValidation.errors.forEach((message) => {
       items.push(`<div class="validation-item error"><strong>${escapeHtml(selected?.id || "Question")}</strong>: ${escapeHtml(message)}</div>`);
     });
@@ -493,6 +594,7 @@
     els.fieldNum.value = question.num || "";
     els.fieldLecture.innerHTML = renderLectureSelect(question);
     els.fieldLecture.value = question.lecture || "";
+    els.fieldExam.innerHTML = renderExamOptions(question.exam || "mid");
     els.fieldExam.value = question.exam || "mid";
     els.fieldCardType.value = question.cardType || "MCQ";
     els.fieldSource.value = question.source || "";
@@ -511,6 +613,7 @@
     renderSummary();
     renderSearchFilters();
     renderQuestionList();
+    renderBucketLists();
     renderEditor();
   }
 
@@ -556,6 +659,82 @@
     return normalizeQuestion(draft);
   }
 
+  function nextQuestionId() {
+    const ids = state.working
+      .map((question) => Number(String(question.id || "").replace(/^c/i, "")))
+      .filter(Number.isFinite);
+    return `c${(ids.length ? Math.max(...ids) : 0) + 1}`;
+  }
+
+  function ensureLecture(name) {
+    const trimmed = String(name || "").trim();
+    if (!trimmed) return "";
+    const existing = (state.metadata.lectures || []).find((lecture) => lecture.name.toLowerCase() === trimmed.toLowerCase());
+    if (existing) return existing.name;
+    state.metadata.lectures.push({
+      id: slugify(trimmed) || `lecture-${state.metadata.lectures.length + 1}`,
+      name: trimmed,
+      active: true,
+      order: state.metadata.lectures.length + 1,
+    });
+    return trimmed;
+  }
+
+  function ensureExam(label) {
+    const trimmed = String(label || "").trim();
+    if (!trimmed) return "";
+    const existing = (state.metadata.exams || []).find((exam) => exam.label.toLowerCase() === trimmed.toLowerCase());
+    if (existing) return existing.label;
+    state.metadata.exams.push({
+      id: slugify(trimmed) || `exam-${state.metadata.exams.length + 1}`,
+      label: trimmed,
+      active: true,
+      order: state.metadata.exams.length + 1,
+    });
+    return trimmed;
+  }
+
+  function createQuestion(type) {
+    const lecture = ensureLecture(els.templateLecture?.value || getLectureOptions()[0] || "New Lecture");
+    const exam = ensureExam(els.templateExam?.value || getExamOptions()[0] || "mid");
+    const question = normalizeQuestion({
+      id: nextQuestionId(),
+      num: "",
+      cardType: type || "MCQ",
+      lecture,
+      exam,
+      source: els.templateSource?.value || "",
+      doctor: els.templateDoctor?.value || "",
+      q: "Write the question stem here",
+      note: els.templateNote?.value || "",
+      active: true,
+      choices: ["", ""],
+      ans: "A",
+      a: "Answer not included",
+      subParts: [makeOscePart()],
+    });
+    state.working.unshift(question);
+    state.selectedId = question.id;
+    setDirty(true);
+    renderAll();
+    setStatus(`Created ${question.id}.`, "ok");
+  }
+
+  function duplicateCurrentQuestion() {
+    const selected = getSelectedQuestion();
+    if (!selected) return;
+    const duplicate = normalizeQuestion({
+      ...deepClone(selected),
+      id: nextQuestionId(),
+      num: "",
+    });
+    state.working.unshift(duplicate);
+    state.selectedId = duplicate.id;
+    setDirty(true);
+    renderAll();
+    setStatus(`Duplicated ${selected.id} as ${duplicate.id}.`, "ok");
+  }
+
   function normalizeForSave(question) {
     const normalized = normalizeQuestion(question);
     const output = {
@@ -598,6 +777,23 @@
   function getSerializedQuestions() {
     const normalized = state.working.map((question) => normalizeForSave(question));
     return `${JSON.stringify(normalized, null, 2)}\n`;
+  }
+
+  function getSerializedMetadata() {
+    return `${JSON.stringify({
+      lectures: (state.metadata.lectures || []).map((lecture, index) => ({
+        id: String(lecture.id || slugify(lecture.name) || `lecture-${index + 1}`),
+        name: String(lecture.name || "").trim(),
+        active: lecture.active !== false,
+        order: Number(lecture.order || index + 1),
+      })),
+      exams: (state.metadata.exams || []).map((exam, index) => ({
+        id: String(exam.id || slugify(exam.label) || `exam-${index + 1}`),
+        label: String(exam.label || "").trim(),
+        active: exam.active !== false,
+        order: Number(exam.order || index + 1),
+      })),
+    }, null, 2)}\n`;
   }
 
   function downloadJson() {
@@ -652,7 +848,9 @@
         },
         body: JSON.stringify({
           questions: state.working.map((question) => normalizeForSave(question)),
+          metadata: JSON.parse(getSerializedMetadata()),
           sha: state.fileSha,
+          metadataSha: state.metadataSha,
         }),
       });
       if (!saveResponse.ok) {
@@ -666,11 +864,13 @@
       }
       const payload = await saveResponse.json();
       state.fileSha = String(payload.sha || state.fileSha || "");
+      state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
+      if (payload.metadata) state.metadata = normalizeMetadata(payload.metadata);
       setDirty(false);
       const location = state.repo ? `${state.repo.owner}/${state.repo.repo}@${state.repo.branch}` : "GitHub";
       if (payload.url) {
         setStatusHtml(
-          `Saved <strong>data/questions.json</strong> to ${escapeHtml(location)} at ${escapeHtml(new Date().toLocaleTimeString())}. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
+          `Saved <strong>questions and metadata</strong> to ${escapeHtml(location)} at ${escapeHtml(new Date().toLocaleTimeString())}. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
           "ok"
         );
       } else {
@@ -699,8 +899,8 @@
     const needsFullRender = ["field-lecture", "field-exam", "field-active"].includes(target.id);
     updateQuestion((draft) => {
       if (target.id === "field-num") draft.num = target.value;
-      if (target.id === "field-lecture") draft.lecture = target.value;
-      if (target.id === "field-exam") draft.exam = target.value;
+      if (target.id === "field-lecture") draft.lecture = ensureLecture(target.value);
+      if (target.id === "field-exam") draft.exam = ensureExam(target.value);
       if (target.id === "field-source") draft.source = target.value;
       if (target.id === "field-doctor") draft.doctor = target.value;
       if (target.id === "field-active") draft.active = target.checked;
@@ -799,6 +999,105 @@
     setStatus(`Restored ${selected.id}.`, "ok");
   }
 
+  function exportTemplateCsv() {
+    const type = els.templateKind?.value || "MCQ";
+    const count = Math.max(1, Number(els.templateCount?.value || 1));
+    const lecture = ensureLecture(els.templateLecture?.value || getLectureOptions()[0] || "New Lecture");
+    const exam = ensureExam(els.templateExam?.value || getExamOptions()[0] || "mid");
+    const source = els.templateSource?.value || "";
+    const doctor = els.templateDoctor?.value || "";
+    const note = els.templateNote?.value || "";
+    const prefix = (els.templatePrefix?.value || "Template question").trim();
+    const numStart = Math.max(1, Number(els.templateNumStart?.value || 1));
+    const headers = ["id", "num", "lecture", "exam", "cardType", "source", "doctor", "note", "active", "q"];
+    if (type === "MCQ") headers.push("choiceA", "choiceB", "choiceC", "choiceD", "ans");
+    if (type === "FLASHCARD" || type === "SAQ") headers.push("a");
+    if (type === "OSCE") headers.push("osce_json");
+    const baseId = Number(nextQuestionId().replace(/\D/g, "")) || 1;
+    const csvCell = (value) => {
+      const text = String(value ?? "");
+      return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    };
+    const rows = [headers.join(",")];
+    for (let i = 0; i < count; i += 1) {
+      const base = [`c${baseId + i}`, `Q${numStart + i}`, lecture, exam, type, source, doctor, note, "true", `${prefix} ${i + 1}`];
+      if (type === "MCQ") rows.push(base.concat(["Option A", "Option B", "", "", "A"]).map(csvCell).join(","));
+      else if (type === "FLASHCARD" || type === "SAQ") rows.push(base.concat(["Answer not included"]).map(csvCell).join(","));
+      else rows.push(base.concat([JSON.stringify([{ q: "Part 1", choices: ["Option A", "Option B"], ans: "A" }])]).map(csvCell).join(","));
+    }
+    const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${slugify(lecture)}-${type.toLowerCase()}-template.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setStatus(`Exported ${type} template CSV.`, "ok");
+  }
+
+  async function importTemplateCsv(file) {
+    if (!file) return;
+    const text = await file.text();
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    if (lines.length < 2) {
+      setStatus("Template import failed: CSV is empty.", "error");
+      return;
+    }
+    const parseLine = (line) => {
+      const out = [];
+      let current = "", quoted = false;
+      for (let i = 0; i < line.length; i += 1) {
+        const char = line[i];
+        const next = line[i + 1];
+        if (char === '"') {
+          if (quoted && next === '"') { current += '"'; i += 1; }
+          else quoted = !quoted;
+        } else if (char === "," && !quoted) {
+          out.push(current); current = "";
+        } else current += char;
+      }
+      out.push(current);
+      return out;
+    };
+    const headers = parseLine(lines[0]).map((header) => String(header || "").trim());
+    const indexById = new Map(state.working.map((question, index) => [question.id, index]));
+    let created = 0;
+    let updated = 0;
+    for (const line of lines.slice(1)) {
+      const cells = parseLine(line);
+      const row = Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
+      const cardType = String(row.cardType || "MCQ").trim();
+      const question = normalizeQuestion({
+        id: String(row.id || "").trim() || nextQuestionId(),
+        num: String(row.num || "").trim(),
+        cardType,
+        lecture: ensureLecture(row.lecture || getLectureOptions()[0] || "New Lecture"),
+        exam: ensureExam(row.exam || getExamOptions()[0] || "mid"),
+        source: String(row.source || ""),
+        doctor: String(row.doctor || ""),
+        note: String(row.note || ""),
+        active: String(row.active || "true").toLowerCase() !== "false",
+        q: String(row.q || "").trim(),
+        choices: [row.choiceA, row.choiceB, row.choiceC, row.choiceD].map((value) => String(value || "")),
+        ans: String(row.ans || "A").trim() || "A",
+        a: String(row.a || "").trim() || "Answer not included",
+        subParts: row.osce_json ? JSON.parse(row.osce_json) : [makeOscePart()],
+      });
+      if (indexById.has(question.id)) {
+        state.working[indexById.get(question.id)] = question;
+        updated += 1;
+      } else {
+        state.working.push(question);
+        indexById.set(question.id, state.working.length - 1);
+        created += 1;
+      }
+    }
+    state.selectedId = state.working[0]?.id || null;
+    setDirty(true);
+    renderAll();
+    setStatus(`Imported template CSV: ${created} created, ${updated} updated.`, "ok");
+  }
+
   function bindEvents() {
     const handleSearchUpdate = () => {
       renderQuestionList();
@@ -832,6 +1131,70 @@
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
     els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
     els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
+    if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.templateKind?.value || "MCQ"));
+    if (els.duplicateQuestionBtn) els.duplicateQuestionBtn.addEventListener("click", duplicateCurrentQuestion);
+    if (els.addLectureBtn) els.addLectureBtn.addEventListener("click", () => {
+      const value = els.newLectureInput.value.trim();
+      if (!value) return;
+      ensureLecture(value);
+      els.newLectureInput.value = "";
+      setDirty(true);
+      renderAll();
+      setStatus(`Added lecture bucket "${value}".`, "ok");
+    });
+    if (els.addExamBtn) els.addExamBtn.addEventListener("click", () => {
+      const value = els.newExamInput.value.trim();
+      if (!value) return;
+      ensureExam(value);
+      els.newExamInput.value = "";
+      setDirty(true);
+      renderAll();
+      setStatus(`Added exam section "${value}".`, "ok");
+    });
+    if (els.generateTemplateBtn) els.generateTemplateBtn.addEventListener("click", exportTemplateCsv);
+    if (els.importTemplateBtn) els.importTemplateBtn.addEventListener("click", () => els.templateFileInput?.click());
+    if (els.templateFileInput) els.templateFileInput.addEventListener("change", (event) => importTemplateCsv(event.target.files?.[0]));
+    if (els.lectureBuckets) els.lectureBuckets.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-bucket-action]");
+      if (!trigger) return;
+      const lecture = state.metadata.lectures.find((item) => item.id === trigger.dataset.bucketId);
+      if (!lecture) return;
+      if (trigger.dataset.bucketAction === "toggle-lecture") lecture.active = lecture.active === false;
+      if (trigger.dataset.bucketAction === "rename-lecture") {
+        const nextName = prompt("Rename lecture", lecture.name);
+        if (nextName && nextName.trim()) {
+          const previousName = lecture.name;
+          lecture.name = nextName.trim();
+          state.working = state.working.map((question) => normalizeQuestion({
+            ...question,
+            lecture: question.lecture === previousName ? lecture.name : question.lecture,
+            alsoInLectures: (question.alsoInLectures || []).map((value) => value === previousName ? lecture.name : value),
+          }));
+        }
+      }
+      setDirty(true);
+      renderAll();
+    });
+    if (els.examBuckets) els.examBuckets.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-bucket-action]");
+      if (!trigger) return;
+      const exam = state.metadata.exams.find((item) => item.id === trigger.dataset.bucketId);
+      if (!exam) return;
+      if (trigger.dataset.bucketAction === "toggle-exam") exam.active = exam.active === false;
+      if (trigger.dataset.bucketAction === "rename-exam") {
+        const nextLabel = prompt("Rename exam section", exam.label);
+        if (nextLabel && nextLabel.trim()) {
+          const previousLabel = exam.label;
+          exam.label = nextLabel.trim();
+          state.working = state.working.map((question) => normalizeQuestion({
+            ...question,
+            exam: question.exam === previousLabel ? exam.label : question.exam,
+          }));
+        }
+      }
+      setDirty(true);
+      renderAll();
+    });
     els.validateAllBtn.addEventListener("click", () => {
       const validation = renderValidation();
       setStatus(
@@ -894,6 +1257,26 @@
     els.saveGithubBtn = byId("save-github-btn");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");
+    els.newQuestionBtn = byId("new-question-btn");
+    els.duplicateQuestionBtn = byId("duplicate-question-btn");
+    els.newLectureInput = byId("new-lecture-input");
+    els.addLectureBtn = byId("add-lecture-btn");
+    els.lectureBuckets = byId("lecture-buckets");
+    els.newExamInput = byId("new-exam-input");
+    els.addExamBtn = byId("add-exam-btn");
+    els.examBuckets = byId("exam-buckets");
+    els.templateKind = byId("template-kind");
+    els.templateCount = byId("template-count");
+    els.templateLecture = byId("template-lecture");
+    els.templateExam = byId("template-exam");
+    els.templateSource = byId("template-source");
+    els.templateDoctor = byId("template-doctor");
+    els.templateNumStart = byId("template-num-start");
+    els.templatePrefix = byId("template-prefix");
+    els.templateNote = byId("template-note");
+    els.generateTemplateBtn = byId("generate-template-btn");
+    els.importTemplateBtn = byId("import-template-btn");
+    els.templateFileInput = byId("template-file-input");
   }
 
   let initialized = false;

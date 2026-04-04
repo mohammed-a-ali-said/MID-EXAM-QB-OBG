@@ -1,5 +1,85 @@
 const TYPE_OPTIONS = new Set(["MCQ", "FLASHCARD", "SAQ", "OSCE"]);
 
+function slugify(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .trim();
+}
+
+function uniqueStrings(values) {
+  return [...new Set((values || []).map((value) => String(value || "").trim()).filter(Boolean))];
+}
+
+export function deriveDefaultMetadata(questions = []) {
+  const lectureNames = uniqueStrings(questions.map((question) => question?.lecture).filter(Boolean)).sort((a, b) => a.localeCompare(b));
+  const exams = uniqueStrings(questions.map((question) => question?.exam).filter(Boolean)).sort((a, b) => a.localeCompare(b));
+  return {
+    lectures: lectureNames.map((name, index) => ({
+      id: slugify(name) || `lecture-${index + 1}`,
+      name,
+      active: true,
+      order: index + 1,
+    })),
+    exams: (exams.length ? exams : ["mid"]).map((label, index) => ({
+      id: slugify(label) || `exam-${index + 1}`,
+      label,
+      active: true,
+      order: index + 1,
+    })),
+  };
+}
+
+export function normalizeMetadata(metadata, questions = []) {
+  const defaults = deriveDefaultMetadata(questions);
+  const input = metadata && typeof metadata === "object" ? metadata : {};
+  const lectureMap = new Map();
+  [...defaults.lectures, ...((input.lectures || []).map((lecture, index) => ({
+    id: String(lecture?.id || slugify(lecture?.name) || `lecture-${index + 1}`),
+    name: String(lecture?.name || "").trim(),
+    active: lecture?.active !== false,
+    order: Number.isFinite(Number(lecture?.order)) ? Number(lecture.order) : index + 1,
+  })))].forEach((lecture, index) => {
+    const name = String(lecture.name || "").trim();
+    if (!name) return;
+    const id = String(lecture.id || slugify(name) || `lecture-${index + 1}`).trim();
+    if (!lectureMap.has(id)) {
+      lectureMap.set(id, {
+        id,
+        name,
+        active: lecture.active !== false,
+        order: Number.isFinite(Number(lecture.order)) ? Number(lecture.order) : lectureMap.size + 1,
+      });
+    }
+  });
+
+  const examMap = new Map();
+  [...defaults.exams, ...((input.exams || []).map((exam, index) => ({
+    id: String(exam?.id || slugify(exam?.label) || `exam-${index + 1}`),
+    label: String(exam?.label || "").trim(),
+    active: exam?.active !== false,
+    order: Number.isFinite(Number(exam?.order)) ? Number(exam.order) : index + 1,
+  })))].forEach((exam, index) => {
+    const label = String(exam.label || "").trim();
+    if (!label) return;
+    const id = String(exam.id || slugify(label) || `exam-${index + 1}`).trim();
+    if (!examMap.has(id)) {
+      examMap.set(id, {
+        id,
+        label,
+        active: exam.active !== false,
+        order: Number.isFinite(Number(exam.order)) ? Number(exam.order) : examMap.size + 1,
+      });
+    }
+  });
+
+  return {
+    lectures: [...lectureMap.values()].sort((a, b) => Number(a.order) - Number(b.order) || a.name.localeCompare(b.name)),
+    exams: [...examMap.values()].sort((a, b) => Number(a.order) - Number(b.order) || a.label.localeCompare(b.label)),
+  };
+}
+
 export function validateQuestionsPayload(questions) {
   const errors = [];
   if (!Array.isArray(questions)) {
@@ -55,4 +135,35 @@ export function validateQuestionsPayload(questions) {
   });
 
   return errors;
+}
+
+export function validateMetadataPayload(metadata) {
+  const normalized = normalizeMetadata(metadata);
+  const errors = [];
+  const lectureIds = new Set();
+  const lectureNames = new Set();
+  const examIds = new Set();
+  const examLabels = new Set();
+
+  normalized.lectures.forEach((lecture, index) => {
+    const prefix = `Lecture ${index + 1}`;
+    if (!lecture.id) errors.push(`${prefix}: missing id.`);
+    if (!lecture.name) errors.push(`${prefix}: missing name.`);
+    if (lectureIds.has(lecture.id)) errors.push(`${prefix}: duplicate lecture id "${lecture.id}".`);
+    if (lectureNames.has(lecture.name.toLowerCase())) errors.push(`${prefix}: duplicate lecture name "${lecture.name}".`);
+    lectureIds.add(lecture.id);
+    lectureNames.add(lecture.name.toLowerCase());
+  });
+
+  normalized.exams.forEach((exam, index) => {
+    const prefix = `Exam ${index + 1}`;
+    if (!exam.id) errors.push(`${prefix}: missing id.`);
+    if (!exam.label) errors.push(`${prefix}: missing label.`);
+    if (examIds.has(exam.id)) errors.push(`${prefix}: duplicate exam id "${exam.id}".`);
+    if (examLabels.has(exam.label.toLowerCase())) errors.push(`${prefix}: duplicate exam label "${exam.label}".`);
+    examIds.add(exam.id);
+    examLabels.add(exam.label.toLowerCase());
+  });
+
+  return { normalized, errors };
 }

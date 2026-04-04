@@ -1,5 +1,6 @@
 (function () {
   const DATA_URL = "./data/questions.json";
+  const METADATA_URL = "./data/content-metadata.json";
   const APP_URL = "./js/app.js";
 
   function setStageStatus(title, detail, tone) {
@@ -28,28 +29,53 @@
     });
   }
 
-  async function loadQuestions() {
-    const response = await fetch(DATA_URL, { cache: "no-store" });
+  async function loadJson(url, fallback = null) {
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
-      throw new Error(`Question bank request failed (${response.status})`);
+      if (fallback !== null) return fallback;
+      throw new Error(`Request failed (${response.status}) for ${url}`);
     }
-    const payload = await response.json();
-    if (!Array.isArray(payload)) {
-      throw new Error("Question bank payload is not a JSON array.");
-    }
-    if (!payload.every((card) => card && typeof card === "object" && typeof card.id === "string")) {
-      throw new Error("Question bank payload contains malformed cards.");
-    }
-    return payload;
+    return response.json();
+  }
+
+  function deriveMetadata(cards) {
+    const lectureNames = [...new Set((cards || []).map((card) => String(card?.lecture || "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const exams = [...new Set((cards || []).map((card) => String(card?.exam || "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    return {
+      lectures: lectureNames.map((name, index) => ({
+        id: `lecture-${index + 1}`,
+        name,
+        active: true,
+        order: index + 1,
+      })),
+      exams: (exams.length ? exams : ["mid"]).map((label, index) => ({
+        id: `exam-${index + 1}`,
+        label,
+        active: true,
+        order: index + 1,
+      })),
+    };
   }
 
   async function boot() {
     try {
       setStageStatus("Loading question bank...", "Preparing the study deck and restoring your tools.");
-      const cards = await loadQuestions();
+      const [cards, metadataPayload] = await Promise.all([
+        loadJson(DATA_URL),
+        loadJson(METADATA_URL, null).catch(() => null),
+      ]);
+      if (!Array.isArray(cards)) {
+        throw new Error("Question bank payload is not a JSON array.");
+      }
+      if (!cards.every((card) => card && typeof card === "object" && typeof card.id === "string")) {
+        throw new Error("Question bank payload contains malformed cards.");
+      }
       window.ALL_CARDS = cards;
+      window.OBG_CONTENT_METADATA = metadataPayload && typeof metadataPayload === "object"
+        ? metadataPayload
+        : deriveMetadata(cards);
       if (typeof window.initializeQuestionResolution === "function") {
-        window.initializeQuestionResolution(window.ALL_CARDS);
+        window.initializeQuestionResolution(window.ALL_CARDS, window.OBG_CONTENT_METADATA);
       }
       await loadScript(APP_URL);
       if (window.SRS_Review) window.SRS_Review.init();

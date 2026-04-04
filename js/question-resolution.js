@@ -1,8 +1,38 @@
 (function(){
-  window.initializeQuestionResolution = function initializeQuestionResolution(cards){
+  window.initializeQuestionResolution = function initializeQuestionResolution(cards, metadata){
     const ALL_CARDS = Array.isArray(cards) ? cards : [];
+    const CONTENT_METADATA = metadata && typeof metadata === 'object' ? metadata : {};
     const questionResolutionHelpers = (() => {
-      const lectureNames = [...new Set(ALL_CARDS.map((card) => card.lecture).filter(Boolean))];
+      const metadataLectures = Array.isArray(CONTENT_METADATA.lectures) ? CONTENT_METADATA.lectures : [];
+      const metadataExams = Array.isArray(CONTENT_METADATA.exams) ? CONTENT_METADATA.exams : [];
+      const lectureRegistry = new Map(
+        metadataLectures
+          .filter((lecture) => lecture && lecture.name)
+          .map((lecture) => [String(lecture.name).trim(), {
+            id: String(lecture.id || '').trim(),
+            name: String(lecture.name || '').trim(),
+            active: lecture.active !== false,
+            order: Number(lecture.order || 0) || 0,
+          }])
+      );
+      const examRegistry = new Map(
+        metadataExams
+          .filter((exam) => exam && exam.label)
+          .map((exam) => [String(exam.label).trim(), {
+            id: String(exam.id || '').trim(),
+            label: String(exam.label || '').trim(),
+            active: exam.active !== false,
+            order: Number(exam.order || 0) || 0,
+          }])
+      );
+      const lectureNames = [...new Set(
+        metadataLectures.map((lecture) => String(lecture?.name || '').trim()).filter(Boolean)
+          .concat(ALL_CARDS.map((card) => String(card?.lecture || '').trim()).filter(Boolean))
+      )];
+      const examNames = [...new Set(
+        metadataExams.map((exam) => String(exam?.label || '').trim()).filter(Boolean)
+          .concat(ALL_CARDS.map((card) => String(card?.exam || '').trim()).filter(Boolean))
+      )];
       const unresolved = [];
       const resolved = [];
       const report = {
@@ -62,8 +92,25 @@
         return String(question?.q || question?.stem || "");
       }
 
+      function lectureIsActive(name) {
+        const normalizedLecture = normalizeLectureName(name);
+        if (!normalizedLecture) return true;
+        const record = lectureRegistry.get(normalizedLecture);
+        return !record || record.active !== false;
+      }
+
+      function examIsActive(label) {
+        const normalized = cleanWhitespace(label);
+        if (!normalized) return true;
+        const record = examRegistry.get(normalized);
+        return !record || record.active !== false;
+      }
+
       function questionIsActive(question) {
-        return !!question && question.active !== false;
+        return !!question
+          && question.active !== false
+          && lectureIsActive(question.lecture)
+          && examIsActive(question.exam);
       }
 
       function normalizeLectureName(name) {
@@ -505,7 +552,11 @@
         getRepresentativeForCanonical,
         cardHasLectureAssociation,
         questionIsActive,
+        lectureIsActive,
+        examIsActive,
         lectureNames: lectureNames.slice(),
+        examNames: examNames.slice(),
+        contentMetadata: CONTENT_METADATA,
       };
     })();
     

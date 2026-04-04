@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { fetchRepoQuestions, saveRepoQuestions } from "@/lib/github";
-import { validateQuestionsPayload } from "@/lib/questions";
+import { fetchRepoContent, saveRepoContent } from "@/lib/github";
+import { normalizeMetadata, validateMetadataPayload, validateQuestionsPayload } from "@/lib/questions";
 import { getSession } from "@/lib/session";
 
 function unauthorized() {
@@ -11,8 +11,11 @@ export async function GET() {
   const session = await getSession();
   if (!session?.accessToken) return unauthorized();
   try {
-    const payload = await fetchRepoQuestions(session.accessToken);
-    return NextResponse.json(payload);
+    const payload = await fetchRepoContent(session.accessToken);
+    return NextResponse.json({
+      ...payload,
+      metadata: normalizeMetadata(payload.metadata, payload.questions),
+    });
   } catch (error) {
     console.error("[api/questions][GET]", error);
     return NextResponse.json({ error: error.message || "Failed to load questions." }, { status: 500 });
@@ -27,15 +30,28 @@ export async function PUT(request) {
     const body = await request.json();
     const questions = body?.questions;
     const sha = String(body?.sha || "").trim();
-    const errors = validateQuestionsPayload(questions);
-    if (!sha) errors.unshift("File SHA is required.");
+    const metadataSha = String(body?.metadataSha || "").trim();
+    const metadataValidation = validateMetadataPayload(body?.metadata);
+    const metadata = normalizeMetadata(metadataValidation.normalized, questions);
+    const errors = [
+      ...validateQuestionsPayload(questions),
+      ...metadataValidation.errors,
+    ];
+    if (!sha) errors.unshift("Question file SHA is required.");
+    if (!metadataSha) errors.unshift("Metadata file SHA is required.");
     if (errors.length) {
       return NextResponse.json({ error: "Validation failed", errors }, { status: 400 });
     }
 
-    const content = `${JSON.stringify(questions, null, 2)}\n`;
-    const saved = await saveRepoQuestions(session.accessToken, { content, sha });
-    return NextResponse.json({ ok: true, ...saved });
+    const questionsContent = `${JSON.stringify(questions, null, 2)}\n`;
+    const metadataContent = `${JSON.stringify(metadata, null, 2)}\n`;
+    const saved = await saveRepoContent(session.accessToken, {
+      questionsContent,
+      questionsSha: sha,
+      metadataContent,
+      metadataSha,
+    });
+    return NextResponse.json({ ok: true, metadata, ...saved });
   } catch (error) {
     console.error("[api/questions][PUT]", error);
     return NextResponse.json({ error: error.message || "Failed to save questions." }, { status: 500 });

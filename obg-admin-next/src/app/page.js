@@ -100,6 +100,82 @@ function AdminView({ user }) {
             </div>
             <div className="list-meta" id="list-meta"></div>
             <div className="question-list" id="question-list"></div>
+            <div className="editor-section create-panel">
+              <div className="panel-title">Create & Generate</div>
+              <div className="search-controls">
+                <div className="inline-actions">
+                  <button className="btn btn-ghost" id="new-question-btn" type="button">New Question</button>
+                  <button className="btn btn-ghost" id="duplicate-question-btn" type="button">Duplicate Current</button>
+                </div>
+                <label>
+                  New lecture bucket
+                  <div className="inline-create">
+                    <input id="new-lecture-input" type="text" placeholder="Lecture name" />
+                    <button className="mini-btn" id="add-lecture-btn" type="button">Add</button>
+                  </div>
+                </label>
+                <div id="lecture-buckets" className="bucket-list"></div>
+                <label>
+                  New exam section
+                  <div className="inline-create">
+                    <input id="new-exam-input" type="text" placeholder="e.g. final, paper3" />
+                    <button className="mini-btn" id="add-exam-btn" type="button">Add</button>
+                  </div>
+                </label>
+                <div id="exam-buckets" className="bucket-list"></div>
+                <div className="editor-section">
+                  <div className="section-title">Generate set from template</div>
+                  <div className="form-grid compact-grid">
+                    <label>
+                      Template
+                      <select id="template-kind">
+                        <option value="MCQ">MCQ set</option>
+                        <option value="FLASHCARD">Flashcard set</option>
+                        <option value="SAQ">SAQ set</option>
+                        <option value="OSCE">OSCE set</option>
+                      </select>
+                    </label>
+                    <label>
+                      Count
+                      <input id="template-count" type="number" min="1" max="50" value="5" />
+                    </label>
+                    <label>
+                      Lecture
+                      <select id="template-lecture"></select>
+                    </label>
+                    <label>
+                      Exam
+                      <select id="template-exam"></select>
+                    </label>
+                    <label>
+                      Source
+                      <input id="template-source" type="text" placeholder="Question set source" />
+                    </label>
+                    <label>
+                      Doctor
+                      <input id="template-doctor" type="text" placeholder="Optional" />
+                    </label>
+                    <label>
+                      Number start
+                      <input id="template-num-start" type="number" min="1" value="1" />
+                    </label>
+                    <label>
+                      Stem prefix
+                      <input id="template-prefix" type="text" placeholder="Template question" />
+                    </label>
+                  </div>
+                  <label>
+                    Default note
+                    <textarea id="template-note" rows="2" placeholder="Optional note for all generated questions"></textarea>
+                  </label>
+                  <div className="inline-actions">
+                    <button className="btn btn-primary" id="generate-template-btn" type="button">Export Template</button>
+                    <button className="btn btn-ghost" id="import-template-btn" type="button">Import Template</button>
+                  </div>
+                  <input id="template-file-input" type="file" accept=".csv,text/csv" className="hidden" />
+                </div>
+              </div>
+            </div>
           </aside>
 
           <section className="panel editor-panel">
@@ -125,11 +201,7 @@ function AdminView({ user }) {
                   <label>Lecture<select id="field-lecture"></select></label>
                   <label>
                     Exam
-                    <select id="field-exam">
-                      <option value="mid">mid</option>
-                      <option value="paper1">paper1</option>
-                      <option value="paper2">paper2</option>
-                    </select>
+                    <select id="field-exam"></select>
                   </label>
                   <label>
                     Type
