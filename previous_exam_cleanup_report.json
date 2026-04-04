@@ -1,0 +1,283 @@
+{
+  "original_card_count": 708,
+  "final_card_count": 680,
+  "removed_deactivated_count": 28,
+  "removed_deactivated_ids": [
+    "c608",
+    "c609",
+    "c619",
+    "c620",
+    "c621",
+    "c623",
+    "c625",
+    "c639",
+    "c640",
+    "c642",
+    "c648",
+    "c649",
+    "c652",
+    "c653",
+    "c654",
+    "c655",
+    "c660",
+    "c662",
+    "c663",
+    "c668",
+    "c669",
+    "c690",
+    "c691",
+    "c692",
+    "c693",
+    "c694",
+    "c696",
+    "c697"
+  ],
+  "sanitized_card_count": 76,
+  "remaining_prev_exam_added_count": 76,
+  "remaining_deactivated_count": 0,
+  "remaining_marked_choice_cards": [],
+  "lecture_sequences": {
+    "Antenatal Care (ANC)": [
+      "c630",
+      "c626",
+      "c627",
+      "c624",
+      "c629",
+      "c631",
+      "c628",
+      "c622",
+      "c700"
+    ],
+    "Antepartum Hemorrhage (APH)": [
+      "c650",
+      "c651",
+      "c657",
+      "c658",
+      "c659",
+      "c656"
+    ],
+    "Cardiac Disorders & Anaemia with Pregnancy": [
+      "c617",
+      "c676",
+      "c677",
+      "c678",
+      "c679",
+      "c680",
+      "c681",
+      "c682",
+      "c683",
+      "c699"
+    ],
+    "Diabetes with Pregnancy": [
+      "c671",
+      "c673",
+      "c674",
+      "c670",
+      "c672",
+      "c675"
+    ],
+    "Diagnosis of Pregnancy": [
+      "c610",
+      "c612",
+      "c615",
+      "c616",
+      "c614",
+      "c611",
+      "c613",
+      "c618"
+    ],
+    "Ectopic Pregnancy, Abortion & Vesicular Mole": [
+      "c641",
+      "c638",
+      "c632",
+      "c633",
+      "c634",
+      "c635",
+      "c636",
+      "c644",
+      "c645",
+      "c646",
+      "c647",
+      "c637",
+      "c643"
+    ],
+    "Hypertensive Disorders with Pregnancy": [
+      "c661",
+      "c664",
+      "c665",
+      "c666",
+      "c667"
+    ],
+    "Intrapartum Fetal Monitoring": [
+      "c703",
+      "c704",
+      "c705",
+      "c706",
+      "c707",
+      "c708"
+    ],
+    "Normal Labour": [
+      "c701",
+      "c698",
+      "c702",
+      "c695"
+    ],
+    "Placental Hormones & Maternal Physiological Changes": [
+      "c605",
+      "c606",
+      "c607"
+    ],
+    "VTE, UTI & Thyroid": [
+      "c684",
+      "c685",
+      "c686",
+      "c687",
+      "c688",
+      "c689"
+    ]
+  },
+  "sample_removed": [
+    {
+      "id": "c608",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q17",
+      "q": "Contraindication of pregnancy"
+    },
+    {
+      "id": "c609",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q53",
+      "q": "Diagnosis of intrahepatic cholestasis depends on:"
+    },
+    {
+      "id": "c619",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 39 Q72",
+      "q": "Persistent rise in hCG after molar evacuation is treated by:"
+    },
+    {
+      "id": "c620",
+      "lecture": "Antenatal Care (ANC)",
+      "source": "Previous Exams Added — MU-MED 36 Q39",
+      "q": "To detect fetal head attitude in breech:"
+    },
+    {
+      "id": "c621",
+      "lecture": "Antenatal Care (ANC)",
+      "source": "Previous Exams Added — MU-MED 36 Q10",
+      "q": "The uterine artery arises from:"
+    },
+    {
+      "id": "c623",
+      "lecture": "Antenatal Care (ANC)",
+      "source": "Previous Exams Added — MU-MED 36 Q40",
+      "q": "In Edwards syndrome (Trisomy 18), maternal serum markers are typically:"
+    },
+    {
+      "id": "c625",
+      "lecture": "Antenatal Care (ANC)",
+      "source": "Previous Exams Added — MU-MED 36 Q51",
+      "q": "Differentiation between ovarian failure and hypothalamic amenorrhea is best done by measuring:"
+    },
+    {
+      "id": "c639",
+      "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
+      "source": "Previous Exams Added — MU-MED 36 Q2",
+      "q": "What is the most common cause of secondary amenorrhea?"
+    },
+    {
+      "id": "c640",
+      "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
+      "source": "Previous Exams Added — MU-MED 36 Q24",
+      "q": "Lymphatic drainage of the clitoris primarily goes to:"
+    },
+    {
+      "id": "c642",
+      "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
+      "source": "Previous Exams Added — MU-MED 36 Q52",
+      "q": "Hypothalamic-pituitary dysfunction is characterized by:"
+    }
+  ],
+  "sample_sanitized": [
+    {
+      "id": "c605",
+      "lecture": "Placental Hormones & Maternal Physiological Changes",
+      "source": "Previous Exams Added — MU-MED 36 Q1",
+      "q": "Which blood vessel carries oxygenated blood from the placenta to the fetus?",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c606",
+      "lecture": "Placental Hormones & Maternal Physiological Changes",
+      "source": "Previous Exams Added — MU-MED 36 Q26",
+      "q": "Physiological anemia in pregnancy is due to:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c607",
+      "lecture": "Placental Hormones & Maternal Physiological Changes",
+      "source": "Previous Exams Added — MU-MED 36 Q7",
+      "q": "Serum hCG levels in early pregnancy typically double every:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c610",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q17",
+      "q": "Which renal change occurs during pregnancy?",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c611",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q29",
+      "q": "Bluish discoloration of the cervix and vagina is known as:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c612",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q41",
+      "q": "Decreased hCG levels are most commonly associated with:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c613",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 36 Q5",
+      "q": "Quickening is typically first perceived by a primigravida at:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c614",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 39 Q10",
+      "q": "A 24-year-old woman develops persistently elevated hCG after molar evacuation and is diagnosed with invasive mole. What is the best management?",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c615",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 39 Q15",
+      "q": "Pregnancy can first be detected by transvaginal ultrasound at approximately:",
+      "before_count": 5,
+      "after_count": 4
+    },
+    {
+      "id": "c616",
+      "lecture": "Diagnosis of Pregnancy",
+      "source": "Previous Exams Added — MU-MED 39 Q33",
+      "q": "Which of the following is NOT a sure sign of pregnancy?",
+      "before_count": 5,
+      "after_count": 4
+    }
+  ]
+}

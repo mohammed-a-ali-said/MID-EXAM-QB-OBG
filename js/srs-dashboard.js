@@ -1,15 +1,49 @@
 (() => {
-  const dashboardState = { open: false };
+  const dashboardState = { open: false, lecture: "all" };
+
+  function normalizeLecture(lecture) {
+    const helper = window.OBG_QB_Utils && window.OBG_QB_Utils.normalizeLectureFilter;
+    return helper ? helper(lecture) : (lecture || "all");
+  }
+
+  function selectedLecture() {
+    return normalizeLecture(dashboardState.lecture || localStorage.getItem("obg_selected_lecture") || "all");
+  }
+
+  function persistLecture(lecture) {
+    dashboardState.lecture = normalizeLecture(lecture);
+    try {
+      localStorage.setItem("obg_selected_lecture", dashboardState.lecture);
+    } catch (error) {
+      console.warn("Unable to persist dashboard lecture filter.", error);
+    }
+  }
+
+  function lectureOptions() {
+    return [...new Set(supportedQuestions().map((card) => card.lecture).filter(Boolean))].sort((a, b) =>
+      String(a).localeCompare(String(b))
+    );
+  }
 
   function examDateValue() {
     return localStorage.getItem("obg_exam_date") || "";
   }
 
   function supportedQuestions() {
-    return (window.ALL_CARDS || []).filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType));
+    const cards = (window.ALL_CARDS || []).filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType));
+    const helper = window.OBG_QB_Utils && window.OBG_QB_Utils.getStudyEligibleCards;
+    return helper ? helper({ cards, lecture: "all", dedupe: false }) : cards;
+  }
+
+  function inLecture(card, lecture) {
+    if (!lecture || lecture === "all") return true;
+    const lectures = Array.isArray(card.lectures) && card.lectures.length ? card.lectures : [card.lecture];
+    return lectures.map((item) => String(item)).includes(String(lecture));
   }
 
   function questionByQid(qid) {
+    const helper = window.OBG_QB_Utils && window.OBG_QB_Utils.getRepresentativeForCanonical;
+    if (helper) return helper(qid, selectedLecture()) || helper(qid, "all") || null;
     return supportedQuestions().find((card) => window.SRS_Storage.getQid(card) === qid) || null;
   }
 
@@ -74,12 +108,13 @@
     return `Exam in ${diff} day${diff === 1 ? "" : "s"}.`;
   }
 
-  function reviewForecast(daysAhead) {
+  function reviewForecast(daysAhead, lecture = "all") {
     const target = new Date();
     target.setDate(target.getDate() + daysAhead);
     return window.SRS_Storage
       .getAllCards()
       .filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType))
+      .filter((card) => inLecture(card, lecture))
       .filter((card) => card.nextReviewDate)
       .filter((card) => new Date(card.nextReviewDate).toDateString() === target.toDateString()).length;
   }
@@ -144,10 +179,11 @@
   }
 
   function renderForecast() {
+    const lecture = selectedLecture();
     const counts = [
-      { label: "Tomorrow", count: reviewForecast(1) },
-      { label: "In 3 days", count: reviewForecast(3) },
-      { label: "In 7 days", count: reviewForecast(7) },
+      { label: "Tomorrow", count: reviewForecast(1, lecture) },
+      { label: "In 3 days", count: reviewForecast(3, lecture) },
+      { label: "In 7 days", count: reviewForecast(7, lecture) },
     ];
     const max = Math.max(1, ...counts.map((row) => row.count));
     return counts
@@ -163,10 +199,11 @@
       .join("");
   }
 
-  function hardestList(mode) {
+  function hardestList(mode, lecture = "all") {
     const cards = window.SRS_Storage
       .getAllCards()
       .filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType))
+      .filter((card) => inLecture(card, lecture))
       .filter((card) => (mode === "ease" ? card.totalAttempts > 0 : card.wrongCount > 0))
       .sort((a, b) => {
         if (mode === "ease") {
@@ -186,7 +223,7 @@
         ${cards
           .map((card) => {
             const question = questionByQid(card.qid);
-            if (!question) return "";
+            if (!question || (lecture !== "all" && !inLecture(question, lecture))) return "";
             const metric = mode === "ease" ? `Ease ${card.easeFactor.toFixed(2)}` : `${card.wrongCount} misses`;
             const questionText = question.q || "";
             const stem = questionText.slice(0, 120);
@@ -220,12 +257,17 @@
         const mode = button.getAttribute("data-review-mode");
         close();
         window.SRS_Review.startSession({
-          lecture: "all",
+          lecture: selectedLecture(),
           mode,
           maxCards: 30,
           examDate: examDateValue(),
         });
       });
+    });
+
+    content.querySelector("#srs-dashboard-lecture")?.addEventListener("change", (event) => {
+      persistLecture(event.target.value || "all");
+      render();
     });
 
     content.querySelectorAll("[data-review-lecture]").forEach((button) => {
@@ -277,10 +319,14 @@
     const content = document.getElementById("srs-dashboard-content");
     if (!content) return;
 
-    const stats = window.SRS_Storage.getStats();
+    const lecture = selectedLecture();
+    const stats = window.SRS_Storage.getStats(lecture === "all" ? undefined : lecture);
     const activity = window.SRS_Storage.getActivity(21);
     const storage = window.SRS_Storage.getStorageUsage();
     const streakCount = streak(activity);
+    const lectureSelect = `<select class="srs-select" id="srs-dashboard-lecture"><option value="all">All lectures</option>${lectureOptions()
+      .map((item) => `<option value="${String(item).replace(/"/g, "&quot;")}" ${String(item) === lecture ? "selected" : ""}>${item}</option>`)
+      .join("")}</select>`;
 
     content.innerHTML = `
       ${renderOverview(stats)}
@@ -288,7 +334,8 @@
         <div>
           <div class="srs-section">
             <h3>Today's Actions</h3>
-            <p style="margin-bottom:10px;color:#334155;font-size:.83rem">You have ${stats.due} cards due and ${stats.new} new cards waiting.</p>
+            <div class="srs-inline-form" style="margin-bottom:10px">${lectureSelect}</div>
+            <p style="margin-bottom:10px;color:#334155;font-size:.83rem">You have ${stats.due} cards due and ${stats.new} new cards waiting for ${lecture === "all" ? "all lectures" : lecture}.</p>
             <div class="srs-action-row" style="margin-bottom:8px">
               <button class="srs-review-btn" type="button" data-review-mode="smart">▶ Start Review</button>
               <button class="srs-file-btn" type="button" data-review-mode="due">Due Only</button>
@@ -315,11 +362,11 @@
             <div class="srs-dashboard-grid" style="grid-template-columns:1fr 1fr;gap:14px">
               <div>
                 <div class="srs-panel-subtitle" style="margin-bottom:8px">Lowest ease factor</div>
-                ${hardestList("ease")}
+                ${hardestList("ease", lecture)}
               </div>
               <div>
                 <div class="srs-panel-subtitle" style="margin-bottom:8px">Most failed</div>
-                ${hardestList("wrong")}
+                ${hardestList("wrong", lecture)}
               </div>
             </div>
           </div>

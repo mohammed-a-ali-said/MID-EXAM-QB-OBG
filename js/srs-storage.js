@@ -86,9 +86,13 @@
   }
 
   function buildCard(question, qid) {
+    const lectures = Array.isArray(question._associatedLectures) && question._associatedLectures.length
+      ? [...new Set(question._associatedLectures)]
+      : [question.lecture || "Unassigned"];
     return {
       qid,
       lecture: question.lecture || "Unassigned",
+      lectures,
       exam: question.exam || "",
       cardType: question.cardType,
       easeFactor: 2.5,
@@ -122,7 +126,8 @@
     if (!lectureFilter || lectureFilter === "all") {
       return true;
     }
-    return String(card.lecture) === String(lectureFilter);
+    const lectures = Array.isArray(card.lectures) && card.lectures.length ? card.lectures : [card.lecture];
+    return lectures.map((lecture) => String(lecture)).includes(String(lectureFilter));
   }
 
   function isDue(card, now = new Date()) {
@@ -153,28 +158,34 @@
 
       const usedQids = new Set();
       cards.forEach((question, index) => {
-        if (!isSupported(question)) {
+        if (!isSupported(question) || question.unresolvedStub || question.active === false) {
           return;
         }
         const fallbackKey = question.id || `auto_${index}`;
         const preferredQid =
+          question._canonicalQid ||
           (question.id && state.cards[question.id] && question.id) ||
           state.meta.generatedIds[fallbackKey] ||
           question.id ||
           makeGeneratedId(question, index);
-        const qid = usedQids.has(preferredQid) ? ensureUniqueQid(preferredQid, usedQids) : preferredQid;
-        usedQids.add(qid);
-        if (!question.id) {
+        const shouldAliasCanonical = !!question._canonicalQid;
+        const qid = shouldAliasCanonical || !usedQids.has(preferredQid)
+          ? preferredQid
+          : ensureUniqueQid(preferredQid, usedQids);
+        if (!shouldAliasCanonical) usedQids.add(qid);
+        if (!question.id || shouldAliasCanonical) {
           state.meta.generatedIds[fallbackKey] = qid;
         }
         question._srsQid = qid;
         if (!state.cards[qid]) {
           state.cards[qid] = buildCard(question, qid);
         } else {
+          const mergedLectures = [...new Set([...(state.cards[qid].lectures || [state.cards[qid].lecture]), ...(question._associatedLectures || [question.lecture])].filter(Boolean))];
           state.cards[qid] = {
             ...state.cards[qid],
             qid,
-            lecture: question.lecture || state.cards[qid].lecture || "Unassigned",
+            lecture: state.cards[qid].lecture || question.lecture || "Unassigned",
+            lectures: mergedLectures,
             exam: question.exam || state.cards[qid].exam || "",
             cardType: question.cardType || state.cards[qid].cardType,
           };
@@ -191,6 +202,10 @@
       }
       if (question._srsQid) {
         return question._srsQid;
+      }
+      if (question._canonicalQid) {
+        question._srsQid = question._canonicalQid;
+        return question._canonicalQid;
       }
       if (question.id && state.cards[question.id]) {
         question._srsQid = question.id;
@@ -277,7 +292,7 @@
     },
 
     getStatsByLecture() {
-      const lectures = [...new Set(this.getAllCards().map((card) => card.lecture))].sort((a, b) =>
+      const lectures = [...new Set(this.getAllCards().flatMap((card) => card.lectures && card.lectures.length ? card.lectures : [card.lecture]))].sort((a, b) =>
         String(a).localeCompare(String(b))
       );
       return lectures.map((lecture) => ({

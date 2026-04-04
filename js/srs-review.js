@@ -10,18 +10,38 @@
     launcherOpen: false,
   };
 
-  function supportedCardMap() {
-    return new Map(
-      (window.ALL_CARDS || [])
-        .filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType))
-        .map((card) => [window.SRS_Storage.getQid(card), card])
-    );
+  function utils() {
+    return window.OBG_QB_Utils || {};
+  }
+
+  function shuffle(items) {
+    if (utils().shuffleArray) return utils().shuffleArray(items);
+    const copy = Array.isArray(items) ? items.slice() : [];
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  function normalizeLecture(lecture) {
+    return utils().normalizeLectureFilter ? utils().normalizeLectureFilter(lecture) : (lecture || "all");
+  }
+
+  function persistLecture(lecture) {
+    try {
+      localStorage.setItem("obg_selected_lecture", normalizeLecture(lecture));
+    } catch (error) {
+      console.warn("Unable to persist selected lecture.", error);
+    }
   }
 
   function getAllSupportedQuestions(lecture) {
-    return (window.ALL_CARDS || [])
-      .filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType))
-      .filter((card) => !lecture || lecture === "all" || card.lecture === lecture);
+    const cards = (window.ALL_CARDS || []).filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType));
+    if (utils().getStudyEligibleCards) {
+      return utils().getStudyEligibleCards({ cards, lecture: lecture || "all", dedupe: true });
+    }
+    return cards.filter((card) => !lecture || lecture === "all" || card.lecture === lecture);
   }
 
   function isDueToday(card) {
@@ -42,48 +62,79 @@
     });
   }
 
-  function uniquePush(queue, qid) {
-    if (qid && !queue.includes(qid)) queue.push(qid);
+  function shuffleWeakestCards(cards) {
+    const sorted = weakestCards(cards);
+    const groups = [];
+    sorted.forEach((card) => {
+      const attempts = Math.max(1, card.totalAttempts || 0);
+      const ratio = ((card.correctCount || 0) / attempts).toFixed(3);
+      const ease = Number(card.easeFactor || 2.5).toFixed(2);
+      const key = `${ratio}:${ease}`;
+      const current = groups[groups.length - 1];
+      if (!current || current.key !== key) {
+        groups.push({ key, cards: [card] });
+      } else {
+        current.cards.push(card);
+      }
+    });
+    return groups.flatMap((group) => shuffle(group.cards));
+  }
+
+  function representativeQuestion(cardOrQid, lecture) {
+    if (!cardOrQid) return null;
+    const canonicalId = typeof cardOrQid === "string" ? cardOrQid : cardOrQid.qid;
+    if (utils().getRepresentativeForCanonical) {
+      return utils().getRepresentativeForCanonical(canonicalId, lecture || "all");
+    }
+    return getAllSupportedQuestions(lecture).find((question) => window.SRS_Storage.getQid(question) === canonicalId) || null;
+  }
+
+  function uniquePush(queue, question) {
+    if (!question) return;
+    const canonicalId = question.canonicalSourceId || window.SRS_Storage.getQid(question) || question.id;
+    if (canonicalId && !queue.some((item) => (item.canonicalSourceId || window.SRS_Storage.getQid(item) || item.id) === canonicalId)) {
+      queue.push(question);
+    }
+  }
+
+  function bucketQueue(groups, maxCards, lecture) {
+    const queue = [];
+    groups.forEach((group) => {
+      shuffle(group).forEach((card) => uniquePush(queue, representativeQuestion(card, lecture)));
+    });
+    return queue.slice(0, maxCards);
   }
 
   function buildQueue(options) {
-    const lecture = options.lecture && options.lecture !== "all" ? options.lecture : null;
+    const lecture = normalizeLecture(options.lecture);
+    const lectureFilter = lecture !== "all" ? lecture : null;
     const supported = getAllSupportedQuestions(lecture);
     const allCards = supported
       .map((question) => window.SRS_Storage.getCard(window.SRS_Storage.getQid(question)))
       .filter(Boolean);
-    const due = window.SRS_Storage.getDueCards(lecture);
+    const due = window.SRS_Storage.getDueCards(lectureFilter);
     const dueToday = allCards.filter((card) => card.status !== "new" && !window.SRS_Algorithm.isOverdue(card) && isDueToday(card));
     const againCards = allCards.filter((card) => card.interval === 0 && card.status === "learning");
-    const newCards = window.SRS_Storage.getNewCards(lecture, options.mode === "smart" ? 10 : options.maxCards);
+    const newCards = shuffle(window.SRS_Storage.getNewCards(lectureFilter, undefined));
 
     if (options.mode === "due") {
-      return [...due, ...dueToday].map((card) => card.qid).filter(Boolean).slice(0, options.maxCards);
+      return bucketQueue([due, dueToday], options.maxCards, lecture);
     }
     if (options.mode === "new") {
-      return newCards.map((card) => card.qid).slice(0, options.maxCards);
+      return newCards.map((card) => representativeQuestion(card, lecture)).filter(Boolean).slice(0, options.maxCards);
     }
     if (options.mode === "weakest") {
-      return weakestCards(allCards).map((card) => card.qid).slice(0, options.maxCards);
+      return shuffleWeakestCards(allCards).map((card) => representativeQuestion(card, lecture)).filter(Boolean).slice(0, options.maxCards);
     }
     if (options.mode === "cram") {
-      return weakestCards(
-        allCards.slice().sort((a, b) => {
-          const aWrong = a.wrongCount || 0;
-          const bWrong = b.wrongCount || 0;
-          if (aWrong !== bWrong) return bWrong - aWrong;
-          const aDue = window.SRS_Algorithm.isOverdue(a) ? -1 : 0;
-          const bDue = window.SRS_Algorithm.isOverdue(b) ? -1 : 0;
-          if (aDue !== bDue) return aDue - bDue;
-          return (a.easeFactor || 2.5) - (b.easeFactor || 2.5);
-        })
-      ).map((card) => card.qid).slice(0, options.maxCards);
+      const wrongCards = allCards.filter((card) => (card.wrongCount || 0) > 0);
+      const overdueCards = allCards.filter((card) => window.SRS_Algorithm.isOverdue(card));
+      const lowEaseCards = allCards.filter((card) => !window.SRS_Algorithm.isOverdue(card) && (card.easeFactor || 2.5) <= 2.1);
+      const remaining = allCards.filter((card) => !wrongCards.includes(card) && !overdueCards.includes(card) && !lowEaseCards.includes(card));
+      return bucketQueue([wrongCards, overdueCards, lowEaseCards, remaining], options.maxCards, lecture);
     }
 
-    const queue = [];
-    [...due, ...dueToday, ...againCards].forEach((card) => uniquePush(queue, card.qid));
-    newCards.forEach((card) => uniquePush(queue, card.qid));
-    return queue.slice(0, options.maxCards);
+    return bucketQueue([due, dueToday, againCards, newCards.slice(0, 10)], options.maxCards, lecture);
   }
 
   function ensureMounts() {
@@ -112,7 +163,7 @@
             <input class="srs-input" id="srs-launch-max" type="number" min="5" max="200" step="5" value="30">
             <button class="srs-review-btn" type="button" id="srs-launch-start">▶ Start</button>
           </div>
-          <div class="srs-empty">Smart mode pulls overdue cards first, then due-today, reset cards, and up to 10 new cards.</div>
+          <div class="srs-empty" id="srs-launch-summary">Smart mode pulls overdue cards first, then due-today, reset cards, and up to 10 new cards.</div>
         </div>
       `;
       document.body.appendChild(launcher);
@@ -120,6 +171,9 @@
         if (event.target === launcher) closeLauncher();
       });
       launcher.querySelector("[data-close-review-launcher]").addEventListener("click", closeLauncher);
+      ["#srs-launch-mode", "#srs-launch-lecture", "#srs-launch-max"].forEach((selector) => {
+        launcher.querySelector(selector).addEventListener("change", refreshLauncherSummary);
+      });
       launcher.querySelector("#srs-launch-start").addEventListener("click", () => {
         startSession({
           lecture: launcher.querySelector("#srs-launch-lecture").value || "all",
@@ -189,12 +243,34 @@
   function populateLectureSelect() {
     const select = document.getElementById("srs-launch-lecture");
     if (!select) return;
-    const lectures = [...new Set(getAllSupportedQuestions().map((card) => card.lecture))].sort((a, b) =>
+    const allCards = (window.ALL_CARDS || []).filter((card) => ["MCQ", "FLASHCARD", "SAQ"].includes(card.cardType));
+    const visibleCards = utils().getStudyEligibleCards
+      ? utils().getStudyEligibleCards({ cards: allCards, lecture: "all", dedupe: false })
+      : allCards;
+    const lectures = [...new Set(visibleCards.map((card) => card.lecture).filter(Boolean))].sort((a, b) =>
       String(a).localeCompare(String(b))
     );
     select.innerHTML = `<option value="all">All lectures</option>${lectures
       .map((lecture) => `<option value="${String(lecture).replace(/"/g, "&quot;")}">${lecture}</option>`)
       .join("")}`;
+    select.value = normalizeLecture(localStorage.getItem("obg_selected_lecture") || "all");
+  }
+
+  function refreshLauncherSummary() {
+    const launcher = document.getElementById("srs-review-launcher");
+    if (!launcher) return;
+    const summary = launcher.querySelector("#srs-launch-summary");
+    if (!summary) return;
+    const lecture = normalizeLecture(launcher.querySelector("#srs-launch-lecture")?.value || "all");
+    const mode = launcher.querySelector("#srs-launch-mode")?.value || "smart";
+    const maxCards = Number(launcher.querySelector("#srs-launch-max")?.value || 30);
+    const queue = buildQueue({ lecture, mode, maxCards, examDate: localStorage.getItem("obg_exam_date") });
+    if (!queue.length) {
+      summary.textContent = "No cards available for this lecture in this mode. Try Smart or New mode.";
+      return;
+    }
+    const modeLabel = mode === "due" ? "Due Review" : mode === "new" ? "Practice New" : mode === "weakest" ? "Weakest Review" : mode === "cram" ? "Cram Review" : "Smart Review";
+    summary.textContent = `Starting ${modeLabel}: ${lecture === "all" ? "All Lectures" : lecture} (${queue.length} cards)`;
   }
 
   function captureSnapshot() {
@@ -216,8 +292,7 @@
   }
 
   function applySessionDeck(queue) {
-    const cardLookup = supportedCardMap();
-    deck = queue.map((qid) => cardLookup.get(qid)).filter(Boolean);
+    deck = queue.slice();
     idx = 0;
     flipped = false;
     reviewed = 0;
@@ -306,14 +381,15 @@
     ensureMounts();
     populateLectureSelect();
     const normalized = {
-      lecture: options.lecture || "all",
+      lecture: normalizeLecture(options.lecture || "all"),
       mode: options.mode || "smart",
       maxCards: Math.max(5, Number(options.maxCards || 30)),
       examDate: options.examDate || localStorage.getItem("obg_exam_date"),
     };
+    persistLecture(normalized.lecture);
     const queue = buildQueue(normalized);
     if (!queue.length) {
-      window.SRS_UI.toast("No cards matched this SRS review queue.");
+      window.SRS_UI.toast("No cards available for this lecture in this mode. Try Smart or New mode.");
       return;
     }
     reviewState.snapshot = captureSnapshot();
@@ -325,11 +401,15 @@
     reviewState.options = normalized;
     applySessionDeck(queue);
     syncBanner();
+    const lectureLabel = normalized.lecture === "all" ? "All Lectures" : normalized.lecture;
+    const modeLabel = normalized.mode === "due" ? "Due Review" : normalized.mode === "new" ? "Practice New" : normalized.mode === "weakest" ? "Weakest Review" : normalized.mode === "cram" ? "Cram Review" : "Smart Review";
+    window.SRS_UI.toast(`Starting ${modeLabel}: ${lectureLabel} (${queue.length} cards)`);
   }
 
   function openLauncher() {
     ensureMounts();
     populateLectureSelect();
+    refreshLauncherSummary();
     document.getElementById("srs-review-launcher").classList.add("visible");
     reviewState.launcherOpen = true;
   }
@@ -344,15 +424,9 @@
     const key = ["again", "hard", "good", "easy"][rating];
     reviewState.results[key] += 1;
     if (rating === 0 && question) {
-      const qid = window.SRS_Storage.getQid(question);
-      if (qid) {
-        const insertAt = Math.min(deck.length, idx + 4);
-        const duplicate = supportedCardMap().get(qid);
-        if (duplicate) {
-          deck.splice(insertAt, 0, duplicate);
-          reviewState.queue.splice(insertAt, 0, qid);
-        }
-      }
+      const insertAt = Math.min(deck.length, idx + 4);
+      deck.splice(insertAt, 0, question);
+      reviewState.queue.splice(insertAt, 0, question);
     }
   }
 
@@ -380,6 +454,7 @@
   function init() {
     ensureMounts();
     populateLectureSelect();
+    refreshLauncherSummary();
   }
 
   window.SRS_Review = {

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBG Content Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="admin-header">
+      <div>
+        <div class="admin-kicker">Hidden Admin Workspace</div>
+        <h1>OBG Content Dashboard</h1>
+        <p>Edit the live question bank, preview student-facing output, export JSON, or save directly to GitHub.</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="validate-all-btn" type="button">Validate</button>
+        <button class="btn btn-ghost" id="export-btn" type="button">Export JSON</button>
+        <button class="btn btn-primary" id="save-github-btn" type="button">Save to GitHub</button>
+      </div>
+    </header>
+
+    <section class="admin-topbar">
+      <div class="summary-grid" id="summary-grid"></div>
+      <div class="github-panel">
+        <div class="github-row">
+          <label>
+            Owner
+            <input id="github-owner" type="text" placeholder="mohammed-a-ali-said">
+          </label>
+          <label>
+            Repo
+            <input id="github-repo" type="text" placeholder="MID-EXAM-QB-OBG">
+          </label>
+          <label>
+            Branch
+            <input id="github-branch" type="text" value="main">
+          </label>
+        </div>
+        <div class="github-row">
+          <label class="token-field">
+            Session PAT
+            <input id="github-token" type="password" placeholder="GitHub token stays in memory only">
+          </label>
+        </div>
+        <div class="github-help">
+          Token is never saved by the site. Export JSON still works even if GitHub save is unavailable.
+        </div>
+      </div>
+    </section>
+
+    <main class="admin-main">
+      <aside class="panel search-panel">
+        <div class="panel-title">Search</div>
+        <div class="search-controls">
+          <label>
+            Find question
+            <input id="search-input" type="search" placeholder="Search ID, stem, source, note...">
+          </label>
+          <label>
+            Lecture
+            <select id="search-lecture"></select>
+          </label>
+          <label>
+            Type
+            <select id="search-type">
+              <option value="all">All Types</option>
+              <option value="MCQ">MCQ</option>
+              <option value="FLASHCARD">Flashcard</option>
+              <option value="SAQ">SAQ</option>
+              <option value="OSCE">OSCE</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select id="search-status">
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </label>
+        </div>
+        <div class="list-meta" id="list-meta"></div>
+        <div class="question-list" id="question-list"></div>
+      </aside>
+
+      <section class="panel editor-panel">
+        <div class="panel-title">Editor</div>
+        <div id="empty-state" class="empty-state">Loading questions...</div>
+        <div id="editor-wrap" class="editor-wrap hidden">
+          <div class="editor-head">
+            <div>
+              <div class="question-id" id="editor-question-id">Question</div>
+              <div class="question-sub" id="editor-question-sub"></div>
+            </div>
+            <div class="dirty-badge" id="dirty-badge">Saved</div>
+          </div>
+
+          <form id="editor-form" class="editor-form" onsubmit="return false;">
+            <div class="form-grid">
+              <label>
+                ID
+                <input id="field-id" type="text" readonly>
+              </label>
+              <label>
+                Number
+                <input id="field-num" type="text">
+              </label>
+              <label>
+                Lecture
+                <select id="field-lecture"></select>
+              </label>
+              <label>
+                Exam
+                <select id="field-exam">
+                  <option value="mid">mid</option>
+                  <option value="paper1">paper1</option>
+                  <option value="paper2">paper2</option>
+                </select>
+              </label>
+              <label>
+                Type
+                <select id="field-card-type">
+                  <option value="MCQ">MCQ</option>
+                  <option value="FLASHCARD">FLASHCARD</option>
+                  <option value="SAQ">SAQ</option>
+                  <option value="OSCE">OSCE</option>
+                </select>
+              </label>
+              <label>
+                Source
+                <input id="field-source" type="text">
+              </label>
+              <label>
+                Doctor
+                <input id="field-doctor" type="text">
+              </label>
+              <label class="toggle-label">
+                <span>Active</span>
+                <input id="field-active" type="checkbox" checked>
+              </label>
+            </div>
+
+            <label>
+              Question / stem
+              <textarea id="field-q" rows="4"></textarea>
+            </label>
+
+            <label>
+              Student note
+              <textarea id="field-note" rows="3" placeholder="Shown inline to students"></textarea>
+            </label>
+
+            <div class="editor-section">
+              <div class="section-title">Repeated in other lectures</div>
+              <div class="repeat-grid" id="repeat-lectures"></div>
+            </div>
+
+            <div class="editor-section">
+              <div class="section-title">Type-specific content</div>
+              <div id="type-editor"></div>
+            </div>
+
+            <div class="editor-section danger-zone">
+              <div class="section-title">Delete / restore</div>
+              <div class="danger-controls">
+                <label>
+                  Delete mode
+                  <select id="delete-mode">
+                    <option value="soft">Soft delete (default)</option>
+                    <option value="hard">Permanent delete</option>
+                  </select>
+                </label>
+                <button class="btn btn-ghost" id="restore-btn" type="button">Restore</button>
+                <button class="btn btn-danger" id="delete-btn" type="button">Apply delete</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <aside class="panel preview-panel">
+        <div class="panel-title">Preview & Validation</div>
+        <div class="preview-card" id="preview-card"></div>
+        <div class="validation-box">
+          <div class="validation-title">Validation</div>
+          <div id="validation-summary" class="validation-summary"></div>
+          <div id="validation-list" class="validation-list"></div>
+        </div>
+        <div class="save-status" id="save-status">No save/export action yet.</div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="./js/admin.js"></script>
+</body>
+</html>
