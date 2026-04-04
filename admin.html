@@ -3,197 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OBG Content Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./css/admin.css">
+<title>Protected Admin Required</title>
+<style>
+  :root{
+    --navy:#1b3a6b;
+    --navy-2:#31548f;
+    --ink:#1f2937;
+    --muted:#617086;
+    --bg:#eef3fb;
+    --card:#ffffff;
+    --line:#d8e2f0;
+    --accent:#1a6b5a;
+    --warn:#9a3412;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    padding:32px;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+    background:linear-gradient(180deg,#edf3fb 0%,#f7f9fd 100%);
+    color:var(--ink);
+  }
+  .card{
+    width:min(760px,100%);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:24px;
+    box-shadow:0 22px 60px rgba(27,58,107,.12);
+    padding:32px;
+  }
+  .eyebrow{
+    margin:0 0 10px;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  h1{
+    margin:0 0 12px;
+    font-size:clamp(30px,4vw,44px);
+    line-height:1.08;
+    color:var(--navy);
+  }
+  p{
+    margin:0;
+    line-height:1.7;
+    color:var(--muted);
+    font-size:17px;
+  }
+  .panel{
+    margin-top:22px;
+    padding:18px 20px;
+    border-radius:16px;
+    border:1px solid #f3d6c6;
+    background:#fff8f3;
+    color:var(--warn);
+    line-height:1.7;
+  }
+  .list{
+    margin:18px 0 0;
+    padding-left:20px;
+    color:var(--ink);
+  }
+  .list li{margin:8px 0}
+  .actions{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 18px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:700;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:var(--navy);
+    color:#fff;
+  }
+  .btn-secondary{
+    background:#fff;
+    color:var(--navy);
+    border-color:var(--line);
+  }
+  code{
+    font-family:Consolas,"Courier New",monospace;
+    font-size:.95em;
+    background:#f4f7fb;
+    padding:2px 6px;
+    border-radius:6px;
+  }
+</style>
 </head>
 <body>
-  <div class="admin-shell">
-    <header class="admin-header">
-      <div>
-        <div class="admin-kicker">Hidden Admin Workspace</div>
-        <h1>OBG Content Dashboard</h1>
-        <p>Edit the live question bank, preview student-facing output, export JSON, or save directly to GitHub.</p>
-      </div>
-      <div class="header-actions">
-        <button class="btn btn-ghost" id="validate-all-btn" type="button">Validate</button>
-        <button class="btn btn-ghost" id="export-btn" type="button">Export JSON</button>
-        <button class="btn btn-primary" id="save-github-btn" type="button">Save to GitHub</button>
-      </div>
-    </header>
-
-    <section class="admin-topbar">
-      <div class="summary-grid" id="summary-grid"></div>
-      <div class="github-panel">
-        <div class="github-row">
-          <label>
-            Owner
-            <input id="github-owner" type="text" placeholder="mohammed-a-ali-said">
-          </label>
-          <label>
-            Repo
-            <input id="github-repo" type="text" placeholder="MID-EXAM-QB-OBG">
-          </label>
-          <label>
-            Branch
-            <input id="github-branch" type="text" value="main">
-          </label>
-        </div>
-        <div class="github-row">
-          <label class="token-field">
-            Session PAT
-            <input id="github-token" type="password" placeholder="GitHub token stays in memory only">
-          </label>
-        </div>
-        <div class="github-help">
-          Token is never saved by the site. Export JSON still works even if GitHub save is unavailable.
-        </div>
-      </div>
-    </section>
-
-    <main class="admin-main">
-      <aside class="panel search-panel">
-        <div class="panel-title">Search</div>
-        <div class="search-controls">
-          <label>
-            Find question
-            <input id="search-input" type="search" placeholder="Search ID, stem, source, note...">
-          </label>
-          <label>
-            Lecture
-            <select id="search-lecture"></select>
-          </label>
-          <label>
-            Type
-            <select id="search-type">
-              <option value="all">All Types</option>
-              <option value="MCQ">MCQ</option>
-              <option value="FLASHCARD">Flashcard</option>
-              <option value="SAQ">SAQ</option>
-              <option value="OSCE">OSCE</option>
-            </select>
-          </label>
-          <label>
-            Status
-            <select id="search-status">
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </label>
-        </div>
-        <div class="list-meta" id="list-meta"></div>
-        <div class="question-list" id="question-list"></div>
-      </aside>
-
-      <section class="panel editor-panel">
-        <div class="panel-title">Editor</div>
-        <div id="empty-state" class="empty-state">Loading questions...</div>
-        <div id="editor-wrap" class="editor-wrap hidden">
-          <div class="editor-head">
-            <div>
-              <div class="question-id" id="editor-question-id">Question</div>
-              <div class="question-sub" id="editor-question-sub"></div>
-            </div>
-            <div class="dirty-badge" id="dirty-badge">Saved</div>
-          </div>
-
-          <form id="editor-form" class="editor-form" onsubmit="return false;">
-            <div class="form-grid">
-              <label>
-                ID
-                <input id="field-id" type="text" readonly>
-              </label>
-              <label>
-                Number
-                <input id="field-num" type="text">
-              </label>
-              <label>
-                Lecture
-                <select id="field-lecture"></select>
-              </label>
-              <label>
-                Exam
-                <select id="field-exam">
-                  <option value="mid">mid</option>
-                  <option value="paper1">paper1</option>
-                  <option value="paper2">paper2</option>
-                </select>
-              </label>
-              <label>
-                Type
-                <select id="field-card-type">
-                  <option value="MCQ">MCQ</option>
-                  <option value="FLASHCARD">FLASHCARD</option>
-                  <option value="SAQ">SAQ</option>
-                  <option value="OSCE">OSCE</option>
-                </select>
-              </label>
-              <label>
-                Source
-                <input id="field-source" type="text">
-              </label>
-              <label>
-                Doctor
-                <input id="field-doctor" type="text">
-              </label>
-              <label class="toggle-label">
-                <span>Active</span>
-                <input id="field-active" type="checkbox" checked>
-              </label>
-            </div>
-
-            <label>
-              Question / stem
-              <textarea id="field-q" rows="4"></textarea>
-            </label>
-
-            <label>
-              Student note
-              <textarea id="field-note" rows="3" placeholder="Shown inline to students"></textarea>
-            </label>
-
-            <div class="editor-section">
-              <div class="section-title">Repeated in other lectures</div>
-              <div class="repeat-grid" id="repeat-lectures"></div>
-            </div>
-
-            <div class="editor-section">
-              <div class="section-title">Type-specific content</div>
-              <div id="type-editor"></div>
-            </div>
-
-            <div class="editor-section danger-zone">
-              <div class="section-title">Delete / restore</div>
-              <div class="danger-controls">
-                <label>
-                  Delete mode
-                  <select id="delete-mode">
-                    <option value="soft">Soft delete (default)</option>
-                    <option value="hard">Permanent delete</option>
-                  </select>
-                </label>
-                <button class="btn btn-ghost" id="restore-btn" type="button">Restore</button>
-                <button class="btn btn-danger" id="delete-btn" type="button">Apply delete</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <aside class="panel preview-panel">
-        <div class="panel-title">Preview & Validation</div>
-        <div class="preview-card" id="preview-card"></div>
-        <div class="validation-box">
-          <div class="validation-title">Validation</div>
-          <div id="validation-summary" class="validation-summary"></div>
-          <div id="validation-list" class="validation-list"></div>
-        </div>
-        <div class="save-status" id="save-status">No save/export action yet.</div>
-      </aside>
-    </main>
-  </div>
-
-  <script src="./js/admin.js"></script>
+  <main class="card">
+    <div class="eyebrow">Admin Disabled On Public Site</div>
+    <h1>Use the protected OAuth admin app instead.</h1>
+    <p>
+      This public GitHub Pages site does not expose the editor anymore. Content editing now belongs to the separate protected admin app with GitHub login and server-side save routes.
+    </p>
+    <div class="panel">
+      The old static admin page was intentionally disabled because a public static editor cannot be securely protected on GitHub Pages.
+    </div>
+    <ul class="list">
+      <li>Student study access stays on this public site.</li>
+      <li>Content editing now happens in the separate <code>obg-admin-next</code> app.</li>
+      <li>That secure app should run locally or be deployed to a protected host like Vercel.</li>
+    </ul>
+    <div class="actions">
+      <a class="btn btn-primary" href="./index.html">Return to Question Bank</a>
+    </div>
+  </main>
 </body>
 </html>
