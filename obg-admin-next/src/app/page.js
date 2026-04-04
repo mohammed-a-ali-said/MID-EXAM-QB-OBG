@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/session";
+import Script from "next/script";
 
 function LoginView({ error }) {
   const messageMap = {
@@ -103,7 +104,11 @@ function AdminView({ user }) {
 
           <section className="panel editor-panel">
             <div className="panel-title">Editor</div>
-            <div id="empty-state" className="empty-state">Loading questions...</div>
+            <div id="empty-state" className="empty-state loading-state">
+              <div className="loading-spinner" aria-hidden="true"></div>
+              <div className="empty-state-title">Loading question bank</div>
+              <div className="empty-state-copy">Fetching your editable questions and preparing the editor.</div>
+            </div>
             <div id="editor-wrap" className="editor-wrap hidden">
               <div className="editor-head">
                 <div>
@@ -174,6 +179,11 @@ function AdminView({ user }) {
                     <button className="btn btn-danger" id="delete-btn" type="button">Apply delete</button>
                   </div>
                 </div>
+
+                <div className="editor-actions">
+                  <button className="btn btn-ghost" id="save-question-btn" type="button">Save Question</button>
+                  <button className="btn btn-primary" id="save-question-github-btn" type="button">Save to GitHub</button>
+                </div>
               </form>
             </div>
           </section>
@@ -190,8 +200,12 @@ function AdminView({ user }) {
           </aside>
         </main>
       </div>
-      <script dangerouslySetInnerHTML={{ __html: `window.__OBG_ADMIN_USER__=${JSON.stringify(user)};` }} />
-      <script src="/admin/editor.js" defer></script>
+      <div
+        id="admin-user-data"
+        hidden
+        data-user={encodeURIComponent(JSON.stringify(user))}
+      />
+      <Script src="/admin/editor.js" strategy="afterInteractive" />
     </>
   );
 }

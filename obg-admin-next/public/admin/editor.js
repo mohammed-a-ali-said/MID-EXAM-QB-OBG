@@ -2,6 +2,18 @@
   const DATA_URL = "/api/questions";
   const TYPE_OPTIONS = ["MCQ", "FLASHCARD", "SAQ", "OSCE"];
 
+  function readBootUser() {
+    const node = document.getElementById("admin-user-data");
+    if (!node) return null;
+    try {
+      const raw = decodeURIComponent(node.dataset.user || "");
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      console.warn("Failed to parse admin boot user payload.", error);
+      return null;
+    }
+  }
+
   const state = {
     original: [],
     working: [],
@@ -9,7 +21,8 @@
     dirty: false,
     fileSha: "",
     repo: null,
-    user: window.__OBG_ADMIN_USER__ || null,
+    user: readBootUser(),
+    saving: false,
   };
 
   const els = {};
@@ -65,7 +78,7 @@
       delete question.a;
       delete question.subParts;
     } else if (question.cardType === "FLASHCARD" || question.cardType === "SAQ") {
-      question.a = String(question.a || "").trim();
+      question.a = String(question.a || "").trim() || "Answer not included";
       delete question.choices;
       delete question.ans;
       delete question.subParts;
@@ -101,6 +114,21 @@
     els.saveStatus.className = `save-status${tone ? ` ${tone}` : ""}`;
   }
 
+  function setStatusHtml(html, tone) {
+    els.saveStatus.innerHTML = html;
+    els.saveStatus.className = `save-status${tone ? ` ${tone}` : ""}`;
+  }
+
+  function setSaving(nextSaving) {
+    state.saving = !!nextSaving;
+    const label = state.saving ? "Saving..." : "Save to GitHub";
+    [els.saveGithubBtn, els.saveQuestionGithubBtn].forEach((button) => {
+      if (!button) return;
+      button.disabled = state.saving;
+      button.textContent = label;
+    });
+  }
+
   function redirectToLogin() {
     window.location.href = "/";
   }
@@ -111,7 +139,11 @@
       redirectToLogin();
       throw new Error("Session expired. Please sign in again.");
     }
-    if (!response.ok) throw new Error(`Failed to load questions (${response.status})`);
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null);
+      const detail = payload?.error || `Failed to load questions (${response.status})`;
+      throw new Error(detail);
+    }
     const payload = await response.json();
     if (!Array.isArray(payload?.questions)) throw new Error("Question bank payload is invalid.");
     state.fileSha = String(payload.sha || "");
@@ -540,7 +572,7 @@
       output.choices = (normalized.choices || []).map((choice) => String(choice || "").trim());
       output.ans = normalized.ans || "";
     } else if (normalized.cardType === "FLASHCARD" || normalized.cardType === "SAQ") {
-      output.a = normalized.a || "";
+      output.a = String(normalized.a || "").trim() || "Answer not included";
     } else if (normalized.cardType === "OSCE") {
       output.stem = normalized.stem || normalized.q || "";
       output.subParts = (normalized.subParts || []).map((part) => ({
@@ -585,6 +617,23 @@
     setStatus(`Exported questions.json at ${new Date().toLocaleTimeString()}.`, "ok");
   }
 
+  function saveQuestionDraft() {
+    const question = getSelectedQuestion();
+    if (!question) return;
+    const lectureOptions = getLectureOptions();
+    const validation = validateQuestion(question, lectureOptions);
+    renderPreview(question);
+    renderValidation();
+    if (validation.errors.length) {
+      setStatus(`Question ${question.id} still has ${validation.errors.length} validation error(s).`, "error");
+      return;
+    }
+    setStatus(
+      `Saved ${question.id} in the working draft. Use Save to GitHub to publish it to the repo.`,
+      validation.warnings.length ? "warn" : "ok"
+    );
+  }
+
   async function saveToGitHub() {
     const validation = validateAll();
     renderValidation();
@@ -594,6 +643,7 @@
     }
 
     try {
+      setSaving(true);
       setStatus("Saving updated questions.json to GitHub...", "warn");
       const saveResponse = await fetch(DATA_URL, {
         method: "PUT",
@@ -618,9 +668,18 @@
       state.fileSha = String(payload.sha || state.fileSha || "");
       setDirty(false);
       const location = state.repo ? `${state.repo.owner}/${state.repo.repo}@${state.repo.branch}` : "GitHub";
-      setStatus(`Saved data/questions.json to ${location} at ${new Date().toLocaleTimeString()}.`, "ok");
+      if (payload.url) {
+        setStatusHtml(
+          `Saved <strong>data/questions.json</strong> to ${escapeHtml(location)} at ${escapeHtml(new Date().toLocaleTimeString())}. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
+          "ok"
+        );
+      } else {
+        setStatus(`Saved data/questions.json to ${location} at ${new Date().toLocaleTimeString()}.`, "ok");
+      }
     } catch (error) {
       setStatus(error.message || "GitHub save failed.", "error");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -771,12 +830,24 @@
     els.deleteBtn.addEventListener("click", handleDelete);
     els.exportBtn.addEventListener("click", downloadJson);
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
+    els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
+    els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
     els.validateAllBtn.addEventListener("click", () => {
       const validation = renderValidation();
       setStatus(
         `Validation finished: ${validation.errorCount} errors, ${validation.warningCount} warnings.`,
         validation.errorCount ? "error" : validation.warningCount ? "warn" : "ok"
       );
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "s") return;
+      event.preventDefault();
+      if (event.shiftKey) {
+        saveToGitHub();
+        return;
+      }
+      saveQuestionDraft();
     });
 
     window.addEventListener("beforeunload", (event) => {
@@ -821,9 +892,15 @@
     els.validateAllBtn = byId("validate-all-btn");
     els.exportBtn = byId("export-btn");
     els.saveGithubBtn = byId("save-github-btn");
+    els.saveQuestionBtn = byId("save-question-btn");
+    els.saveQuestionGithubBtn = byId("save-question-github-btn");
   }
 
+  let initialized = false;
+
   async function init() {
+    if (initialized) return;
+    initialized = true;
     cacheElements();
     bindEvents();
     try {
@@ -839,5 +916,9 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
 })();
