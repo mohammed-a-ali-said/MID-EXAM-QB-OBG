@@ -61,7 +61,11 @@
       function questionStem(question) {
         return String(question?.q || question?.stem || "");
       }
-    
+
+      function questionIsActive(question) {
+        return !!question && question.active !== false;
+      }
+
       function normalizeLectureName(name) {
         const raw = cleanWhitespace(name);
         if (!raw) return "";
