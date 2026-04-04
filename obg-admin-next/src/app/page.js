@@ -103,10 +103,19 @@ function AdminView({ user }) {
             <div className="editor-section create-panel">
               <div className="panel-title">Create & Generate</div>
               <div className="search-controls">
-                <div className="inline-actions">
-                  <button className="btn btn-ghost" id="new-question-btn" type="button">New Question</button>
-                  <button className="btn btn-ghost" id="duplicate-question-btn" type="button">Duplicate Current</button>
-                </div>
+                <label>
+                  New question
+                  <div className="inline-create inline-create-wide">
+                    <select id="new-question-type" defaultValue="MCQ">
+                      <option value="MCQ">MCQ</option>
+                      <option value="FLASHCARD">Flashcard</option>
+                      <option value="SAQ">SAQ</option>
+                      <option value="OSCE">OSCE</option>
+                    </select>
+                    <button className="mini-btn" id="new-question-btn" type="button">Create</button>
+                    <button className="mini-btn" id="duplicate-question-btn" type="button">Duplicate Current</button>
+                  </div>
+                </label>
                 <label>
                   New lecture bucket
                   <div className="inline-create">
@@ -123,54 +132,77 @@ function AdminView({ user }) {
                   </div>
                 </label>
                 <div id="exam-buckets" className="bucket-list"></div>
-                <div className="editor-section">
-                  <div className="section-title">Generate set from template</div>
+                <div className="editor-section template-builder">
+                  <div className="section-title">Bulk Template Builder</div>
+                  <p className="section-copy">
+                    Export one professional CSV that can hold mixed question types, multiple lectures, custom exam sections,
+                    and brand-new bucket names. Leave IDs blank to auto-generate them on import, or prefill IDs now for delegated content entry.
+                  </p>
                   <div className="form-grid compact-grid">
                     <label>
-                      Template
+                      Template style
                       <select id="template-kind">
-                        <option value="MCQ">MCQ set</option>
-                        <option value="FLASHCARD">Flashcard set</option>
-                        <option value="SAQ">SAQ set</option>
-                        <option value="OSCE">OSCE set</option>
+                        <option value="MIXED">Mixed question workbook</option>
+                        <option value="MCQ">MCQ starter rows</option>
+                        <option value="FLASHCARD">Flashcard starter rows</option>
+                        <option value="SAQ">SAQ starter rows</option>
+                        <option value="OSCE">OSCE starter rows</option>
                       </select>
                     </label>
                     <label>
-                      Count
-                      <input id="template-count" type="number" min="1" max="50" value="5" />
+                      Starter rows
+                      <input id="template-rows" type="number" min="0" step="1" value="12" />
                     </label>
                     <label>
-                      Lecture
-                      <select id="template-lecture"></select>
+                      Default lecture
+                      <input id="template-lecture" type="text" list="template-lecture-options" placeholder="Existing or brand-new lecture" />
                     </label>
                     <label>
-                      Exam
-                      <select id="template-exam"></select>
+                      Default exam section
+                      <input id="template-exam" type="text" list="template-exam-options" placeholder="mid, final, paper3, ..." />
                     </label>
                     <label>
-                      Source
+                      Default source
                       <input id="template-source" type="text" placeholder="Question set source" />
                     </label>
                     <label>
-                      Doctor
+                      Default doctor
                       <input id="template-doctor" type="text" placeholder="Optional" />
                     </label>
                     <label>
-                      Number start
-                      <input id="template-num-start" type="number" min="1" value="1" />
+                      Number prefix
+                      <input id="template-num-prefix" type="text" value="Q" placeholder="e.g. Q" />
                     </label>
                     <label>
-                      Stem prefix
-                      <input id="template-prefix" type="text" placeholder="Template question" />
+                      Stem placeholder
+                      <input id="template-prefix" type="text" placeholder="Write the question here" />
+                    </label>
+                  </div>
+                  <datalist id="template-lecture-options"></datalist>
+                  <datalist id="template-exam-options"></datalist>
+                  <div className="form-grid compact-grid">
+                    <label className="toggle-label bulk-toggle">
+                      <span>Pre-generate question IDs</span>
+                      <input id="template-generate-ids" type="checkbox" defaultChecked />
+                    </label>
+                    <label className="toggle-label bulk-toggle">
+                      <span>Apply defaults to starter rows</span>
+                      <input id="template-fill-defaults" type="checkbox" defaultChecked />
                     </label>
                   </div>
                   <label>
                     Default note
                     <textarea id="template-note" rows="2" placeholder="Optional note for all generated questions"></textarea>
                   </label>
+                  <div className="template-help">
+                    Columns include <code>id</code>, <code>lecture</code>, <code>exam</code>, <code>cardType</code>, <code>q</code>,
+                    <code>a</code>, <code>choiceA</code> to <code>choiceF</code>, <code>ans</code>, and <code>osce_json</code>.
+                    Each row can use a different lecture, exam section, and question type. New lecture or exam names are created automatically during import.
+                    Set starter rows to <strong>0</strong> to export headers only and let others duplicate rows freely in Excel or Sheets.
+                  </div>
                   <div className="inline-actions">
-                    <button className="btn btn-primary" id="generate-template-btn" type="button">Export Template</button>
-                    <button className="btn btn-ghost" id="import-template-btn" type="button">Import Template</button>
+                    <button className="btn btn-primary" id="generate-template-btn" type="button">Export CSV Template</button>
+                    <button className="btn btn-ghost" id="import-template-btn" type="button">Import Completed CSV</button>
                   </div>
                   <input id="template-file-input" type="file" accept=".csv,text/csv" className="hidden" />
                 </div>

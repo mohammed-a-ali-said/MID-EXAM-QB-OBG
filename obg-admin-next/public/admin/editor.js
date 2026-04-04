@@ -1,6 +1,7 @@
 (function () {
   const DATA_URL = "/api/questions";
   const TYPE_OPTIONS = ["MCQ", "FLASHCARD", "SAQ", "OSCE"];
+  const TEMPLATE_CHOICE_HEADERS = ["choiceA", "choiceB", "choiceC", "choiceD", "choiceE", "choiceF"];
 
   function readBootUser() {
     const node = document.getElementById("admin-user-data");
@@ -47,6 +48,43 @@
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
       .trim();
+  }
+
+  function normalizeHeaderKey(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "");
+  }
+
+  function csvCell(value) {
+    const text = String(value ?? "");
+    return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  }
+
+  function parseCsvLine(line) {
+    const out = [];
+    let current = "";
+    let quoted = false;
+    for (let i = 0; i < line.length; i += 1) {
+      const char = line[i];
+      const next = line[i + 1];
+      if (char === '"') {
+        if (quoted && next === '"') {
+          current += '"';
+          i += 1;
+        } else {
+          quoted = !quoted;
+        }
+      } else if (char === "," && !quoted) {
+        out.push(current);
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+    out.push(current);
+    return out;
   }
 
   function normalizeMetadata(metadata) {
@@ -294,11 +332,15 @@
           </div>
         </div>`).join("") || '<div class="subtle">No exam sections configured yet.</div>';
     }
-    if (els.templateLecture) {
-      els.templateLecture.innerHTML = getLectureOptions().map((lecture) => `<option value="${escapeHtml(lecture)}">${escapeHtml(lecture)}</option>`).join("");
+    if (els.templateLectureOptions) {
+      els.templateLectureOptions.innerHTML = getLectureOptions()
+        .map((lecture) => `<option value="${escapeHtml(lecture)}"></option>`)
+        .join("");
     }
-    if (els.templateExam) {
-      els.templateExam.innerHTML = getExamOptions().map((exam) => `<option value="${escapeHtml(exam)}">${escapeHtml(exam)}</option>`).join("");
+    if (els.templateExamOptions) {
+      els.templateExamOptions.innerHTML = getExamOptions()
+        .map((exam) => `<option value="${escapeHtml(exam)}"></option>`)
+        .join("");
     }
   }
 
@@ -695,8 +737,8 @@
   }
 
   function createQuestion(type) {
-    const lecture = ensureLecture(els.templateLecture?.value || getLectureOptions()[0] || "New Lecture");
-    const exam = ensureExam(els.templateExam?.value || getExamOptions()[0] || "mid");
+    const lecture = ensureLecture((els.templateLecture?.value || "").trim() || getLectureOptions()[0] || "New Lecture");
+    const exam = ensureExam((els.templateExam?.value || "").trim() || getExamOptions()[0] || "mid");
     const question = normalizeQuestion({
       id: nextQuestionId(),
       num: "",
@@ -999,40 +1041,133 @@
     setStatus(`Restored ${selected.id}.`, "ok");
   }
 
+  function allocateNextQuestionId(usedIds) {
+    const numericIds = [...usedIds]
+      .map((id) => Number(String(id || "").replace(/^c/i, "")))
+      .filter(Number.isFinite);
+    const nextId = `c${(numericIds.length ? Math.max(...numericIds) : 0) + 1}`;
+    usedIds.add(nextId);
+    return nextId;
+  }
+
+  function pickTemplateValue(row, keys) {
+    for (const key of keys) {
+      const value = row[key];
+      if (value != null && String(value).trim() !== "") return String(value);
+    }
+    return "";
+  }
+
+  function extractTemplateChoices(row) {
+    const choiceKeys = Object.keys(row).filter((key) => /^choice[a-z0-9]+$/.test(key) || /^option[a-z0-9]+$/.test(key));
+    const values = choiceKeys.map((key) => String(row[key] || ""));
+    while (values.length > 2 && !String(values[values.length - 1] || "").trim()) {
+      values.pop();
+    }
+    return values.length ? values : ["", ""];
+  }
+
+  function buildTemplateQuestionFromRow(row, rowNumber, usedIds) {
+    const requestedId = String(pickTemplateValue(row, ["id"])).trim();
+    const generatedId = requestedId || allocateNextQuestionId(usedIds);
+    if (requestedId) usedIds.add(requestedId);
+
+    const requestedType = String(pickTemplateValue(row, ["cardtype", "type"])).trim().toUpperCase();
+    const inferredType = TYPE_OPTIONS.includes(requestedType)
+      ? requestedType
+      : String(pickTemplateValue(row, ["oscejson", "subpartsjson"])).trim()
+        ? "OSCE"
+        : String(pickTemplateValue(row, ["a", "answer"])).trim()
+          ? "SAQ"
+          : "MCQ";
+
+    let osceParts = [makeOscePart()];
+    const osceJson = String(pickTemplateValue(row, ["oscejson", "subpartsjson"])).trim();
+    if (osceJson) {
+      try {
+        osceParts = JSON.parse(osceJson);
+      } catch (error) {
+        throw new Error(`Row ${rowNumber}: osce_json is not valid JSON.`);
+      }
+    }
+
+    const question = normalizeQuestion({
+      id: generatedId,
+      num: String(pickTemplateValue(row, ["num", "number"])).trim(),
+      lecture: ensureLecture(String(pickTemplateValue(row, ["lecture"])).trim()),
+      exam: ensureExam(String(pickTemplateValue(row, ["exam", "examsection"])).trim() || "mid"),
+      cardType: inferredType,
+      source: String(pickTemplateValue(row, ["source"])).trim(),
+      doctor: String(pickTemplateValue(row, ["doctor"])).trim(),
+      note: String(pickTemplateValue(row, ["note", "studentnote"])).trim(),
+      active: !/^(false|0|no)$/i.test(String(pickTemplateValue(row, ["active"])).trim()),
+      q: String(pickTemplateValue(row, ["q", "question", "stem"])).trim(),
+      a: String(pickTemplateValue(row, ["a", "answer"])).trim() || "Answer not included",
+      ans: String(pickTemplateValue(row, ["ans", "correctanswer"])).trim().toUpperCase() || "A",
+      choices: extractTemplateChoices(row),
+      subParts: osceParts,
+    });
+
+    return question;
+  }
+
   function exportTemplateCsv() {
-    const type = els.templateKind?.value || "MCQ";
-    const count = Math.max(1, Number(els.templateCount?.value || 1));
-    const lecture = ensureLecture(els.templateLecture?.value || getLectureOptions()[0] || "New Lecture");
-    const exam = ensureExam(els.templateExam?.value || getExamOptions()[0] || "mid");
-    const source = els.templateSource?.value || "";
-    const doctor = els.templateDoctor?.value || "";
-    const note = els.templateNote?.value || "";
-    const prefix = (els.templatePrefix?.value || "Template question").trim();
-    const numStart = Math.max(1, Number(els.templateNumStart?.value || 1));
-    const headers = ["id", "num", "lecture", "exam", "cardType", "source", "doctor", "note", "active", "q"];
-    if (type === "MCQ") headers.push("choiceA", "choiceB", "choiceC", "choiceD", "ans");
-    if (type === "FLASHCARD" || type === "SAQ") headers.push("a");
-    if (type === "OSCE") headers.push("osce_json");
-    const baseId = Number(nextQuestionId().replace(/\D/g, "")) || 1;
-    const csvCell = (value) => {
-      const text = String(value ?? "");
-      return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
-    };
+    const templateKind = els.templateKind?.value || "MIXED";
+    const starterRows = Math.max(0, Number(els.templateRows?.value || 0));
+    const defaultLecture = String(els.templateLecture?.value || "").trim();
+    const defaultExam = String(els.templateExam?.value || "").trim();
+    const source = String(els.templateSource?.value || "").trim();
+    const doctor = String(els.templateDoctor?.value || "").trim();
+    const note = String(els.templateNote?.value || "").trim();
+    const prefix = (els.templatePrefix?.value || "Write the question here").trim();
+    const numPrefix = String(els.templateNumPrefix?.value || "Q").trim() || "Q";
+    const generateIds = !!els.templateGenerateIds?.checked;
+    const fillDefaults = !!els.templateFillDefaults?.checked;
+    const starterType = templateKind === "MIXED" ? "" : templateKind;
+    const headers = ["id", "num", "lecture", "exam", "cardType", "source", "doctor", "note", "active", "q"]
+      .concat(TEMPLATE_CHOICE_HEADERS, ["ans", "a", "osce_json"]);
+    const usedIds = new Set(state.working.map((question) => question.id));
     const rows = [headers.join(",")];
-    for (let i = 0; i < count; i += 1) {
-      const base = [`c${baseId + i}`, `Q${numStart + i}`, lecture, exam, type, source, doctor, note, "true", `${prefix} ${i + 1}`];
-      if (type === "MCQ") rows.push(base.concat(["Option A", "Option B", "", "", "A"]).map(csvCell).join(","));
-      else if (type === "FLASHCARD" || type === "SAQ") rows.push(base.concat(["Answer not included"]).map(csvCell).join(","));
-      else rows.push(base.concat([JSON.stringify([{ q: "Part 1", choices: ["Option A", "Option B"], ans: "A" }])]).map(csvCell).join(","));
+    for (let i = 0; i < starterRows; i += 1) {
+      const rowType = starterType || (i % TYPE_OPTIONS.length === 0 ? "MCQ" : i % TYPE_OPTIONS.length === 1 ? "FLASHCARD" : i % TYPE_OPTIONS.length === 2 ? "SAQ" : "OSCE");
+      const numberValue = `${numPrefix}${i + 1}`;
+      const prompt = starterRows === 1 ? prefix : `${prefix} ${i + 1}`;
+      const row = {
+        id: generateIds ? allocateNextQuestionId(usedIds) : "",
+        num: fillDefaults ? numberValue : "",
+        lecture: fillDefaults ? defaultLecture : "",
+        exam: fillDefaults ? (defaultExam || "mid") : "",
+        cardType: rowType,
+        source: fillDefaults ? source : "",
+        doctor: fillDefaults ? doctor : "",
+        note: fillDefaults ? note : "",
+        active: "true",
+        q: prompt,
+        choiceA: rowType === "MCQ" ? "Option A" : "",
+        choiceB: rowType === "MCQ" ? "Option B" : "",
+        choiceC: "",
+        choiceD: "",
+        choiceE: "",
+        choiceF: "",
+        ans: rowType === "MCQ" || rowType === "OSCE" ? "A" : "",
+        a: rowType === "FLASHCARD" || rowType === "SAQ" ? "Answer not included" : "",
+        osce_json: rowType === "OSCE" ? JSON.stringify([{ q: "Part 1", choices: ["Option A", "Option B"], ans: "A" }]) : "",
+      };
+      rows.push(headers.map((header) => csvCell(row[header] || "")).join(","));
     }
     const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${slugify(lecture)}-${type.toLowerCase()}-template.csv`;
+    link.download = `${slugify(defaultLecture || "obg-question-bank")}-${templateKind.toLowerCase()}-template.csv`;
     link.click();
     URL.revokeObjectURL(url);
-    setStatus(`Exported ${type} template CSV.`, "ok");
+    setStatus(
+      starterRows
+        ? `Exported ${starterRows} starter row(s). You can duplicate rows, mix question types, and add brand-new lecture or exam names before import.`
+        : "Exported a header-only CSV template. Duplicate rows freely in Excel or Google Sheets before importing.",
+      "ok"
+    );
   }
 
   async function importTemplateCsv(file) {
@@ -1043,46 +1178,45 @@
       setStatus("Template import failed: CSV is empty.", "error");
       return;
     }
-    const parseLine = (line) => {
-      const out = [];
-      let current = "", quoted = false;
-      for (let i = 0; i < line.length; i += 1) {
-        const char = line[i];
-        const next = line[i + 1];
-        if (char === '"') {
-          if (quoted && next === '"') { current += '"'; i += 1; }
-          else quoted = !quoted;
-        } else if (char === "," && !quoted) {
-          out.push(current); current = "";
-        } else current += char;
-      }
-      out.push(current);
-      return out;
-    };
-    const headers = parseLine(lines[0]).map((header) => String(header || "").trim());
+    const headers = parseCsvLine(lines[0]).map((header) => String(header || "").trim());
+    const normalizedHeaders = headers.map((header) => normalizeHeaderKey(header));
     const indexById = new Map(state.working.map((question, index) => [question.id, index]));
+    const usedIds = new Set(state.working.map((question) => question.id));
+    const staged = [];
+    const importErrors = [];
     let created = 0;
     let updated = 0;
-    for (const line of lines.slice(1)) {
-      const cells = parseLine(line);
-      const row = Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
-      const cardType = String(row.cardType || "MCQ").trim();
-      const question = normalizeQuestion({
-        id: String(row.id || "").trim() || nextQuestionId(),
-        num: String(row.num || "").trim(),
-        cardType,
-        lecture: ensureLecture(row.lecture || getLectureOptions()[0] || "New Lecture"),
-        exam: ensureExam(row.exam || getExamOptions()[0] || "mid"),
-        source: String(row.source || ""),
-        doctor: String(row.doctor || ""),
-        note: String(row.note || ""),
-        active: String(row.active || "true").toLowerCase() !== "false",
-        q: String(row.q || "").trim(),
-        choices: [row.choiceA, row.choiceB, row.choiceC, row.choiceD].map((value) => String(value || "")),
-        ans: String(row.ans || "A").trim() || "A",
-        a: String(row.a || "").trim() || "Answer not included",
-        subParts: row.osce_json ? JSON.parse(row.osce_json) : [makeOscePart()],
-      });
+    for (const [index, line] of lines.slice(1).entries()) {
+      const cells = parseCsvLine(line);
+      const row = Object.fromEntries(normalizedHeaders.map((header, cellIndex) => [header, cells[cellIndex] ?? ""]));
+      const isBlankRow = Object.values(row).every((value) => String(value || "").trim() === "");
+      if (isBlankRow) continue;
+      try {
+        const question = buildTemplateQuestionFromRow(row, index + 2, usedIds);
+        const perQuestionValidation = validateQuestion(question, getLectureOptions().concat(question.lecture || []), getExamOptions().concat(question.exam || []));
+        if (perQuestionValidation.errors.length) {
+          importErrors.push(...perQuestionValidation.errors.map((message) => `Row ${index + 2} (${question.id}): ${message}`));
+          continue;
+        }
+        staged.push(question);
+      } catch (error) {
+        importErrors.push(error.message || `Row ${index + 2}: import failed.`);
+      }
+    }
+    const stagedIds = new Map();
+    staged.forEach((question) => {
+      stagedIds.set(question.id, (stagedIds.get(question.id) || 0) + 1);
+    });
+    staged.forEach((question) => {
+      if ((stagedIds.get(question.id) || 0) > 1) {
+        importErrors.push(`Duplicate imported ID detected: ${question.id}`);
+      }
+    });
+    if (importErrors.length) {
+      setStatus(`Template import blocked. ${importErrors[0]}${importErrors.length > 1 ? ` (+${importErrors.length - 1} more)` : ""}`, "error");
+      return;
+    }
+    staged.forEach((question) => {
       if (indexById.has(question.id)) {
         state.working[indexById.get(question.id)] = question;
         updated += 1;
@@ -1091,11 +1225,15 @@
         indexById.set(question.id, state.working.length - 1);
         created += 1;
       }
+    });
+    if (!created && !updated) {
+      setStatus("Template import finished, but no non-empty rows were found.", "warn");
+      return;
     }
     state.selectedId = state.working[0]?.id || null;
     setDirty(true);
     renderAll();
-    setStatus(`Imported template CSV: ${created} created, ${updated} updated.`, "ok");
+    setStatus(`Imported completed CSV: ${created} created, ${updated} updated. New lecture and exam values were added automatically where needed.`, "ok");
   }
 
   function bindEvents() {
@@ -1131,7 +1269,7 @@
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
     els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
     els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
-    if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.templateKind?.value || "MCQ"));
+    if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.newQuestionType?.value || "MCQ"));
     if (els.duplicateQuestionBtn) els.duplicateQuestionBtn.addEventListener("click", duplicateCurrentQuestion);
     if (els.addLectureBtn) els.addLectureBtn.addEventListener("click", () => {
       const value = els.newLectureInput.value.trim();
@@ -1257,6 +1395,7 @@
     els.saveGithubBtn = byId("save-github-btn");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");
+    els.newQuestionType = byId("new-question-type");
     els.newQuestionBtn = byId("new-question-btn");
     els.duplicateQuestionBtn = byId("duplicate-question-btn");
     els.newLectureInput = byId("new-lecture-input");
@@ -1266,14 +1405,18 @@
     els.addExamBtn = byId("add-exam-btn");
     els.examBuckets = byId("exam-buckets");
     els.templateKind = byId("template-kind");
-    els.templateCount = byId("template-count");
+    els.templateRows = byId("template-rows");
     els.templateLecture = byId("template-lecture");
     els.templateExam = byId("template-exam");
+    els.templateLectureOptions = byId("template-lecture-options");
+    els.templateExamOptions = byId("template-exam-options");
     els.templateSource = byId("template-source");
     els.templateDoctor = byId("template-doctor");
-    els.templateNumStart = byId("template-num-start");
+    els.templateNumPrefix = byId("template-num-prefix");
     els.templatePrefix = byId("template-prefix");
     els.templateNote = byId("template-note");
+    els.templateGenerateIds = byId("template-generate-ids");
+    els.templateFillDefaults = byId("template-fill-defaults");
     els.generateTemplateBtn = byId("generate-template-btn");
     els.importTemplateBtn = byId("import-template-btn");
     els.templateFileInput = byId("template-file-input");
