@@ -118,6 +118,29 @@
     return { q: "", choices: ["", ""], ans: "A" };
   }
 
+  function isValidImageValue(value) {
+    const trimmed = String(value || "").trim();
+    if (!trimmed) return true;
+    return /^https:\/\/\S+/i.test(trimmed) || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(trimmed);
+  }
+
+  function hasRenderableImage(question) {
+    return !!String(question?.image || "").trim() && isValidImageValue(question.image);
+  }
+
+  function renderPreviewMedia(question) {
+    if (hasRenderableImage(question)) {
+      return `<div class="preview-media">
+        <img src="${escapeHtml(String(question.image || "").trim())}" alt="${escapeHtml(question.imageAlt || "Question image")}" loading="lazy">
+        ${question.imageAlt ? `<div class="preview-media-caption">${escapeHtml(question.imageAlt)}</div>` : ""}
+      </div>`;
+    }
+    if (question?.imagePlaceholder) {
+      return `<div class="preview-media"><div class="preview-media-placeholder">${escapeHtml(question.imagePlaceholderText || "Image placeholder")}</div></div>`;
+    }
+    return "";
+  }
+
   function normalizeOscePart(part) {
     const next = deepClone(part || {});
     next.q = String(next.q || "").trim();
@@ -132,6 +155,10 @@
     question.tags = Array.isArray(question.tags) ? question.tags : [];
     question.alsoInLectures = uniqueStrings(question.alsoInLectures || []);
     question.note = String(question.note || "").trim();
+    question.image = String(question.image || "").trim();
+    question.imageAlt = String(question.imageAlt || "").trim();
+    question.imagePlaceholder = question.imagePlaceholder === true;
+    question.imagePlaceholderText = String(question.imagePlaceholderText || "").trim();
     question.q = String(question.q || question.stem || "").trim();
     question.source = String(question.source || "");
     question.lecture = String(question.lecture || "");
@@ -183,14 +210,36 @@
     }
   }
 
+  function pushToast(message, tone = "ok", title = "") {
+    if (!els.toastViewport || !message) return;
+    const toast = document.createElement("div");
+    toast.className = `toast ${tone || "ok"}`;
+    const toastTitle = title || (
+      tone === "error" ? "Something needs attention"
+      : tone === "warn" ? "Heads up"
+      : tone === "progress" ? "Working"
+      : "Done"
+    );
+    toast.innerHTML = `<div class="toast-title">${escapeHtml(toastTitle)}</div><div class="toast-body">${escapeHtml(message)}</div>`;
+    els.toastViewport.appendChild(toast);
+    const delay = tone === "error" ? 5200 : tone === "progress" ? 1800 : 3200;
+    window.setTimeout(() => {
+      toast.classList.add("fade-out");
+      window.setTimeout(() => toast.remove(), 220);
+    }, delay);
+  }
+
   function setStatus(message, tone) {
     els.saveStatus.textContent = message;
     els.saveStatus.className = `save-status${tone ? ` ${tone}` : ""}`;
+    pushToast(message, tone || "ok");
   }
 
   function setStatusHtml(html, tone) {
     els.saveStatus.innerHTML = html;
     els.saveStatus.className = `save-status${tone ? ` ${tone}` : ""}`;
+    const plain = String(html || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    pushToast(plain, tone || "ok");
   }
 
   function setSaving(nextSaving) {
@@ -200,6 +249,7 @@
       if (!button) return;
       button.disabled = state.saving;
       button.textContent = label;
+      button.classList.toggle("is-busy", state.saving);
     });
   }
 
@@ -489,6 +539,7 @@
     els.previewCard.innerHTML = `
       <div class="preview-title">${escapeHtml(question.lecture || "No lecture")} | ${escapeHtml(question.cardType)}</div>
       <div class="preview-question">${escapeHtml(question.q || "")}</div>
+      ${renderPreviewMedia(question)}
       ${question.note ? `<div class="preview-note"><strong>Note:</strong> ${escapeHtml(question.note)}</div>` : ""}
       ${body}
       <div class="chip-row">
@@ -514,6 +565,15 @@
     }
     if ((question.alsoInLectures || []).some((lecture) => !lectureOptions.includes(lecture))) {
       warnings.push("One or more repeated lecture links are not recognized.");
+    }
+    if (question.image && !isValidImageValue(question.image)) {
+      errors.push("Image source must be an HTTPS URL or a base64 data:image URI.");
+    }
+    if (hasRenderableImage(question) && !String(question.imageAlt || "").trim()) {
+      warnings.push("Image alt text is recommended when a real image is attached.");
+    }
+    if (question.imagePlaceholder && !String(question.imagePlaceholderText || "").trim()) {
+      warnings.push("Placeholder text is recommended when image placeholder mode is enabled.");
     }
 
     if (question.cardType === "MCQ") {
@@ -644,6 +704,10 @@
     els.fieldActive.checked = question.active !== false;
     els.fieldQ.value = question.q || "";
     els.fieldNote.value = question.note || "";
+    els.fieldImage.value = question.image || "";
+    els.fieldImageAlt.value = question.imageAlt || "";
+    els.fieldImagePlaceholder.checked = question.imagePlaceholder === true;
+    els.fieldImagePlaceholderText.value = question.imagePlaceholderText || "";
     els.repeatLectures.innerHTML = renderRepeatGrid(question);
 
     renderTypeEditor(question);
@@ -804,6 +868,8 @@
     }
     if (normalized.cardType !== "OSCE" && normalized.stem) output.stem = normalized.stem;
     if (Array.isArray(normalized.tags) && normalized.tags.length) output.tags = normalized.tags;
+    if (normalized.image) output.image = normalized.image;
+    if (normalized.imageAlt) output.imageAlt = normalized.imageAlt;
     if (normalized.imagePlaceholder) output.imagePlaceholder = true;
     if (normalized.imagePlaceholderText) output.imagePlaceholderText = normalized.imagePlaceholderText;
     if (normalized._extra) output._extra = true;
@@ -859,7 +925,7 @@
     const question = getSelectedQuestion();
     if (!question) return;
     const lectureOptions = getLectureOptions();
-    const validation = validateQuestion(question, lectureOptions);
+    const validation = validateQuestion(question, lectureOptions, getExamOptions());
     renderPreview(question);
     renderValidation();
     if (validation.errors.length) {
@@ -882,7 +948,7 @@
 
     try {
       setSaving(true);
-      setStatus("Saving updated questions.json to GitHub...", "warn");
+      setStatus("Saving updated questions.json to GitHub...", "progress");
       const saveResponse = await fetch(DATA_URL, {
         method: "PUT",
         headers: {
@@ -938,7 +1004,7 @@
       renderAll();
       return;
     }
-    const needsFullRender = ["field-lecture", "field-exam", "field-active"].includes(target.id);
+    const needsFullRender = ["field-lecture", "field-exam", "field-active", "field-image", "field-image-alt", "field-image-placeholder", "field-image-placeholder-text"].includes(target.id);
     updateQuestion((draft) => {
       if (target.id === "field-num") draft.num = target.value;
       if (target.id === "field-lecture") draft.lecture = ensureLecture(target.value);
@@ -948,6 +1014,10 @@
       if (target.id === "field-active") draft.active = target.checked;
       if (target.id === "field-q") draft.q = target.value;
       if (target.id === "field-note") draft.note = target.value;
+      if (target.id === "field-image") draft.image = target.value;
+      if (target.id === "field-image-alt") draft.imageAlt = target.value;
+      if (target.id === "field-image-placeholder") draft.imagePlaceholder = target.checked;
+      if (target.id === "field-image-placeholder-text") draft.imagePlaceholderText = target.value;
     }, { fullRender: needsFullRender });
   }
 
@@ -1102,6 +1172,10 @@
       note: String(pickTemplateValue(row, ["note", "studentnote"])).trim(),
       active: !/^(false|0|no)$/i.test(String(pickTemplateValue(row, ["active"])).trim()),
       q: String(pickTemplateValue(row, ["q", "question", "stem"])).trim(),
+      image: String(pickTemplateValue(row, ["image", "imageurl", "imagedata"])).trim(),
+      imageAlt: String(pickTemplateValue(row, ["imagealt", "alt", "caption"])).trim(),
+      imagePlaceholder: /^(true|1|yes)$/i.test(String(pickTemplateValue(row, ["imageplaceholder"])).trim()),
+      imagePlaceholderText: String(pickTemplateValue(row, ["imageplaceholdertext", "imageplaceholdernote", "placeholdertext"])).trim(),
       a: String(pickTemplateValue(row, ["a", "answer"])).trim() || "Answer not included",
       ans: String(pickTemplateValue(row, ["ans", "correctanswer"])).trim().toUpperCase() || "A",
       choices: extractTemplateChoices(row),
@@ -1124,7 +1198,7 @@
     const generateIds = !!els.templateGenerateIds?.checked;
     const fillDefaults = !!els.templateFillDefaults?.checked;
     const starterType = templateKind === "MIXED" ? "" : templateKind;
-    const headers = ["id", "num", "lecture", "exam", "cardType", "source", "doctor", "note", "active", "q"]
+    const headers = ["id", "num", "lecture", "exam", "cardType", "source", "doctor", "note", "active", "q", "image", "imageAlt", "imagePlaceholder", "imagePlaceholderText"]
       .concat(TEMPLATE_CHOICE_HEADERS, ["ans", "a", "osce_json"]);
     const usedIds = new Set(state.working.map((question) => question.id));
     const rows = [headers.join(",")];
@@ -1143,6 +1217,10 @@
         note: fillDefaults ? note : "",
         active: "true",
         q: prompt,
+        image: "",
+        imageAlt: "",
+        imagePlaceholder: "false",
+        imagePlaceholderText: "",
         choiceA: rowType === "MCQ" ? "Option A" : "",
         choiceB: rowType === "MCQ" ? "Option B" : "",
         choiceC: "",
@@ -1253,7 +1331,7 @@
       renderEditor();
     });
 
-    [els.fieldNum, els.fieldLecture, els.fieldExam, els.fieldCardType, els.fieldSource, els.fieldDoctor, els.fieldActive, els.fieldQ, els.fieldNote]
+    [els.fieldNum, els.fieldLecture, els.fieldExam, els.fieldCardType, els.fieldSource, els.fieldDoctor, els.fieldActive, els.fieldQ, els.fieldNote, els.fieldImage, els.fieldImageAlt, els.fieldImagePlaceholder, els.fieldImagePlaceholderText]
       .forEach((field) => {
         field.addEventListener(field.type === "checkbox" || field.tagName === "SELECT" ? "change" : "input", handleStaticFieldChange);
       });
@@ -1381,6 +1459,10 @@
     els.fieldActive = byId("field-active");
     els.fieldQ = byId("field-q");
     els.fieldNote = byId("field-note");
+    els.fieldImage = byId("field-image");
+    els.fieldImageAlt = byId("field-image-alt");
+    els.fieldImagePlaceholder = byId("field-image-placeholder");
+    els.fieldImagePlaceholderText = byId("field-image-placeholder-text");
     els.repeatLectures = byId("repeat-lectures");
     els.typeEditor = byId("type-editor");
     els.deleteMode = byId("delete-mode");
@@ -1420,6 +1502,7 @@
     els.generateTemplateBtn = byId("generate-template-btn");
     els.importTemplateBtn = byId("import-template-btn");
     els.templateFileInput = byId("template-file-input");
+    els.toastViewport = byId("toast-viewport");
   }
 
   let initialized = false;
@@ -1430,7 +1513,7 @@
     cacheElements();
     bindEvents();
     try {
-      setStatus("Loading question bank...", "warn");
+      setStatus("Loading question bank...", "progress");
       await loadQuestions();
       renderAll();
       setStatus("Question bank loaded. You can now edit, export, or save to GitHub.", "ok");

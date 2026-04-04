@@ -304,6 +304,18 @@ function renderInlineNote(c){
   return `<div class="card-note"><strong>Note:</strong> ${mdBold(esc2(c.note))}</div>`;
 }
 
+function renderQuestionMedia(c){
+  const image = String(c?.image || '').trim();
+  const alt = esc(c?.imageAlt || 'Question image');
+  if(image){
+    return `<div class="question-media"><img src="${esc(image)}" style="max-width:100%;max-height:360px;border-radius:12px;margin:10px auto 14px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.12);background:#fff" alt="${alt}">${c?.imageAlt?`<div style="text-align:center;font-size:.76rem;color:#64748b;margin-top:-4px;margin-bottom:12px">${esc2(c.imageAlt)}</div>`:''}</div>`;
+  }
+  if(c?.imagePlaceholder){
+    return `<div class="img-ph">${esc2(c.imagePlaceholderText||'Image')}</div>`;
+  }
+  return '';
+}
+
 function renderMCQ(c){
   const tags=(c.displayTags||c.tags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
   const srcBadge=`<span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>`;
@@ -315,7 +327,7 @@ function renderMCQ(c){
       <span>${esc2(ch)}</span><span class="c-icon" id="icon${l}_${c.id}"></span>
     </button>`;
   }).join('');
-  const imgPh = c.imagePlaceholder ? (c.image ? `<img src="${c.image}" style="max-width:100%;max-height:360px;border-radius:8px;margin:10px auto;display:block;box-shadow:0 2px 12px rgba(0,0,0,.12)" alt="Question Image">` : `<div class="img-ph">${esc2(c.imagePlaceholderText||'Image')}</div>`) : '';
+  const imgPh = renderQuestionMedia(c);
   const extraBanner = c._extra ? `<div class="extra-banner">This question is from the study bank (not in printed source)</div>` : '';
   return `<div class="mcq-card">
   <div class="mcq-hdr">
@@ -382,7 +394,7 @@ function renderOSCE(c){
     </button>`;
   }).join('');
   
-  const imgPh = c.imagePlaceholder ? (c.image ? `<img src="${c.image}" style="max-width:100%;max-height:360px;border-radius:8px;margin:10px auto;display:block;box-shadow:0 2px 12px rgba(0,0,0,.12)" alt="Question Image">` : `<div class="img-ph">${esc2(c.imagePlaceholderText||'Image')}</div>`) : '';
+  const imgPh = renderQuestionMedia(c);
   
   const tags=(c.displayTags||c.tags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
   return `<div class="osce-card">
@@ -423,6 +435,7 @@ function renderFlipCard(c, type){
   const tname = type==='FLASHCARD'?'FLASH':'SAQ';
   const extraBanner = c._extra ? `<div class="extra-banner" style="text-align:center;margin:0 0 8px">From study bank</div>` : '';
   const tags=(c.displayTags||c.tags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
+  const media = renderQuestionMedia(c);
   
   // FRONT
   const front=`<div class="card-face card-front" onclick="flipCard()">
@@ -431,6 +444,7 @@ function renderFlipCard(c, type){
     <div class="q-lec">${srcBadge}</div>
     ${extraBanner}
     <div class="q-text">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+    ${media}
     ${renderInlineNote(c)}
     ${tags?`<div class="mcq-tags">${tags}</div>`:''}
     <div class="q-hint">Click to reveal answer</div>

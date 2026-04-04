@@ -196,7 +196,8 @@ function AdminView({ user }) {
                   </label>
                   <div className="template-help">
                     Columns include <code>id</code>, <code>lecture</code>, <code>exam</code>, <code>cardType</code>, <code>q</code>,
-                    <code>a</code>, <code>choiceA</code> to <code>choiceF</code>, <code>ans</code>, and <code>osce_json</code>.
+                    <code>a</code>, <code>choiceA</code> to <code>choiceF</code>, <code>ans</code>, <code>image</code>, <code>imageAlt</code>,
+                    <code>imagePlaceholder</code>, <code>imagePlaceholderText</code>, and <code>osce_json</code>.
                     Each row can use a different lecture, exam section, and question type. New lecture or exam names are created automatically during import.
                     Set starter rows to <strong>0</strong> to export headers only and let others duplicate rows freely in Excel or Sheets.
                   </div>
@@ -260,6 +261,31 @@ function AdminView({ user }) {
                 </label>
 
                 <div className="editor-section">
+                  <div className="section-title">Question Media</div>
+                  <div className="section-copy">
+                    Add either a public HTTPS image URL or a base64 <code>data:image/...</code> string. Placeholder text stays available for questions where the original image is still pending.
+                  </div>
+                  <label>
+                    Image source
+                    <textarea id="field-image" rows="3" placeholder="https://... or data:image/png;base64,..."></textarea>
+                  </label>
+                  <div className="form-grid">
+                    <label>
+                      Alt text / caption
+                      <input id="field-image-alt" type="text" placeholder="Describe the image for students" />
+                    </label>
+                    <label className="toggle-label media-toggle">
+                      <span>Use placeholder note</span>
+                      <input id="field-image-placeholder" type="checkbox" />
+                    </label>
+                  </div>
+                  <label>
+                    Placeholder text
+                    <textarea id="field-image-placeholder-text" rows="2" placeholder="Shown when no real image is available yet"></textarea>
+                  </label>
+                </div>
+
+                <div className="editor-section">
                   <div className="section-title">Repeated in other lectures</div>
                   <div className="repeat-grid" id="repeat-lectures"></div>
                 </div>
@@ -300,10 +326,14 @@ function AdminView({ user }) {
               <div id="validation-summary" className="validation-summary"></div>
               <div id="validation-list" className="validation-list"></div>
             </div>
-            <div className="save-status" id="save-status">No save/export action yet.</div>
+            <div className="validation-box">
+              <div className="validation-title">Activity Log</div>
+              <div className="save-status" id="save-status">No save/export action yet.</div>
+            </div>
           </aside>
         </main>
       </div>
+      <div id="toast-viewport" className="toast-viewport" aria-live="polite" aria-atomic="true"></div>
       <div
         id="admin-user-data"
         hidden
