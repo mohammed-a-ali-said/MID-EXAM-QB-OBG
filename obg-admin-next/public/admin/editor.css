@@ -38,6 +38,7 @@ textarea{resize:vertical;line-height:1.6}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid);box-shadow:0 0 0 4px rgba(74,144,217,.12)}
 .admin-main{display:grid;grid-template-columns:340px minmax(0,1.3fr) 380px;gap:18px}
 .panel{padding:18px}
+.hidden{display:none !important}
 .panel-title{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:14px}
 .search-controls{display:grid;gap:12px}
 .list-meta{margin:14px 0 12px;font-size:.8rem;color:#6b7280}
