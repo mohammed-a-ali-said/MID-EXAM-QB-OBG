@@ -190,11 +190,11 @@ function AdminView({ user }) {
                     </label>
                     <label>
                       Default source
-                      <input id="template-source" type="text" placeholder="Question set source" />
+                      <input id="template-source" type="text" placeholder="e.g. 2026 Lectures Q's" />
                     </label>
                     <label>
                       Default doctor
-                      <input id="template-doctor" type="text" placeholder="Optional" />
+                      <input id="template-doctor" type="text" placeholder="Optional doctor name" />
                     </label>
                     <label>
                       Number prefix

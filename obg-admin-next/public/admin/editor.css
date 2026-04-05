@@ -34,6 +34,7 @@ body{margin:0;background:linear-gradient(180deg,#eef3fa,#f7f9fc 220px);font-fami
 .github-help{font-size:.76rem;color:#6b7280;line-height:1.6}
 label{display:flex;flex-direction:column;gap:6px;font-size:.78rem;font-weight:700;color:#455468}
 input,select,textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:var(--font-b);font-size:.86rem;color:#1f2937;background:#fff}
+input,select,textarea,label{min-width:0}
 textarea{resize:vertical;line-height:1.6}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid);box-shadow:0 0 0 4px rgba(74,144,217,.12)}
 .admin-main{display:grid;grid-template-columns:340px minmax(0,1.3fr) 380px;gap:18px}
@@ -48,6 +49,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
 .create-panel{margin-top:16px}
 .merge-panel{background:#fbfcff;border:1px solid #edf2f8;border-radius:16px;padding:14px}
 .template-builder{background:linear-gradient(180deg,#fbfdff 0%,#f7fbff 100%);border:1px solid #edf3fb;border-radius:16px;padding:14px}
+.template-builder input::placeholder,.template-builder textarea::placeholder{font-size:.8rem}
 .section-copy{margin:0 0 12px;font-size:.8rem;line-height:1.7;color:#607184}
 .bulk-toggle{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fbfcff;justify-content:space-between;align-items:center}
 .media-toggle{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fbfcff;justify-content:space-between;align-items:center}

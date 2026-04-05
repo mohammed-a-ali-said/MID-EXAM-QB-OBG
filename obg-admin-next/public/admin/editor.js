@@ -5,6 +5,7 @@
   const TEMPLATE_CHOICE_HEADERS = ["choiceA", "choiceB", "choiceC", "choiceD", "choiceE", "choiceF"];
   const LAST_PUBLISH_UNDO_KEY = "obg-admin-last-publish-undo";
   const THEME_KEY = "obg-admin-theme";
+  const SELECTED_QUESTION_KEY = "obg-admin-selected-question";
 
   function readBootUser() {
     const node = document.getElementById("admin-user-data");
@@ -23,6 +24,26 @@
       return window.localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
     } catch (error) {
       return "light";
+    }
+  }
+
+  function loadSelectedQuestionId() {
+    try {
+      return String(window.localStorage.getItem(SELECTED_QUESTION_KEY) || "").trim() || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function persistSelectedQuestionId() {
+    try {
+      if (state.selectedId) {
+        window.localStorage.setItem(SELECTED_QUESTION_KEY, state.selectedId);
+      } else {
+        window.localStorage.removeItem(SELECTED_QUESTION_KEY);
+      }
+    } catch (error) {
+      console.warn("Failed to persist selected question.", error);
     }
   }
 
@@ -158,6 +179,7 @@
     state.metadata = normalizeMetadata(snapshot?.metadata || { lectures: [], exams: [] });
     state.selectedId = snapshot?.selectedId || state.working[0]?.id || null;
     state.savedSnapshots = deepClone(snapshot?.savedSnapshots || {});
+    persistSelectedQuestionId();
     setDirty(!!snapshot?.dirty);
     renderAll();
   }
@@ -838,11 +860,15 @@
     state.original = payload.questions.map((question) => normalizeQuestion(question));
     state.working = deepClone(state.original);
     state.metadata = normalizeMetadata(payload.metadata);
-    state.selectedId = state.working[0]?.id || null;
+    const persistedSelectedId = loadSelectedQuestionId();
+    state.selectedId = state.working.some((question) => question.id === persistedSelectedId)
+      ? persistedSelectedId
+      : state.working[0]?.id || null;
     state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
     state.lastPublishedUndo = loadLastPublishedUndo();
     state.historyPast = [];
     state.historyFuture = [];
+    persistSelectedQuestionId();
     setDirty(false);
     updateUndoPublishButton();
   }
@@ -945,7 +971,7 @@
         <div class="bucket-item ${lecture.active === false ? "inactive" : ""}">
           <div>
             <div class="bucket-name">${escapeHtml(lecture.name)}</div>
-            <div class="bucket-meta">${escapeHtml(lecture.id)} آ· ${lecture.active === false ? "Hidden from students" : "Visible to students"}</div>
+            <div class="bucket-meta">${escapeHtml(lecture.id)} | ${lecture.active === false ? "Hidden from students" : "Visible to students"}</div>
           </div>
           <div class="bucket-actions">
             <button class="mini-btn" type="button" data-bucket-action="toggle-lecture" data-bucket-id="${escapeHtml(lecture.id)}">${lecture.active === false ? "Show" : "Hide"}</button>
@@ -958,7 +984,7 @@
         <div class="bucket-item ${exam.active === false ? "inactive" : ""}">
           <div>
             <div class="bucket-name">${escapeHtml(exam.label)}</div>
-            <div class="bucket-meta">${escapeHtml(exam.id)} آ· ${exam.active === false ? "Inactive" : "Active"}</div>
+            <div class="bucket-meta">${escapeHtml(exam.id)} | ${exam.active === false ? "Inactive" : "Active"}</div>
           </div>
           <div class="bucket-actions">
             <button class="mini-btn" type="button" data-bucket-action="toggle-exam" data-bucket-id="${escapeHtml(exam.id)}">${exam.active === false ? "Enable" : "Disable"}</button>
@@ -1006,6 +1032,7 @@
     }
     if (!items.some((question) => question.id === state.selectedId)) {
       state.selectedId = items[0].id;
+      persistSelectedQuestionId();
     }
     els.listMeta.textContent = `${items.length} matching questions`;
     els.questionList.innerHTML = items
@@ -1520,8 +1547,8 @@
             <article class="import-preview-row">
               <div class="import-preview-row-head">
                 <div>
-                  <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} آ· ${escapeHtml(row.question.id)}</div>
-                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} آ· ${escapeHtml(row.question.cardType || "Question")} آ· ${escapeHtml(row.mode)}${row.raw?.lecture ? ` آ· imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` آ· imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` آ· imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
+                  <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} | ${escapeHtml(row.question.id)}</div>
+                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} | ${escapeHtml(row.question.cardType || "Question")} | ${escapeHtml(row.mode)}${row.raw?.lecture ? ` | imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` | imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` | imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
                   <div class="import-preview-chip-row">
                     <span class="import-preview-chip ${row.lectureStatus === "new" ? "warn" : "ok"}">${row.lectureStatus === "new" ? "New lecture bucket" : "Existing lecture bucket"}</span>
                     <span class="import-preview-chip ${row.examStatus === "new" ? "warn" : "ok"}">${row.examStatus === "new" ? "New exam section" : "Existing exam section"}</span>
@@ -1678,6 +1705,7 @@
     });
     state.working.unshift(question);
     state.selectedId = question.id;
+    persistSelectedQuestionId();
     rememberQuestionSnapshot(question);
     setDirty(true);
     renderAll();
@@ -1695,6 +1723,7 @@
     });
     state.working.unshift(duplicate);
     state.selectedId = duplicate.id;
+    persistSelectedQuestionId();
     rememberQuestionSnapshot(duplicate);
     setDirty(true);
     renderAll();
@@ -2064,6 +2093,7 @@
       state.original = (state.lastPublishedUndo.questions || []).map((question) => normalizeQuestion(question));
       state.working = deepClone(state.original);
       state.selectedId = state.lastPublishedUndo.selectedId || state.working[0]?.id || null;
+      persistSelectedQuestionId();
       state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
       state.lastPublishedUndo = null;
       persistLastPublishedUndo();
@@ -2192,6 +2222,7 @@
       captureHistoryBeforeMutation(`Delete ${selected.id}`, { mergeWindowMs: 0 });
       state.working = state.working.filter((question) => question.id !== selected.id);
       state.selectedId = state.working[0]?.id || null;
+      persistSelectedQuestionId();
       setDirty(true);
       renderAll();
       setStatus(`Permanently removed ${selected.id} from the working copy.`, "warn");
@@ -2443,6 +2474,7 @@
     });
     state.metadata = normalizeMetadata(preview.metadata);
     state.selectedId = preview.rows[0]?.question?.id || state.working[0]?.id || null;
+    persistSelectedQuestionId();
     setDirty(true);
     closeImportPreview();
     renderAll();
@@ -2500,6 +2532,7 @@
       const trigger = event.target.closest("[data-question-id]");
       if (!trigger) return;
       state.selectedId = trigger.dataset.questionId;
+      persistSelectedQuestionId();
       renderQuestionList();
       renderEditor();
     });
