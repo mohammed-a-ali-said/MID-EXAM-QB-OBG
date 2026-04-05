@@ -68,12 +68,21 @@ function exactSourceGroupFor(source){
   const group = EXACT_SOURCE_GROUPS.find(entry => entry.match(normalized));
   return group ? group.key : '';
 }
+function cardMatchesSourceGroup(card, groupKey){
+  if(!card || !groupKey) return false;
+  if(groupKey === 'lectures_2026'){
+    const tags = getCardTagTexts(card);
+    if(tags.includes("2026 Lectures Q's")) return true;
+  }
+  return exactSourceGroupFor(card.source || '') === groupKey;
+}
 function getExactSourceOptions(cards = getVisibleCards({ dedupe:false })){
   const counts = new Map();
   (Array.isArray(cards) ? cards : []).forEach(card => {
-    const sourceGroup = exactSourceGroupFor(card?.source || '');
-    if(!sourceGroup) return;
-    counts.set(sourceGroup, (counts.get(sourceGroup) || 0) + 1);
+    EXACT_SOURCE_GROUPS.forEach(entry => {
+      if(!cardMatchesSourceGroup(card, entry.key)) return;
+      counts.set(entry.key, (counts.get(entry.key) || 0) + 1);
+    });
   });
   return EXACT_SOURCE_GROUPS
     .map(entry => ({ source: entry.key, count: counts.get(entry.key) || 0 }))
@@ -279,7 +288,7 @@ function setST(e,k,t){
 function applyFilter(){
   let d=getVisibleCards({ dedupe:false });
   if(activeFilter!=='all') d=d.filter(c=>String(c.exam||'')===activeFilter);
-  if(activeSrc) d=d.filter(c=>exactSourceGroupFor(c.source||'')===activeSrc);
+  if(activeSrc) d=d.filter(c=>cardMatchesSourceGroup(c, activeSrc));
   if(activeType) d=d.filter(c=>c.cardType===activeType);
   if(activeLec){
     d=filterCardsByLecture(d, activeLec);
@@ -699,8 +708,9 @@ function updateCounts(){
     if(c.cardType==='OSCE')      ids.osce++;
     if(c.cardType==='FLASHCARD') ids.flash++;
     if(c.cardType==='SAQ')       ids.saq++;
-    const sourceGroup = exactSourceGroupFor(c.source||'');
-    if(sourceGroup) srcCounts[sourceGroup]++; 
+    EXACT_SOURCE_GROUPS.forEach(entry => {
+      if(cardMatchesSourceGroup(c, entry.key)) srcCounts[entry.key]++;
+    });
     getCardTagTexts(c).forEach(tag => {
       tagCounts[tag]=(tagCounts[tag]||0)+1;
     });
