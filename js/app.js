@@ -260,8 +260,22 @@ function syncPracticeControls(){
 function syncAllFilterUI(){
   document.querySelectorAll('[data-f]').forEach(btn=>btn.classList.toggle('active', btn.dataset.f===filterState.exam));
   document.querySelectorAll('[data-src]').forEach(btn=>btn.classList.toggle('active', btn.dataset.src===filterState.src));
-  document.querySelectorAll('[data-type]').forEach(btn=>btn.classList.toggle('active', btn.dataset.type===filterState.type));
+  // Sync top bar type buttons
+  document.querySelectorAll('[data-type]').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === filterState.type);
+  });
   syncSidebarSelection();
+  // Sync sidebar subtabs for active lecture
+  if (filterState.lecture) {
+    const sid = 'sub_' + filterState.lecture.replace(/[^a-z0-9]/gi,'_');
+    const sub = document.getElementById(sid);
+    if (sub) {
+      sub.querySelectorAll('.s-stab').forEach(b => {
+        const t = b.dataset?.lectype || 'all';
+        b.classList.toggle('on', filterState.type ? t === filterState.type : t === 'all');
+      });
+    }
+  }
   syncPracticeControls();
 }
 function setFilters(patch, config){
@@ -843,11 +857,11 @@ function buildSidebar(){
     const hasNotes=NOTES[lec]&&NOTES[lec].length>0;
     const sid='sub_'+lec.replace(/[^a-z0-9]/gi,'_');
     const subtabs=[];
-    subtabs.push(`<button class="s-stab on" onclick="setST(event,'${esc(lec)}','all')">All(${nTotal})</button>`);
-    if(nM) subtabs.push(`<button class="s-stab mcq-t" onclick="setST(event,'${esc(lec)}','MCQ')">MCQ(${nM})</button>`);
-    if(nO) subtabs.push(`<button class="s-stab osce-t" onclick="setST(event,'${esc(lec)}','OSCE')">OSCE(${nO})</button>`);
-    if(nF) subtabs.push(`<button class="s-stab flash-t" onclick="setST(event,'${esc(lec)}','FLASHCARD')">Flash(${nF})</button>`);
-    if(nS) subtabs.push(`<button class="s-stab saq-t" onclick="setST(event,'${esc(lec)}','SAQ')">SAQ(${nS})</button>`);
+    subtabs.push(`<button class="s-stab on" data-lectype="all" onclick="setST(event,'${esc(lec)}','all')">All(${nTotal})</button>`);
+    if(nM) subtabs.push(`<button class="s-stab mcq-t" data-lectype="MCQ" onclick="setST(event,'${esc(lec)}','MCQ')">MCQ(${nM})</button>`);
+    if(nO) subtabs.push(`<button class="s-stab osce-t" data-lectype="OSCE" onclick="setST(event,'${esc(lec)}','OSCE')">OSCE(${nO})</button>`);
+    if(nF) subtabs.push(`<button class="s-stab flash-t" data-lectype="FLASHCARD" onclick="setST(event,'${esc(lec)}','FLASHCARD')">Flash(${nF})</button>`);
+    if(nS) subtabs.push(`<button class="s-stab saq-t" data-lectype="SAQ" onclick="setST(event,'${esc(lec)}','SAQ')">SAQ(${nS})</button>`);
     if(hasNotes) subtabs.push(`<button class="notes-btn" onclick="openNotes('${esc(lec)}',event)">Notes</button>`);
     html+=`<li class="sb-item" data-k="${esc(lec)}" onclick="setSL('${esc(lec)}')">
       <div class="s-main">
