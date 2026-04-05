@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OBG Complete Study Bank + Unique Previous Exams â€” Mid Exam Interactive</title>
+<title>OBG Complete Study Bank + Unique Previous Exams — Mid Exam Interactive</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/srs.css">
 <style>
@@ -125,14 +125,14 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .prog-wrap{background:var(--border);border-radius:20px;height:4px;margin-bottom:18px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-mid));border-radius:20px;transition:width .4s}
 
-/* â”€â”€ MCQ CARD â”€â”€ */
+/* ── MCQ CARD ── */
 .mcq-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);overflow:hidden;min-height:380px;display:flex;flex-direction:column}
 .mcq-hdr{background:linear-gradient(135deg,#1A5C3A,#2d8f5e);padding:12px 26px;color:#fff}
 .mcq-badge{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
 .mcq-qn{font-family:var(--font-m);font-size:.75rem;background:rgba(255,255,255,.2);border-radius:12px;padding:2px 9px}
 .mcq-tag-b{font-size:.62rem;font-weight:700;background:rgba(255,255,255,.15);border-radius:9px;padding:2px 7px;letter-spacing:.04em}
 .mcq-lec{font-size:.69rem;opacity:.82;display:flex;align-items:center;gap:5px}
-.mcq-lec::before{content:'ًں“ڑ';font-size:.68rem}
+.mcq-lec::before{content:'📚';font-size:.68rem}
 .mcq-stem{flex:1;padding:18px 26px 12px;font-family:var(--font-h);font-size:1.1rem;font-weight:600;color:var(--navy);line-height:1.42}
 .card-note{margin:0 26px 10px;padding:10px 12px;border-left:4px solid var(--gold);background:#fff8e6;
   color:#7b5e00;border-radius:8px;font-size:.8rem;line-height:1.6;max-width:620px;text-align:left}
@@ -172,12 +172,12 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .rb-easy{background:var(--teal-lt);color:var(--teal);border-color:#a8dcd3}
 .rb-easy:hover{background:var(--teal);color:#fff}
 
-/* â”€â”€ IMAGE PLACEHOLDER â”€â”€ */
+/* ── IMAGE PLACEHOLDER ── */
 .img-ph{border:2px dashed #aaa;background:#f8f9fa;padding:18px;text-align:center;color:#666;
   margin:8px 26px;border-radius:8px;font-size:.8rem}
-.img-ph::before{content:'ًں–¼ï¸ڈ ';font-size:1.1rem}
+.img-ph::before{content:'🖼️ ';font-size:1.1rem}
 
-/* â”€â”€ OSCE CARD â”€â”€ */
+/* ── OSCE CARD ── */
 .osce-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);overflow:hidden;min-height:400px;display:flex;flex-direction:column}
 .osce-hdr{background:linear-gradient(135deg,#5B21B6,#7C3AED);padding:12px 26px;color:#fff}
 .osce-stem{background:#F5F3FF;border-left:4px solid #7C3AED;padding:14px 20px;margin:14px 26px 10px;
@@ -192,7 +192,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .osce-dot.current{border-color:#7C3AED;color:#7C3AED;background:#F5F3FF}
 .osce-sub-hdr{padding:4px 26px 8px;font-size:.8rem;font-weight:700;color:#5B21B6}
 
-/* â”€â”€ FLASHCARD â”€â”€ */
+/* ── FLASHCARD ── */
 .card-stage{perspective:1200px;min-height:370px}
 .app-status-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);min-height:320px;
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
@@ -228,7 +228,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .ans-footer{border-top:1px solid var(--border);padding:10px 26px;display:flex;align-items:center;
   justify-content:space-between;gap:8px;flex-wrap:wrap;background:#fafbfd;flex-shrink:0}
 
-/* SAQ back â€” same as SAQ flip from original */
+/* SAQ back — same as SAQ flip from original */
 .card-back-saq{background:#fff;display:flex;flex-direction:column}
 .saq-ans-body{flex:1;padding:20px 26px;overflow-y:auto;max-height:420px;
   display:flex;align-items:center;justify-content:center;
@@ -474,15 +474,12 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   <div class="fdiv"></div>
   <span class="fl">SOURCE</span>
   <div class="ftabs">
-    <button class="ftab ftab-old" data-src="old_formative" onclick="setSrcFilter(this)">Old Form. <span class="cnt" id="c-src-old">0</span></button>
-    <button class="ftab ftab-new" data-src="new_formative" onclick="setSrcFilter(this)">New Form. <span class="cnt" id="c-src-new">0</span></button>
-    <button class="ftab ftab-prev" data-src="previous_exam" onclick="setSrcFilter(this)">Prev Exam <span class="cnt" id="c-src-prev">0</span></button>
+    <button class="ftab ftab-new" data-src="new_form" onclick="setSrcFilter(this)">New Form. <span class="cnt" id="c-src-new">0</span></button>
+    <button class="ftab ftab-old" data-src="old_form" onclick="setSrcFilter(this)">Old Form. <span class="cnt" id="c-src-old">0</span></button>
+    <button class="ftab ftab-prev" data-src="prev_exam" onclick="setSrcFilter(this)">Prev Exam <span class="cnt" id="c-src-prev">0</span></button>
     <button class="ftab ftab-osce" data-src="osce" onclick="setSrcFilter(this)">OSCE <span class="cnt" id="c-src-osce">0</span></button>
-    
+    <button class="ftab ftab-new" data-src="lectures_2026" onclick="setSrcFilter(this)">2026 Lectures Q's <span class="cnt" id="c-src-2026">0</span></button>
   </div>
-  <div class="fdiv"></div>
-  <span class="fl">EXACT SOURCE</span>
-  <div class="ftabs" id="source-exact-tabs"></div>
   <div class="fdiv"></div>
   <span class="fl">TYPE</span>
   <div class="ftabs">
@@ -560,7 +557,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <!-- SCORE OVERLAY -->
 <div class="score-overlay" id="score-overlay" onclick="if(event.target===this)closeScore()">
 <div class="score-card">
-  <div class="score-emoji" id="sc-emoji">ًںڈ†</div>
+  <div class="score-emoji" id="sc-emoji">🏆</div>
   <div class="score-title">Session Complete!</div>
   <div class="score-sub" id="sc-sub"></div>
   <div class="score-grid" id="sc-grid"></div>
@@ -610,4 +607,6 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 </footer>
 </body>
 </html>
+
+
 

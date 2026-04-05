@@ -237,16 +237,7 @@ function setTypeFilter(btn){
   }
   applyFilter();
 }
-function setExactSourceFilter(btn){
-  const source = String(btn?.dataset?.sourceExact || '').trim();
-  if(!source) return;
-  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeSrcExact=''; }
-  else {
-    document.querySelectorAll('[data-source-exact]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active'); activeSrcExact=source;
-  }
-  applyFilter();
-}
+function setExactSourceFilter(){ return; }
 function setSL(k){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>el.classList.remove('active'));
   const el=document.querySelector('.sb-item[data-k="'+k+'"]'); if(el)el.classList.add('active');
@@ -271,10 +262,7 @@ function setST(e,k,t){
 function applyFilter(){
   let d=getVisibleCards({ dedupe:false });
   if(activeFilter!=='all') d=d.filter(c=>String(c.exam||'')===activeFilter);
-  if(activeSrc) d=d.filter(c=>(c.source||'').toLowerCase().includes(activeSrc.replace('_',' ')));
-  // Special: extra_from_bank has _extra flag
-  if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
-  if(activeSrcExact) d=d.filter(c=>exactSourceGroupFor(c.source||'')===activeSrcExact);
+  if(activeSrc) d=d.filter(c=>exactSourceGroupFor(c.source||'')===activeSrc);
   if(activeType) d=d.filter(c=>c.cardType===activeType);
   if(activeLec){
     d=filterCardsByLecture(d, activeLec);
@@ -680,7 +668,7 @@ function updateStats(){
 function updateCounts(){
   const ids={all:0,mcq:0,osce:0,flash:0,saq:0};
   const examCounts={};
-  const srcCounts={old_formative:0,new_formative:0,previous_exam:0,osce:0,extra_from_bank:0};
+  const srcCounts={old_form:0,new_form:0,prev_exam:0,osce:0,lectures_2026:0};
   const tagCounts={};
   getVisibleCards({ dedupe:false }).forEach(c=>{
     ids.all++;
@@ -690,12 +678,8 @@ function updateCounts(){
     if(c.cardType==='OSCE')      ids.osce++;
     if(c.cardType==='FLASHCARD') ids.flash++;
     if(c.cardType==='SAQ')       ids.saq++;
-    const sl=(c.source||'').toLowerCase();
-    if(c._extra) srcCounts.extra_from_bank++;
-    else if(sl.includes('new')) srcCounts.new_formative++;
-    else if(sl.includes('old') || sl.includes('lecture')) srcCounts.old_formative++;
-    else if(sl.includes('prev') || sl.includes('exam')) srcCounts.previous_exam++;
-    else if(sl.includes('osce') || sl.includes('ospe')) srcCounts.osce++;
+    const sourceGroup = exactSourceGroupFor(c.source||'');
+    if(sourceGroup) srcCounts[sourceGroup]++; 
     getCardTagTexts(c).forEach(tag => {
       tagCounts[tag]=(tagCounts[tag]||0)+1;
     });
@@ -707,11 +691,11 @@ function updateCounts(){
     if(el) el.textContent=v;
   });
   const _s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
-  _s('c-src-old',srcCounts.old_formative);
-  _s('c-src-new',srcCounts.new_formative);
-  _s('c-src-prev',srcCounts.previous_exam);
+  _s('c-src-old',srcCounts.old_form);
+  _s('c-src-new',srcCounts.new_form);
+  _s('c-src-prev',srcCounts.prev_exam);
   _s('c-src-osce',srcCounts.osce);
-  _s('c-src-extra',srcCounts.extra_from_bank);
+  _s('c-src-2026',srcCounts.lectures_2026);
   _s('c-mcq',ids.mcq);
   _s('c-osce',ids.osce);
   _s('c-flash',ids.flash);
@@ -874,16 +858,7 @@ function renderExamTabs(){
   })).join('');
   tabs.innerHTML=html;
 }
-function renderExactSourceTabs(){
-  const tabs=document.getElementById('source-exact-tabs');
-  if(!tabs) return;
-  const sources=getExactSourceOptions();
-  tabs.innerHTML=sources.map(entry=>{
-    const label = exactSourceLabel(entry.source);
-    const cls = exactSourceTabClass(entry.source);
-    return '<button class="ftab ' + cls + (activeSrcExact===entry.source ? ' active' : '') + '" data-source-exact="' + esc(entry.source) + '" title="' + esc(entry.source) + '" onclick="setExactSourceFilter(this)">' + esc2(label) + ' <span class="cnt">' + entry.count + '</span></button>';
-  }).join('');
-}
+function renderExactSourceTabs(){ return; }
 
 function clearProgress(){
   if(!confirm('Clear all saved progress?')) return;
