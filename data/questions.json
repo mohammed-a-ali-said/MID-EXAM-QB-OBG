@@ -2622,10 +2622,10 @@
       "The safest form of delivery is cesarean section immediately after diagnosis regardless the gestational age"
     ],
     "ans": "D",
-    "image": "images/questions/c214-20260405154453.png",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c214-20260405154453.png"
   },
   {
     "id": "c169",
@@ -2830,10 +2830,10 @@
       "Wait for spontaneous onset of labor"
     ],
     "ans": "A",
-    "note": "also appeared as MU-MED 39 Q23 (c657)",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "note": "also appeared as MU-MED 39 Q23 (c657)"
   },
   {
     "id": "c181",
@@ -3251,11 +3251,11 @@
       "Deficient endometrium (e.g. due to manual removal of the placenta)"
     ],
     "ans": "B",
-    "image": "images/questions/c206-20260405151104.png",
-    "imagePlaceholderText": "Image: Placenta Previa diagram",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c206-20260405151104.png",
+    "imagePlaceholderText": "Image: Placenta Previa diagram"
   },
   {
     "id": "c207",
@@ -3272,10 +3272,10 @@
       "Contractions mainly is not found"
     ],
     "ans": "A",
-    "image": "images/questions/c207-20260405151234.png",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c207-20260405151234.png"
   },
   {
     "id": "c208",
@@ -3292,11 +3292,11 @@
       "Low lying placenta on 20-week anomaly scan"
     ],
     "ans": "A",
-    "image": "images/questions/c206-20260405151104.png",
-    "imagePlaceholderText": "Image: Placenta Previa diagram",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c206-20260405151104.png",
+    "imagePlaceholderText": "Image: Placenta Previa diagram"
   },
   {
     "id": "c209",
@@ -3313,10 +3313,10 @@
       "Ectopic pregnancy"
     ],
     "ans": "D",
-    "image": "images/questions/c209-20260405153854.png",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c209-20260405153854.png"
   },
   {
     "id": "c210",
@@ -3333,10 +3333,10 @@
       "34 wks"
     ],
     "ans": "C",
-    "note": "??????? ???????",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "note": "??????? ???????"
   },
   {
     "id": "c211",
@@ -3353,11 +3353,11 @@
       "Instrumental delivery"
     ],
     "ans": "A",
-    "image": "images/questions/c209-20260405153854.png",
-    "imagePlaceholderText": "[IMAGE - Placenta previa diagram at 36 weeks]",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c209-20260405153854.png",
+    "imagePlaceholderText": "[IMAGE - Placenta previa diagram at 36 weeks]"
   },
   {
     "id": "c212",
@@ -3375,11 +3375,11 @@
       "History of previous abruptions"
     ],
     "ans": "B",
-    "image": "images/questions/c212-20260405154153.png",
-    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c212-20260405154153.png",
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
     "id": "c213",
@@ -3396,11 +3396,11 @@
       "Dizziness and/or loss of consciousness"
     ],
     "ans": "B",
-    "image": "images/questions/c212-20260405154153.png",
-    "imagePlaceholderText": "Image: Placental Abruption",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c212-20260405154153.png",
+    "imagePlaceholderText": "Image: Placental Abruption"
   },
   {
     "id": "c214",
@@ -3435,11 +3435,11 @@
       "Severe vaginal bleeding"
     ],
     "ans": "C",
-    "image": "images/questions/c209-20260405153854.png",
-    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c209-20260405153854.png",
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
     "id": "c216",
@@ -3490,11 +3490,11 @@
       "Severe vaginal bleeding"
     ],
     "ans": "D",
-    "image": "images/questions/c214-20260405154453.png",
-    "imagePlaceholderText": "Image: Vasa Previa",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c214-20260405154453.png",
+    "imagePlaceholderText": "Image: Vasa Previa"
   },
   {
     "id": "c219",
@@ -3511,10 +3511,10 @@
       "Occurs before ROM"
     ],
     "ans": "A",
-    "image": "images/questions/c214-20260405154453.png",
     "tags": [
       "2026 Lectures Q's"
-    ]
+    ],
+    "image": "images/questions/c214-20260405154453.png"
   },
   {
     "id": "c220",
@@ -10804,7 +10804,7 @@
     "id": "c676",
     "num": "Q59",
     "cardType": "MCQ",
-    "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
+    "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q15",
     "q": "As regard predisposing factors of the vesicular mole, the risk is higher with the following blood group:",
