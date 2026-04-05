@@ -18,7 +18,7 @@ const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 let deck=[], idx=0, flipped=false, reviewed=0;
 let scores={again:0,good:0,easy:0}, mcqRes={correct:0,wrong:0};
-let activeFilter='all', activeSrc='', activeType='', activeLec=null, activeLecType='all';
+let activeFilter='all', activeSrc='', activeType='', activeTag='', activeLec=null, activeLecType='all';
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
@@ -54,6 +54,48 @@ function getExamOptions(){
   const cardExams = getVisibleCards({ dedupe:false }).map(c => String(c.exam || '').trim()).filter(Boolean);
   const fallbackExams = Array.isArray(questionResolutionHelpers.examNames) ? questionResolutionHelpers.examNames : [];
   return [...new Set([...metadataExams, ...cardExams, ...fallbackExams])].sort((a,b)=>String(a).localeCompare(String(b)));
+}
+function normalizeTagText(value){
+  let text = String(value || '').trim();
+  if(!text) return '';
+  text = text.replace(/^[★*↔]+\s*/u, '').trim();
+  if(/^also_in:/i.test(text)) return 'ALSO IN: ' + text.slice(8).trim();
+  if(/^also\s+in\s*:/i.test(text)) return 'ALSO IN: ' + text.replace(/^also\s+in\s*:/i, '').trim();
+  if(/\brepeated\b/i.test(text)) return 'REPEATED';
+  return text;
+}
+function getCardTagTexts(card){
+  const seen = new Set();
+  const output = [];
+  const addTag = (value) => {
+    const text = normalizeTagText(value);
+    if(!text || seen.has(text)) return;
+    seen.add(text);
+    output.push(text);
+  };
+  if(Array.isArray(card?.displayTags) && card.displayTags.length){
+    card.displayTags.forEach(tag => addTag(tag && typeof tag === 'object' ? tag.txt : tag));
+    return output;
+  }
+  if(Array.isArray(card?.tags)){
+    card.tags.forEach(tag => addTag(tag && typeof tag === 'object' ? tag.txt : tag));
+  }
+  if(card?._metaRepeated) addTag('REPEATED');
+  if(Array.isArray(card?.alsoInLectures)) card.alsoInLectures.forEach(lecture => addTag('ALSO IN: ' + lecture));
+  return output;
+}
+function getTagFilterOptions(cards = getVisibleCards({ dedupe:false })){
+  const counts = new Map();
+  (Array.isArray(cards) ? cards : []).forEach(card => {
+    getCardTagTexts(card).forEach(tag => counts.set(tag, (counts.get(tag) || 0) + 1));
+  });
+  return [...counts.entries()]
+    .map(([tag, count]) => ({
+      tag,
+      count,
+      cls: /^REPEATED$/i.test(tag) ? 'ftab-tag-repeated' : (/^ALSO IN:/i.test(tag) ? 'ftab-tag-also' : 'ftab-tag-generic')
+    }))
+    .sort((a,b)=> (b.count-a.count) || a.tag.localeCompare(b.tag));
 }
 function normalizeLectureFilter(value){
   if(value == null) return 'all';
@@ -201,6 +243,16 @@ function setTypeFilter(btn){
   }
   applyFilter();
 }
+function setTagFilter(btn){
+  const tag = String(btn?.dataset?.tag || '').trim();
+  if(!tag) return;
+  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeTag=''; }
+  else {
+    document.querySelectorAll('[data-tag]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active'); activeTag=tag;
+  }
+  applyFilter();
+}
 function setSL(k){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>el.classList.remove('active'));
   const el=document.querySelector('.sb-item[data-k="'+k+'"]'); if(el)el.classList.add('active');
@@ -229,6 +281,7 @@ function applyFilter(){
   // Special: extra_from_bank has _extra flag
   if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
   if(activeType) d=d.filter(c=>c.cardType===activeType);
+  if(activeTag) d=d.filter(c=>getCardTagTexts(c).includes(activeTag));
   if(activeLec){
     d=filterCardsByLecture(d, activeLec);
     if(activeLecType==='MCQ')       d=d.filter(c=>c.cardType==='MCQ');
@@ -249,14 +302,16 @@ function loadDeck(d){
   else if(activeFilter!=='all') title=activeFilter;
   if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
   if(activeType) title+=' آ· '+activeType;
+  if(activeTag) title+=' آ· '+activeTag;
   document.getElementById('deck-title').textContent=title;
   const nm=d.filter(c=>c.cardType==='MCQ').length;
   const no=d.filter(c=>c.cardType==='OSCE').length;
   const nf=d.filter(c=>c.cardType==='FLASHCARD').length;
   const ns=d.filter(c=>c.cardType==='SAQ').length;
   const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
+  const tagNote = activeTag ? ` &nbsp;آ·&nbsp; Tag filter: ${esc2(activeTag)}` : '';
   document.getElementById('deck-meta').innerHTML=
-    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}`;
+    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${tagNote}`;
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -632,6 +687,7 @@ function updateCounts(){
   const ids={all:0,mcq:0,osce:0,flash:0,saq:0};
   const examCounts={};
   const srcCounts={old_formative:0,new_formative:0,previous_exam:0,osce:0,extra_from_bank:0};
+  const tagCounts={};
   getVisibleCards({ dedupe:false }).forEach(c=>{
     ids.all++;
     const examKey=String(c.exam||'').trim() || 'mid';
@@ -646,6 +702,9 @@ function updateCounts(){
     else if(sl.includes('old') || sl.includes('lecture')) srcCounts.old_formative++;
     else if(sl.includes('prev') || sl.includes('exam')) srcCounts.previous_exam++;
     else if(sl.includes('osce') || sl.includes('ospe')) srcCounts.osce++;
+    getCardTagTexts(c).forEach(tag => {
+      tagCounts[tag]=(tagCounts[tag]||0)+1;
+    });
   });
   Object.entries(ids).forEach(([k,v])=>{const el=document.getElementById('c-'+k);if(el)el.textContent=v;});
   Object.entries(examCounts).forEach(([k,v])=>{
@@ -663,6 +722,11 @@ function updateCounts(){
   _s('c-osce',ids.osce);
   _s('c-flash',ids.flash);
   _s('c-saq-t',ids.saq);
+  Object.entries(tagCounts).forEach(([tag,v])=>{
+    const key=tag.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const el=document.getElementById('c-tag-'+key);
+    if(el) el.textContent=v;
+  });
 }
 
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -761,7 +825,7 @@ function saveProgress(){
   const data = {
     mcqAnswers, osceResults, flashRatings,
     reviewed, scores, mcqRes, idx,
-    activeFilter, activeSrc, activeType, activeLec, activeLecType
+    activeFilter, activeSrc, activeType, activeTag, activeLec, activeLecType
   };
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
 }
@@ -778,6 +842,7 @@ function loadProgress(){
       activeFilter = d.activeFilter || 'all';
       activeSrc    = d.activeSrc    || '';
       activeType   = d.activeType   || '';
+      activeTag    = d.activeTag    || '';
       activeLec    = d.activeLec    || null;
       activeLecType= d.activeLecType|| 'all';
       reviewed     = d.reviewed     || 0;
@@ -793,6 +858,7 @@ function loadProgress(){
       activeLec = preferredLecture;
       activeLecType = 'all';
     }
+    renderTagTabs();
     applyFilter();
     idx = Math.min(idx || 0, Math.max(0, deck.length - 1));
     syncSidebarSelection();
@@ -814,16 +880,26 @@ function renderExamTabs(){
   })).join('');
   tabs.innerHTML=html;
 }
+function renderTagTabs(){
+  const tabs=document.getElementById('tag-tabs');
+  if(!tabs) return;
+  const tags=getTagFilterOptions();
+  tabs.innerHTML=tags.map(entry=>{
+    const safe=entry.tag.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    return '<button class="ftab ' + entry.cls + (activeTag===entry.tag ? ' active' : '') + '" data-tag="' + esc(entry.tag) + '" onclick="setTagFilter(this)">' + esc2(entry.tag) + ' <span class="cnt" id="c-tag-' + safe + '">' + entry.count + '</span></button>';
+  }).join('');
+}
 
 function clearProgress(){
   if(!confirm('Clear all saved progress?')) return;
   localStorage.removeItem(LS_KEY);
   mcqAnswers={}; osceResults={}; flashRatings={};
   reviewed=0; scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
-  activeFilter='all'; activeSrc=''; activeType=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
+  activeFilter='all'; activeSrc=''; activeType=''; activeTag=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
   randomMode = storedRandomMode();
   syncSidebarSelection();
   syncPracticeControls();
+  renderTagTabs();
   applyFilter();
 }
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -831,6 +907,7 @@ function clearProgress(){
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 buildSidebar();
 renderExamTabs();
+renderTagTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
 syncPracticeControls();
 loadProgress();
