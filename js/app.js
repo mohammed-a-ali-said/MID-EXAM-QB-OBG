@@ -55,29 +55,40 @@ function getExamOptions(){
   const fallbackExams = Array.isArray(questionResolutionHelpers.examNames) ? questionResolutionHelpers.examNames : [];
   return [...new Set([...metadataExams, ...cardExams, ...fallbackExams])].sort((a,b)=>String(a).localeCompare(String(b)));
 }
+const EXACT_SOURCE_GROUPS = [
+  { key:'new_form', label:"New Form", match:(source)=>source.includes('new formative') },
+  { key:'old_form', label:"Old Form", match:(source)=>source.includes('old formative') || source.includes("lecture q's (old") },
+  { key:'prev_exam', label:"Prev Exam", match:(source)=>source.includes('previous exam') || source.includes('mid-term exam') },
+  { key:'osce', label:"OSCE", match:(source)=>source.includes('osce') || source.includes('ospe') },
+  { key:'lectures_2026', label:"2026 Lectures Q's", match:(source)=>source.includes("2026 lectures q's") }
+];
+function exactSourceGroupFor(source){
+  const normalized = String(source || '').trim().toLowerCase();
+  if(!normalized) return '';
+  const group = EXACT_SOURCE_GROUPS.find(entry => entry.match(normalized));
+  return group ? group.key : '';
+}
 function getExactSourceOptions(cards = getVisibleCards({ dedupe:false })){
   const counts = new Map();
   (Array.isArray(cards) ? cards : []).forEach(card => {
-    const source = String(card?.source || '').trim();
-    if(!source) return;
-    counts.set(source, (counts.get(source) || 0) + 1);
+    const sourceGroup = exactSourceGroupFor(card?.source || '');
+    if(!sourceGroup) return;
+    counts.set(sourceGroup, (counts.get(sourceGroup) || 0) + 1);
   });
-  return [...counts.entries()]
-    .map(([source, count]) => ({ source, count }))
-    .sort((a,b)=> (b.count-a.count) || a.source.localeCompare(b.source));
+  return EXACT_SOURCE_GROUPS
+    .map(entry => ({ source: entry.key, count: counts.get(entry.key) || 0 }))
+    .filter(entry => entry.count > 0);
 }
 function exactSourceLabel(source){
-  const text = String(source || '').trim();
-  if(!text) return 'Unknown';
-  if(/^Previous Exams Added — /i.test(text)) return text.replace(/^Previous Exams Added — /i, '');
-  if(/^Source:s*/i.test(text)) return text.replace(/^Source:s*/i, '');
-  return text;
+  const key = String(source || '').trim();
+  const group = EXACT_SOURCE_GROUPS.find(entry => entry.key === key);
+  return group ? group.label : key || 'Unknown';
 }
 function exactSourceTabClass(source){
-  const cls = srcClass(source);
-  if(cls === 'src-new') return 'ftab-new';
-  if(cls === 'src-prev') return 'ftab-prev';
-  if(cls === 'src-osce') return 'ftab-osce';
+  if(source === 'new_form') return 'ftab-new';
+  if(source === 'prev_exam') return 'ftab-prev';
+  if(source === 'osce') return 'ftab-osce';
+  if(source === 'lectures_2026') return 'ftab-new';
   return 'ftab-old';
 }
 function normalizeLectureFilter(value){
@@ -263,7 +274,7 @@ function applyFilter(){
   if(activeSrc) d=d.filter(c=>(c.source||'').toLowerCase().includes(activeSrc.replace('_',' ')));
   // Special: extra_from_bank has _extra flag
   if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
-  if(activeSrcExact) d=d.filter(c=>String(c.source||'').trim()===activeSrcExact);
+  if(activeSrcExact) d=d.filter(c=>exactSourceGroupFor(c.source||'')===activeSrcExact);
   if(activeType) d=d.filter(c=>c.cardType===activeType);
   if(activeLec){
     d=filterCardsByLecture(d, activeLec);
