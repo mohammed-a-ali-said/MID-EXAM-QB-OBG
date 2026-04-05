@@ -84,6 +84,15 @@ function exactSourceLabel(source){
   const group = EXACT_SOURCE_GROUPS.find(entry => entry.key === key);
   return group ? group.label : key || 'Unknown';
 }
+function getCardTagTexts(card){
+  const tags = Array.isArray(card?.tags) ? card.tags : [];
+  return tags.map(tag => {
+    if(typeof tag === 'string') return tag;
+    if(tag && typeof tag === 'object') return String(tag.txt || tag.label || tag.name || '').trim();
+    return '';
+  }).filter(Boolean);
+}
+
 function exactSourceTabClass(source){
   if(source === 'new_form') return 'ftab-new';
   if(source === 'prev_exam') return 'ftab-prev';
