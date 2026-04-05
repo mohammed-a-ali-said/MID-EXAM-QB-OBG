@@ -281,7 +281,6 @@ function syncAllFilterUI(){
   const allCnt = document.getElementById('sb-cnt-all');
   if (allCnt) allCnt.textContent = getVisibleCards({ dedupe: true }).length;
   syncPracticeControls();
-  updateFilterStatus();
 }
 function setFilters(patch, config){
   const options = config || {};
@@ -291,34 +290,7 @@ function setFilters(patch, config){
   persistPracticePreferences();
   if(triggerRender) applyFilter();
 }
-function updateFilterStatus() {
-  const bar = document.getElementById('filter-status');
-  const chips = document.getElementById('fstatus-chips');
-  if(!bar || !chips) return;
-  const active = [];
 
-  if (filterState.exam !== 'all')
-    active.push({ label: '?? ' + filterState.exam.toUpperCase(), clear: () => setFilters({ exam: 'all' }) });
-  if (filterState.lecture)
-    active.push({ label: '?? ' + filterState.lecture, clear: () => setFilters({ lecture: null, type: '' }) });
-  if (filterState.src)
-    active.push({ label: '?? ' + srcLabel(filterState.src), clear: () => setFilters({ src: '' }) });
-  if (filterState.type)
-    active.push({ label: '?? ' + filterState.type, clear: () => setFilters({ type: '' }) });
-
-  bar.style.display = active.length ? 'flex' : 'none';
-  chips.innerHTML = active.map((f, i) =>
-    '<span class="fchip">' + f.label + '<span class="fchip-x" data-ci="' + i + '">?</span></span>'
-  ).join('');
-
-  chips.querySelectorAll('.fchip-x').forEach(x => {
-    const i = parseInt(x.dataset.ci);
-    x.addEventListener('click', (e) => { e.stopPropagation(); active[i].clear(); });
-  });
-}
-function clearAllFilters() {
-  setFilters({ exam: 'all', src: '', type: '', lecture: null });
-}
 function applyLectureSelection(value, opts={}){
   const lecture = normalizeLectureFilter(value);
   // Dropdown selection intentionally performs a clean reset.
@@ -389,42 +361,16 @@ function setTypeFilter(btn){
   setFilters({ type: filterState.type === t ? '' : t });
 }
 function setExactSourceFilter(){ return; }
-function runLectureSwitch(callback, activeItem){
-  const container = document.querySelector('.main') || document.getElementById('stage-wrap');
-  const finish = () => {
-    if(activeItem){
-      activeItem.classList.remove('lec-highlight');
-      void activeItem.offsetWidth;
-      activeItem.classList.add('lec-highlight');
-      setTimeout(() => activeItem.classList.remove('lec-highlight'), 400);
-    }
-  };
-  if(!container){
-    callback();
-    finish();
-    return;
-  }
-  container.classList.add('lec-switching');
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      callback();
-      container.classList.remove('lec-switching');
-      finish();
-    }, 160);
-  });
-}
 function setSL(k){
   if (k === '__all__') {
     setFilters({ lecture: null, type: '' });
     return;
   }
-  const el=document.querySelector('.sb-item[data-k="'+k+'"]');
-  runLectureSwitch(function(){ setFilters({ lecture: k, type: '' }); }, el);
+  setFilters({ lecture: k, type: '' });
 }
 function setST(e,k,t){
   e.stopPropagation();
-  const activeItem=document.querySelector('.sb-item[data-k="'+k+'"]');
-  runLectureSwitch(function(){ setFilters({ lecture: k, type: t === 'all' ? '' : t }); }, activeItem);
+  setFilters({ lecture: k, type: t === 'all' ? '' : t });
 }
 function applyFilter(){
   pendingCardDirection = 'next';
