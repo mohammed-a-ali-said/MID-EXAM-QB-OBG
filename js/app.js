@@ -59,7 +59,7 @@ function normalizeLectureFilter(value){
   if(!normalized || normalized.toLowerCase() === 'all') return 'all';
   const resolutionHelper = questionResolutionHelpers.normalizeLectureName(normalized);
   if(resolutionHelper) return resolutionHelper;
-  return getLectureOptions().find(lecture => String(lecture) === normalized) || 'all';
+  return getLectureOptions().find(lecture => String(lecture) === normalized) || normalized;
 }
 function shuffleArray(array){
   const copy = Array.isArray(array) ? array.slice() : [];

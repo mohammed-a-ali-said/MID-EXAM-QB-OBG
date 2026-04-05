@@ -487,9 +487,13 @@
       });
     
       function cardHasLectureAssociation(card, lectureFilter) {
-        const lecture = normalizeLectureName(lectureFilter);
-        if (!lecture || lecture === "all") return true;
-        return uniqueStrings([card.lecture, ...(card._associatedLectures || []), ...(card.lectures || [])]).includes(lecture);
+        const rawLecture = cleanWhitespace(lectureFilter);
+        if (!rawLecture || normalizeText(rawLecture) === "all") return true;
+        const lecture = normalizeLectureName(rawLecture);
+        const associations = uniqueStrings([card.lecture, ...(card._associatedLectures || []), ...(card.lectures || [])]).filter(Boolean);
+        if (lecture) return associations.includes(lecture);
+        const rawNormalized = normalizeText(rawLecture);
+        return associations.some((entry) => normalizeText(entry) === rawNormalized);
       }
     
       function representativeScore(card, lectureFilter) {
