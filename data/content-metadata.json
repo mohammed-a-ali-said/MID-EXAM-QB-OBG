@@ -83,12 +83,6 @@
       "name": "VTE, UTI & Thyroid",
       "active": true,
       "order": 14
-    },
-    {
-      "id": "antenatal-assessment-of-fetal-wellbeing",
-      "name": "Antenatal Assessment of Fetal Wellbeing",
-      "active": true,
-      "order": 15
     }
   ],
   "exams": [
