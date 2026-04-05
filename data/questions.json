@@ -3627,8 +3627,8 @@
     "source": "Old Formatives",
     "q": "which is wrong regard hyperemesis gravidarum",
     "a": "More in multigravida",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c232",
@@ -3639,8 +3639,8 @@
     "source": "Old Formatives",
     "q": "definition of emesis gravidarum",
     "a": "Answer not included",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c233",
@@ -7486,8 +7486,8 @@
     "source": "Old Formatives",
     "q": "sure sign of labor onset",
     "a": "�� Answer: Cervical effacement and dilation",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c473",
@@ -7498,8 +7498,8 @@
     "source": "Old Formatives",
     "q": "anterior asynclitism mean",
     "a": "sagittal near to promontory",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c476",
@@ -7510,8 +7510,8 @@
     "source": "Old Formatives",
     "q": "fetal position",
     "a": "relation between bony landmark of dependent part & maternal pelvis",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c477",
@@ -7522,8 +7522,8 @@
     "source": "Old Formatives",
     "q": "Schultz method is",
     "a": "more physiological",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c478",
@@ -7534,8 +7534,8 @@
     "source": "Old Formatives",
     "q": "end of first stage is marked by",
     "a": "cervical dilation & effacement",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c479",
@@ -7546,8 +7546,8 @@
     "source": "Old Formatives",
     "q": "normal labor includes",
     "a": "37-42 weeks",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c481",
@@ -8056,7 +8056,7 @@
     ],
     "ans": "A",
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
+      "also_in:Intrapartum Fetal Monitoring"
     ]
   },
   {
@@ -8075,7 +8075,7 @@
     ],
     "ans": "D",
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
+      "also_in:Intrapartum Fetal Monitoring"
     ]
   },
   {
@@ -8094,7 +8094,7 @@
     ],
     "ans": "C",
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
+      "also_in:Intrapartum Fetal Monitoring"
     ]
   },
   {
@@ -8209,7 +8209,7 @@
     ],
     "ans": "A",
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
+      "also_in:Intrapartum Fetal Monitoring"
     ]
   },
   {
@@ -8244,7 +8244,7 @@
     ],
     "ans": "C",
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
+      "also_in:Intrapartum Fetal Monitoring"
     ]
   },
   {
@@ -11135,10 +11135,10 @@
       "Persistent bradycardia"
     ],
     "ans": "C",
-    "_mergedPrevExam": true,
     "tags": [
-      "also_in:Antenatal Assessment of Fetal Wellbeing"
-    ]
+      "also_in:Intrapartum Fetal Monitoring"
+    ],
+    "_mergedPrevExam": true
   },
   {
     "id": "c708",
@@ -11246,8 +11246,8 @@
     "source": "Source: MU-MED 35 — Mid-Term Exam — Q86",
     "q": "Diameter of engagement of brow ...",
     "a": "Answer not included",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c722",
@@ -11258,8 +11258,8 @@
     "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q61",
     "q": "Drug not used in third stage of labor in cardiac patient",
     "a": "Answer not included",
-    "active": false,
-    "note": "incomplete - needs manual completion"
+    "note": "incomplete - needs manual completion",
+    "active": false
   },
   {
     "id": "c735",
@@ -11591,7 +11591,7 @@
     "id": "c757",
     "num": "Q1",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Which fetal hemoglobin type predominates at term?",
@@ -11607,7 +11607,7 @@
     "id": "c758",
     "num": "Q2",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Hb F has:",
@@ -11623,7 +11623,7 @@
     "id": "c759",
     "num": "Q3",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal breathing movements typically begin at:",
@@ -11639,7 +11639,7 @@
     "id": "c760",
     "num": "Q4",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal heart rate reactivity begins at:",
@@ -11655,7 +11655,7 @@
     "id": "c761",
     "num": "Q5",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "The Cardiff \"Rule of 10\" refers to:",
@@ -11671,7 +11671,7 @@
     "id": "c762",
     "num": "Q7",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal tachycardia is defined as FHR above:",
@@ -11687,7 +11687,7 @@
     "id": "c763",
     "num": "Q8",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Absent variability is defined as:",
@@ -11703,7 +11703,7 @@
     "id": "c764",
     "num": "Q9",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Moderate variability is:",
@@ -11719,7 +11719,7 @@
     "id": "c765",
     "num": "Q15",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Which FHR category requires immediate evaluation for possible delivery?",
@@ -11735,7 +11735,7 @@
     "id": "c766",
     "num": "Q16",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "A sinusoidal fetal heart rate pattern is:",
@@ -11751,7 +11751,7 @@
     "id": "c767",
     "num": "Q17",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "A Biophysical Profile score of 8–10 indicates:",
@@ -11767,7 +11767,7 @@
     "id": "c768",
     "num": "Q18",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Delivery is indicated for a BPP score of:",
@@ -11783,7 +11783,7 @@
     "id": "c769",
     "num": "Q19",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Umbilical artery Doppler is mostly useful in:",
@@ -11799,7 +11799,7 @@
     "id": "c770",
     "num": "Q20",
     "cardType": "MCQ",
-    "lecture": "Antenatal Assessment of Fetal Wellbeing",
+    "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Reversed diastolic flow in umbilical artery Doppler indicates:",
