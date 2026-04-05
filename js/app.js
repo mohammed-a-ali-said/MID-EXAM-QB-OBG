@@ -303,7 +303,7 @@ function renderCard(){
 
 function renderInlineNote(c){
   if(!c || !c.note) return '';
-  return `<div class="card-note"><strong>Note:</strong> ${mdBold(esc2(c.note))}</div>`;
+  return `<div class="card-note" dir="auto"><strong>Note:</strong> ${mdBold(esc2(c.note))}</div>`;
 }
 
 function renderQuestionMedia(c){
@@ -313,7 +313,7 @@ function renderQuestionMedia(c){
     return `<div class="question-media"><img src="${esc(image)}" style="max-width:100%;max-height:360px;border-radius:12px;margin:10px auto 14px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.12);background:#fff" alt="${alt}">${c?.imageAlt?`<div style="text-align:center;font-size:.76rem;color:#64748b;margin-top:-4px;margin-bottom:12px">${esc2(c.imageAlt)}</div>`:''}</div>`;
   }
   if(c?.imagePlaceholder){
-    return `<div class="img-ph">${esc2(c.imagePlaceholderText||'Image')}</div>`;
+    return `<div class="img-ph" dir="auto">${esc2(c.imagePlaceholderText||'Image')}</div>`;
   }
   return '';
 }
@@ -326,7 +326,7 @@ function renderMCQ(c){
     const l=String.fromCharCode(65+i);
     return `<button class="choice-btn" data-l="${l}" onclick="pick(this,'${l}','${answerKey}')">
       <span class="c-letter" id="ci${l}_${c.id}">${l}</span>
-      <span>${esc2(ch)}</span><span class="c-icon" id="icon${l}_${c.id}"></span>
+      <span dir="auto">${esc2(ch)}</span><span class="c-icon" id="icon${l}_${c.id}"></span>
     </button>`;
   }).join('');
   const imgPh = renderQuestionMedia(c);
@@ -341,7 +341,7 @@ function renderMCQ(c){
     <div class="mcq-lec">${esc2(c.lecture||'')}${c.doctor?` &nbsp;آ·&nbsp; ${esc2(c.doctor)}`:''}</div>
   </div>
   ${imgPh}${extraBanner}
-  <div class="mcq-stem">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+  <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
   ${renderInlineNote(c)}
   ${tags?`<div class="mcq-tags">${tags}</div>`:''}
   <div class="mcq-choices">${choices}</div>
@@ -383,7 +383,7 @@ function renderOSCE(c){
     const subQ = cur.q||'';
     const subQm = subQ.match(/Q\d+\.\d+[\.\s]*(.*)/);
     const subQText = subQm ? subQm[1] : subQ;
-    subContent = subQ ? `<div class="osce-sub-hdr">Part ${subIdx+1}: ${esc2(subQText)}</div>` : '';
+    subContent = subQ ? `<div class="osce-sub-hdr" dir="auto">Part ${subIdx+1}: ${esc2(subQText)}</div>` : '';
   }
   
   // Choices for current sub
@@ -410,7 +410,7 @@ function renderOSCE(c){
     <div class="mcq-lec">${esc2(c.lecture||'')}</div>
   </div>
   ${imgPh}${extraBanner}
-  <div class="osce-stem">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
+  <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
   ${renderInlineNote(c)}
   ${tags?`<div class="mcq-tags">${tags}</div>`:''}
   ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
@@ -445,7 +445,7 @@ function renderFlipCard(c, type){
     <div class="q-badge"><span>${esc2(c.num||'')}</span><span class="ttype ${tclass}">${tname}</span><span>${esc2(c.lecture||'')}</span></div>
     <div class="q-lec">${srcBadge}</div>
     ${extraBanner}
-    <div class="q-text">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+    <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
     ${media}
     ${renderInlineNote(c)}
     ${tags?`<div class="mcq-tags">${tags}</div>`:''}
@@ -499,7 +499,7 @@ function renderUnresolvedStub(c){
     </div>
     <div class="mcq-lec">${esc2(c.lecture||'')}</div>
   </div>
-  <div class="mcq-stem">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+  <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
   ${tags?`<div class="mcq-tags">${tags}</div>`:''}
   <div class="mcq-result" style="display:block;background:#fff7ed;color:#9a3412;border:1px solid #fdba74">
     This reference stub could not be resolved to a full question body, so it is excluded from normal study queues.
@@ -967,4 +967,5 @@ function goToCard(cardId){
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
+
 

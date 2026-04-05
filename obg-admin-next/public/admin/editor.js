@@ -1029,9 +1029,9 @@
     }
     els.previewCard.innerHTML = `
       <div class="preview-title">${escapeHtml(question.lecture || "No lecture")} | ${escapeHtml(question.cardType)}</div>
-      <div class="preview-question">${escapeHtml(question.q || "")}</div>
+      <div class="preview-question" dir="auto">${escapeHtml(question.q || "")}</div>
       ${renderPreviewMedia(question)}
-      ${question.note ? `<div class="preview-note"><strong>Note:</strong> ${escapeHtml(question.note)}</div>` : ""}
+      ${question.note ? `<div class="preview-note" dir="auto"><strong>Note:</strong> ${escapeHtml(question.note)}</div>` : ""}
       ${body}
       <div class="chip-row">
         <span class="chip chip-type">${escapeHtml(question.cardType)}</span>
@@ -2583,6 +2583,7 @@
     init();
   }
 })();
+
 
 
 

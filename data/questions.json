@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "c1",
     "num": "Q1",
@@ -185,10 +185,10 @@
     "source": "Old Formatives",
     "q": "Normal pregnancy hemoglobin is",
     "choices": [
-      "9–12 g/dL",
-      "10–12 g/dL",
-      "11–12 g/dL",
-      "8–12 g/dL"
+      "9â€“12 g/dL",
+      "10â€“12 g/dL",
+      "11â€“12 g/dL",
+      "8â€“12 g/dL"
     ],
     "ans": "B"
   },
@@ -389,7 +389,7 @@
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "New Formatives",
-    "q": "If a pregnant woman had first day of her last menstrual period on January 1, 2023, her expected date for delivery will be expected on: ↔ ALSO IN: ANC — EDD calculation (Naegele's rule)",
+    "q": "If a pregnant woman had first day of her last menstrual period on January 1, 2023, her expected date for delivery will be expected on: â†” ALSO IN: ANC â€” EDD calculation (Naegele's rule)",
     "choices": [
       "October 8, 2023",
       "October 1, 2023",
@@ -400,7 +400,7 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: ANC — EDD calculation (Naegele's rule)"
+        "txt": "â†” ALSO IN: ANC â€” EDD calculation (Naegele's rule)"
       }
     ]
   },
@@ -411,7 +411,7 @@
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "New Formatives / Old Formatives / Previous Exams",
-    "q": "If the patient is not sure of her last menstrual period, the next method of estimating the gestational age is: ↔ ALSO IN: ANC — gestational age when LMP unknown",
+    "q": "If the patient is not sure of her last menstrual period, the next method of estimating the gestational age is: â†” ALSO IN: ANC â€” gestational age when LMP unknown",
     "choices": [
       "Early ultrasound scan in the first trimester",
       "Second trimester scan",
@@ -422,7 +422,7 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: ANC — gestational age when LMP unknown"
+        "txt": "â†” ALSO IN: ANC â€” gestational age when LMP unknown"
       }
     ]
   },
@@ -433,7 +433,7 @@
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "New Formatives",
-    "q": "Routine anomaly scan should be offered at: ↔ ALSO IN: ANC — routine anomaly scan timing",
+    "q": "Routine anomaly scan should be offered at: â†” ALSO IN: ANC â€” routine anomaly scan timing",
     "choices": [
       "18-22 weeks of gestation",
       "24-26 weeks of gestation",
@@ -444,7 +444,7 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: ANC — routine anomaly scan timing"
+        "txt": "â†” ALSO IN: ANC â€” routine anomaly scan timing"
       }
     ]
   },
@@ -999,7 +999,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "New Formatives",
-    "q": "EDD calculation (Naegele's rule) — see Diagnosis of Pregnancy Q1. ★ REPEATED ↔ ALSO IN: Diagnosis of Pregnancy",
+    "q": "EDD calculation (Naegele's rule) â€” see Diagnosis of Pregnancy Q1. âک… REPEATED â†” ALSO IN: Diagnosis of Pregnancy",
     "choices": [
       "October 8, 2023",
       "October 1, 2023",
@@ -1010,11 +1010,11 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: Diagnosis of Pregnancy"
+        "txt": "â†” ALSO IN: Diagnosis of Pregnancy"
       },
       {
         "cls": "tag-repeated",
-        "txt": "★ REPEATED"
+        "txt": "âک… REPEATED"
       }
     ]
   },
@@ -1105,7 +1105,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "New Formatives",
-    "q": "Gestational age when LMP unknown — see Diagnosis Q2. ★ REPEATED ↔ ALSO IN: Diagnosis of Pregnancy",
+    "q": "Gestational age when LMP unknown â€” see Diagnosis Q2. âک… REPEATED â†” ALSO IN: Diagnosis of Pregnancy",
     "choices": [
       "Early ultrasound scan in the first trimester",
       "Second trimester scan",
@@ -1116,11 +1116,11 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: Diagnosis of Pregnancy"
+        "txt": "â†” ALSO IN: Diagnosis of Pregnancy"
       },
       {
         "cls": "tag-repeated",
-        "txt": "★ REPEATED"
+        "txt": "âک… REPEATED"
       }
     ]
   },
@@ -1131,7 +1131,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "New Formatives",
-    "q": "Routine anomaly scan timing — see Diagnosis Q3. ★ REPEATED ↔ ALSO IN: Diagnosis of Pregnancy",
+    "q": "Routine anomaly scan timing â€” see Diagnosis Q3. âک… REPEATED â†” ALSO IN: Diagnosis of Pregnancy",
     "choices": [
       "18-22 weeks",
       "24-26 weeks",
@@ -1142,11 +1142,11 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: Diagnosis of Pregnancy"
+        "txt": "â†” ALSO IN: Diagnosis of Pregnancy"
       },
       {
         "cls": "tag-repeated",
-        "txt": "★ REPEATED"
+        "txt": "âک… REPEATED"
       }
     ]
   },
@@ -1838,7 +1838,7 @@
     "source": "Old Formatives",
     "q": "which not occur in ectopic pregnancy",
     "choices": [
-      "pallor & ……….",
+      "pallor & â€¦â€¦â€¦.",
       "lower abdominal tenderness",
       "adnexal tenderness",
       "tenderness on moving cervix"
@@ -2345,9 +2345,9 @@
     "source": "Old Formatives",
     "q": "The optimal gestational age for performing cervical cercalage is",
     "choices": [
-      "10 – 12 wk",
-      "12 – 14 wk",
-      "6 – 10 wk",
+      "10 â€“ 12 wk",
+      "12 â€“ 14 wk",
+      "6 â€“ 10 wk",
       "16 - 18 wk"
     ],
     "ans": "B"
@@ -3294,7 +3294,7 @@
       "34 wks"
     ],
     "ans": "C",
-    "note": "??????? ???????"
+    "note": "تعديلات الاتحاد"
   },
   {
     "id": "c211",
@@ -3303,7 +3303,7 @@
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "If this condition is still present at 36 weeks gestation, delivery via …. is recommended:",
+    "q": "If this condition is still present at 36 weeks gestation, delivery via â€¦. is recommended:",
     "choices": [
       "caesarean section",
       "Vaginal delivery",
@@ -3358,7 +3358,7 @@
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "The amount of blood loss often …… with the degree of that condition:",
+    "q": "The amount of blood loss often â€¦â€¦ with the degree of that condition:",
     "choices": [
       "correlates poorly",
       "Does not correlates",
@@ -3843,9 +3843,9 @@
     "source": "Old Formatives / Previous Exams",
     "q": "WHAT IS THE DEFINITION OF SIGNIFICANT PROTEINURIA IN PREGNANCY:",
     "choices": [
-      "≥ 3 g / 24h",
-      "≥ 300 mg / 24h",
-      "≤ 300 mg / 24 h",
+      "â‰¥ 3 g / 24h",
+      "â‰¥ 300 mg / 24h",
+      "â‰¤ 300 mg / 24 h",
       "< 5 g / 24 h"
     ],
     "ans": "B"
@@ -3893,7 +3893,7 @@
     "choices": [
       "Most pregnant women develop pre-eclampsia.",
       "About 25% of all pregnant women develop preeclampsia.",
-      "About 5–6% of all pregnant women develop preeclampsia",
+      "About 5â€“6% of all pregnant women develop preeclampsia",
       "Very rare"
     ],
     "ans": "C"
@@ -4147,10 +4147,10 @@
     "source": "Old Formatives",
     "q": "THE FOLLOWING STATEMENT IS TRUE REGARDING EXPECTANT MANAGEMENT OF PRE-ECLAMPSIA WITH SEVERE FEATURES:",
     "choices": [
-      "It is safe for the mother and fetus when gestational age is 34– 35 weeks.",
+      "It is safe for the mother and fetus when gestational age is 34â€“ 35 weeks.",
       "Intravenous magnesium sulfate given prophylactically reduces the risks of convulsions.",
-      "Corticosteroids do not reduce neonatal morbidity when gestational age is 30–32 weeks in the presence of severe preeclampsia.",
-      "Expectant management improves outcome when gestational age is 21–22 weeks."
+      "Corticosteroids do not reduce neonatal morbidity when gestational age is 30â€“32 weeks in the presence of severe preeclampsia.",
+      "Expectant management improves outcome when gestational age is 21â€“22 weeks."
     ],
     "ans": "B"
   },
@@ -4475,8 +4475,8 @@
     "q": "one of the following is a high risk factor for pre-eclampsia:",
     "choices": [
       "pre-eclampsia or eclampsia in previous pregnancy",
-      "Maternal age ≥ 40 years.",
-      "Maternal BMI ≥ 35 at initial presentation.",
+      "Maternal age â‰¥ 40 years.",
+      "Maternal BMI â‰¥ 35 at initial presentation.",
       "Family history of pre-eclampsia"
     ],
     "ans": "A"
@@ -4507,8 +4507,8 @@
     "q": "One of the following is not a risk factor for developing that condition:",
     "choices": [
       "Multi parity.",
-      "Maternal age ≥ 40 years.",
-      "Maternal BMI ≥ 35 at initial presentation.",
+      "Maternal age â‰¥ 40 years.",
+      "Maternal BMI â‰¥ 35 at initial presentation.",
       "Family history of pre-eclampsia"
     ],
     "ans": "A"
@@ -4584,7 +4584,7 @@
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "New Formatives / Old Formatives",
-    "q": "25 years old primigravid woman delivers a baby weighing 4 kg and encounters shoulder dystocia. Which of the following is a risk factor for this condition? ↔ ALSO IN: Abnormal Labour — shoulder dystocia risk factors",
+    "q": "25 years old primigravid woman delivers a baby weighing 4 kg and encounters shoulder dystocia. Which of the following is a risk factor for this condition? â†” ALSO IN: Abnormal Labour â€” shoulder dystocia risk factors",
     "choices": [
       "Maternal gestational diabetes",
       "Fetal hydrocephalous",
@@ -4595,7 +4595,7 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: Abnormal Labour — shoulder dystocia risk factors"
+        "txt": "â†” ALSO IN: Abnormal Labour â€” shoulder dystocia risk factors"
       }
     ]
   },
@@ -5042,8 +5042,8 @@
     "choices": [
       "fasting blood glucose: 140 mg/dl",
       "random glucose > 160 mg/dl",
-      "2 hour post prandial glucose ≥ to 126 mg/dl",
-      "fasting blood glucose ≥ 126 mg/dl"
+      "2 hour post prandial glucose â‰¥ to 126 mg/dl",
+      "fasting blood glucose â‰¥ 126 mg/dl"
     ],
     "ans": "D"
   },
@@ -5569,7 +5569,7 @@
     "source": "OSCE & OSPE",
     "q": "Regarding preconceptional counselling which is not true:",
     "choices": [
-      "Glycosylated HbA1C ❼ Allow pregnancy if it is more than l0%",
+      "Glycosylated HbA1C â‌¼ Allow pregnancy if it is more than l0%",
       "LASER for retinopathy",
       "Advise against pregnancy if Marked renal or progressive retinal affection, ischemic heart disease"
     ],
@@ -5838,7 +5838,7 @@
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
     "source": "New Formatives / Old Formatives",
-    "q": "The antidote of heparin is: ↔ ALSO IN: Also in VTE",
+    "q": "The antidote of heparin is: â†” ALSO IN: Also in VTE",
     "choices": [
       "Tranexamic acid",
       "Vitamin K",
@@ -5849,7 +5849,7 @@
     "tags": [
       {
         "cls": "tag-also",
-        "txt": "↔ ALSO IN: Also in VTE"
+        "txt": "â†” ALSO IN: Also in VTE"
       }
     ]
   },
@@ -6039,8 +6039,8 @@
     "q": "The following statements are related to the therapy of iron deficiency anemia except: )",
     "choices": [
       "Oral iron can be given only if anemia is detected before 20 weeks of pregnancy",
-      "Parenteral iron therapy markedly increases the reticulocytic count within 7–14 days",
-      "Parenteral therapy is ideal during 30–36 weeks",
+      "Parenteral iron therapy markedly increases the reticulocytic count within 7â€“14 days",
+      "Parenteral therapy is ideal during 30â€“36 weeks",
       "Blood transfusion may be useful in severe anemia beyond 36 weeks"
     ],
     "ans": "A"
@@ -6086,10 +6086,10 @@
     "source": "Lecture Q's (OLD",
     "q": "Formula used for estimation of the total iron requirement is: )",
     "choices": [
-      "4 × body weight (kg) x Hb deficit (g/dL)",
-      "4.4 × body weight (kg) x Hb deficit (g/dL)",
-      "0.3 × body weight (kg) x Hb deficit (g/dL)",
-      "3.3 × body weight (kg) x Hb deficit (g/dL)"
+      "4 أ— body weight (kg) x Hb deficit (g/dL)",
+      "4.4 أ— body weight (kg) x Hb deficit (g/dL)",
+      "0.3 أ— body weight (kg) x Hb deficit (g/dL)",
+      "3.3 أ— body weight (kg) x Hb deficit (g/dL)"
     ],
     "ans": "B"
   },
@@ -6634,7 +6634,7 @@
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
     "source": "Old Formatives",
-    "q": "the lab criteria for diagnosis of ant –phospholipid syndrome (APS) require that one or more of lupus ant-coagulant ant cardiolopin antibody (IgG- 19m) and ant B2 glycoprotein (IgG- Igm) positive on:",
+    "q": "the lab criteria for diagnosis of ant â€“phospholipid syndrome (APS) require that one or more of lupus ant-coagulant ant cardiolopin antibody (IgG- 19m) and ant B2 glycoprotein (IgG- Igm) positive on:",
     "choices": [
       "single occasion",
       "3 occasions at least 4 weeks apart",
@@ -6844,7 +6844,7 @@
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
     "source": "Lecture Q's (OLD",
-    "q": "presence of actively multiplying bacteria ≤ 10⁵ CFU/ml urine in LUT is )",
+    "q": "presence of actively multiplying bacteria â‰¤ 10âپµ CFU/ml urine in LUT is )",
     "choices": [
       "interstitial cystitis",
       "acute cystitis",
@@ -7485,7 +7485,7 @@
     "exam": "mid",
     "source": "Old Formatives",
     "q": "sure sign of labor onset",
-    "a": "�� Answer: Cervical effacement and dilation",
+    "a": "ï؟½ï؟½ Answer: Cervical effacement and dilation",
     "note": "incomplete - needs manual completion",
     "active": false
   },
@@ -7984,7 +7984,7 @@
     ],
     "ans": "A",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert image from original, \"Deflexed fetal head position\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert image from original, \"Deflexed fetal head position\"]"
   },
   {
     "id": "c508",
@@ -8002,7 +8002,7 @@
     ],
     "ans": "D",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert image from original, \"Brow presentation requiring CS\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert image from original, \"Brow presentation requiring CS\"]"
   },
   {
     "id": "c509",
@@ -8020,7 +8020,7 @@
     ],
     "ans": "C",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert image from original, \"Left sacro-posterior (LSP)\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert image from original, \"Left sacro-posterior (LSP)\"]"
   },
   {
     "id": "c510",
@@ -8038,7 +8038,7 @@
     ],
     "ans": "A",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — NO AVAILABLE IMAGE in original]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” NO AVAILABLE IMAGE in original]"
   },
   {
     "id": "c511",
@@ -8360,7 +8360,7 @@
     ],
     "ans": "B",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert CTG trace image from original, \"Late deceleration CTG\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert CTG trace image from original, \"Late deceleration CTG\"]"
   },
   {
     "id": "c530",
@@ -8494,8 +8494,8 @@
         "q": "Q27.2. What is the best choice of management if this patient is hemodynamically unstable:",
         "choices": [
           "Methotrexate.",
-          "Laparoscopy. ✓ متجاوبة كده",
-          "Conservative. في البنك",
+          "Laparoscopy. âœ“ ظ…طھط¬ط§ظˆط¨ط© ظƒط¯ظ‡",
+          "Conservative. ظپظٹ ط§ظ„ط¨ظ†ظƒ",
           "Laparotomy."
         ],
         "ans": "B"
@@ -8517,7 +8517,7 @@
         "choices": [
           "Arrange a repeat scan after 7 days",
           "Arrange a dating scan at 12 weeks of gestation",
-          "Arrange serial β-HCG levels",
+          "Arrange serial خ²-HCG levels",
           "Arrange serum progesterone level"
         ],
         "ans": "A"
@@ -8657,8 +8657,8 @@
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "A 26-year-old woman whose last menstrual period (LMP) was 2½ months ago develops bleeding, uterine cramps, and passes tissue per vagina. Two hours later, she is still bleeding heavily.",
-    "stem": "A 26-year-old woman whose last menstrual period (LMP) was 2½ months ago develops bleeding, uterine cramps, and passes tissue per vagina. Two hours later, she is still bleeding heavily.",
+    "q": "A 26-year-old woman whose last menstrual period (LMP) was 2آ½ months ago develops bleeding, uterine cramps, and passes tissue per vagina. Two hours later, she is still bleeding heavily.",
+    "stem": "A 26-year-old woman whose last menstrual period (LMP) was 2آ½ months ago develops bleeding, uterine cramps, and passes tissue per vagina. Two hours later, she is still bleeding heavily.",
     "subParts": [
       {
         "q": "Q40.1. What is the most likely diagnosis:",
@@ -8702,8 +8702,8 @@
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "A 24-year-old woman G2P1 is seen in the emergency department because of vaginal bleeding and abdominal cramps. Her LMP was 10 weeks ago. She presently denies instrumentation for abortion. BP :110/70 mm Hg, pulse 120, and temperature 39°C. The abdomen is tender. PV: blood in the vault and a foul-smelling discharge from the cervix, which is dilated to 2 cm. The uterus is 8- to 10-week size and tender, and no adnexal masses are palpated.",
-    "stem": "A 24-year-old woman G2P1 is seen in the emergency department because of vaginal bleeding and abdominal cramps. Her LMP was 10 weeks ago. She presently denies instrumentation for abortion. BP :110/70 mm Hg, pulse 120, and temperature 39°C. The abdomen is tender. PV: blood in the vault and a foul-smelling discharge from the cervix, which is dilated to 2 cm. The uterus is 8- to 10-week size and tender, and no adnexal masses are palpated.",
+    "q": "A 24-year-old woman G2P1 is seen in the emergency department because of vaginal bleeding and abdominal cramps. Her LMP was 10 weeks ago. She presently denies instrumentation for abortion. BP :110/70 mm Hg, pulse 120, and temperature 39آ°C. The abdomen is tender. PV: blood in the vault and a foul-smelling discharge from the cervix, which is dilated to 2 cm. The uterus is 8- to 10-week size and tender, and no adnexal masses are palpated.",
+    "stem": "A 24-year-old woman G2P1 is seen in the emergency department because of vaginal bleeding and abdominal cramps. Her LMP was 10 weeks ago. She presently denies instrumentation for abortion. BP :110/70 mm Hg, pulse 120, and temperature 39آ°C. The abdomen is tender. PV: blood in the vault and a foul-smelling discharge from the cervix, which is dilated to 2 cm. The uterus is 8- to 10-week size and tender, and no adnexal masses are palpated.",
     "subParts": [
       {
         "q": "Q41.1. What is the most likely diagnosis:",
@@ -8895,8 +8895,8 @@
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "38 years old female PG pregnant 35 WK known gestation hypertension on treatment complains of sudden severe abdominal pain followed by massive vaginal bleeding On examination of the patient the blood pressure was 160 over 100 the abdomen is board like rigidity, her investigation: - Hb level 7 gm/dl, Pc 50%. - abdominal US reveal: baby is severe Bradycardic and there was retroplacental haematoma measured 11×10 cm.",
-    "stem": "38 years old female PG pregnant 35 WK known gestation hypertension on treatment complains of sudden severe abdominal pain followed by massive vaginal bleeding On examination of the patient the blood pressure was 160 over 100 the abdomen is board like rigidity, her investigation: - Hb level 7 gm/dl, Pc 50%. - abdominal US reveal: baby is severe Bradycardic and there was retroplacental haematoma measured 11×10 cm.",
+    "q": "38 years old female PG pregnant 35 WK known gestation hypertension on treatment complains of sudden severe abdominal pain followed by massive vaginal bleeding On examination of the patient the blood pressure was 160 over 100 the abdomen is board like rigidity, her investigation: - Hb level 7 gm/dl, Pc 50%. - abdominal US reveal: baby is severe Bradycardic and there was retroplacental haematoma measured 11أ—10 cm.",
+    "stem": "38 years old female PG pregnant 35 WK known gestation hypertension on treatment complains of sudden severe abdominal pain followed by massive vaginal bleeding On examination of the patient the blood pressure was 160 over 100 the abdomen is board like rigidity, her investigation: - Hb level 7 gm/dl, Pc 50%. - abdominal US reveal: baby is severe Bradycardic and there was retroplacental haematoma measured 11أ—10 cm.",
     "subParts": [
       {
         "q": "Q59.1. The most probable cause of these ante partum hemorrhage is:",
@@ -9034,7 +9034,7 @@
     "stem": "The following drug:",
     "subParts": [
       {
-        "q": "Q56.1. The risk of severe preeclampsia progressing to eclampsia is reduced by more than……. When use that drug:",
+        "q": "Q56.1. The risk of severe preeclampsia progressing to eclampsia is reduced by more thanâ€¦â€¦. When use that drug:",
         "choices": [
           "40%",
           "30%",
@@ -9065,7 +9065,7 @@
       }
     ],
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert image from original, \"Magnesium Sulfate ampoule\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert image from original, \"Magnesium Sulfate ampoule\"]"
   },
   {
     "id": "c550",
@@ -9074,8 +9074,8 @@
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
     "source": "OSCE & OSPE",
-    "q": "Woman is admitted at 28 + 2 weeks gestation with blood pressure 152/98, +4 dipstick proteinuria, without symptoms, Spo2 97%, platelet count 103 × 10 9/L, serum creatinine 67 mM, and AST 56 U/L. Her recent 24-h urine protein estimation was 5.2 g/24 h. She received antenatal corticosteroids for fetal lung maturity 6 days ago. The fetal abdominal circumference is at the 3rd percentile for gestational age.",
-    "stem": "Woman is admitted at 28 + 2 weeks gestation with blood pressure 152/98, +4 dipstick proteinuria, without symptoms, Spo2 97%, platelet count 103 × 10 9/L, serum creatinine 67 mM, and AST 56 U/L. Her recent 24-h urine protein estimation was 5.2 g/24 h. She received antenatal corticosteroids for fetal lung maturity 6 days ago. The fetal abdominal circumference is at the 3rd percentile for gestational age.",
+    "q": "Woman is admitted at 28 + 2 weeks gestation with blood pressure 152/98, +4 dipstick proteinuria, without symptoms, Spo2 97%, platelet count 103 أ— 10 9/L, serum creatinine 67 mM, and AST 56 U/L. Her recent 24-h urine protein estimation was 5.2 g/24 h. She received antenatal corticosteroids for fetal lung maturity 6 days ago. The fetal abdominal circumference is at the 3rd percentile for gestational age.",
+    "stem": "Woman is admitted at 28 + 2 weeks gestation with blood pressure 152/98, +4 dipstick proteinuria, without symptoms, Spo2 97%, platelet count 103 أ— 10 9/L, serum creatinine 67 mM, and AST 56 U/L. Her recent 24-h urine protein estimation was 5.2 g/24 h. She received antenatal corticosteroids for fetal lung maturity 6 days ago. The fetal abdominal circumference is at the 3rd percentile for gestational age.",
     "subParts": [
       {
         "q": "Q57.1. Which of the following statements are true regarding diagnosis of the case:",
@@ -9365,7 +9365,7 @@
       }
     ],
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert image from original, \"Brandet-Andrew method\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert image from original, \"Brandet-Andrew method\"]"
   },
   {
     "id": "c558",
@@ -9419,7 +9419,7 @@
       }
     ],
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE PLACEHOLDER — insert CTG trace image from original, \"Category 3 CTG with late decelerations\"]"
+    "imagePlaceholderText": "[IMAGE PLACEHOLDER â€” insert CTG trace image from original, \"Category 3 CTG with late decelerations\"]"
   },
   {
     "id": "c559",
@@ -9428,7 +9428,7 @@
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define 3 functions of placenta and mention 3 placental abnormalities.  ↔ ALSO IN: Also in Female Reproductive Anatomy",
+    "q": "Define 3 functions of placenta and mention 3 placental abnormalities.  â†” ALSO IN: Also in Female Reproductive Anatomy",
     "a": "Answer not included"
   },
   {
@@ -9458,7 +9458,7 @@
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define 2 methods to calculate EDD & mention 3 causes of fundal level more than EDD.  ↔ ALSO IN: Also in ANC",
+    "q": "Define 2 methods to calculate EDD & mention 3 causes of fundal level more than EDD.  â†” ALSO IN: Also in ANC",
     "a": "Answer not included"
   },
   {
@@ -9478,7 +9478,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define non-engagement head and mention its cause (4 fetal & 3 maternal causes).  ↔ ALSO IN: Also in Normal Labour",
+    "q": "Define non-engagement head and mention its cause (4 fetal & 3 maternal causes).  â†” ALSO IN: Also in Normal Labour",
     "a": "Answer not included"
   },
   {
@@ -9488,7 +9488,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define 2 methods to calculate EDD & mention 3 causes of fundal level more than EDD.  ★ REPEATED ↔ ALSO IN: Also in Diagnosis of Pregnancy",
+    "q": "Define 2 methods to calculate EDD & mention 3 causes of fundal level more than EDD.  âک… REPEATED â†” ALSO IN: Also in Diagnosis of Pregnancy",
     "a": "Answer not included"
   },
   {
@@ -9508,7 +9508,7 @@
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Mention 4 differences between true and false labour pain.  ↔ ALSO IN: Also in Normal Labour",
+    "q": "Mention 4 differences between true and false labour pain.  â†” ALSO IN: Also in Normal Labour",
     "a": "Answer not included"
   },
   {
@@ -9568,7 +9568,7 @@
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define 3 causes of acute abdomen in 3rd trimester.  ↔ ALSO IN: Also in Abnormal Labour",
+    "q": "Define 3 causes of acute abdomen in 3rd trimester.  â†” ALSO IN: Also in Abnormal Labour",
     "a": "Answer not included"
   },
   {
@@ -9638,7 +9638,7 @@
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Enumerate 3 complications of vesicular mole.  ★ REPEATED ↔ ALSO IN: Related to SAQ 48-49 (same topic)",
+    "q": "Enumerate 3 complications of vesicular mole.  âک… REPEATED â†” ALSO IN: Related to SAQ 48-49 (same topic)",
     "a": "Answer not included"
   },
   {
@@ -9808,7 +9808,7 @@
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define shoulder dystocia and mention 3 risk factors.  ↔ ALSO IN: Also in Abnormal Labour",
+    "q": "Define shoulder dystocia and mention 3 risk factors.  â†” ALSO IN: Also in Abnormal Labour",
     "a": "Answer not included"
   },
   {
@@ -9838,7 +9838,7 @@
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define DIC & mention 5 causes in obstetrics.  ↔ ALSO IN: Also in PPH",
+    "q": "Define DIC & mention 5 causes in obstetrics.  â†” ALSO IN: Also in PPH",
     "a": "Answer not included"
   },
   {
@@ -9858,7 +9858,7 @@
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define non-engagement head and mention its cause (4 fetal & 3 maternal causes).  ★ REPEATED ↔ ALSO IN: Also in ANC",
+    "q": "Define non-engagement head and mention its cause (4 fetal & 3 maternal causes).  âک… REPEATED â†” ALSO IN: Also in ANC",
     "a": "Answer not included",
     "tags": [
       "also_in:Antenatal Care (ANC)"
@@ -9871,7 +9871,7 @@
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Mention 4 differences between true and false labour pain.  ★ REPEATED ↔ ALSO IN: Also in ANC",
+    "q": "Mention 4 differences between true and false labour pain.  âک… REPEATED â†” ALSO IN: Also in ANC",
     "a": "Answer not included",
     "tags": [
       "also_in:Antenatal Care (ANC)"
@@ -9884,7 +9884,7 @@
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "SAQ",
-    "q": "Define TTT syndrome and list 2 of its ultrasound diagnostic features.  ↔ ALSO IN: Also in Multiple Pregnancy",
+    "q": "Define TTT syndrome and list 2 of its ultrasound diagnostic features.  â†” ALSO IN: Also in Multiple Pregnancy",
     "a": "Answer not included"
   },
   {
@@ -9893,7 +9893,7 @@
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q1",
+    "source": "Previous Exams Added â€” MU-MED 36 Q1",
     "q": "Which blood vessel carries oxygenated blood from the placenta to the fetus?",
     "choices": [
       "Umbilical artery",
@@ -9910,7 +9910,7 @@
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q26",
+    "source": "Previous Exams Added â€” MU-MED 36 Q26",
     "q": "Physiological anemia in pregnancy is due to:",
     "choices": [
       "Decreased RBC production",
@@ -9927,7 +9927,7 @@
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q7",
+    "source": "Previous Exams Added â€” MU-MED 36 Q7",
     "q": "Serum hCG levels in early pregnancy typically double every:",
     "choices": [
       "12 hours",
@@ -9944,7 +9944,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q17",
+    "source": "Previous Exams Added â€” MU-MED 36 Q17",
     "q": "Which renal change occurs during pregnancy?",
     "choices": [
       "Decreased renal blood flow",
@@ -9961,7 +9961,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q41",
+    "source": "Previous Exams Added â€” MU-MED 36 Q41",
     "q": "Decreased hCG levels are most commonly associated with:",
     "choices": [
       "Multiple pregnancy",
@@ -9978,7 +9978,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q15",
+    "source": "Previous Exams Added â€” MU-MED 39 Q15",
     "q": "Pregnancy can first be detected by transvaginal ultrasound at approximately:",
     "choices": [
       "1 week from LMP",
@@ -9995,7 +9995,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q33",
+    "source": "Previous Exams Added â€” MU-MED 39 Q33",
     "q": "Which of the following is NOT a sure sign of pregnancy?",
     "choices": [
       "Fetal heart sound",
@@ -10012,7 +10012,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q10",
+    "source": "Previous Exams Added â€” MU-MED 39 Q10",
     "q": "A 24-year-old woman develops persistently elevated hCG after molar evacuation and is diagnosed with invasive mole. What is the best management?",
     "choices": [
       "Observation",
@@ -10029,7 +10029,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q29",
+    "source": "Previous Exams Added â€” MU-MED 36 Q29",
     "q": "Bluish discoloration of the cervix and vagina is known as:",
     "choices": [
       "Goodell sign",
@@ -10046,13 +10046,13 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q5",
+    "source": "Previous Exams Added â€” MU-MED 36 Q5",
     "q": "Quickening is typically first perceived by a primigravida at:",
     "choices": [
-      "12–14 weeks",
-      "16–18 weeks",
-      "18–20 weeks",
-      "22–24 weeks"
+      "12â€“14 weeks",
+      "16â€“18 weeks",
+      "18â€“20 weeks",
+      "22â€“24 weeks"
     ],
     "ans": "C",
     "_mergedPrevExam": true
@@ -10063,7 +10063,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q41",
+    "source": "Previous Exams Added â€” MU-MED 39 Q41",
     "q": "Termination of pregnancy is indicated in:",
     "choices": [
       "Mild mitral stenosis",
@@ -10080,7 +10080,7 @@
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q61",
+    "source": "Previous Exams Added â€” MU-MED 39 Q61",
     "q": "What is the most accurate method for estimating gestational age in a woman unsure of her LMP?",
     "choices": [
       "Second trimester ultrasound",
@@ -10097,7 +10097,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q56",
+    "source": "Previous Exams Added â€” MU-MED 39 Q56",
     "q": "The uterus reaches the xiphisternum at approximately:",
     "choices": [
       "32 weeks",
@@ -10114,7 +10114,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q20",
+    "source": "Previous Exams Added â€” MU-MED 39 Q20",
     "q": "Which of the following does NOT typically occur in anemia during pregnancy?",
     "choices": [
       "Postpartum hemorrhage",
@@ -10131,7 +10131,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q21",
+    "source": "Previous Exams Added â€” MU-MED 39 Q21",
     "q": "Which of the following is commonly associated with anemia in pregnancy?",
     "choices": [
       "Atonic postpartum hemorrhage",
@@ -10148,7 +10148,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q42",
+    "source": "Previous Exams Added â€” MU-MED 36 Q42",
     "q": "Elevated alpha-fetoprotein (AFP) is most specific for:",
     "choices": [
       "Down syndrome",
@@ -10165,7 +10165,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q38",
+    "source": "Previous Exams Added â€” MU-MED 39 Q38",
     "q": "Which statement regarding vaccination during pregnancy is TRUE?",
     "choices": [
       "Live attenuated vaccines are safe",
@@ -10182,7 +10182,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q62",
+    "source": "Previous Exams Added â€” MU-MED 39 Q62",
     "q": "Which statement about the first antenatal visit is FALSE?",
     "choices": [
       "Blood pressure measurement is essential",
@@ -10199,7 +10199,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q31",
+    "source": "Previous Exams Added â€” MU-MED 39 Q31",
     "q": "Regarding antihypertensive drugs in pregnancy, which statement is correct?",
     "choices": [
       "Methyldopa is first-line for long-term treatment",
@@ -10216,7 +10216,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q16",
+    "source": "Previous Exams Added â€” MU-MED 36 Q16",
     "q": "Which of the following is true regarding nutritional requirements during pregnancy?",
     "choices": [
       "Calories markedly decrease",
@@ -10233,13 +10233,13 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q49",
+    "source": "Previous Exams Added â€” MU-MED 36 Q49",
     "q": "Normal duration of pregnancy is defined as:",
     "choices": [
-      "36–40 weeks",
-      "37–42 weeks",
-      "38–41 weeks",
-      "39–42 weeks"
+      "36â€“40 weeks",
+      "37â€“42 weeks",
+      "38â€“41 weeks",
+      "39â€“42 weeks"
     ],
     "ans": "B",
     "_mergedPrevExam": true
@@ -10250,7 +10250,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q7",
+    "source": "Previous Exams Added â€” MU-MED 36 Q7",
     "q": "Varivax III vaccine IS",
     "choices": [
       "Killed vaccine",
@@ -10267,7 +10267,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q18",
+    "source": "Previous Exams Added â€” MU-MED 35 Q18",
     "q": "Which type of ectopic pregnancy can survive till term ...",
     "choices": [
       "Abdomen",
@@ -10284,7 +10284,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q26",
+    "source": "Previous Exams Added â€” MU-MED 35 Q26",
     "q": "Which of the following investigations not done before methotrexate ....",
     "choices": [
       "LFT",
@@ -10301,7 +10301,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q30",
+    "source": "Previous Exams Added â€” MU-MED 35 Q30",
     "q": "Contraceptive of choice after treatment of vesicular mole ...",
     "choices": [
       "IUD",
@@ -10317,7 +10317,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q14",
+    "source": "Previous Exams Added â€” MU-MED 36 Q14",
     "q": "The genetic origin in the partial type of vesicular mole arises from:",
     "choices": [
       "Maternal origin",
@@ -10334,7 +10334,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q33",
+    "source": "Previous Exams Added â€” MU-MED 36 Q33",
     "q": "Regarding abortion:",
     "choices": [
       "Three or more successive spontaneous abortions",
@@ -10349,7 +10349,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q42",
+    "source": "Previous Exams Added â€” MU-MED 39 Q42",
     "q": "Partial vesicular mole is characterized by:",
     "choices": [
       "46 XX",
@@ -10366,7 +10366,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q65",
+    "source": "Previous Exams Added â€” MU-MED 39 Q65",
     "q": "To reduce abortion risk in bicornuate uterus, the following is done:",
     "choices": [
       "Ventrosuspension",
@@ -10383,7 +10383,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q73",
+    "source": "Previous Exams Added â€” MU-MED 39 Q73",
     "q": "Complete vesicular mole is characterized by:",
     "choices": [
       "Triploid karyotype",
@@ -10400,7 +10400,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q8",
+    "source": "Previous Exams Added â€” MU-MED 39 Q8",
     "q": "What is the preferred contraceptive method after evacuation of a vesicular mole?",
     "choices": [
       "Barrier methods",
@@ -10417,7 +10417,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q44",
+    "source": "Previous Exams Added â€” MU-MED 36 Q44",
     "q": "a. Method of administration of oxytocin",
     "choices": [
       "IV infusion",
@@ -10433,7 +10433,7 @@
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q3",
+    "source": "Previous Exams Added â€” MU-MED 39 Q3",
     "q": "What is the most specific congenital anomaly associated with diabetic pregnancy?",
     "choices": [
       "Cardiac anomalies",
@@ -10450,7 +10450,7 @@
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q64",
+    "source": "Previous Exams Added â€” MU-MED 35 Q64",
     "q": "Which not cause postpartum hemorrhage...",
     "choices": [
       "Twins",
@@ -10467,7 +10467,7 @@
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q67",
+    "source": "Previous Exams Added â€” MU-MED 35 Q67",
     "q": "Which is wrong regarding placental abruption...",
     "choices": [
       "Amniotic fluid embolism should not occur",
@@ -10483,7 +10483,7 @@
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q25",
+    "source": "Previous Exams Added â€” MU-MED 39 Q25",
     "q": "Which statement about placenta previa is FALSE?",
     "choices": [
       "Placenta partially or completely covers the cervical os",
@@ -10500,11 +10500,11 @@
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q26",
+    "source": "Previous Exams Added â€” MU-MED 39 Q26",
     "q": "Which statement is FALSE regarding antenatal management of placenta previa/accreta?",
     "choices": [
       "Management should be in a tertiary center",
-      "Admission at 34–36 weeks is recommended",
+      "Admission at 34â€“36 weeks is recommended",
       "Multidisciplinary team is essential",
       "No role for interventional radiology"
     ],
@@ -10517,7 +10517,7 @@
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q14",
+    "source": "Previous Exams Added â€” MU-MED 39 Q14",
     "q": "A pregnant woman at 36 weeks presents with BP 160/105 mmHg and proteinuria +1. What is the most appropriate management?",
     "choices": [
       "Immediate termination of pregnancy",
@@ -10534,7 +10534,7 @@
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q45",
+    "source": "Previous Exams Added â€” MU-MED 36 Q45",
     "q": "Patient admitted with preeclampsia with severe features",
     "choices": [
       "Transfer immediately to tertiary unit",
@@ -10549,7 +10549,7 @@
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q12",
+    "source": "Previous Exams Added â€” MU-MED 39 Q12",
     "q": "Pre-eclampsia is defined as:",
     "choices": [
       "Hypertension before 20 weeks",
@@ -10566,7 +10566,7 @@
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q30",
+    "source": "Previous Exams Added â€” MU-MED 39 Q30",
     "q": "A pregnant woman with BP 95 mmHg diastolic, +1 proteinuria, visual disturbances, and epigastric pain is classified as:",
     "choices": [
       "Mild pre-eclampsia",
@@ -10583,7 +10583,7 @@
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q35",
+    "source": "Previous Exams Added â€” MU-MED 39 Q35",
     "q": "A 32-week pregnant patient with severe pre-eclampsia should be managed by:",
     "choices": [
       "Outpatient follow-up",
@@ -10600,7 +10600,7 @@
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q37",
+    "source": "Previous Exams Added â€” MU-MED 39 Q37",
     "q": "Which of the following has the highest risk for developing pre-eclampsia?",
     "choices": [
       "Previous pre-eclampsia",
@@ -10617,7 +10617,7 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q13",
+    "source": "Previous Exams Added â€” MU-MED 39 Q13",
     "q": "Insulin is typically required in diabetic pregnancy during:",
     "choices": [
       "First trimester",
@@ -10634,7 +10634,7 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q4",
+    "source": "Previous Exams Added â€” MU-MED 39 Q4",
     "q": "What is the most common congenital anomaly in infants of diabetic mothers?",
     "choices": [
       "Limb defects",
@@ -10651,7 +10651,7 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q50",
+    "source": "Previous Exams Added â€” MU-MED 39 Q50",
     "q": "A primigravida delivers a 4000 g infant complicated by shoulder dystocia. What is the main risk factor?",
     "choices": [
       "Gestational diabetes",
@@ -10668,11 +10668,11 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 35 Q32",
+    "source": "Previous Exams Added â€” MU-MED 35 Q32",
     "q": "Normal changes in thyroid gland during pregnancy not include...",
     "choices": [
       "Increase size",
-      "Increase TSH (Not included — TSH decreases)",
+      "Increase TSH (Not included â€” TSH decreases)",
       "Increase thyroglobulin",
       "Increase free hormone production"
     ],
@@ -10685,7 +10685,7 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q18",
+    "source": "Previous Exams Added â€” MU-MED 39 Q18",
     "q": "A missed period in pregnancy is associated with increased risk of:",
     "choices": [
       "Coagulopathy",
@@ -10702,7 +10702,7 @@
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q52",
+    "source": "Previous Exams Added â€” MU-MED 39 Q52",
     "q": "Which of the following are components of Virchow's triad?",
     "choices": [
       "Anemia",
@@ -10719,7 +10719,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q15",
+    "source": "Previous Exams Added â€” MU-MED 36 Q15",
     "q": "As regard predisposing factors of the vesicular mole, the risk is higher with the following blood group:",
     "choices": [
       "Group A",
@@ -10736,8 +10736,8 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q5",
-    "q": "30 years old lady, G4 P3+0 chronic HTN, pregnant 34 wks. by date while by US → BPD: 32wks & FL: 28 wks. Which of the following parameter in ultrasound will be most critical in your decision?",
+    "source": "Previous Exams Added â€” MU-MED 36 Q5",
+    "q": "30 years old lady, G4 P3+0 chronic HTN, pregnant 34 wks. by date while by US â†’ BPD: 32wks & FL: 28 wks. Which of the following parameter in ultrasound will be most critical in your decision?",
     "choices": [
       "1) Uterine artery doppler",
       "2) Umbilical artery doppler",
@@ -10753,7 +10753,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q19",
+    "source": "Previous Exams Added â€” MU-MED 36 Q19",
     "q": "The most common cause of Asherman syndrome is:",
     "choices": [
       "Infection",
@@ -10770,13 +10770,13 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q32",
+    "source": "Previous Exams Added â€” MU-MED 39 Q32",
     "q": "The nerve supply of levator ani muscle arises from:",
     "choices": [
-      "L1–L2",
-      "S1–S2",
-      "S2–S4",
-      "S4–S5"
+      "L1â€“L2",
+      "S1â€“S2",
+      "S2â€“S4",
+      "S4â€“S5"
     ],
     "ans": "C",
     "_mergedPrevExam": true
@@ -10787,7 +10787,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q40",
+    "source": "Previous Exams Added â€” MU-MED 39 Q40",
     "q": "Dyspnea at rest corresponds to which NYHA class?",
     "choices": [
       "Class I",
@@ -10803,7 +10803,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q43",
+    "source": "Previous Exams Added â€” MU-MED 39 Q43",
     "q": "Untreated hyperthyroidism in pregnancy leads to all of the following EXCEPT:",
     "choices": [
       "Low birth weight",
@@ -10820,7 +10820,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q5",
+    "source": "Previous Exams Added â€” MU-MED 39 Q5",
     "q": "The most common cardiac disease encountered during pregnancy is:",
     "choices": [
       "Congenital heart disease",
@@ -10837,7 +10837,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q9",
+    "source": "Previous Exams Added â€” MU-MED 39 Q9",
     "q": "Hysterectomy is indicated in which of the following conditions?",
     "choices": [
       "High hCG level only",
@@ -10854,7 +10854,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q8",
+    "source": "Previous Exams Added â€” MU-MED 36 Q8",
     "q": "Transplacental transmission of rubella in the third trimester up to",
     "choices": [
       "90% of cases",
@@ -10871,7 +10871,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q1",
+    "source": "Previous Exams Added â€” MU-MED 39 Q1",
     "q": "Which of the following does NOT typically occur during the first trimester of pregnancy?",
     "choices": [
       "Breast enlargement",
@@ -10888,7 +10888,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q19",
+    "source": "Previous Exams Added â€” MU-MED 39 Q19",
     "q": "Urinary tract infections in pregnancy are more common on:",
     "choices": [
       "Right side",
@@ -10905,7 +10905,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q2",
+    "source": "Previous Exams Added â€” MU-MED 39 Q2",
     "q": "What is the typical change in maternal heart rate during pregnancy?",
     "choices": [
       "Bradycardia",
@@ -10922,7 +10922,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q58",
+    "source": "Previous Exams Added â€” MU-MED 39 Q58",
     "q": "All of the following cause acute kidney injury EXCEPT:",
     "choices": [
       "Postpartum hemorrhage",
@@ -10939,7 +10939,7 @@
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q6",
+    "source": "Previous Exams Added â€” MU-MED 39 Q6",
     "q": "Lymphatic drainage of the cervix is mainly to:",
     "choices": [
       "Inguinal lymph nodes",
@@ -10956,7 +10956,7 @@
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q103",
+    "source": "Previous Exams Added â€” MU-MED 39 Q103",
     "q": "LMP refers to:",
     "choices": [
       "First day of last menstrual cycle",
@@ -10973,7 +10973,7 @@
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q4",
+    "source": "Previous Exams Added â€” MU-MED 36 Q4",
     "q": "Descent of the fetal head into the pelvis associated with relief of maternal dyspnea is termed:",
     "choices": [
       "Engagement",
@@ -10990,7 +10990,7 @@
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q45",
+    "source": "Previous Exams Added â€” MU-MED 39 Q45",
     "q": "Which stage of labor is most dangerous for a cardiac patient?",
     "choices": [
       "First stage",
@@ -11007,7 +11007,7 @@
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q53",
+    "source": "Previous Exams Added â€” MU-MED 39 Q53",
     "q": "Fetal movements are first perceived in a primigravida at:",
     "choices": [
       "16 weeks",
@@ -11024,7 +11024,7 @@
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q105",
+    "source": "Previous Exams Added â€” MU-MED 39 Q105",
     "q": "Tests assessing fetal hypoxia include:",
     "choices": [
       "NST, BPP, fetal movement count",
@@ -11041,7 +11041,7 @@
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q18",
+    "source": "Previous Exams Added â€” MU-MED 36 Q18",
     "q": "Arterial blood gases in normal pregnancy show:",
     "choices": [
       "Metabolic acidosis",
@@ -11058,7 +11058,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q6",
+    "source": "Previous Exams Added â€” MU-MED 36 Q6",
     "q": "Modified BPP of baby means",
     "choices": [
       "1) CTG + AFI",
@@ -11075,7 +11075,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q11",
+    "source": "Previous Exams Added â€” MU-MED 36 Q11",
     "q": "The main nerve supplying the vulva is:",
     "choices": [
       "Femoral nerve",
@@ -11092,7 +11092,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q34",
+    "source": "Previous Exams Added â€” MU-MED 36 Q34",
     "q": "Acceleration in a non-stress test (NST) is defined as an increase in fetal heart rate of:",
     "choices": [
       "10 bpm for 10 seconds",
@@ -11109,7 +11109,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q45",
+    "source": "Previous Exams Added â€” MU-MED 36 Q45",
     "q": "Late decelerations in fetal heart rate are most commonly caused by:",
     "choices": [
       "Cord compression",
@@ -11126,7 +11126,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q46",
+    "source": "Previous Exams Added â€” MU-MED 36 Q46",
     "q": "Category I fetal heart rate tracing includes:",
     "choices": [
       "Recurrent decelerations",
@@ -11146,7 +11146,7 @@
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 36 Q48",
+    "source": "Previous Exams Added â€” MU-MED 36 Q48",
     "q": "Modified biophysical profile (BPP) consists of:",
     "choices": [
       "NST and fetal breathing movements",
@@ -11163,7 +11163,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q3",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q3",
     "q": "Diagnosis of pregnancy depends on ....",
     "a": "Answer not included"
   },
@@ -11173,7 +11173,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q18",
+    "source": "Source: MU-MED 36 â€” Additional Recall (Student Notes) â€” Q18",
     "q": "Treatment of intrahepatic cholestasis of pregnancy",
     "a": "Answer not included"
   },
@@ -11183,7 +11183,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q9",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q9",
     "q": "Decrease blood pressure in 2nd trimester due to progesterone",
     "a": "Answer not included"
   },
@@ -11193,7 +11193,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q17",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q17",
     "q": "Ascending age of abortion >>",
     "a": "Answer not included"
   },
@@ -11203,7 +11203,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q53",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q53",
     "q": "Pregnancy is contraindicated in which cardiac patient..",
     "a": "Answer not included"
   },
@@ -11213,7 +11213,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q54",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q54",
     "q": "Which ecobolic is contraindicated in cardiac patient..",
     "a": "Answer not included"
   },
@@ -11223,7 +11223,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q56",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q56",
     "q": "Which period of pregnancy is dangerous for cardiac patient...",
     "a": "Answer not included"
   },
@@ -11233,7 +11233,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
-    "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q43",
+    "source": "Source: MU-MED 36 â€” Additional Recall (Student Notes) â€” Q43",
     "q": "Contraception contraindicated in heart disease",
     "a": "Answer not included"
   },
@@ -11243,7 +11243,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q86",
+    "source": "Source: MU-MED 35 â€” Mid-Term Exam â€” Q86",
     "q": "Diameter of engagement of brow ...",
     "a": "Answer not included",
     "note": "incomplete - needs manual completion",
@@ -11255,7 +11255,7 @@
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
-    "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q61",
+    "source": "Source: MU-MED 36 â€” Additional Recall (Student Notes) â€” Q61",
     "q": "Drug not used in third stage of labor in cardiac patient",
     "a": "Answer not included",
     "note": "incomplete - needs manual completion",
@@ -11337,10 +11337,10 @@
     "source": "2026 Lectures Q's",
     "q": "The heart rate of a normal fetus at term is:",
     "choices": [
-      "80–100 bpm",
-      "100–120 bpm",
-      "120–160 bpm",
-      "160–180 bpm",
+      "80â€“100 bpm",
+      "100â€“120 bpm",
+      "120â€“160 bpm",
+      "160â€“180 bpm",
       "There is no baseline heart rate"
     ],
     "ans": "C"
@@ -11519,7 +11519,7 @@
       "Hypersensitivity to (BHCG)",
       "Psychic factor",
       "Cholycystitis",
-      "Vit. B₁ & B₆ deficiency"
+      "Vit. Bâ‚پ & Bâ‚† deficiency"
     ],
     "ans": "C"
   },
@@ -11628,10 +11628,10 @@
     "source": "2026 Lectures Q's",
     "q": "Fetal breathing movements typically begin at:",
     "choices": [
-      "10–12 weeks",
-      "20–22 weeks",
-      "28–30 weeks",
-      "32–34 weeks"
+      "10â€“12 weeks",
+      "20â€“22 weeks",
+      "28â€“30 weeks",
+      "32â€“34 weeks"
     ],
     "ans": "B"
   },
@@ -11646,7 +11646,7 @@
     "choices": [
       "10 weeks",
       "18 weeks",
-      "28–30 weeks",
+      "28â€“30 weeks",
       "36 weeks"
     ],
     "ans": "C"
@@ -11693,7 +11693,7 @@
     "q": "Absent variability is defined as:",
     "choices": [
       "< 5 bpm",
-      "5–25 bpm",
+      "5â€“25 bpm",
       "> 25 bpm",
       "Undetectable amplitude"
     ],
@@ -11708,9 +11708,9 @@
     "source": "2026 Lectures Q's",
     "q": "Moderate variability is:",
     "choices": [
-      "0–2 bpm",
-      "3–5 bpm",
-      "6–25 bpm",
+      "0â€“2 bpm",
+      "3â€“5 bpm",
+      "6â€“25 bpm",
       "> 25 bpm"
     ],
     "ans": "C"
@@ -11754,7 +11754,7 @@
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
     "source": "2026 Lectures Q's",
-    "q": "A Biophysical Profile score of 8–10 indicates:",
+    "q": "A Biophysical Profile score of 8â€“10 indicates:",
     "choices": [
       "Severe hypoxia",
       "Chronic distress",
@@ -11775,7 +11775,7 @@
       "10",
       "8",
       "6 (normal fluid)",
-      "0–2"
+      "0â€“2"
     ],
     "ans": "D"
   },
@@ -11812,3 +11812,4 @@
     "ans": "C"
   }
 ]
+
