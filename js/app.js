@@ -27,6 +27,59 @@ const PRACTICE_LECTURE_KEY = 'obg_selected_lecture';
 const RANDOM_MODE_KEY = 'obg_random_mode';
 let randomMode = true;
 
+function animateCount(el, targetValue, duration = 350) {
+  const start = parseInt(el.textContent) || 0;
+  const end = parseInt(targetValue) || 0;
+  if (start === end) { el.textContent = end; return; }
+  const startTime = performance.now();
+  function step(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3); // ease-out-cubic
+    el.textContent = Math.round(start + (end - start) * eased);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function animateFractionText(el, current, total, duration = 350){
+  if(!el) return;
+  let currentEl = el.querySelector('[data-current]');
+  let totalEl = el.querySelector('[data-total]');
+  if(!currentEl || !totalEl){
+    el.innerHTML = '<span data-current>0</span> / <span data-total>0</span>';
+    currentEl = el.querySelector('[data-current]');
+    totalEl = el.querySelector('[data-total]');
+  }
+  animateCount(currentEl, current, duration);
+  animateCount(totalEl, total, duration);
+}
+function animateSidebarCounts(){
+  document.querySelectorAll('.s-cnt[data-target-count]').forEach(el => {
+    animateCount(el, el.dataset.targetCount);
+  });
+}
+function renderDeckMeta(total, mcq, osce, flash, saq, suffix){
+  const el = document.getElementById('deck-meta');
+  if(!el) return;
+  const prev = {
+    total: parseInt(el.querySelector('[data-meta="total"]')?.textContent) || 0,
+    mcq: parseInt(el.querySelector('[data-meta="mcq"]')?.textContent) || 0,
+    osce: parseInt(el.querySelector('[data-meta="osce"]')?.textContent) || 0,
+    flash: parseInt(el.querySelector('[data-meta="flash"]')?.textContent) || 0,
+    saq: parseInt(el.querySelector('[data-meta="saq"]')?.textContent) || 0,
+  };
+  el.innerHTML = '<strong><span data-meta="total">'+prev.total+'</span></strong> cards &nbsp;&middot;&nbsp; '
+    + '<span data-meta="mcq">'+prev.mcq+'</span> MCQ &nbsp;&middot;&nbsp; '
+    + '<span data-meta="osce">'+prev.osce+'</span> OSCE &nbsp;&middot;&nbsp; '
+    + '<span data-meta="flash">'+prev.flash+'</span> Flash &nbsp;&middot;&nbsp; '
+    + '<span data-meta="saq">'+prev.saq+'</span> SAQ &nbsp;&middot;&nbsp; '
+    + suffix;
+  animateCount(el.querySelector('[data-meta="total"]'), total);
+  animateCount(el.querySelector('[data-meta="mcq"]'), mcq);
+  animateCount(el.querySelector('[data-meta="osce"]'), osce);
+  animateCount(el.querySelector('[data-meta="flash"]'), flash);
+  animateCount(el.querySelector('[data-meta="saq"]'), saq);
+}
+
 function getVisibleCards(options = {}){
   return questionResolutionHelpers.getStudyEligibleCards({
     cards: Array.isArray(options.cards) ? options.cards : ALL_CARDS,
@@ -318,8 +371,7 @@ function loadDeck(d){
   const ns=d.filter(c=>c.cardType==='SAQ').length;
   const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
   const sourceExactNote = activeSrcExact ? ` &nbsp;آ·&nbsp; Exact source: ${esc2(exactSourceLabel(activeSrcExact))}` : '';
-  document.getElementById('deck-meta').innerHTML=
-    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${sourceExactNote}`;
+  renderDeckMeta(d.length, nm, no, nf, ns, (randomMode ? 'Randomized order' : 'Sequential order') + lectureNote + sourceExactNote);
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -668,7 +720,7 @@ function prevCard(){ if(idx>0){idx--;flipped=false;renderCard();updateNav();save
 function updateNav(){
   document.getElementById('btn-prev').disabled=idx<=0;
   document.getElementById('btn-next').disabled=idx>=deck.length-1;
-  document.getElementById('nav-ctr').textContent=(idx+1)+' / '+deck.length;
+  animateFractionText(document.getElementById('nav-ctr'), idx+1, deck.length);
 }
 function updateProgress(){
   const total=deck.length; if(!total) return;
@@ -681,12 +733,12 @@ function updateProgress(){
 // STATS
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function updateStats(){
-  document.getElementById('s-total').textContent=deck.length;
-  document.getElementById('s-mcq').textContent=deck.filter(c=>c.cardType==='MCQ').length;
-  document.getElementById('s-osce').textContent=deck.filter(c=>c.cardType==='OSCE').length;
-  document.getElementById('s-flash').textContent=deck.filter(c=>c.cardType==='FLASHCARD').length;
-  document.getElementById('s-saq').textContent=deck.filter(c=>c.cardType==='SAQ').length;
-  document.getElementById('s-rev').textContent=reviewed;
+  animateCount(document.getElementById('s-total'), deck.length);
+  animateCount(document.getElementById('s-mcq'), deck.filter(c=>c.cardType==='MCQ').length);
+  animateCount(document.getElementById('s-osce'), deck.filter(c=>c.cardType==='OSCE').length);
+  animateCount(document.getElementById('s-flash'), deck.filter(c=>c.cardType==='FLASHCARD').length);
+  animateCount(document.getElementById('s-saq'), deck.filter(c=>c.cardType==='SAQ').length);
+  animateCount(document.getElementById('s-rev'), reviewed);
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const done=mcqRes.correct+mcqRes.wrong;
   document.getElementById('s-score').textContent=nm&&done?mcqRes.correct+'/'+done:'-';
@@ -715,13 +767,13 @@ function updateCounts(){
       tagCounts[tag]=(tagCounts[tag]||0)+1;
     });
   });
-  Object.entries(ids).forEach(([k,v])=>{const el=document.getElementById('c-'+k);if(el)el.textContent=v;});
+  Object.entries(ids).forEach(([k,v])=>{const el=document.getElementById('c-'+k);if(el)animateCount(el, v);});
   Object.entries(examCounts).forEach(([k,v])=>{
     const key = k.toLowerCase().replace(/[^a-z0-9]+/g,'-');
     const el=document.getElementById('c-exam-'+key);
-    if(el) el.textContent=v;
+    if(el) animateCount(el, v);
   });
-  const _s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  const _s=(id,v)=>{const e=document.getElementById(id);if(e)animateCount(e, v);};
   _s('c-src-old',srcCounts.old_form);
   _s('c-src-new',srcCounts.new_form);
   _s('c-src-prev',srcCounts.prev_exam);
@@ -734,7 +786,7 @@ function updateCounts(){
   Object.entries(tagCounts).forEach(([tag,v])=>{
     const key=tag.toLowerCase().replace(/[^a-z0-9]+/g,'-');
     const el=document.getElementById('c-tag-'+key);
-    if(el) el.textContent=v;
+    if(el) animateCount(el, v);
   });
 }
 
@@ -765,12 +817,13 @@ function buildSidebar(){
     html+=`<li class="sb-item" data-k="${esc(lec)}" onclick="setSL('${esc(lec)}')">
       <div class="s-main">
         <span class="s-name">${esc2(lec)}</span>
-        <span class="s-cnt">${nTotal}</span>
+        <span class="s-cnt" data-target-count="${nTotal}">0</span>
       </div>
       <div class="s-subtabs" id="${sid}">${subtabs.join('')}</div>
     </li>`;
   });
   list.innerHTML=html;
+  animateSidebarCounts();
 }
 
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
