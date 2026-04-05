@@ -277,6 +277,7 @@ function syncAllFilterUI(){
     }
   }
   syncPracticeControls();
+  updateFilterStatus();
 }
 function setFilters(patch, config){
   const options = config || {};
@@ -285,6 +286,34 @@ function setFilters(patch, config){
   syncAllFilterUI();
   persistPracticePreferences();
   if(triggerRender) applyFilter();
+}
+function updateFilterStatus() {
+  const bar = document.getElementById('filter-status');
+  const chips = document.getElementById('fstatus-chips');
+  if(!bar || !chips) return;
+  const active = [];
+
+  if (filterState.exam !== 'all')
+    active.push({ label: '?? ' + filterState.exam.toUpperCase(), clear: () => setFilters({ exam: 'all' }) });
+  if (filterState.lecture)
+    active.push({ label: '?? ' + filterState.lecture, clear: () => setFilters({ lecture: null, type: '' }) });
+  if (filterState.src)
+    active.push({ label: '?? ' + srcLabel(filterState.src), clear: () => setFilters({ src: '' }) });
+  if (filterState.type)
+    active.push({ label: '?? ' + filterState.type, clear: () => setFilters({ type: '' }) });
+
+  bar.style.display = active.length ? 'flex' : 'none';
+  chips.innerHTML = active.map((f, i) =>
+    '<span class="fchip">' + f.label + '<span class="fchip-x" data-ci="' + i + '">?</span></span>'
+  ).join('');
+
+  chips.querySelectorAll('.fchip-x').forEach(x => {
+    const i = parseInt(x.dataset.ci);
+    x.addEventListener('click', (e) => { e.stopPropagation(); active[i].clear(); });
+  });
+}
+function clearAllFilters() {
+  setFilters({ exam: 'all', src: '', type: '', lecture: null });
 }
 function applyLectureSelection(value, opts={}){
   const lecture = normalizeLectureFilter(value);
