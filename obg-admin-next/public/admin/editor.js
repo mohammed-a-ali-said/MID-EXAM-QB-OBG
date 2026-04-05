@@ -28,6 +28,7 @@
     saving: false,
     importPreview: null,
     importPreviewTab: "summary",
+    savedSnapshots: {},
   };
 
   const els = {};
@@ -250,6 +251,160 @@
     return trimmed;
   }
 
+  function escapeRegex(value) {
+    return String(value || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function buildReplacementSuggestion(beforeValue, afterValue) {
+    const before = String(beforeValue || "");
+    const after = String(afterValue || "");
+    if (!before || !after || before === after) return null;
+
+    let prefix = 0;
+    while (prefix < before.length && prefix < after.length && before[prefix] === after[prefix]) {
+      prefix += 1;
+    }
+
+    let suffix = 0;
+    while (
+      suffix < before.length - prefix &&
+      suffix < after.length - prefix &&
+      before[before.length - 1 - suffix] === after[after.length - 1 - suffix]
+    ) {
+      suffix += 1;
+    }
+
+    const oldText = before.slice(prefix, before.length - suffix).trim();
+    const newText = after.slice(prefix, after.length - suffix).trim();
+    if (!oldText || !newText || oldText === newText) return null;
+    if (oldText.length < 4 && newText.length < 4) return null;
+    return { oldText, newText };
+  }
+
+  function collectQuestionTextEntries(question) {
+    const entries = [];
+    if (!question) return entries;
+    const push = (path, value) => {
+      if (value == null) return;
+      entries.push({ path, value: String(value) });
+    };
+    push("lecture", question.lecture);
+    push("exam", question.exam);
+    push("source", question.source);
+    push("doctor", question.doctor);
+    push("q", question.q);
+    push("note", question.note);
+    push("a", question.a);
+    (question.choices || []).forEach((choice, index) => push(`choices.${index}`, choice));
+    (question.alsoInLectures || []).forEach((lecture, index) => push(`alsoInLectures.${index}`, lecture));
+    (question.subParts || []).forEach((part, partIndex) => {
+      push(`subParts.${partIndex}.q`, part.q);
+      (part.choices || []).forEach((choice, choiceIndex) => push(`subParts.${partIndex}.choices.${choiceIndex}`, choice));
+    });
+    return entries;
+  }
+
+  function readPathValue(root, path) {
+    return String(path.split(".").reduce((current, segment) => current?.[segment], root) ?? "");
+  }
+
+  function writePathValue(root, path, value) {
+    const parts = path.split(".");
+    const last = parts.pop();
+    let current = root;
+    parts.forEach((segment) => {
+      current = current?.[segment];
+    });
+    if (current && last != null) current[last] = value;
+  }
+
+  function replaceLiteralText(value, oldText, newText) {
+    const source = String(value || "");
+    if (!oldText || !source.includes(oldText)) return source;
+    return source.replace(new RegExp(escapeRegex(oldText), "g"), newText);
+  }
+
+  function findReplacementTargets(oldText, excludeQuestionId) {
+    if (!oldText) return [];
+    const hits = [];
+    state.working.forEach((question) => {
+      if (!question || question.id === excludeQuestionId) return;
+      collectQuestionTextEntries(question).forEach((entry) => {
+        if (entry.value.includes(oldText)) {
+          hits.push({ questionId: question.id, path: entry.path });
+        }
+      });
+    });
+    return hits;
+  }
+
+  function applyTextReplacementAcrossBank(oldText, newText, sourceQuestionId) {
+    if (!oldText || oldText === newText) return 0;
+    let replacements = 0;
+    state.working = state.working.map((question) => {
+      if (!question || question.id === sourceQuestionId) return question;
+      const draft = deepClone(question);
+      let changed = false;
+      collectQuestionTextEntries(draft).forEach((entry) => {
+        if (!entry.value.includes(oldText)) return;
+        const nextValue = replaceLiteralText(entry.value, oldText, newText);
+        if (nextValue !== entry.value) {
+          writePathValue(draft, entry.path, nextValue);
+          replacements += 1;
+          changed = true;
+        }
+      });
+      return changed ? normalizeQuestion(draft) : question;
+    });
+
+    state.metadata.lectures = (state.metadata.lectures || []).map((lecture) => {
+      const nextName = replaceLiteralText(lecture.name, oldText, newText);
+      if (nextName !== lecture.name) {
+        replacements += 1;
+        return { ...lecture, name: nextName };
+      }
+      return lecture;
+    });
+    state.metadata.exams = (state.metadata.exams || []).map((exam) => {
+      const nextLabel = replaceLiteralText(exam.label, oldText, newText);
+      if (nextLabel !== exam.label) {
+        replacements += 1;
+        return { ...exam, label: nextLabel };
+      }
+      return exam;
+    });
+    return replacements;
+  }
+
+  function suggestRelatedReplacements(question) {
+    const baseline = getSavedSnapshot(question?.id);
+    if (!question || !baseline) return 0;
+    const suggestions = [];
+    const seen = new Set();
+    const baselineEntries = new Map(collectQuestionTextEntries(baseline).map((entry) => [entry.path, entry.value]));
+    collectQuestionTextEntries(question).forEach((entry) => {
+      const previous = baselineEntries.get(entry.path);
+      const replacement = buildReplacementSuggestion(previous, entry.value);
+      if (!replacement) return;
+      const key = `${replacement.oldText}=>${replacement.newText}`;
+      if (seen.has(key)) return;
+      const hits = findReplacementTargets(replacement.oldText, question.id);
+      if (!hits.length) return;
+      seen.add(key);
+      suggestions.push({ ...replacement, hits });
+    });
+
+    let applied = 0;
+    suggestions.slice(0, 3).forEach((suggestion) => {
+      const shouldApply = window.confirm(
+        `You changed "${suggestion.oldText}" to "${suggestion.newText}".\n\nApply this to ${suggestion.hits.length} other place(s) in the bank too?`
+      );
+      if (!shouldApply) return;
+      applied += applyTextReplacementAcrossBank(suggestion.oldText, suggestion.newText, question.id);
+    });
+    return applied;
+  }
+
   function setDirty(nextDirty) {
     state.dirty = !!nextDirty;
     if (els.dirtyBadge) {
@@ -325,6 +480,7 @@
     state.working = deepClone(state.original);
     state.metadata = normalizeMetadata(payload.metadata);
     state.selectedId = state.working[0]?.id || null;
+    state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
     setDirty(false);
   }
 
@@ -1062,6 +1218,7 @@
     });
     state.working.unshift(question);
     state.selectedId = question.id;
+    rememberQuestionSnapshot(question);
     setDirty(true);
     renderAll();
     setStatus(`Created ${question.id}.`, "ok");
@@ -1077,6 +1234,7 @@
     });
     state.working.unshift(duplicate);
     state.selectedId = duplicate.id;
+    rememberQuestionSnapshot(duplicate);
     setDirty(true);
     renderAll();
     setStatus(`Duplicated ${selected.id} as ${duplicate.id}.`, "ok");
@@ -1173,6 +1331,17 @@
       setStatus(`Question ${question.id} still has ${validation.errors.length} validation error(s).`, "error");
       return;
     }
+    const propagated = suggestRelatedReplacements(question);
+    rememberQuestionSnapshot(getSelectedQuestion() || question);
+    if (propagated) {
+      setDirty(true);
+      renderAll();
+      setStatus(
+        `Saved ${question.id} and updated ${propagated} related field(s) across the bank. Use Save to GitHub to publish.`,
+        validation.warnings.length ? "warn" : "ok"
+      );
+      return;
+    }
     setStatus(
       `Saved ${question.id} in the working draft. Use Save to GitHub to publish it to the repo.`,
       validation.warnings.length ? "warn" : "ok"
@@ -1180,6 +1349,15 @@
   }
 
   async function saveToGitHub() {
+    const selectedBeforeSave = getSelectedQuestion();
+    if (selectedBeforeSave) {
+      const propagated = suggestRelatedReplacements(selectedBeforeSave);
+      rememberQuestionSnapshot(getSelectedQuestion() || selectedBeforeSave);
+      if (propagated) {
+        setDirty(true);
+        renderAll();
+      }
+    }
     const validation = validateAll();
     renderValidation();
     if (validation.errorCount) {
@@ -1215,6 +1393,7 @@
       state.fileSha = String(payload.sha || state.fileSha || "");
       state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
       if (payload.metadata) state.metadata = normalizeMetadata(payload.metadata);
+      state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
       setDirty(false);
       const location = state.repo ? `${state.repo.owner}/${state.repo.repo}@${state.repo.branch}` : "GitHub";
       if (payload.url) {
@@ -1425,6 +1604,19 @@
     });
 
     return question;
+  }
+
+  function snapshotQuestion(question) {
+    return normalizeQuestion(deepClone(question || {}));
+  }
+
+  function rememberQuestionSnapshot(question) {
+    if (!question?.id) return;
+    state.savedSnapshots[question.id] = snapshotQuestion(question);
+  }
+
+  function getSavedSnapshot(questionId) {
+    return questionId ? state.savedSnapshots[questionId] || null : null;
   }
 
   function exportTemplateCsv() {
