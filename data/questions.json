@@ -2602,7 +2602,10 @@
       "Mild abruption during labour can be augmented and delivered vaginally",
       "Couvelaire uterus usually treated with hysterectomy"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c168",
@@ -2619,7 +2622,10 @@
       "The safest form of delivery is cesarean section immediately after diagnosis regardless the gestational age"
     ],
     "ans": "D",
-    "image": "images/questions/c214-20260405154453.png"
+    "image": "images/questions/c214-20260405154453.png",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c169",
@@ -2728,7 +2734,10 @@
       "Placenta previa",
       "Vasa Previa"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c176",
@@ -2744,7 +2753,10 @@
       "Patients with severe bleeding should be delivered immediately regardless the gestational age",
       "Patients with placenta previa with any bleeding before 37 weeks should be observed up to 37 wks."
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c177",
@@ -2760,7 +2772,10 @@
       "Caesarean hysterectomy is the only option for patients with placenta accreta",
       "Uterus preserving surgery should not be considered in patients with placenta accreta"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c178",
@@ -2776,7 +2791,10 @@
       "Conservative management up to 39 weeks",
       "Wait for spontaneous onset of labor"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c179",
@@ -2792,7 +2810,10 @@
       "Wait for spontaneous onset of labor",
       "Immediate induction of labor"
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c180",
@@ -2809,7 +2830,10 @@
       "Wait for spontaneous onset of labor"
     ],
     "ans": "A",
-    "note": "also appeared as MU-MED 39 Q23 (c657)"
+    "note": "also appeared as MU-MED 39 Q23 (c657)",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c181",
@@ -3228,7 +3252,10 @@
     ],
     "ans": "B",
     "image": "images/questions/c206-20260405151104.png",
-    "imagePlaceholderText": "Image: Placenta Previa diagram"
+    "imagePlaceholderText": "Image: Placenta Previa diagram",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c207",
@@ -3245,7 +3272,10 @@
       "Contractions mainly is not found"
     ],
     "ans": "A",
-    "image": "images/questions/c207-20260405151234.png"
+    "image": "images/questions/c207-20260405151234.png",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c208",
@@ -3263,7 +3293,10 @@
     ],
     "ans": "A",
     "image": "images/questions/c206-20260405151104.png",
-    "imagePlaceholderText": "Image: Placenta Previa diagram"
+    "imagePlaceholderText": "Image: Placenta Previa diagram",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c209",
@@ -3280,7 +3313,10 @@
       "Ectopic pregnancy"
     ],
     "ans": "D",
-    "image": "images/questions/c209-20260405153854.png"
+    "image": "images/questions/c209-20260405153854.png",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c210",
@@ -3297,7 +3333,10 @@
       "34 wks"
     ],
     "ans": "C",
-    "note": "??????? ???????"
+    "note": "??????? ???????",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c211",
@@ -3315,7 +3354,10 @@
     ],
     "ans": "A",
     "image": "images/questions/c209-20260405153854.png",
-    "imagePlaceholderText": "[IMAGE - Placenta previa diagram at 36 weeks]"
+    "imagePlaceholderText": "[IMAGE - Placenta previa diagram at 36 weeks]",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c212",
@@ -3334,7 +3376,10 @@
     ],
     "ans": "B",
     "image": "images/questions/c212-20260405154153.png",
-    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c213",
@@ -3352,7 +3397,10 @@
     ],
     "ans": "B",
     "image": "images/questions/c212-20260405154153.png",
-    "imagePlaceholderText": "Image: Placental Abruption"
+    "imagePlaceholderText": "Image: Placental Abruption",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c214",
@@ -3388,7 +3436,10 @@
     ],
     "ans": "C",
     "image": "images/questions/c209-20260405153854.png",
-    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c216",
@@ -3440,7 +3491,10 @@
     ],
     "ans": "D",
     "image": "images/questions/c214-20260405154453.png",
-    "imagePlaceholderText": "Image: Vasa Previa"
+    "imagePlaceholderText": "Image: Vasa Previa",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c219",
@@ -3457,7 +3511,10 @@
       "Occurs before ROM"
     ],
     "ans": "A",
-    "image": "images/questions/c214-20260405154453.png"
+    "image": "images/questions/c214-20260405154453.png",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c220",
@@ -7095,7 +7152,10 @@
       "Acromion",
       "Occiput"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c448",
@@ -7111,7 +7171,10 @@
       "Fetal Position",
       "Fetal Attitude"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c449",
@@ -7191,7 +7254,10 @@
       "Expulsion of the placenta",
       "Dilation of the cervix"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c454",
@@ -7207,7 +7273,10 @@
       "the fetal part related to maternal pelvis",
       "relation of denominator to maternal pelvis"
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c455",
@@ -7383,7 +7452,10 @@
       "Cephalo-hematoma.",
       "Subgaleal hematoma."
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c466",
@@ -7600,7 +7672,10 @@
       "+1",
       "+2"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c484",
@@ -7922,7 +7997,10 @@
       "After crowning.",
       "When the head at +2 station."
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c504",
@@ -8060,7 +8138,8 @@
     ],
     "ans": "A",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ]
   },
   {
@@ -8079,7 +8158,8 @@
     ],
     "ans": "D",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ]
   },
   {
@@ -8098,7 +8178,8 @@
     ],
     "ans": "C",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ]
   },
   {
@@ -8213,7 +8294,8 @@
     ],
     "ans": "A",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ]
   },
   {
@@ -8248,7 +8330,8 @@
     ],
     "ans": "C",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ]
   },
   {
@@ -11140,7 +11223,8 @@
     ],
     "ans": "C",
     "tags": [
-      "also_in:Intrapartum Fetal Monitoring"
+      "also_in:Intrapartum Fetal Monitoring",
+      "2026 Lectures Q's"
     ],
     "_mergedPrevExam": true
   },
@@ -11280,7 +11364,10 @@
       "Breech presentation",
       "Hydrocephalic baby"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c736",
@@ -11297,7 +11384,10 @@
       "Subpubic arch accepts 2 fingers",
       "Intertuberous diameter accepts 4 knuckles on pelvic exam"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c737",
@@ -11314,7 +11404,10 @@
       "Presentation of the placenta at the cervical os",
       "All of the above"
     ],
-    "ans": "E"
+    "ans": "E",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c738",
@@ -11330,7 +11423,10 @@
       "Mauriceau-Smelli-Veit maneuver",
       "Careful history taking"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c739",
@@ -11347,7 +11443,10 @@
       "160–180 bpm",
       "There is no baseline heart rate"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c740",
@@ -11363,7 +11462,10 @@
       "Uterine relaxation between contractions",
       "Moderate bleeding"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c741",
@@ -11379,7 +11481,10 @@
       "Anthropoid pelvis",
       "Platyploid pelvis"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c742",
@@ -11389,7 +11494,10 @@
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Definition of normal labor?",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c743",
@@ -11399,7 +11507,10 @@
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Signs of placental separation?",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c744",
@@ -11409,7 +11520,10 @@
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Diagnosis of labor?",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c745",
@@ -11419,7 +11533,10 @@
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Compare between true and false labor pain?",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c746",
@@ -11429,7 +11546,10 @@
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Stages of labor?",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c747",
@@ -11445,7 +11565,10 @@
       "Repeated vomiting in late pregnancy.",
       "Vomiting that persists for the entire pregnancy."
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c748",
@@ -11461,7 +11584,10 @@
       "Progesterone",
       "Human chorionic gonadotrophin"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c749",
@@ -11477,7 +11603,10 @@
       "The course of hyperemesis gravidarum correlates with the course of (HCG).",
       "Hyperemesis gravidarum increases in placenta praevia."
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c750",
@@ -11493,7 +11622,10 @@
       "Eating in the early morning.",
       "Small frequent meals."
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c751",
@@ -11509,7 +11641,10 @@
       "B-hydroxyl buteric acid",
       "Acetone"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c752",
@@ -11525,7 +11660,10 @@
       "Cholycystitis",
       "Vit. B₁ & B₆ deficiency"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c753",
@@ -11541,7 +11679,10 @@
       "Lactated ringer",
       "Normal saline"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c754",
@@ -11557,7 +11698,10 @@
       "Proteinuria",
       "Albuminuria"
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c755",
@@ -11573,7 +11717,10 @@
       "Sodium bicarbonates injection",
       "Safe oral antiemetics and antihistaminics"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c756",
@@ -11589,7 +11736,10 @@
       "Oral fatty meals",
       "Safe parenteral tranquilizers, antiemetics"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c757",
@@ -11605,7 +11755,10 @@
       "Hb F",
       "Hb A2"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c758",
@@ -11621,7 +11774,10 @@
       "Same affinity as Hb A",
       "No effect on oxygen delivery"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c759",
@@ -11637,7 +11793,10 @@
       "28–30 weeks",
       "32–34 weeks"
     ],
-    "ans": "B"
+    "ans": "B",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c760",
@@ -11653,7 +11812,10 @@
       "28–30 weeks",
       "36 weeks"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c761",
@@ -11669,7 +11831,10 @@
       "10 movements per 10 hours",
       "10 movements per 24 hours"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c762",
@@ -11685,7 +11850,10 @@
       "150 bpm",
       "160 bpm"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c763",
@@ -11701,7 +11869,10 @@
       "> 25 bpm",
       "Undetectable amplitude"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c764",
@@ -11717,7 +11888,10 @@
       "6–25 bpm",
       "> 25 bpm"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c765",
@@ -11733,7 +11907,10 @@
       "Category III",
       "Modified Category II"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c766",
@@ -11749,7 +11926,10 @@
       "Category II",
       "Category III"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c767",
@@ -11765,7 +11945,10 @@
       "Normal fetal status",
       "Immediate delivery"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c768",
@@ -11781,7 +11964,10 @@
       "6 (normal fluid)",
       "0–2"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c769",
@@ -11797,7 +11983,10 @@
       "IUGR fetus",
       "Macrosomic fetus"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   },
   {
     "id": "c770",
@@ -11813,6 +12002,9 @@
       "Severe compromise requiring delivery",
       "Not clinically relevant"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "2026 Lectures Q's"
+    ]
   }
 ]
