@@ -560,7 +560,7 @@ function pick(btn, chosen, correct){
   }
   const res=document.getElementById('mcq-res-'+c.id);
   if(res){
-    if(ok){res.className='mcq-result ok';res.textContent='âœ“ Correct!';mcqRes.correct++;}
+    if(ok){res.className='mcq-result ok';res.textContent='Correct!';mcqRes.correct++;}
     else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   const hint=document.getElementById('mcq-hint-'+c.id);
@@ -588,7 +588,7 @@ function pickOSCE(btn, chosen, correct, cardId, subIdx){
   }
   const res=document.getElementById('osce-res-'+cid);
   if(res){
-    if(ok){res.className='mcq-result ok';res.textContent='âœ“ Correct!';mcqRes.correct++;}
+    if(ok){res.className='mcq-result ok';res.textContent='Correct!';mcqRes.correct++;}
     else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   if(!osceResults[cardId]) osceResults[cardId]={};
@@ -934,7 +934,7 @@ function showStats(){
   const practiceBtn = document.getElementById('practice-wrong-btn');
   practiceBtn.textContent = wrongCards.length
     ? 'ًں”پ Practice ' + wrongCards.length + ' Wrong Question' + (wrongCards.length>1?'s':'')
-    : 'âœ… No Wrong Answers Yet';
+    : 'No Wrong Answers Yet';
   practiceBtn.disabled = wrongCards.length === 0;
   wList.innerHTML = '';
   if(wrongCards.length === 0){
@@ -956,7 +956,7 @@ function showStats(){
         '<div class="wq-q">' + stem + '</div>' +
         '<div class="wq-ans">' +
           '<span class="wq-your">â‌Œ Your: ' + yourAns + ') ' + yourTxt.substring(0,60) + '</span>' +
-          '<span class="wq-correct">âœ… Correct: ' + corrAns + ') ' + corrTxt.substring(0,60) + '</span>' +
+          '<span class="wq-correct">Correct: ' + corrAns + ') ' + corrTxt.substring(0,60) + '</span>' +
         '</div>';
       div.onclick = () => { goToCard(c.id); };
       wList.appendChild(div);
