@@ -18,7 +18,7 @@ const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 let deck=[], idx=0, flipped=false, reviewed=0;
 let scores={again:0,good:0,easy:0}, mcqRes={correct:0,wrong:0};
-let activeFilter='all', activeSrc='', activeType='', activeTag='', activeLec=null, activeLecType='all';
+let activeFilter='all', activeSrc='', activeSrcExact='', activeType='', activeTag='', activeLec=null, activeLecType='all';
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
@@ -96,6 +96,31 @@ function getTagFilterOptions(cards = getVisibleCards({ dedupe:false })){
       cls: /^REPEATED$/i.test(tag) ? 'ftab-tag-repeated' : (/^ALSO IN:/i.test(tag) ? 'ftab-tag-also' : 'ftab-tag-generic')
     }))
     .sort((a,b)=> (b.count-a.count) || a.tag.localeCompare(b.tag));
+}
+function getExactSourceOptions(cards = getVisibleCards({ dedupe:false })){
+  const counts = new Map();
+  (Array.isArray(cards) ? cards : []).forEach(card => {
+    const source = String(card?.source || '').trim();
+    if(!source) return;
+    counts.set(source, (counts.get(source) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .map(([source, count]) => ({ source, count }))
+    .sort((a,b)=> (b.count-a.count) || a.source.localeCompare(b.source));
+}
+function exactSourceLabel(source){
+  const text = String(source || '').trim();
+  if(!text) return 'Unknown';
+  if(/^Previous Exams Added — /i.test(text)) return text.replace(/^Previous Exams Added — /i, '');
+  if(/^Source:s*/i.test(text)) return text.replace(/^Source:s*/i, '');
+  return text;
+}
+function exactSourceTabClass(source){
+  const cls = srcClass(source);
+  if(cls === 'src-new') return 'ftab-new';
+  if(cls === 'src-prev') return 'ftab-prev';
+  if(cls === 'src-osce') return 'ftab-osce';
+  return 'ftab-old';
 }
 function normalizeLectureFilter(value){
   if(value == null) return 'all';
@@ -243,6 +268,16 @@ function setTypeFilter(btn){
   }
   applyFilter();
 }
+function setExactSourceFilter(btn){
+  const source = String(btn?.dataset?.sourceExact || '').trim();
+  if(!source) return;
+  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeSrcExact=''; }
+  else {
+    document.querySelectorAll('[data-source-exact]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active'); activeSrcExact=source;
+  }
+  applyFilter();
+}
 function setTagFilter(btn){
   const tag = String(btn?.dataset?.tag || '').trim();
   if(!tag) return;
@@ -280,6 +315,7 @@ function applyFilter(){
   if(activeSrc) d=d.filter(c=>(c.source||'').toLowerCase().includes(activeSrc.replace('_',' ')));
   // Special: extra_from_bank has _extra flag
   if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
+  if(activeSrcExact) d=d.filter(c=>String(c.source||'').trim()===activeSrcExact);
   if(activeType) d=d.filter(c=>c.cardType===activeType);
   if(activeTag) d=d.filter(c=>getCardTagTexts(c).includes(activeTag));
   if(activeLec){
@@ -301,6 +337,7 @@ function loadDeck(d){
   if(activeLec) title=activeLec+(activeLecType!=='all'?' â€” '+activeLecType:'');
   else if(activeFilter!=='all') title=activeFilter;
   if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
+  if(activeSrcExact) title+=' آ· '+exactSourceLabel(activeSrcExact);
   if(activeType) title+=' آ· '+activeType;
   if(activeTag) title+=' آ· '+activeTag;
   document.getElementById('deck-title').textContent=title;
@@ -309,9 +346,10 @@ function loadDeck(d){
   const nf=d.filter(c=>c.cardType==='FLASHCARD').length;
   const ns=d.filter(c=>c.cardType==='SAQ').length;
   const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
+  const sourceExactNote = activeSrcExact ? ` &nbsp;آ·&nbsp; Exact source: ${esc2(exactSourceLabel(activeSrcExact))}` : '';
   const tagNote = activeTag ? ` &nbsp;آ·&nbsp; Tag filter: ${esc2(activeTag)}` : '';
   document.getElementById('deck-meta').innerHTML=
-    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${tagNote}`;
+    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${sourceExactNote}${tagNote}`;
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -825,7 +863,7 @@ function saveProgress(){
   const data = {
     mcqAnswers, osceResults, flashRatings,
     reviewed, scores, mcqRes, idx,
-    activeFilter, activeSrc, activeType, activeTag, activeLec, activeLecType
+    activeFilter, activeSrc, activeSrcExact, activeType, activeTag, activeLec, activeLecType
   };
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
 }
@@ -841,6 +879,7 @@ function loadProgress(){
       flashRatings = d.flashRatings || {};
       activeFilter = d.activeFilter || 'all';
       activeSrc    = d.activeSrc    || '';
+      activeSrcExact = d.activeSrcExact || '';
       activeType   = d.activeType   || '';
       activeTag    = d.activeTag    || '';
       activeLec    = d.activeLec    || null;
@@ -858,6 +897,7 @@ function loadProgress(){
       activeLec = preferredLecture;
       activeLecType = 'all';
     }
+    renderExactSourceTabs();
     renderTagTabs();
     applyFilter();
     idx = Math.min(idx || 0, Math.max(0, deck.length - 1));
@@ -880,6 +920,16 @@ function renderExamTabs(){
   })).join('');
   tabs.innerHTML=html;
 }
+function renderExactSourceTabs(){
+  const tabs=document.getElementById('source-exact-tabs');
+  if(!tabs) return;
+  const sources=getExactSourceOptions();
+  tabs.innerHTML=sources.map(entry=>{
+    const label = exactSourceLabel(entry.source);
+    const cls = exactSourceTabClass(entry.source);
+    return '<button class="ftab ' + cls + (activeSrcExact===entry.source ? ' active' : '') + '" data-source-exact="' + esc(entry.source) + '" title="' + esc(entry.source) + '" onclick="setExactSourceFilter(this)">' + esc2(label) + ' <span class="cnt">' + entry.count + '</span></button>';
+  }).join('');
+}
 function renderTagTabs(){
   const tabs=document.getElementById('tag-tabs');
   if(!tabs) return;
@@ -895,10 +945,11 @@ function clearProgress(){
   localStorage.removeItem(LS_KEY);
   mcqAnswers={}; osceResults={}; flashRatings={};
   reviewed=0; scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
-  activeFilter='all'; activeSrc=''; activeType=''; activeTag=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
+  activeFilter='all'; activeSrc=''; activeSrcExact=''; activeType=''; activeTag=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
   randomMode = storedRandomMode();
   syncSidebarSelection();
   syncPracticeControls();
+  renderExactSourceTabs();
   renderTagTabs();
   applyFilter();
 }
@@ -907,6 +958,7 @@ function clearProgress(){
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 buildSidebar();
 renderExamTabs();
+renderExactSourceTabs();
 renderTagTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
 syncPracticeControls();
@@ -1011,7 +1063,7 @@ function practiceWrong(){
   deck = wrongCards;
   idx = 0; flipped = false; reviewed = 0;
   scores = {again:0,good:0,easy:0}; mcqRes = {correct:0,wrong:0};
-  activeLec = null; activeFilter = 'all'; activeSrc = ''; activeType = '';
+  activeLec = null; activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = ''; activeTag = '';
   persistPracticePreferences();
   syncSidebarSelection();
   syncPracticeControls();
@@ -1034,7 +1086,7 @@ function goToCard(cardId){
     }
   }
   activeLec = card.lecture; activeLecType = 'all';
-  activeFilter = 'all'; activeSrc = ''; activeType = '';
+  activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = ''; activeTag = '';
   applyFilter();
   const deckIdx = deck.findIndex(c=>c.id===card.id || (c.canonicalSourceId && c.canonicalSourceId === card.canonicalSourceId));
   if(deckIdx !== -1){ idx = deckIdx; }
