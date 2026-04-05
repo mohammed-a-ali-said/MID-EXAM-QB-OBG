@@ -57,7 +57,7 @@ function AdminView({ user }) {
         <section className="admin-topbar">
           <div className="summary-grid" id="summary-grid"></div>
           <div className="github-panel">
-            <div className="github-row" style={{ gridTemplateColumns: "1fr 1fr" }}>
+            <div className="github-row" style={{ gridTemplateColumns: "1fr 1fr 1.1fr" }}>
               <div>
                 <div className="panel-title" style={{ marginBottom: 8 }}>Signed in as</div>
                 <div style={{ fontWeight: 800, color: "#1B3A6B" }}>{user.name || user.login}</div>
@@ -66,6 +66,10 @@ function AdminView({ user }) {
               <div>
                 <div className="panel-title" style={{ marginBottom: 8 }}>GitHub-backed save</div>
                 <div className="github-help">Questions load and save through secure server routes. No PAT is stored in the browser.</div>
+              </div>
+              <div>
+                <div className="panel-title" style={{ marginBottom: 8 }}>Admin access</div>
+                <div className="github-help">Access is controlled by GitHub OAuth plus the <code>ADMIN_ALLOWED_USERS</code> allowlist. Temporary employee access is best handled by adding their GitHub username, giving repo write access, then removing both later.</div>
               </div>
             </div>
           </div>
@@ -430,4 +434,5 @@ export default async function Home({ searchParams }) {
   }
   return <AdminView user={{ login: session.login, name: session.name, avatarUrl: session.avatarUrl }} />;
 }
+
 
