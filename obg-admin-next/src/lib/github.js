@@ -13,7 +13,11 @@ async function githubFetch(url, token, init = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`GitHub request failed (${response.status}): ${await response.text()}`);
+    const body = await response.text();
+    const error = new Error(`GitHub request failed (${response.status}): ${body}`);
+    error.status = response.status;
+    error.body = body;
+    throw error;
   }
 
   return response;
@@ -85,23 +89,46 @@ async function fetchRepoJsonFile(token, repoPath, label) {
   };
 }
 
+async function fetchRepoFileSha(token, repoPath) {
+  const env = assertEnv();
+  const encodedPath = encodeRepoPath(repoPath);
+  const url = `https://api.github.com/repos/${encodeURIComponent(env.repoOwner)}/${encodeURIComponent(env.repoName)}/contents/${encodedPath}?ref=${encodeURIComponent(env.repoBranch)}`;
+  const response = await githubFetch(url, token);
+  const payload = await response.json();
+  return String(payload?.sha || "").trim();
+}
+
 async function saveRepoJsonFile(token, { repoPath, content, sha, message }) {
   const env = assertEnv();
   const encodedPath = encodeRepoPath(repoPath);
   const url = `https://api.github.com/repos/${encodeURIComponent(env.repoOwner)}/${encodeURIComponent(env.repoName)}/contents/${encodedPath}`;
-  const response = await githubFetch(url, token, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message,
-      branch: env.repoBranch,
-      sha,
-      content: Buffer.from(content, "utf8").toString("base64"),
-    }),
-  });
-  const payload = await response.json();
+
+  async function commitWithSha(currentSha) {
+    const response = await githubFetch(url, token, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        branch: env.repoBranch,
+        sha: currentSha,
+        content: Buffer.from(content, "utf8").toString("base64"),
+      }),
+    });
+    return response.json();
+  }
+
+  let effectiveSha = String(sha || "").trim();
+  let payload;
+  try {
+    payload = await commitWithSha(effectiveSha);
+  } catch (error) {
+    if (error?.status !== 409) throw error;
+    effectiveSha = await fetchRepoFileSha(token, repoPath);
+    payload = await commitWithSha(effectiveSha);
+  }
+
   return {
     sha: payload.content?.sha || "",
     commitSha: payload.commit?.sha || "",
