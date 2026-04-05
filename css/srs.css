@@ -635,3 +635,8 @@
   border-radius: 6px; font-family: var(--font-b);
 }
 .fstatus-clear:hover { background: #fde68a; }
+
+
+.sb-all .s-name { font-style: italic; color: #6b7280; }
+.sb-all.active .s-name { color: #fff; font-style: normal; }
+.sb-all { border-bottom: 2px solid var(--border) !important; }

@@ -276,6 +276,10 @@ function syncAllFilterUI(){
       });
     }
   }
+  const allItem = document.querySelector('.sb-all');
+  if (allItem) allItem.classList.toggle('active', !filterState.lecture);
+  const allCnt = document.getElementById('sb-cnt-all');
+  if (allCnt) allCnt.textContent = getVisibleCards({ dedupe: true }).length;
   syncPracticeControls();
   updateFilterStatus();
 }
@@ -410,6 +414,10 @@ function runLectureSwitch(callback, activeItem){
   });
 }
 function setSL(k){
+  if (k === '__all__') {
+    setFilters({ lecture: null, type: '' });
+    return;
+  }
   const el=document.querySelector('.sb-item[data-k="'+k+'"]');
   runLectureSwitch(function(){ setFilters({ lecture: k, type: '' }); }, el);
 }
@@ -876,6 +884,7 @@ function buildSidebar(){
   const visibleCards=getVisibleCards({ dedupe:false });
   const lectures=getLectureOptions();
   let html='';
+  html += '<li class="sb-item sb-all" data-k="__all__" onclick="setSL(\'__all__\')"><div class="s-main"><span class="s-name">All Lectures</span><span class="s-cnt" id="sb-cnt-all">0</span></div></li>';
   lectures.forEach(lec=>{
     const cards=visibleCards.filter(c=>questionResolutionHelpers.cardHasLectureAssociation(c, lec));
     const nTotal=cards.length;
