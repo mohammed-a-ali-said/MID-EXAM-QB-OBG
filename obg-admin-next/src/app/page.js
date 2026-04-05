@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/session";
+﻿import { getSession } from "@/lib/session";
 import Script from "next/script";
 
 function LoginView({ error }) {
@@ -44,6 +44,7 @@ function AdminView({ user }) {
           </div>
           <div className="header-actions">
             <a className="btn btn-ghost" href="/api/auth/logout">Sign out</a>
+            <button className="btn btn-ghost" id="theme-toggle-btn" type="button">Dark mode</button>
             <button className="btn btn-ghost" id="undo-btn" type="button">Undo</button>
             <button className="btn btn-ghost" id="redo-btn" type="button">Redo</button>
             <button className="btn btn-ghost" id="undo-publish-btn" type="button">Undo Last Publish</button>
@@ -429,3 +430,4 @@ export default async function Home({ searchParams }) {
   }
   return <AdminView user={{ login: session.login, name: session.name, avatarUrl: session.avatarUrl }} />;
 }
+

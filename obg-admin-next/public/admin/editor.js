@@ -1,8 +1,9 @@
-(function () {
+﻿(function () {
   const DATA_URL = "/api/questions";
   const TYPE_OPTIONS = ["MCQ", "FLASHCARD", "SAQ", "OSCE"];
   const TEMPLATE_CHOICE_HEADERS = ["choiceA", "choiceB", "choiceC", "choiceD", "choiceE", "choiceF"];
   const LAST_PUBLISH_UNDO_KEY = "obg-admin-last-publish-undo";
+  const THEME_KEY = "obg-admin-theme";
 
   function readBootUser() {
     const node = document.getElementById("admin-user-data");
@@ -13,6 +14,14 @@
     } catch (error) {
       console.warn("Failed to parse admin boot user payload.", error);
       return null;
+    }
+  }
+
+  function readThemePreference() {
+    try {
+      return window.localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
+    } catch (error) {
+      return "light";
     }
   }
 
@@ -35,6 +44,7 @@
     historyFuture: [],
     isRestoringHistory: false,
     lastPublishedUndo: null,
+    theme: "light",
   };
 
   const els = {};
@@ -45,6 +55,26 @@
 
   function deepClone(value) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+    function applyTheme(theme) {
+    const nextTheme = theme === "dark" ? "dark" : "light";
+    state.theme = nextTheme;
+    document.body.classList.toggle("admin-theme-dark", nextTheme === "dark");
+    if (els.themeToggleBtn) {
+      els.themeToggleBtn.textContent = nextTheme === "dark" ? "Light mode" : "Dark mode";
+      els.themeToggleBtn.setAttribute("aria-pressed", nextTheme === "dark" ? "true" : "false");
+    }
+    try {
+      window.localStorage.setItem(THEME_KEY, nextTheme);
+    } catch (error) {
+      console.warn("Failed to persist admin theme preference.", error);
+    }
+  }
+
+  function toggleTheme() {
+    applyTheme(state.theme === "dark" ? "light" : "dark");
+    setStatus(`Theme switched to ${state.theme} mode.`, "ok");
   }
 
   function persistLastPublishedUndo() {
@@ -803,7 +833,7 @@
         <div class="bucket-item ${lecture.active === false ? "inactive" : ""}">
           <div>
             <div class="bucket-name">${escapeHtml(lecture.name)}</div>
-            <div class="bucket-meta">${escapeHtml(lecture.id)} · ${lecture.active === false ? "Hidden from students" : "Visible to students"}</div>
+            <div class="bucket-meta">${escapeHtml(lecture.id)} آ· ${lecture.active === false ? "Hidden from students" : "Visible to students"}</div>
           </div>
           <div class="bucket-actions">
             <button class="mini-btn" type="button" data-bucket-action="toggle-lecture" data-bucket-id="${escapeHtml(lecture.id)}">${lecture.active === false ? "Show" : "Hide"}</button>
@@ -816,7 +846,7 @@
         <div class="bucket-item ${exam.active === false ? "inactive" : ""}">
           <div>
             <div class="bucket-name">${escapeHtml(exam.label)}</div>
-            <div class="bucket-meta">${escapeHtml(exam.id)} · ${exam.active === false ? "Inactive" : "Active"}</div>
+            <div class="bucket-meta">${escapeHtml(exam.id)} آ· ${exam.active === false ? "Inactive" : "Active"}</div>
           </div>
           <div class="bucket-actions">
             <button class="mini-btn" type="button" data-bucket-action="toggle-exam" data-bucket-id="${escapeHtml(exam.id)}">${exam.active === false ? "Enable" : "Disable"}</button>
@@ -1370,8 +1400,8 @@
             <article class="import-preview-row">
               <div class="import-preview-row-head">
                 <div>
-                  <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} · ${escapeHtml(row.question.id)}</div>
-                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} · ${escapeHtml(row.question.cardType || "Question")} · ${escapeHtml(row.mode)}${row.raw?.lecture ? ` · imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` · imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` · imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
+                  <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} آ· ${escapeHtml(row.question.id)}</div>
+                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} آ· ${escapeHtml(row.question.cardType || "Question")} آ· ${escapeHtml(row.mode)}${row.raw?.lecture ? ` آ· imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` آ· imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` آ· imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
                   <div class="import-preview-chip-row">
                     <span class="import-preview-chip ${row.lectureStatus === "new" ? "warn" : "ok"}">${row.lectureStatus === "new" ? "New lecture bucket" : "Existing lecture bucket"}</span>
                     <span class="import-preview-chip ${row.examStatus === "new" ? "warn" : "ok"}">${row.examStatus === "new" ? "New exam section" : "Existing exam section"}</span>
@@ -2276,6 +2306,7 @@
     els.deleteBtn.addEventListener("click", handleDelete);
     els.exportBtn.addEventListener("click", downloadJson);
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
+    if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", toggleTheme);
     if (els.undoBtn) els.undoBtn.addEventListener("click", undoHistory);
     if (els.redoBtn) els.redoBtn.addEventListener("click", redoHistory);
     if (els.undoPublishBtn) els.undoPublishBtn.addEventListener("click", undoLastPublish);
@@ -2469,6 +2500,7 @@
     els.historyList = byId("history-list");
     els.validateAllBtn = byId("validate-all-btn");
     els.exportBtn = byId("export-btn");
+    els.themeToggleBtn = byId("theme-toggle-btn");
     els.undoBtn = byId("undo-btn");
     els.redoBtn = byId("redo-btn");
     els.undoPublishBtn = byId("undo-publish-btn");
@@ -2530,6 +2562,7 @@
     if (initialized) return;
     initialized = true;
     cacheElements();
+    applyTheme(readThemePreference());
     bindEvents();
     try {
       setStatus("Loading question bank...", "progress");
@@ -2550,3 +2583,6 @@
     init();
   }
 })();
+
+
+
