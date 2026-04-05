@@ -594,7 +594,7 @@ function renderFlipCard(c, type){
   const media = renderQuestionMedia(c);
   
   // FRONT
-  const front=`<div class="card-face card-front" onclick="flipCard()">
+  const front=`<div class="flip-front card-face card-front" onclick="flipCard()">
   <div class="cf-body">
     <div class="q-badge"><span>${esc2(c.num||'')}</span><span class="ttype ${tclass}">${tname}</span><span>${esc2(c.lecture||'')}</span></div>
     <div class="q-lec">${srcBadge}</div>
@@ -621,10 +621,10 @@ function renderFlipCard(c, type){
   <div class="ans-hdr-q">${esc2(c.displayStem||c.q||'')}</div>
   <span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>
 </div>
-<div class="saq-ans-body">Rate yourself after recalling the answer.</div>`;
+<div class="ans-body"><div class="ans-text">${mdBold(esc2(c.displayAnswer||c.a||'Rate yourself after recalling the answer.'))}</div></div>`;
   }
   
-  const back=`<div class="card-face card-back card-back-flash">
+  const back=`<div class="flip-back card-face card-back card-back-flash">
   ${backContent}
   <div class="ans-footer">
     <div class="rate-btns">
@@ -636,7 +636,7 @@ function renderFlipCard(c, type){
   </div>
 </div>`;
   
-  return `<div class="card-stage"><div class="card-flip" id="cflip">${front}${back}</div></div>`;
+  return `<div class="flip-scene card-stage"><div class="flip-card-inner" id="cflip">${front}${back}</div></div>`;
 }
 
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -740,7 +740,7 @@ function jumpOSCESub(i){
 // FLIP / RATE / NAV
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function flipCard(){
-  const cf=document.getElementById('cflip');
+  const cf=document.querySelector('.flip-card-inner');
   if(cf){ cf.classList.toggle('flipped'); flipped=!flipped;
     if(flipped){reviewed++;updateStats();updateProgress();}
   }
