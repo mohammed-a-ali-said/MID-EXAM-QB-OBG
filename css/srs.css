@@ -366,6 +366,20 @@
 .srs-review-btn { background: var(--navy); color: #fff; }
 .srs-file-btn { background: #eef5ff; color: var(--blue); }
 
+.srs-resume-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fdf4ff;
+  border: 1px solid #e9d5ff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: .85rem;
+  color: #6b21a8;
+  gap: 12px;
+}
+
 .srs-table {
   width: 100%;
   border-collapse: collapse;
@@ -397,6 +411,12 @@
 }
 
 .srs-heatday {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-height: 46px;
   border-radius: 10px;
   padding: 8px 4px;
   text-align: center;

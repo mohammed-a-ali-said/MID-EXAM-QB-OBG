@@ -1,5 +1,6 @@
 (() => {
   const dashboardState = { open: false, lecture: "all" };
+  const DASHBOARD_LECTURE_KEY = "obg_dashboard_lecture";
 
   function normalizeLecture(lecture) {
     const helper = window.OBG_QB_Utils && window.OBG_QB_Utils.normalizeLectureFilter;
@@ -7,13 +8,17 @@
   }
 
   function selectedLecture() {
-    return normalizeLecture(dashboardState.lecture || localStorage.getItem("obg_selected_lecture") || "all");
+    return normalizeLecture(
+      dashboardState.lecture ||
+      localStorage.getItem(DASHBOARD_LECTURE_KEY) ||
+      "all"
+    );
   }
 
   function persistLecture(lecture) {
     dashboardState.lecture = normalizeLecture(lecture);
     try {
-      localStorage.setItem("obg_selected_lecture", dashboardState.lecture);
+      localStorage.setItem(DASHBOARD_LECTURE_KEY, dashboardState.lecture);
     } catch (error) {
       console.warn("Unable to persist dashboard lecture filter.", error);
     }
@@ -141,11 +146,30 @@
     `;
   }
 
+  function renderResumeBanner() {
+    const raw = localStorage.getItem("obg_progress_v1");
+    if (!raw) return "";
+    try {
+      const d = JSON.parse(raw);
+      if (!d.idx || d.idx < 1) return "";
+      const lec = d.activeLec ? `in ${d.activeLec}` : "across all lectures";
+      return `
+        <div class="srs-resume-banner">
+          <span>You were at card ${d.idx + 1} ${lec}</span>
+          <button class="srs-review-btn" type="button" id="srs-resume-btn">Resume</button>
+        </div>
+      `;
+    } catch (error) {
+      return "";
+    }
+  }
+
   function renderLectureRows() {
     const rows = window.SRS_Storage.getStatsByLecture();
     return rows
       .map((row, index) => {
         const cls = row.due >= 5 ? "row-hot" : row.mastered >= Math.max(1, row.total * 0.6) ? "row-calm" : "";
+        const dueLabel = row.due > 0 ? ` (${row.due} due)` : "";
         return `
           <tr class="${cls}">
             <td>${index + 1}</td>
@@ -155,7 +179,7 @@
             <td>${row.due}</td>
             <td>${row.mastered}</td>
             <td>${row.total}</td>
-            <td><button class="srs-review-btn" type="button" data-review-lecture="${String(row.lecture).replace(/"/g, "&quot;")}">Review</button></td>
+            <td><button class="srs-review-btn ${row.due > 0 ? "" : "srs-file-btn"}" type="button" data-review-lecture="${String(row.lecture).replace(/"/g, "&quot;")}">Review${dueLabel}</button></td>
           </tr>
         `;
       })
@@ -164,18 +188,33 @@
 
   function renderHeatmap() {
     const activity = window.SRS_Storage.getActivity(21);
-    return activity
-      .map((entry) => {
-        const level = Math.min(4, entry.count);
-        const colors = ["#f8fafc", "#e0f2fe", "#bae6fd", "#7dd3fc", "#38bdf8"];
-        return `
-          <div class="srs-heatday" style="background:${colors[level]};border-color:${level ? "#7dd3fc" : "#e5e7eb"}">
-            <strong>${entry.count}</strong>
-            <span>${entry.date.slice(5)}</span>
-          </div>
-        `;
-      })
-      .join("");
+    const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+    return activity.map((entry) => {
+      const level = Math.min(4, entry.count);
+      const colors = ["#f8fafc", "#e0f2fe", "#bae6fd", "#7dd3fc", "#38bdf8"];
+      const dow = days[new Date(entry.date + "T12:00:00").getDay()];
+      return `
+        <div class="srs-heatday" style="background:${colors[level]};border-color:${level ? "#7dd3fc" : "#e5e7eb"}">
+          <strong>${entry.count}</strong>
+          <span>${dow}</span>
+          <span style="font-size:.6rem;opacity:.7">${entry.date.slice(5)}</span>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderStorageBar(storage) {
+    const totalKB = storage.totalBytes / 1024;
+    const limitKB = 5120;
+    const pct = Math.min(100, (totalKB / limitKB) * 100).toFixed(1);
+    const warn = pct > 70 ? "color:#b45309;font-weight:600" : "color:#475569";
+    return `
+      <div class="srs-empty" style="${warn}">
+        Storage: ${totalKB.toFixed(1)} KB used of ~5,120 KB
+        (${pct}%) - SRS: ${(storage.srsBytes / 1024).toFixed(1)} KB
+        ${pct > 70 ? " Consider exporting a backup." : ""}
+      </div>
+    `;
   }
 
   function renderForecast() {
@@ -309,6 +348,10 @@
       window.SRS_UI.decorateCurrentCard();
     });
 
+    content.querySelector("#srs-resume-btn")?.addEventListener("click", () => {
+      close();
+    });
+
     content.querySelectorAll("[data-open-qid]").forEach((button) => {
       button.addEventListener("click", () => goToQuestion(button.getAttribute("data-open-qid")));
     });
@@ -329,6 +372,7 @@
       .join("")}</select>`;
 
     content.innerHTML = `
+      ${renderResumeBanner()}
       ${renderOverview(stats)}
       <div class="srs-dashboard-grid">
         <div>
@@ -337,7 +381,7 @@
             <div class="srs-inline-form" style="margin-bottom:10px">${lectureSelect}</div>
             <p style="margin-bottom:10px;color:#334155;font-size:.83rem">You have ${stats.due} cards due and ${stats.new} new cards waiting for ${lecture === "all" ? "all lectures" : lecture}.</p>
             <div class="srs-action-row" style="margin-bottom:8px">
-              <button class="srs-review-btn" type="button" data-review-mode="smart">▶ Start Review</button>
+              <button class="srs-review-btn" type="button" data-review-mode="smart">Start Review</button>
               <button class="srs-file-btn" type="button" data-review-mode="due">Due Only</button>
               <button class="srs-file-btn" type="button" data-review-mode="new">New Only</button>
               <button class="srs-file-btn" type="button" data-review-mode="weakest">Weakest</button>
@@ -385,7 +429,7 @@
 
           <div class="srs-section">
             <h3>Study Streak</h3>
-            <div style="font-size:.84rem;color:#334155;margin-bottom:10px">🔥 ${streakCount}-day streak</div>
+            <div style="font-size:.84rem;color:#334155;margin-bottom:10px">${streakCount}-day streak</div>
             <div class="srs-heatmap">${renderHeatmap()}</div>
           </div>
 
@@ -404,7 +448,7 @@
               </label>
               <button class="srs-file-btn" type="button" id="srs-reset-btn">Reset All Progress</button>
             </div>
-            <div class="srs-empty">Storage usage: ${(storage.totalBytes / 1024).toFixed(1)} KB total • SRS ${(storage.srsBytes / 1024).toFixed(1)} KB</div>
+            ${renderStorageBar(storage)}
           </div>
         </div>
       </div>

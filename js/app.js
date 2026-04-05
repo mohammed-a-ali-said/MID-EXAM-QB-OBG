@@ -642,8 +642,8 @@ function rate(r){
   if(deck[idx]) flashRatings[deck[idx].id]=r; saveProgress();
   nextCard();
 }
-function nextCard(){ if(idx<deck.length-1){idx++;flipped=false;renderCard();updateNav();}else{showScore();} }
-function prevCard(){ if(idx>0){idx--;flipped=false;renderCard();updateNav();} }
+function nextCard(){ if(idx<deck.length-1){idx++;flipped=false;renderCard();updateNav();saveProgress();}else{showScore();} }
+function prevCard(){ if(idx>0){idx--;flipped=false;renderCard();updateNav();saveProgress();} }
 function updateNav(){
   document.getElementById('btn-prev').disabled=idx<=0;
   document.getElementById('btn-next').disabled=idx>=deck.length-1;
@@ -809,10 +809,12 @@ function esc2(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 const LS_KEY = 'obg_progress_v1';
 
 function saveProgress(){
+  const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
   const data = {
     mcqAnswers, osceResults, flashRatings,
     reviewed, scores, mcqRes, idx,
-    activeFilter, activeSrc, activeSrcExact, activeType, activeLec, activeLecType
+    activeFilter, activeSrc, activeSrcExact, activeType, activeLec, activeLecType,
+    sidebarScrollTop: sidebar ? sidebar.scrollTop : 0
   };
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
 }
@@ -821,6 +823,8 @@ function loadProgress(){
   try {
     const raw = localStorage.getItem(LS_KEY);
     randomMode = storedRandomMode();
+    let sidebarScrollTop = 0;
+    let _savedIdx = 0;
     if(raw){
       const d = JSON.parse(raw);
       mcqAnswers   = d.mcqAnswers   || {};
@@ -835,7 +839,8 @@ function loadProgress(){
       reviewed     = d.reviewed     || 0;
       scores       = d.scores       || {again:0, good:0, easy:0};
       mcqRes       = d.mcqRes       || {correct:0, wrong:0};
-      idx = d.idx || 0;
+      _savedIdx    = d.idx || 0;
+      sidebarScrollTop = d.sidebarScrollTop || 0;
     }
     const preferredLecture = storedLecturePreference();
     if(preferredLecture === 'all'){
@@ -847,10 +852,14 @@ function loadProgress(){
     }
     renderExactSourceTabs();
     applyFilter();
-    idx = Math.min(idx || 0, Math.max(0, deck.length - 1));
+    idx = Math.min(_savedIdx, Math.max(0, deck.length - 1));
     syncSidebarSelection();
     syncPracticeControls();
     renderCard(); updateNav(); updateStats(); updateProgress();
+    if(sidebarScrollTop){
+      const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
+      if(sidebar) sidebar.scrollTop = sidebarScrollTop;
+    }
   } catch(e){ console.warn('loadProgress failed', e); applyFilter(); }
 }
 function renderExamTabs(){
@@ -890,6 +899,7 @@ renderExactSourceTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
 syncPracticeControls();
 loadProgress();
+window.addEventListener('pagehide', saveProgress);
 
 function showStats(){
   const all=getVisibleCards({ dedupe:false });
