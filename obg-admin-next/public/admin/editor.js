@@ -418,6 +418,49 @@
     }
   }
 
+  function ensureConfirmModalElements() {
+    let modal = byId("confirm-modal");
+    if (!modal) {
+      modal = document.createElement("div");
+      modal.id = "confirm-modal";
+      modal.className = "confirm-modal hidden";
+      modal.setAttribute("aria-hidden", "true");
+      modal.innerHTML = `
+        <div class="confirm-backdrop" data-confirm-dismiss="true"></div>
+        <section class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+          <div class="confirm-kicker" id="confirm-kicker">Confirm action</div>
+          <h2 id="confirm-title">Apply this change?</h2>
+          <p id="confirm-message">Review this action before continuing.</p>
+          <div class="confirm-actions">
+            <button class="btn btn-ghost" id="confirm-cancel-btn" type="button">Cancel</button>
+            <button class="btn btn-primary" id="confirm-accept-btn" type="button">Continue</button>
+          </div>
+        </section>
+      `;
+      document.body.appendChild(modal);
+    }
+    if (!byId("dynamic-confirm-style")) {
+      const style = document.createElement("style");
+      style.id = "dynamic-confirm-style";
+      style.textContent = `
+        .confirm-modal{position:fixed;inset:0;z-index:10020;display:grid;place-items:center;padding:20px}
+        .confirm-backdrop{position:absolute;inset:0;background:rgba(13,24,45,.44);backdrop-filter:blur(4px)}
+        .confirm-dialog{position:relative;z-index:1;width:min(520px,calc(100vw - 28px));padding:24px;background:#fff;border:1px solid #dfe8f3;border-radius:22px;box-shadow:0 28px 80px rgba(18,39,74,.28);animation:fadeUp .18s ease}
+        .confirm-kicker{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1A6B5A}
+        .confirm-dialog h2{margin:10px 0 10px;font-size:1.45rem;line-height:1.2;color:#1B3A6B}
+        .confirm-dialog p{margin:0;color:#607184;line-height:1.75}
+        .confirm-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:20px}
+      `;
+      document.head.appendChild(style);
+    }
+    els.confirmModal = modal;
+    els.confirmKicker = byId("confirm-kicker");
+    els.confirmTitle = byId("confirm-title");
+    els.confirmMessage = byId("confirm-message");
+    els.confirmAcceptBtn = byId("confirm-accept-btn");
+    els.confirmCancelBtn = byId("confirm-cancel-btn");
+  }
+
   function closeConfirmDialog(result) {
     if (els.confirmModal) {
       els.confirmModal.classList.add("hidden");
@@ -429,7 +472,7 @@
   }
 
   function openConfirmDialog(options = {}) {
-    if (!els.confirmModal) return Promise.resolve(window.confirm(String(options.message || "Continue?")));
+    ensureConfirmModalElements();
     if (state.confirmResolver) {
       state.confirmResolver(false);
       state.confirmResolver = null;
@@ -1883,6 +1926,7 @@
   }
 
   function bindEvents() {
+    ensureConfirmModalElements();
     const handleSearchUpdate = () => {
       renderQuestionList();
       renderEditor();
