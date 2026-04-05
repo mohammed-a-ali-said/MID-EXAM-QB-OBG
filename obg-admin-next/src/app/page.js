@@ -46,6 +46,7 @@ function AdminView({ user }) {
             <a className="btn btn-ghost" href="/api/auth/logout">Sign out</a>
             <button className="btn btn-ghost" id="undo-btn" type="button">Undo</button>
             <button className="btn btn-ghost" id="redo-btn" type="button">Redo</button>
+            <button className="btn btn-ghost" id="undo-publish-btn" type="button">Undo Last Publish</button>
             <button className="btn btn-ghost" id="validate-all-btn" type="button">Validate</button>
             <button className="btn btn-ghost" id="export-btn" type="button">Export JSON</button>
             <button className="btn btn-primary" id="save-github-btn" type="button">Save to GitHub</button>
@@ -126,6 +127,25 @@ function AdminView({ user }) {
                   </div>
                 </label>
                 <div id="lecture-buckets" className="bucket-list"></div>
+                <div className="editor-section merge-panel">
+                  <div className="section-title">Merge Lectures</div>
+                  <p className="section-copy">
+                    Move all questions and cross-lecture references from one lecture bucket into another, then remove the old lecture bucket.
+                  </p>
+                  <div className="form-grid compact-grid">
+                    <label>
+                      Source lecture
+                      <select id="merge-lecture-source"></select>
+                    </label>
+                    <label>
+                      Target lecture
+                      <select id="merge-lecture-target"></select>
+                    </label>
+                  </div>
+                  <div className="inline-actions">
+                    <button className="btn btn-ghost" id="merge-lecture-btn" type="button">Merge Lecture Into Target</button>
+                  </div>
+                </div>
                 <label>
                   New exam section
                   <div className="inline-create">

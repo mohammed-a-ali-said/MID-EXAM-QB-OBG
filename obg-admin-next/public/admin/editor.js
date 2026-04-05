@@ -2,6 +2,7 @@
   const DATA_URL = "/api/questions";
   const TYPE_OPTIONS = ["MCQ", "FLASHCARD", "SAQ", "OSCE"];
   const TEMPLATE_CHOICE_HEADERS = ["choiceA", "choiceB", "choiceC", "choiceD", "choiceE", "choiceF"];
+  const LAST_PUBLISH_UNDO_KEY = "obg-admin-last-publish-undo";
 
   function readBootUser() {
     const node = document.getElementById("admin-user-data");
@@ -33,6 +34,7 @@
     historyPast: [],
     historyFuture: [],
     isRestoringHistory: false,
+    lastPublishedUndo: null,
   };
 
   const els = {};
@@ -43,6 +45,31 @@
 
   function deepClone(value) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+  function persistLastPublishedUndo() {
+    try {
+      if (state.lastPublishedUndo) {
+        window.sessionStorage.setItem(LAST_PUBLISH_UNDO_KEY, JSON.stringify(state.lastPublishedUndo));
+      } else {
+        window.sessionStorage.removeItem(LAST_PUBLISH_UNDO_KEY);
+      }
+    } catch (error) {
+      console.warn("Failed to persist publish undo state.", error);
+    }
+  }
+
+  function loadLastPublishedUndo() {
+    try {
+      const raw = window.sessionStorage.getItem(LAST_PUBLISH_UNDO_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed?.questions) || !parsed?.metadata) return null;
+      return parsed;
+    } catch (error) {
+      console.warn("Failed to restore publish undo state.", error);
+      return null;
+    }
   }
 
   function createHistorySnapshot() {
@@ -127,6 +154,13 @@
       });
       els.historyList.innerHTML = items.length ? items.join("") : '<div class="history-item"><div class="history-item-title">No draft history yet</div><div class="history-item-copy">Edits, imports, deletes, and bucket changes will appear here.</div></div>';
     }
+  }
+
+  function updateUndoPublishButton() {
+    if (!els.undoPublishBtn) return;
+    const enabled = !!state.lastPublishedUndo && !state.saving;
+    els.undoPublishBtn.disabled = !enabled;
+    els.undoPublishBtn.classList.toggle("is-disabled-look", !enabled);
   }
 
   function undoHistory() {
@@ -653,6 +687,7 @@
       button.textContent = label;
       button.classList.toggle("is-busy", state.saving);
     });
+    updateUndoPublishButton();
   }
 
   function redirectToLogin() {
@@ -680,9 +715,11 @@
     state.metadata = normalizeMetadata(payload.metadata);
     state.selectedId = state.working[0]?.id || null;
     state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
+    state.lastPublishedUndo = loadLastPublishedUndo();
     state.historyPast = [];
     state.historyFuture = [];
     setDirty(false);
+    updateUndoPublishButton();
   }
 
   function summaryCard(label, value, sub) {
@@ -796,6 +833,25 @@
       els.templateExamOptions.innerHTML = getExamOptions()
         .map((exam) => `<option value="${escapeHtml(exam)}"></option>`)
         .join("");
+    }
+    const lectureOptions = getLectureOptions();
+    if (els.mergeLectureSource) {
+      const current = els.mergeLectureSource.value || lectureOptions[0] || "";
+      els.mergeLectureSource.innerHTML = ['<option value="">Select source lecture</option>']
+        .concat(lectureOptions.map((lecture) => `<option value="${escapeHtml(lecture)}">${escapeHtml(lecture)}</option>`))
+        .join("");
+      if ([...els.mergeLectureSource.options].some((option) => option.value === current)) {
+        els.mergeLectureSource.value = current;
+      }
+    }
+    if (els.mergeLectureTarget) {
+      const current = els.mergeLectureTarget.value || lectureOptions[1] || lectureOptions[0] || "";
+      els.mergeLectureTarget.innerHTML = ['<option value="">Select target lecture</option>']
+        .concat(lectureOptions.map((lecture) => `<option value="${escapeHtml(lecture)}">${escapeHtml(lecture)}</option>`))
+        .join("");
+      if ([...els.mergeLectureTarget.options].some((option) => option.value === current)) {
+        els.mergeLectureTarget.value = current;
+      }
     }
   }
 
@@ -1558,6 +1614,71 @@
     }, null, 2)}\n`;
   }
 
+  function createPublishUndoSnapshot() {
+    return {
+      questions: state.working.map((question) => normalizeForSave(question)),
+      metadata: JSON.parse(getSerializedMetadata()),
+      selectedId: state.selectedId,
+      at: Date.now(),
+    };
+  }
+
+  function updateStringTagValue(tag, sourceLecture, targetLecture) {
+    if (typeof tag !== "string") return tag;
+    return tag === `also_in:${sourceLecture}` ? `also_in:${targetLecture}` : tag;
+  }
+
+  function updateObjectTagValue(tag, sourceLecture, targetLecture) {
+    if (!tag || typeof tag !== "object") return tag;
+    const next = { ...tag };
+    if (typeof next.txt === "string") next.txt = next.txt.split(sourceLecture).join(targetLecture);
+    return next;
+  }
+
+  async function mergeLectureBuckets() {
+    const sourceLecture = String(els.mergeLectureSource?.value || "").trim();
+    const targetLecture = String(els.mergeLectureTarget?.value || "").trim();
+    if (!sourceLecture || !targetLecture) {
+      setStatus("Choose both a source lecture and a target lecture before merging.", "warn");
+      return;
+    }
+    if (sourceLecture === targetLecture) {
+      setStatus("Choose two different lectures to merge.", "warn");
+      return;
+    }
+    const sourceCount = state.working.filter((question) => question.lecture === sourceLecture || (question.alsoInLectures || []).includes(sourceLecture)).length;
+    const shouldMerge = await openConfirmDialog({
+      kicker: "Merge Lectures",
+      title: "Merge this lecture into the target?",
+      message: `${sourceCount} question(s) and cross-lecture references will move from "${sourceLecture}" into "${targetLecture}". The source lecture bucket will be removed.`,
+      confirmLabel: "Merge lectures",
+      cancelLabel: "Cancel",
+    });
+    if (!shouldMerge) return;
+
+    captureHistoryBeforeMutation(`Merge lecture "${sourceLecture}" into "${targetLecture}"`, { mergeWindowMs: 0 });
+    state.working = state.working.map((question) => {
+      const draft = deepClone(question);
+      if (draft.lecture === sourceLecture) draft.lecture = targetLecture;
+      draft.alsoInLectures = uniqueStrings((draft.alsoInLectures || []).map((lecture) => lecture === sourceLecture ? targetLecture : lecture))
+        .filter((lecture) => lecture && lecture !== draft.lecture);
+      if (Array.isArray(draft.tags)) {
+        draft.tags = draft.tags.map((tag) => {
+          if (typeof tag === "string") return updateStringTagValue(tag, sourceLecture, targetLecture);
+          return updateObjectTagValue(tag, sourceLecture, targetLecture);
+        });
+      }
+      return normalizeQuestion(draft);
+    });
+    state.metadata.lectures = (state.metadata.lectures || []).filter((lecture) => lecture.name !== sourceLecture);
+    if (els.searchLecture?.value === sourceLecture) els.searchLecture.value = targetLecture;
+    if ((els.templateLecture?.value || "") === sourceLecture) els.templateLecture.value = targetLecture;
+    if ((els.fieldLecture?.value || "") === sourceLecture) els.fieldLecture.value = targetLecture;
+    setDirty(true);
+    renderAll();
+    setStatus(`Merged lecture "${sourceLecture}" into "${targetLecture}".`, "ok");
+  }
+
   function downloadJson() {
     const validation = validateAll();
     if (validation.errorCount) {
@@ -1620,6 +1741,7 @@
       return;
     }
 
+    const publishUndoSnapshot = createPublishUndoSnapshot();
     try {
       setSaving(true);
       setStatus("Saving updated questions.json to GitHub...", "progress");
@@ -1649,6 +1771,8 @@
       state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
       if (payload.metadata) state.metadata = normalizeMetadata(payload.metadata);
       state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
+      state.lastPublishedUndo = publishUndoSnapshot;
+      persistLastPublishedUndo();
       setDirty(false);
       const location = state.repo ? `${state.repo.owner}/${state.repo.repo}@${state.repo.branch}` : "GitHub";
       if (payload.url) {
@@ -1661,6 +1785,67 @@
       }
     } catch (error) {
       setStatus(error.message || "GitHub save failed.", "error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function undoLastPublish() {
+    if (!state.lastPublishedUndo) {
+      setStatus("There is no published snapshot to restore yet.", "warn");
+      return;
+    }
+    const shouldRestore = await openConfirmDialog({
+      kicker: "Undo Publish",
+      title: "Restore the previous published version?",
+      message: "This will create a new GitHub commit that restores the question bank and metadata to the snapshot from before your last publish.",
+      confirmLabel: "Restore previous publish",
+      cancelLabel: "Cancel",
+    });
+    if (!shouldRestore) return;
+
+    try {
+      setSaving(true);
+      setStatus("Restoring the previous published version on GitHub...", "progress");
+      const restoreResponse = await fetch(DATA_URL, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          questions: state.lastPublishedUndo.questions,
+          metadata: state.lastPublishedUndo.metadata,
+          sha: state.fileSha,
+          metadataSha: state.metadataSha,
+        }),
+      });
+      if (!restoreResponse.ok) {
+        const payload = await restoreResponse.json().catch(() => null);
+        const detail = payload?.errors?.join(" | ") || payload?.error || (await restoreResponse.text());
+        throw new Error(`Undo publish failed (${restoreResponse.status}): ${detail}`);
+      }
+      const payload = await restoreResponse.json();
+      state.fileSha = String(payload.sha || state.fileSha || "");
+      state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
+      state.metadata = normalizeMetadata(payload.metadata || state.lastPublishedUndo.metadata);
+      state.original = (state.lastPublishedUndo.questions || []).map((question) => normalizeQuestion(question));
+      state.working = deepClone(state.original);
+      state.selectedId = state.lastPublishedUndo.selectedId || state.working[0]?.id || null;
+      state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
+      state.lastPublishedUndo = null;
+      persistLastPublishedUndo();
+      setDirty(false);
+      renderAll();
+      if (payload.url) {
+        setStatusHtml(
+          `Restored the previous published version. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
+          "ok"
+        );
+      } else {
+        setStatus("Restored the previous published version.", "ok");
+      }
+    } catch (error) {
+      setStatus(error.message || "Undo publish failed.", "error");
     } finally {
       setSaving(false);
     }
@@ -2093,6 +2278,7 @@
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
     if (els.undoBtn) els.undoBtn.addEventListener("click", undoHistory);
     if (els.redoBtn) els.redoBtn.addEventListener("click", redoHistory);
+    if (els.undoPublishBtn) els.undoPublishBtn.addEventListener("click", undoLastPublish);
     els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
     els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
     if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.newQuestionType?.value || "MCQ"));
@@ -2107,6 +2293,7 @@
       renderAll();
       setStatus(`Added lecture bucket "${value}".`, "ok");
     });
+    if (els.mergeLectureBtn) els.mergeLectureBtn.addEventListener("click", mergeLectureBuckets);
     if (els.addExamBtn) els.addExamBtn.addEventListener("click", () => {
       const value = els.newExamInput.value.trim();
       if (!value) return;
@@ -2284,6 +2471,7 @@
     els.exportBtn = byId("export-btn");
     els.undoBtn = byId("undo-btn");
     els.redoBtn = byId("redo-btn");
+    els.undoPublishBtn = byId("undo-publish-btn");
     els.saveGithubBtn = byId("save-github-btn");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");
@@ -2293,6 +2481,9 @@
     els.newLectureInput = byId("new-lecture-input");
     els.addLectureBtn = byId("add-lecture-btn");
     els.lectureBuckets = byId("lecture-buckets");
+    els.mergeLectureSource = byId("merge-lecture-source");
+    els.mergeLectureTarget = byId("merge-lecture-target");
+    els.mergeLectureBtn = byId("merge-lecture-btn");
     els.newExamInput = byId("new-exam-input");
     els.addExamBtn = byId("add-exam-btn");
     els.examBuckets = byId("exam-buckets");
