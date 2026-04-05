@@ -221,6 +221,12 @@
     ).sort((a, b) => a.localeCompare(b));
   }
 
+  function bucketExists(entries, value, labelKey) {
+    const resolved = resolveBucketValue(entries, value, labelKey);
+    if (!resolved) return false;
+    return (Array.isArray(entries) ? entries : []).some((entry) => String(entry?.[labelKey] || "").trim().toLowerCase() === resolved.toLowerCase());
+  }
+
   function resolveBucketValue(entries, value, labelKey) {
     const trimmed = String(value || "").trim();
     if (!trimmed) return "";
@@ -774,6 +780,10 @@
   function summarizeImportPreview(preview) {
     const existingIds = new Set(state.working.map((question) => question.id));
     const stagedCounts = new Map();
+    const baselineLectureNames = new Set((state.metadata.lectures || []).map((lecture) => String(lecture.name || "").trim().toLowerCase()));
+    const baselineExamLabels = new Set((state.metadata.exams || []).map((exam) => String(exam.label || "").trim().toLowerCase()));
+    const newLectures = new Set();
+    const newExams = new Set();
     preview.rows.forEach((row) => {
       const id = String(row.question?.id || "").trim();
       if (id) stagedCounts.set(id, (stagedCounts.get(id) || 0) + 1);
@@ -792,6 +802,10 @@
       }
       row.validation = { errors, warnings: [...validation.warnings] };
       row.mode = existingIds.has(row.question.id) ? "update" : "create";
+      row.lectureStatus = baselineLectureNames.has(String(row.question.lecture || "").trim().toLowerCase()) ? "existing" : "new";
+      row.examStatus = baselineExamLabels.has(String(row.question.exam || "").trim().toLowerCase()) ? "existing" : "new";
+      if (row.question.lecture && row.lectureStatus === "new") newLectures.add(row.question.lecture);
+      if (row.question.exam && row.examStatus === "new") newExams.add(row.question.exam);
       if (row.mode === "update") updated += 1;
       else created += 1;
       if (row.validation.errors.length) errorRows += 1;
@@ -807,6 +821,8 @@
       errorRows,
       warningRows,
       readyRows: Math.max(0, preview.rows.length - errorRows),
+      newLectures: [...newLectures],
+      newExams: [...newExams],
     };
     return preview.summary;
   }
@@ -847,6 +863,8 @@
         ["Rows", String(summary.totalRows), `${summary.readyRows} ready rows staged for import.`],
         ["Create", String(summary.created), "Rows that will create brand-new questions."],
         ["Update", String(summary.updated), "Rows that will replace existing IDs."],
+        ["Lecture buckets", String(summary.newLectures.length), summary.newLectures.length ? `New: ${summary.newLectures.join(", ")}` : "All rows map to existing lectures."],
+        ["Exam buckets", String(summary.newExams.length), summary.newExams.length ? `New: ${summary.newExams.join(", ")}` : "All rows map to existing exam sections."],
         ["Needs attention", String(summary.parseErrors + summary.errorRows), "Blocking issues that must be fixed before import."],
       ];
       els.importPreviewSummaryGrid.innerHTML = cards.map(([label, value, copy]) => `
@@ -893,6 +911,10 @@
                 <div>
                   <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} · ${escapeHtml(row.question.id)}</div>
                   <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} · ${escapeHtml(row.question.cardType || "Question")} · ${escapeHtml(row.mode)}${row.raw?.lecture ? ` · imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` · imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` · imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
+                  <div class="import-preview-chip-row">
+                    <span class="import-preview-chip ${row.lectureStatus === "new" ? "warn" : "ok"}">${row.lectureStatus === "new" ? "New lecture bucket" : "Existing lecture bucket"}</span>
+                    <span class="import-preview-chip ${row.examStatus === "new" ? "warn" : "ok"}">${row.examStatus === "new" ? "New exam section" : "Existing exam section"}</span>
+                  </div>
                 </div>
                 <span class="import-preview-chip ${tone}">${row.validation.errors.length ? "Needs fix" : row.validation.warnings.length ? "Review warnings" : row.mode === "update" ? "Will update" : "Ready to create"}</span>
               </div>

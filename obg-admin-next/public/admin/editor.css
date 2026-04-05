@@ -155,6 +155,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
 .import-preview-row-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
 .import-preview-row-title{font-weight:800;color:#16335f}
 .import-preview-row-meta{font-size:.78rem;color:#64748b;margin-top:4px}
+.import-preview-chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .import-preview-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:.74rem;font-weight:800;border:1px solid var(--border);background:#f8fbff;color:#1d4e89}
 .import-preview-chip.ok{background:#eefbf4;border-color:#cce8d5;color:#166534}
 .import-preview-chip.warn{background:#fff8e8;border-color:#f0dfb7;color:#8a5a00}
