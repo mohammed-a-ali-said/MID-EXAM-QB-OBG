@@ -59,9 +59,6 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .ftab-flash.active{background:#5B21B6}
 .ftab-saq.active{background:#6b2d7c}
 .ftab-osce-t.active{background:var(--src-osce)}
-.ftab-tag-repeated.active{background:var(--red)}
-.ftab-tag-also.active{background:var(--gold)}
-.ftab-tag-generic.active{background:#0f766e}
 
 /* LAYOUT */
 .main{max-width:1340px;margin:0 auto;padding:22px 28px;min-height:calc(100vh - 140px)}
@@ -494,9 +491,6 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
     <button class="ftab ftab-flash" data-type="FLASHCARD" onclick="setTypeFilter(this)">Flash <span class="cnt" id="c-flash">0</span></button>
     <button class="ftab ftab-saq" data-type="SAQ" onclick="setTypeFilter(this)">SAQ <span class="cnt" id="c-saq-t">0</span></button>
   </div>
-  <div class="fdiv"></div>
-  <span class="fl">TAGS</span>
-  <div class="ftabs" id="tag-tabs"></div>
 </div>
 </div>
 

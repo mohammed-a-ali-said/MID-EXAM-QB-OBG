@@ -18,7 +18,7 @@ const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 let deck=[], idx=0, flipped=false, reviewed=0;
 let scores={again:0,good:0,easy:0}, mcqRes={correct:0,wrong:0};
-let activeFilter='all', activeSrc='', activeSrcExact='', activeType='', activeTag='', activeLec=null, activeLecType='all';
+let activeFilter='all', activeSrc='', activeSrcExact='', activeType='', activeLec=null, activeLecType='all';
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
@@ -54,48 +54,6 @@ function getExamOptions(){
   const cardExams = getVisibleCards({ dedupe:false }).map(c => String(c.exam || '').trim()).filter(Boolean);
   const fallbackExams = Array.isArray(questionResolutionHelpers.examNames) ? questionResolutionHelpers.examNames : [];
   return [...new Set([...metadataExams, ...cardExams, ...fallbackExams])].sort((a,b)=>String(a).localeCompare(String(b)));
-}
-function normalizeTagText(value){
-  let text = String(value || '').trim();
-  if(!text) return '';
-  text = text.replace(/^[★*↔]+\s*/u, '').trim();
-  if(/^also_in:/i.test(text)) return 'ALSO IN: ' + text.slice(8).trim();
-  if(/^also\s+in\s*:/i.test(text)) return 'ALSO IN: ' + text.replace(/^also\s+in\s*:/i, '').trim();
-  if(/\brepeated\b/i.test(text)) return 'REPEATED';
-  return text;
-}
-function getCardTagTexts(card){
-  const seen = new Set();
-  const output = [];
-  const addTag = (value) => {
-    const text = normalizeTagText(value);
-    if(!text || seen.has(text)) return;
-    seen.add(text);
-    output.push(text);
-  };
-  if(Array.isArray(card?.displayTags) && card.displayTags.length){
-    card.displayTags.forEach(tag => addTag(tag && typeof tag === 'object' ? tag.txt : tag));
-    return output;
-  }
-  if(Array.isArray(card?.tags)){
-    card.tags.forEach(tag => addTag(tag && typeof tag === 'object' ? tag.txt : tag));
-  }
-  if(card?._metaRepeated) addTag('REPEATED');
-  if(Array.isArray(card?.alsoInLectures)) card.alsoInLectures.forEach(lecture => addTag('ALSO IN: ' + lecture));
-  return output;
-}
-function getTagFilterOptions(cards = getVisibleCards({ dedupe:false })){
-  const counts = new Map();
-  (Array.isArray(cards) ? cards : []).forEach(card => {
-    getCardTagTexts(card).forEach(tag => counts.set(tag, (counts.get(tag) || 0) + 1));
-  });
-  return [...counts.entries()]
-    .map(([tag, count]) => ({
-      tag,
-      count,
-      cls: /^REPEATED$/i.test(tag) ? 'ftab-tag-repeated' : (/^ALSO IN:/i.test(tag) ? 'ftab-tag-also' : 'ftab-tag-generic')
-    }))
-    .sort((a,b)=> (b.count-a.count) || a.tag.localeCompare(b.tag));
 }
 function getExactSourceOptions(cards = getVisibleCards({ dedupe:false })){
   const counts = new Map();
@@ -278,16 +236,6 @@ function setExactSourceFilter(btn){
   }
   applyFilter();
 }
-function setTagFilter(btn){
-  const tag = String(btn?.dataset?.tag || '').trim();
-  if(!tag) return;
-  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeTag=''; }
-  else {
-    document.querySelectorAll('[data-tag]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active'); activeTag=tag;
-  }
-  applyFilter();
-}
 function setSL(k){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>el.classList.remove('active'));
   const el=document.querySelector('.sb-item[data-k="'+k+'"]'); if(el)el.classList.add('active');
@@ -317,7 +265,6 @@ function applyFilter(){
   if(activeSrc==='extra_from_bank') d=getVisibleCards({ dedupe:false }).filter(c=>c._extra);
   if(activeSrcExact) d=d.filter(c=>String(c.source||'').trim()===activeSrcExact);
   if(activeType) d=d.filter(c=>c.cardType===activeType);
-  if(activeTag) d=d.filter(c=>getCardTagTexts(c).includes(activeTag));
   if(activeLec){
     d=filterCardsByLecture(d, activeLec);
     if(activeLecType==='MCQ')       d=d.filter(c=>c.cardType==='MCQ');
@@ -339,7 +286,6 @@ function loadDeck(d){
   if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
   if(activeSrcExact) title+=' آ· '+exactSourceLabel(activeSrcExact);
   if(activeType) title+=' آ· '+activeType;
-  if(activeTag) title+=' آ· '+activeTag;
   document.getElementById('deck-title').textContent=title;
   const nm=d.filter(c=>c.cardType==='MCQ').length;
   const no=d.filter(c=>c.cardType==='OSCE').length;
@@ -347,9 +293,8 @@ function loadDeck(d){
   const ns=d.filter(c=>c.cardType==='SAQ').length;
   const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
   const sourceExactNote = activeSrcExact ? ` &nbsp;آ·&nbsp; Exact source: ${esc2(exactSourceLabel(activeSrcExact))}` : '';
-  const tagNote = activeTag ? ` &nbsp;آ·&nbsp; Tag filter: ${esc2(activeTag)}` : '';
   document.getElementById('deck-meta').innerHTML=
-    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${sourceExactNote}${tagNote}`;
+    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}${sourceExactNote}`;
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -863,7 +808,7 @@ function saveProgress(){
   const data = {
     mcqAnswers, osceResults, flashRatings,
     reviewed, scores, mcqRes, idx,
-    activeFilter, activeSrc, activeSrcExact, activeType, activeTag, activeLec, activeLecType
+    activeFilter, activeSrc, activeSrcExact, activeType, activeLec, activeLecType
   };
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
 }
@@ -881,7 +826,6 @@ function loadProgress(){
       activeSrc    = d.activeSrc    || '';
       activeSrcExact = d.activeSrcExact || '';
       activeType   = d.activeType   || '';
-      activeTag    = d.activeTag    || '';
       activeLec    = d.activeLec    || null;
       activeLecType= d.activeLecType|| 'all';
       reviewed     = d.reviewed     || 0;
@@ -898,7 +842,6 @@ function loadProgress(){
       activeLecType = 'all';
     }
     renderExactSourceTabs();
-    renderTagTabs();
     applyFilter();
     idx = Math.min(idx || 0, Math.max(0, deck.length - 1));
     syncSidebarSelection();
@@ -930,27 +873,17 @@ function renderExactSourceTabs(){
     return '<button class="ftab ' + cls + (activeSrcExact===entry.source ? ' active' : '') + '" data-source-exact="' + esc(entry.source) + '" title="' + esc(entry.source) + '" onclick="setExactSourceFilter(this)">' + esc2(label) + ' <span class="cnt">' + entry.count + '</span></button>';
   }).join('');
 }
-function renderTagTabs(){
-  const tabs=document.getElementById('tag-tabs');
-  if(!tabs) return;
-  const tags=getTagFilterOptions();
-  tabs.innerHTML=tags.map(entry=>{
-    const safe=entry.tag.toLowerCase().replace(/[^a-z0-9]+/g,'-');
-    return '<button class="ftab ' + entry.cls + (activeTag===entry.tag ? ' active' : '') + '" data-tag="' + esc(entry.tag) + '" onclick="setTagFilter(this)">' + esc2(entry.tag) + ' <span class="cnt" id="c-tag-' + safe + '">' + entry.count + '</span></button>';
-  }).join('');
-}
 
 function clearProgress(){
   if(!confirm('Clear all saved progress?')) return;
   localStorage.removeItem(LS_KEY);
   mcqAnswers={}; osceResults={}; flashRatings={};
   reviewed=0; scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
-  activeFilter='all'; activeSrc=''; activeSrcExact=''; activeType=''; activeTag=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
+  activeFilter='all'; activeSrc=''; activeSrcExact=''; activeType=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
   randomMode = storedRandomMode();
   syncSidebarSelection();
   syncPracticeControls();
   renderExactSourceTabs();
-  renderTagTabs();
   applyFilter();
 }
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -959,7 +892,6 @@ function clearProgress(){
 buildSidebar();
 renderExamTabs();
 renderExactSourceTabs();
-renderTagTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
 syncPracticeControls();
 loadProgress();
@@ -1063,7 +995,7 @@ function practiceWrong(){
   deck = wrongCards;
   idx = 0; flipped = false; reviewed = 0;
   scores = {again:0,good:0,easy:0}; mcqRes = {correct:0,wrong:0};
-  activeLec = null; activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = ''; activeTag = '';
+  activeLec = null; activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = '';
   persistPracticePreferences();
   syncSidebarSelection();
   syncPracticeControls();
@@ -1086,7 +1018,7 @@ function goToCard(cardId){
     }
   }
   activeLec = card.lecture; activeLecType = 'all';
-  activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = ''; activeTag = '';
+  activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = '';
   applyFilter();
   const deckIdx = deck.findIndex(c=>c.id===card.id || (c.canonicalSourceId && c.canonicalSourceId === card.canonicalSourceId));
   if(deckIdx !== -1){ idx = deckIdx; }
