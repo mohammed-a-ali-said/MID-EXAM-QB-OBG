@@ -349,7 +349,11 @@ function renderCard(){
 
 function renderInlineNote(c){
   if(!c || !c.note) return '';
-  return `<div class="card-note" dir="auto"><strong>Note:</strong> ${mdBold(esc2(c.note))}</div>`;
+  const note = String(c.note).trim();
+  if(!note) return '';
+  const meaningful = note.replace(/[\s?!.,;:()\-–—]/g, '');
+  if(!meaningful.length) return '';
+  return `<div class="card-note" dir="auto"><strong>Note:</strong> ${mdBold(esc2(note))}</div>`;
 }
 
 function renderQuestionMedia(c){

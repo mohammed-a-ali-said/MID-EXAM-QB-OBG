@@ -35,7 +35,9 @@
       if (fallback !== null) return fallback;
       throw new Error(`Request failed (${response.status}) for ${url}`);
     }
-    return response.json();
+    const buffer = await response.arrayBuffer();
+    const text = new TextDecoder("utf-8").decode(buffer);
+    return JSON.parse(text);
   }
 
   function deriveMetadata(cards) {

@@ -545,3 +545,18 @@
 
 /* stats modal height */
 .stats-box { max-height: 90vh; }
+
+
+[dir="auto"], [lang="ar"] {
+  font-family: 'Noto Naskh Arabic', 'DM Sans', sans-serif;
+  line-height: 1.8;
+}
+.card-note[dir="auto"] {
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+.mcq-stem[dir="auto"],
+.osce-stem[dir="auto"],
+.q-text[dir="auto"] {
+  font-family: 'Noto Naskh Arabic', 'Playfair Display', serif;
+}
