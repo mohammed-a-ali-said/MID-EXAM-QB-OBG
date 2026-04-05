@@ -1892,7 +1892,6 @@
     if (els.templateFileInput) els.templateFileInput.addEventListener("change", (event) => importTemplateCsv(event.target.files?.[0]));
     if (els.importPreviewTabs) els.importPreviewTabs.addEventListener("click", handleImportPreviewTabClick);
     if (els.importPreviewRows) {
-      els.importPreviewRows.addEventListener("input", handleImportPreviewFieldChange);
       els.importPreviewRows.addEventListener("change", handleImportPreviewFieldChange);
     }
     [els.importPreviewCloseBtn, els.importPreviewCancelBtn].forEach((button) => {
