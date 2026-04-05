@@ -770,7 +770,7 @@ function showScore(){
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const ns=deck.filter(c=>c.cardType==='FLASHCARD'||c.cardType==='SAQ').length;
   const pct=nm?(mcqRes.correct/nm):0;
-  document.getElementById('sc-emoji').textContent=pct>.75?'Excellent':pct>.5?'Good':'Keep Going';
+  document.getElementById('sc-emoji').textContent=pct>.75?'🏆':pct>.5?'👍':'💪';
   document.getElementById('sc-sub').textContent=deck.length+' cards reviewed ('+nm+' MCQ/OSCE | '+ns+' Flash/SAQ)';
   let g='';
   if(nm) g+=`<div class="sc-stat ok"><div class="sc-n">${mcqRes.correct}</div><div class="sc-l">Correct</div></div>
@@ -824,7 +824,6 @@ function loadProgress(){
     const raw = localStorage.getItem(LS_KEY);
     randomMode = storedRandomMode();
     let sidebarScrollTop = 0;
-    let _savedIdx = 0;
     if(raw){
       const d = JSON.parse(raw);
       mcqAnswers   = d.mcqAnswers   || {};
@@ -839,7 +838,7 @@ function loadProgress(){
       reviewed     = d.reviewed     || 0;
       scores       = d.scores       || {again:0, good:0, easy:0};
       mcqRes       = d.mcqRes       || {correct:0, wrong:0};
-      _savedIdx    = d.idx || 0;
+      idx          = d.idx || 0;
       sidebarScrollTop = d.sidebarScrollTop || 0;
     }
     const preferredLecture = storedLecturePreference();
@@ -851,8 +850,9 @@ function loadProgress(){
       activeLecType = 'all';
     }
     renderExactSourceTabs();
+    const _savedIdx = idx || 0; // capture BEFORE applyFilter resets idx to 0
     applyFilter();
-    idx = Math.min(_savedIdx, Math.max(0, deck.length - 1));
+    idx = Math.min(_savedIdx, Math.max(0, deck.length - 1)); // restore position
     syncSidebarSelection();
     syncPracticeControls();
     renderCard(); updateNav(); updateStats(); updateProgress();
@@ -919,17 +919,13 @@ function showStats(){
   document.getElementById('ss-good').textContent=flG;
   document.getElementById('ss-easy').textContent=flE;
   const mt=mcqAll.length||1;
-  document.getElementById('ss-bc').style.width=(mcqC/mt*100)+'%';
-  document.getElementById('ss-bw').style.width=(mcqW/mt*100)+'%';
-  document.getElementById('ss-bu').style.width=(mcqU/mt*100)+'%';
+  const _sw=(id,pct)=>{const e=document.getElementById(id);if(e)e.style.width=pct+'%';};
+  _sw('ss-bc',mcqC/mt*100); _sw('ss-bw',mcqW/mt*100); _sw('ss-bu',mcqU/mt*100);
   const ft=flAll.length||1;
-  document.getElementById('ss-fa').style.width=(flA/ft*100)+'%';
-  document.getElementById('ss-fg').style.width=(flG/ft*100)+'%';
-  document.getElementById('ss-fe').style.width=(flE/ft*100)+'%';
-  document.getElementById('ss-fu').style.width=(flU/ft*100)+'%';
+  _sw('ss-fa',flA/ft*100); _sw('ss-fg',flG/ft*100); _sw('ss-fe',flE/ft*100); _sw('ss-fu',flU/ft*100);
   const lecs=getLectureOptions();
   const cont=document.getElementById('ss-lecs');
-  cont.innerHTML='';
+  if(cont) cont.innerHTML='';
   lecs.forEach(lec=>{
     const lc=all.filter(c=>questionResolutionHelpers.cardHasLectureAssociation(c, lec));
     let ans=0;
@@ -944,7 +940,7 @@ function showStats(){
     row.innerHTML='<span class="st-bar-name" title="'+lec+'">'+lec+'</span>'
       +'<div class="st-bar-wrap"><div class="st-bar-fill" style="width:'+pct+'%"></div></div>'
       +'<span class="st-bar-cnt">'+ans+'/'+lc.length+' ('+pct+'%)</span>';
-    cont.appendChild(row);
+    if(cont) cont.appendChild(row);
   });
 
   // Wrong questions list

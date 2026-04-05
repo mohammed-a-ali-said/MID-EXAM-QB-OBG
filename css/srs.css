@@ -538,3 +538,10 @@
   .srs-rating-buttons { grid-template-columns: 1fr; }
   .srs-forecast-row { grid-template-columns: 72px 1fr 38px; }
 }
+
+
+/* segment bar transitions */
+.seg-bar > div { transition: width .5s cubic-bezier(.4,0,.2,1); }
+
+/* stats modal height */
+.stats-box { max-height: 90vh; }

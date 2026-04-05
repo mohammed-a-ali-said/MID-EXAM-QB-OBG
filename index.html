@@ -548,7 +548,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <!-- NOTES MODAL -->
 <div class="modal-overlay" id="notes-modal" onclick="if(event.target===this)closeNotes()">
 <div class="modal-box">
-  <button class="modal-close" onclick="closeNotes()">x</button>
+  <button class="modal-close" onclick="closeNotes()">&times;</button>
   <h3 id="notes-title">Notes</h3>
   <pre id="notes-content"></pre>
 </div>
@@ -575,7 +575,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 
 <div id="stats-overlay" onclick="if(event.target===this)closeStats()">
 <div class="stats-box">
-  <button class="stats-close" onclick="closeStats()">x</button>
+  <button class="stats-close" onclick="closeStats()">&times;</button>
   <h2>Progress Statistics</h2>
   <div class="st-grid">
     <div class="st-box bl"><div class="st-n" id="ss-total">0</div><div class="st-lbl">Total Answered</div></div>
@@ -585,8 +585,40 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
     <div class="st-box gd"><div class="st-n" id="ss-good">0</div><div class="st-lbl">Good</div></div>
     <div class="st-box tl"><div class="st-n" id="ss-easy">0</div><div class="st-lbl">Easy</div></div>
   </div>
+    <div class="st-sec">
+    <h3>MCQ Performance</h3>
+    <div class="seg-bar">
+      <div class="sb-c" id="ss-bc" style="width:0%"></div>
+      <div class="sb-w" id="ss-bw" style="width:0%"></div>
+      <div class="sb-u" id="ss-bu" style="width:100%"></div>
+    </div>
+    <div class="leg">
+      <span><span class="leg-dot" style="background:#166534"></span>Correct</span>
+      <span><span class="leg-dot" style="background:#f87171"></span>Wrong</span>
+      <span><span class="leg-dot" style="background:#e5e7eb"></span>Unanswered</span>
+    </div>
+  </div>
   <div class="st-sec">
-    <h3>Wrong Answers - Practice Mode</h3>
+    <h3>Flash &amp; SAQ Ratings</h3>
+    <div class="seg-bar">
+      <div class="sb-a" id="ss-fa" style="width:0%"></div>
+      <div class="sb-g" id="ss-fg" style="width:0%"></div>
+      <div class="sb-e" id="ss-fe" style="width:0%"></div>
+      <div class="sb-u" id="ss-fu" style="width:100%"></div>
+    </div>
+    <div class="leg">
+      <span><span class="leg-dot" style="background:#f87171"></span>Again</span>
+      <span><span class="leg-dot" style="background:#C49A00"></span>Good</span>
+      <span><span class="leg-dot" style="background:#2E9E85"></span>Easy</span>
+      <span><span class="leg-dot" style="background:#e5e7eb"></span>Unrated</span>
+    </div>
+  </div>
+  <div class="st-sec">
+    <h3>Per-Lecture Breakdown</h3>
+    <div id="ss-lecs"></div>
+  </div>
+  <div class="st-sec">
+    <h3>Wrong Answers &mdash; Practice Mode</h3>
     <button class="practice-btn" id="practice-wrong-btn" onclick="practiceWrong()">
       Practice Wrong Questions
     </button>
