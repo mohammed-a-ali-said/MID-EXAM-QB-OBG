@@ -1,4 +1,4 @@
-const ALL_CARDS = window.ALL_CARDS || [];
+﻿const ALL_CARDS = window.ALL_CARDS || [];
 const questionResolutionHelpers = window.questionResolutionHelpers || window.OBG_QB_Utils || {
   normalizeLectureName: (value) => value,
   getStudyEligibleCards: ({ cards }) => Array.isArray(cards) ? cards : [],
@@ -11,11 +11,11 @@ const questionResolutionHelpers = window.questionResolutionHelpers || window.OBG
 };
 const CONTENT_METADATA = window.OBG_CONTENT_METADATA || questionResolutionHelpers.contentMetadata || {};
 
-const NOTES = {"Antenatal Care (ANC)":["Note 22.\nجه عليها اسئلة في الامتحان\nvery important note\n○ Immunizations: -\n→ Safe immunizations (include antigens from killed or inactivated organisms):\nInfluenza (all pregnant women in flu season).\nTetanus, diphtheria, pertussis (Tdap)\nHepatitis B (pre- and postexposure).\nHepatitis A (pre- and postexposure).\nPneumococcus (only high-risk women).\nMeningococcus (in unusual outbreaks).\nTyphoid (not routinely recommended).\n→ Unsafe immunizations (include antigens from live attenuated organisms):\nMMR (measles, mumps, rubella)\nPolio\nYellow fever\nVaricella","Note 23.\nجه عليها اسئلة في الامتحان\nvery important note\n• Daily dietary requirement Of a woman during pregnancy (2nd half)\nFood element\nPregnancy\nKilocalories\n2500\nProtein\n60 gm\nIron\n40 gm\nFolic acid\n400 μg\nCalcium\n1000 mg\nVitamin A\n6000 I.U."],"Cardiac Disorders & Anaemia with Pregnancy":["Important notes:\n*minimal level of Hb to allow delivery is\n10 gm/dl\n(جت في امتحان ساتة)\n*iron needed in pregnancy is\n27 mg/dl\n*anemia of chronic infection is\nnormocytic normochromic anemia\n*Iron absorption differs during pregnancy\n*There is threshold for iron absorption\n*Iron stores is 500 mg\n*Folic acid given in megaloblastic anemia"],"Normal Labour":["في الفورماتيف بتاعكم لأنه جه في امتحان سنة رابعة السنة الي فاتت حاولوا تتأكدوا من اجابة السؤال ده"]};
+const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ—‹ Immunizations: -\nâ†’ Safe immunizations (include antigens from killed or inactivated organisms):\nInfluenza (all pregnant women in flu season).\nTetanus, diphtheria, pertussis (Tdap)\nHepatitis B (pre- and postexposure).\nHepatitis A (pre- and postexposure).\nPneumococcus (only high-risk women).\nMeningococcus (in unusual outbreaks).\nTyphoid (not routinely recommended).\nâ†’ Unsafe immunizations (include antigens from live attenuated organisms):\nMMR (measles, mumps, rubella)\nPolio\nYellow fever\nVaricella","Note 23.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ€¢ Daily dietary requirement Of a woman during pregnancy (2nd half)\nFood element\nPregnancy\nKilocalories\n2500\nProtein\n60 gm\nIron\n40 gm\nFolic acid\n400 خ¼g\nCalcium\n1000 mg\nVitamin A\n6000 I.U."],"Cardiac Disorders & Anaemia with Pregnancy":["Important notes:\n*minimal level of Hb to allow delivery is\n10 gm/dl\n(ط¬طھ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ط§طھط©)\n*iron needed in pregnancy is\n27 mg/dl\n*anemia of chronic infection is\nnormocytic normochromic anemia\n*Iron absorption differs during pregnancy\n*There is threshold for iron absorption\n*Iron stores is 500 mg\n*Folic acid given in megaloblastic anemia"],"Normal Labour":["ظپظٹ ط§ظ„ظپظˆط±ظ…ط§طھظٹظپ ط¨طھط§ط¹ظƒظ… ظ„ط£ظ†ظ‡ ط¬ظ‡ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ظ†ط© ط±ط§ط¨ط¹ط© ط§ظ„ط³ظ†ط© ط§ظ„ظٹ ظپط§طھطھ ط­ط§ظˆظ„ظˆط§ طھطھط£ظƒط¯ظˆط§ ظ…ظ† ط§ط¬ط§ط¨ط© ط§ظ„ط³ط¤ط§ظ„ ط¯ظ‡"]};
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // STATE
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 let deck=[], idx=0, flipped=false, reviewed=0;
 let scores={again:0,good:0,easy:0}, mcqRes={correct:0,wrong:0};
 let activeFilter='all', activeSrc='', activeType='', activeLec=null, activeLecType='all';
@@ -39,11 +39,13 @@ function getLectureOptions(){
   const metadataLectures = Array.isArray(CONTENT_METADATA.lectures)
     ? CONTENT_METADATA.lectures.filter(lecture => lecture && lecture.active !== false).map(lecture => lecture.name)
     : [];
-  const allLectures = getVisibleCards({ dedupe:false })
-    .flatMap(c => [c.lecture].concat(Array.isArray(c.alsoInLectures) ? c.alsoInLectures : []))
+  const primaryLectures = getVisibleCards({ dedupe:false })
+    .map(c => String(c.lecture || '').trim())
     .filter(Boolean);
-  const fallbackLectures = Array.isArray(questionResolutionHelpers.lectureNames) ? questionResolutionHelpers.lectureNames : [];
-  return [...new Set([...metadataLectures, ...allLectures, ...fallbackLectures])].sort((a,b)=>String(a).localeCompare(String(b)));
+  const lecturePool = metadataLectures.length
+    ? metadataLectures.concat(primaryLectures.filter(lecture => !metadataLectures.includes(lecture)))
+    : primaryLectures;
+  return [...new Set(lecturePool)].sort((a,b)=>String(a).localeCompare(String(b)));
 }
 function getExamOptions(){
   const metadataExams = Array.isArray(CONTENT_METADATA.exams)
@@ -147,9 +149,9 @@ window.OBG_QB_Utils = {
   ...questionResolutionHelpers
 };
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // SOURCE LABEL
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function srcLabel(s){
   const m = {
     'old_formative':'Old Formative','new_formative':'New Formative',
@@ -170,9 +172,9 @@ function srcClass(s){
   return 'src-old';
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // FILTERS
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function setFilter(btn, f){
   document.querySelectorAll('[data-f]').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -243,18 +245,18 @@ function loadDeck(d){
   scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
   osceSubIdx={};
   let title='All Questions';
-  if(activeLec) title=activeLec+(activeLecType!=='all'?' — '+activeLecType:'');
+  if(activeLec) title=activeLec+(activeLecType!=='all'?' â€” '+activeLecType:'');
   else if(activeFilter!=='all') title=activeFilter;
-  if(activeSrc) title+=' · '+srcLabel(activeSrc);
-  if(activeType) title+=' · '+activeType;
+  if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
+  if(activeType) title+=' آ· '+activeType;
   document.getElementById('deck-title').textContent=title;
   const nm=d.filter(c=>c.cardType==='MCQ').length;
   const no=d.filter(c=>c.cardType==='OSCE').length;
   const nf=d.filter(c=>c.cardType==='FLASHCARD').length;
   const ns=d.filter(c=>c.cardType==='SAQ').length;
-  const lectureNote = activeLec ? ` &nbsp;·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
+  const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
   document.getElementById('deck-meta').innerHTML=
-    `<strong>${d.length}</strong> cards &nbsp;·&nbsp; ${nm} MCQ &nbsp;·&nbsp; ${no} OSCE &nbsp;·&nbsp; ${nf} Flash &nbsp;·&nbsp; ${ns} SAQ &nbsp;·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}`;
+    `<strong>${d.length}</strong> cards &nbsp;آ·&nbsp; ${nm} MCQ &nbsp;آ·&nbsp; ${no} OSCE &nbsp;آ·&nbsp; ${nf} Flash &nbsp;آ·&nbsp; ${ns} SAQ &nbsp;آ·&nbsp; ${randomMode ? 'Randomized order' : 'Sequential order'}${lectureNote}`;
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -263,9 +265,9 @@ function shuffleDeck(){
 }
 function resetDeck(){ applyFilter(); }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // RENDER
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function renderCard(){
   const stage=document.getElementById('card-stage');
   if(!deck.length){
@@ -293,7 +295,7 @@ function renderCard(){
   if(c.cardType==='MCQ'){
     fb.textContent='Select Answer'; fb.disabled=true;
   } else {
-    fb.textContent='Flip ↩'; fb.disabled=false;
+    fb.textContent='Flip â†©'; fb.disabled=false;
     fb.onclick=flipCard;
   }
   updateProgress();
@@ -336,7 +338,7 @@ function renderMCQ(c){
       <span class="mcq-tag-b">MCQ</span>
       ${srcBadge}
     </div>
-    <div class="mcq-lec">${esc2(c.lecture||'')}${c.doctor?` &nbsp;·&nbsp; ${esc2(c.doctor)}`:''}</div>
+    <div class="mcq-lec">${esc2(c.lecture||'')}${c.doctor?` &nbsp;آ·&nbsp; ${esc2(c.doctor)}`:''}</div>
   </div>
   ${imgPh}${extraBanner}
   <div class="mcq-stem">${mdBold(esc2(c.displayStem||c.q||''))}</div>
@@ -346,9 +348,9 @@ function renderMCQ(c){
   <div class="mcq-result" id="mcq-res-${c.id}"></div>
   <div class="mcq-footer">
     <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">↺ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">◎ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">✓ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
     </div>
     <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
   </div>
@@ -417,13 +419,13 @@ function renderOSCE(c){
   <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
   <div class="mcq-footer">
     ${subs.length>1?`<div style="display:flex;gap:8px">
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>← Part ${subIdx}</button>
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} →</button>
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>â†گ Part ${subIdx}</button>
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} â†’</button>
     </div>`:'<div></div>'}
     <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">↺ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">◎ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">✓ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
     </div>
   </div>
 </div>`;
@@ -449,7 +451,7 @@ function renderFlipCard(c, type){
     ${tags?`<div class="mcq-tags">${tags}</div>`:''}
     <div class="q-hint">Click to reveal answer</div>
   </div>
-  <div class="flip-cta">🖱️ Click card or press <strong>Space</strong> to flip</div>
+  <div class="flip-cta">ًں–±ï¸ڈ Click card or press <strong>Space</strong> to flip</div>
 </div>`;
   
   // BACK
@@ -472,9 +474,9 @@ function renderFlipCard(c, type){
   ${backContent}
   <div class="ans-footer">
     <div class="rate-btns">
-      <button class="rate-btn rb-again" onclick="rate('again')">↺ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">◎ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">✓ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
     </div>
     <span style="font-size:.71rem;color:#6b7280">1/2/3 to rate</span>
   </div>
@@ -483,9 +485,9 @@ function renderFlipCard(c, type){
   return `<div class="card-stage"><div class="card-flip" id="cflip">${front}${back}</div></div>`;
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // MCQ INTERACTION
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function renderUnresolvedStub(c){
   const tags=(c.displayTags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
   return `<div class="mcq-card">
@@ -511,18 +513,18 @@ function pick(btn, chosen, correct){
   document.querySelectorAll('.choice-btn').forEach(b=>b.classList.add('locked'));
   const ok=(chosen===correct);
   btn.classList.add(ok?'chosen-correct':'chosen-wrong');
-  document.getElementById('ci'+chosen+'_'+c.id).textContent=ok?'✓':'✗';
+  document.getElementById('ci'+chosen+'_'+c.id).textContent=ok?'âœ“':'âœ—';
   if(!ok && correct){
     const cb=document.querySelector('.choice-btn[data-l="'+correct+'"]');
     if(cb){cb.classList.add('reveal-correct');
       const ci=document.getElementById('ci'+correct+'_'+c.id);
-      if(ci) ci.textContent='✓';
+      if(ci) ci.textContent='âœ“';
     }
   }
   const res=document.getElementById('mcq-res-'+c.id);
   if(res){
-    if(ok){res.className='mcq-result ok';res.textContent='✓ Correct!';mcqRes.correct++;}
-    else{res.className='mcq-result ng';res.innerHTML='✗ Incorrect — Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
+    if(ok){res.className='mcq-result ok';res.textContent='âœ“ Correct!';mcqRes.correct++;}
+    else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   const hint=document.getElementById('mcq-hint-'+c.id);
   if(hint) hint.style.display='none';
@@ -540,17 +542,17 @@ function pickOSCE(btn, chosen, correct, cardId, subIdx){
   const cid=cardId+'_'+subIdx;
   const ok=(chosen===correct);
   btn.classList.add(ok?'chosen-correct':'chosen-wrong');
-  document.getElementById('oci'+chosen+'_'+cid).textContent=ok?'✓':'✗';
+  document.getElementById('oci'+chosen+'_'+cid).textContent=ok?'âœ“':'âœ—';
   if(!ok && correct){
     const cb=document.querySelector('#osce-choices-'+cardId+' .choice-btn[data-l="'+correct+'"]');
     if(cb){cb.classList.add('reveal-correct');
-      const ci=document.getElementById('oci'+correct+'_'+cid); if(ci) ci.textContent='✓';
+      const ci=document.getElementById('oci'+correct+'_'+cid); if(ci) ci.textContent='âœ“';
     }
   }
   const res=document.getElementById('osce-res-'+cid);
   if(res){
-    if(ok){res.className='mcq-result ok';res.textContent='✓ Correct!';mcqRes.correct++;}
-    else{res.className='mcq-result ng';res.innerHTML='✗ Incorrect — Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
+    if(ok){res.className='mcq-result ok';res.textContent='âœ“ Correct!';mcqRes.correct++;}
+    else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   if(!osceResults[cardId]) osceResults[cardId]={};
   osceResults[cardId][subIdx]=ok?'correct':'wrong';
@@ -580,9 +582,9 @@ function jumpOSCESub(i){
   osceSubIdx[c.id]=i; renderCard();
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // FLIP / RATE / NAV
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function flipCard(){
   const cf=document.getElementById('cflip');
   if(cf){ cf.classList.toggle('flipped'); flipped=!flipped;
@@ -608,9 +610,9 @@ function updateProgress(){
   document.getElementById('prog-txt').textContent=reviewed+' / '+total;
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // STATS
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function updateStats(){
   document.getElementById('s-total').textContent=deck.length;
   document.getElementById('s-mcq').textContent=deck.filter(c=>c.cardType==='MCQ').length;
@@ -620,12 +622,12 @@ function updateStats(){
   document.getElementById('s-rev').textContent=reviewed;
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const done=mcqRes.correct+mcqRes.wrong;
-  document.getElementById('s-score').textContent=nm&&done?mcqRes.correct+'/'+done:'—';
+  document.getElementById('s-score').textContent=nm&&done?mcqRes.correct+'/'+done:'â€”';
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // COUNTS
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function updateCounts(){
   const ids={all:0,mcq:0,osce:0,flash:0,saq:0};
   const examCounts={};
@@ -663,9 +665,9 @@ function updateCounts(){
   _s('c-saq-t',ids.saq);
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // SIDEBAR
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function buildSidebar(){
   const list=document.getElementById('sb-list');
   const visibleCards=getVisibleCards({ dedupe:false });
@@ -686,7 +688,7 @@ function buildSidebar(){
     if(nO) subtabs.push(`<button class="s-stab osce-t" onclick="setST(event,'${esc(lec)}','OSCE')">OSCE(${nO})</button>`);
     if(nF) subtabs.push(`<button class="s-stab flash-t" onclick="setST(event,'${esc(lec)}','FLASHCARD')">Flash(${nF})</button>`);
     if(nS) subtabs.push(`<button class="s-stab saq-t" onclick="setST(event,'${esc(lec)}','SAQ')">SAQ(${nS})</button>`);
-    if(hasNotes) subtabs.push(`<button class="notes-btn" onclick="openNotes('${esc(lec)}',event)">📝 Notes</button>`);
+    if(hasNotes) subtabs.push(`<button class="notes-btn" onclick="openNotes('${esc(lec)}',event)">ًں“‌ Notes</button>`);
     html+=`<li class="sb-item" data-k="${esc(lec)}" onclick="setSL('${esc(lec)}')">
       <div class="s-main">
         <span class="s-name">${esc2(lec)}</span>
@@ -698,9 +700,9 @@ function buildSidebar(){
   list.innerHTML=html;
 }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // NOTES
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function openNotes(lec, e){
   e.stopPropagation();
   const notes=(NOTES[lec]||[]).join('\n\n---\n\n');
@@ -710,15 +712,15 @@ function openNotes(lec, e){
 }
 function closeNotes(){ document.getElementById('notes-modal').classList.remove('visible'); }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // SCORE
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function showScore(){
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const ns=deck.filter(c=>c.cardType==='FLASHCARD'||c.cardType==='SAQ').length;
   const pct=nm?(mcqRes.correct/nm):0;
-  document.getElementById('sc-emoji').textContent=pct>.75?'🏆':pct>.5?'⭐':'📖';
-  document.getElementById('sc-sub').textContent=deck.length+' cards reviewed ('+nm+' MCQ/OSCE · '+ns+' Flash/SAQ)';
+  document.getElementById('sc-emoji').textContent=pct>.75?'ًںڈ†':pct>.5?'â­گ':'ًں“–';
+  document.getElementById('sc-sub').textContent=deck.length+' cards reviewed ('+nm+' MCQ/OSCE آ· '+ns+' Flash/SAQ)';
   let g='';
   if(nm) g+=`<div class="sc-stat ok"><div class="sc-n">${mcqRes.correct}</div><div class="sc-l">Correct</div></div>
     <div class="sc-stat ng"><div class="sc-n">${mcqRes.wrong}</div><div class="sc-l">Wrong</div></div>`;
@@ -730,9 +732,9 @@ function showScore(){
 }
 function closeScore(){ document.getElementById('score-overlay').classList.remove('visible'); }
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // KEYBOARD
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 document.addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
   const c=deck[idx]; if(!c) return;
@@ -742,17 +744,17 @@ document.addEventListener('keydown',e=>{
   if(flipped){ if(e.key==='1')rate('again'); if(e.key==='2')rate('good'); if(e.key==='3')rate('easy'); }
 });
 
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // HELPERS
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function mdBold(s){ return String(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>'); }
 function esc(s){ return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;"); }
 function esc2(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ═══════════════════════════════════
-// ═══════════════════════════════════
-// LOCAL STORAGE — PROGRESS
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+// LOCAL STORAGE â€” PROGRESS
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 const LS_KEY = 'obg_progress_v1';
 
 function saveProgress(){
@@ -824,9 +826,9 @@ function clearProgress(){
   syncPracticeControls();
   applyFilter();
 }
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // INIT
-// ═══════════════════════════════════
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 buildSidebar();
 renderExamTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
@@ -884,12 +886,12 @@ function showStats(){
   const wList = document.getElementById('ss-wrong-list');
   const practiceBtn = document.getElementById('practice-wrong-btn');
   practiceBtn.textContent = wrongCards.length
-    ? '🔁 Practice ' + wrongCards.length + ' Wrong Question' + (wrongCards.length>1?'s':'')
-    : '✅ No Wrong Answers Yet';
+    ? 'ًں”پ Practice ' + wrongCards.length + ' Wrong Question' + (wrongCards.length>1?'s':'')
+    : 'âœ… No Wrong Answers Yet';
   practiceBtn.disabled = wrongCards.length === 0;
   wList.innerHTML = '';
   if(wrongCards.length === 0){
-    wList.innerHTML = '<div class="wq-empty">🎉 No wrong answers yet — keep going!</div>';
+    wList.innerHTML = '<div class="wq-empty">ًںژ‰ No wrong answers yet â€” keep going!</div>';
   } else {
     wrongCards.forEach(c => {
       const yourAns  = mcqAnswers[c.id];
@@ -897,17 +899,17 @@ function showStats(){
       const choices  = c.displayChoices || c.choices || [];
       const yourTxt  = choices[yourAns.charCodeAt(0)-65] || yourAns;
       const corrTxt  = choices[corrAns.charCodeAt(0)-65] || corrAns;
-      const stem     = (c.q || c.stem || '').substring(0, 120) + ((c.q||c.stem||'').length > 120 ? '…' : '');
+      const stem     = (c.q || c.stem || '').substring(0, 120) + ((c.q||c.stem||'').length > 120 ? 'â€¦' : '');
       const div = document.createElement('div');
       div.className = 'wrong-q-item';
       div.title = 'Click to go to this question';
       div.innerHTML =
-        '<div class="wq-num">' + c.num + ' · ' + c.cardType + '</div>' +
-        '<div class="wq-lec">📚 ' + (c.lecture||'') + '</div>' +
+        '<div class="wq-num">' + c.num + ' آ· ' + c.cardType + '</div>' +
+        '<div class="wq-lec">ًں“ڑ ' + (c.lecture||'') + '</div>' +
         '<div class="wq-q">' + stem + '</div>' +
         '<div class="wq-ans">' +
-          '<span class="wq-your">❌ Your: ' + yourAns + ') ' + yourTxt.substring(0,60) + '</span>' +
-          '<span class="wq-correct">✅ Correct: ' + corrAns + ') ' + corrTxt.substring(0,60) + '</span>' +
+          '<span class="wq-your">â‌Œ Your: ' + yourAns + ') ' + yourTxt.substring(0,60) + '</span>' +
+          '<span class="wq-correct">âœ… Correct: ' + corrAns + ') ' + corrTxt.substring(0,60) + '</span>' +
         '</div>';
       div.onclick = () => { goToCard(c.id); };
       wList.appendChild(div);
@@ -936,7 +938,7 @@ function practiceWrong(){
   persistPracticePreferences();
   syncSidebarSelection();
   syncPracticeControls();
-  document.getElementById('deck-title').textContent = '❌ Practice: Wrong Questions (' + wrongCards.length + ')';
+  document.getElementById('deck-title').textContent = 'â‌Œ Practice: Wrong Questions (' + wrongCards.length + ')';
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
@@ -965,3 +967,4 @@ function goToCard(cardId){
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
+
