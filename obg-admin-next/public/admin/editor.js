@@ -52,6 +52,15 @@
       .trim();
   }
 
+  function normalizeBucketText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   function normalizeHeaderKey(value) {
     return String(value || "")
       .trim()
@@ -210,6 +219,29 @@
       (metadata?.exams || []).map((exam) => exam.label)
         .concat((questions || []).map((question) => question.exam))
     ).sort((a, b) => a.localeCompare(b));
+  }
+
+  function resolveBucketValue(entries, value, labelKey) {
+    const trimmed = String(value || "").trim();
+    if (!trimmed) return "";
+    const normalized = normalizeBucketText(trimmed);
+    const slug = slugify(trimmed);
+    const list = Array.isArray(entries) ? entries : [];
+    const exact = list.find((entry) => String(entry?.[labelKey] || "").trim().toLowerCase() === trimmed.toLowerCase());
+    if (exact) return String(exact[labelKey] || "").trim();
+    const normalizedMatch = list.find((entry) => normalizeBucketText(entry?.[labelKey]) === normalized);
+    if (normalizedMatch) return String(normalizedMatch[labelKey] || "").trim();
+    const slugMatch = list.find((entry) => slugify(entry?.[labelKey]) === slug);
+    if (slugMatch) return String(slugMatch[labelKey] || "").trim();
+    const tokens = normalized.split(" ").filter((token) => token.length > 2);
+    if (tokens.length) {
+      const tokenMatch = list.find((entry) => {
+        const entryNormalized = normalizeBucketText(entry?.[labelKey]);
+        return tokens.every((token) => entryNormalized.includes(token));
+      });
+      if (tokenMatch) return String(tokenMatch[labelKey] || "").trim();
+    }
+    return trimmed;
   }
 
   function setDirty(nextDirty) {
@@ -845,25 +877,37 @@
     }
 
     if (els.importPreviewRows) {
+      const lectureOptions = getLectureOptionsForMetadata(preview.metadata, preview.rows.map((row) => row.question));
+      const examOptions = getExamOptionsForMetadata(preview.metadata, preview.rows.map((row) => row.question));
       els.importPreviewRows.innerHTML = preview.rows.length
         ? preview.rows.map((row, index) => {
           const tone = row.validation.errors.length ? "error" : row.validation.warnings.length ? "warn" : "ok";
           const issueMarkup = row.validation.errors.concat(row.validation.warnings).map((message) => `
             <div class="validation-item ${row.validation.errors.includes(message) ? "error" : "warning"}">${escapeHtml(message)}</div>
           `).join("");
+          const rowLectures = uniqueStrings(lectureOptions.concat(row.question.lecture || "", row.raw?.lecture || ""));
+          const rowExams = uniqueStrings(examOptions.concat(row.question.exam || "", row.raw?.exam || row.raw?.examsection || ""));
           return `
             <article class="import-preview-row">
               <div class="import-preview-row-head">
                 <div>
                   <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} · ${escapeHtml(row.question.id)}</div>
-                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} · ${escapeHtml(row.question.cardType || "Question")} · ${escapeHtml(row.mode)}</div>
+                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} · ${escapeHtml(row.question.cardType || "Question")} · ${escapeHtml(row.mode)}${row.raw?.lecture ? ` · imported lecture: ${escapeHtml(row.raw.lecture)}` : ""}${row.raw?.exam ? ` · imported exam: ${escapeHtml(row.raw.exam)}` : row.raw?.examsection ? ` · imported exam: ${escapeHtml(row.raw.examsection)}` : ""}</div>
                 </div>
                 <span class="import-preview-chip ${tone}">${row.validation.errors.length ? "Needs fix" : row.validation.warnings.length ? "Review warnings" : row.mode === "update" ? "Will update" : "Ready to create"}</span>
               </div>
               <div class="import-preview-form">
                 <label>ID<input type="text" data-import-row="${index}" data-field="id" value="${escapeHtml(row.question.id || "")}" /></label>
-                <label>Lecture<input type="text" data-import-row="${index}" data-field="lecture" value="${escapeHtml(row.question.lecture || "")}" /></label>
-                <label>Exam<input type="text" data-import-row="${index}" data-field="exam" value="${escapeHtml(row.question.exam || "")}" /></label>
+                <label>Lecture
+                  <select data-import-row="${index}" data-field="lecture">
+                    ${rowLectures.map((lecture) => `<option value="${escapeHtml(lecture)}" ${row.question.lecture === lecture ? "selected" : ""}>${escapeHtml(lecture)}</option>`).join("")}
+                  </select>
+                </label>
+                <label>Exam
+                  <select data-import-row="${index}" data-field="exam">
+                    ${rowExams.map((exam) => `<option value="${escapeHtml(exam)}" ${row.question.exam === exam ? "selected" : ""}>${escapeHtml(exam)}</option>`).join("")}
+                  </select>
+                </label>
                 <label>Type
                   <select data-import-row="${index}" data-field="cardType">
                     ${TYPE_OPTIONS.map((type) => `<option value="${type}" ${row.question.cardType === type ? "selected" : ""}>${type}</option>`).join("")}
@@ -945,7 +989,7 @@
 
   function ensureLecture(name, options = {}) {
     const metadata = options.metadata || state.metadata;
-    const trimmed = String(name || "").trim();
+    const trimmed = resolveBucketValue(metadata.lectures, name, "name");
     if (!trimmed) return "";
     metadata.lectures = Array.isArray(metadata.lectures) ? metadata.lectures : [];
     const existing = metadata.lectures.find((lecture) => lecture.name.toLowerCase() === trimmed.toLowerCase());
@@ -961,7 +1005,7 @@
 
   function ensureExam(label, options = {}) {
     const metadata = options.metadata || state.metadata;
-    const trimmed = String(label || "").trim();
+    const trimmed = resolveBucketValue(metadata.exams, label, "label");
     if (!trimmed) return "";
     metadata.exams = Array.isArray(metadata.exams) ? metadata.exams : [];
     const existing = metadata.exams.find((exam) => exam.label.toLowerCase() === trimmed.toLowerCase());
