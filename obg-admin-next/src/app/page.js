@@ -232,6 +232,12 @@ function AdminView({ user }) {
                     <button className="btn btn-primary" id="generate-template-btn" type="button">Export CSV Template</button>
                     <button className="btn btn-ghost" id="import-template-btn" type="button">Import Completed CSV</button>
                   </div>
+                  <div className="form-grid compact-grid">
+                    <label className="toggle-label bulk-toggle">
+                      <span>Auto-generate missing IDs on import</span>
+                      <input id="import-generate-missing-ids" type="checkbox" defaultChecked />
+                    </label>
+                  </div>
                   <input id="template-file-input" type="file" accept=".csv,text/csv" className="hidden" />
                 </div>
               </div>

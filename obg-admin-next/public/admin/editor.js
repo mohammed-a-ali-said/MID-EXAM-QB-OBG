@@ -1379,6 +1379,7 @@
       totalRows: preview.rows.length,
       created,
       updated,
+      autoGenerateMissingIds: preview.autoGenerateMissingIds !== false,
       parseErrors: preview.invalidRows.length,
       errorRows,
       warningRows,
@@ -1472,6 +1473,7 @@
         ["Rows", String(summary.totalRows), `${summary.readyRows} ready rows staged for import.`],
         ["Create", String(summary.created), "Rows that will create brand-new questions."],
         ["Update", String(summary.updated), "Rows that will replace existing IDs."],
+        ["Missing IDs", summary.autoGenerateMissingIds ? "Auto-generate" : "Manual review", summary.autoGenerateMissingIds ? "Blank IDs from the CSV were filled automatically during staging." : "Blank IDs stay empty until you type them in the preview."],
         ["Lecture buckets", String(summary.newLectures.length), summary.newLectures.length ? `New: ${summary.newLectures.join(", ")}` : "All rows map to existing lectures."],
         ["Exam buckets", String(summary.newExams.length), summary.newExams.length ? `New: ${summary.newExams.join(", ")}` : "All rows map to existing exam sections."],
         ["Needs attention", String(summary.parseErrors + summary.errorRows), "Blocking issues that must be fixed before import."],
@@ -2238,8 +2240,9 @@
 
   function buildTemplateQuestionFromRow(row, rowNumber, usedIds, options = {}) {
     const metadata = options.metadata || state.metadata;
+    const autoGenerateMissingIds = options.autoGenerateMissingIds !== false;
     const requestedId = String(pickTemplateValue(row, ["id"])).trim();
-    const generatedId = requestedId || allocateNextQuestionId(usedIds);
+    const generatedId = requestedId || (autoGenerateMissingIds ? allocateNextQuestionId(usedIds) : "");
     if (requestedId) usedIds.add(requestedId);
 
     const requestedType = String(pickTemplateValue(row, ["cardtype", "type"])).trim().toUpperCase();
@@ -2373,6 +2376,7 @@
     const normalizedHeaders = headers.map((header) => normalizeHeaderKey(header));
     const usedIds = new Set(state.working.map((question) => question.id));
     const metadataPreview = normalizeMetadata(deepClone(state.metadata));
+    const autoGenerateMissingIds = !!els.importGenerateMissingIds?.checked;
     const staged = [];
     const invalidRows = [];
     for (const [index, line] of lines.slice(1).entries()) {
@@ -2381,7 +2385,10 @@
       const isBlankRow = Object.values(row).every((value) => String(value || "").trim() === "");
       if (isBlankRow) continue;
       try {
-        const question = buildTemplateQuestionFromRow(row, index + 2, usedIds, { metadata: metadataPreview });
+        const question = buildTemplateQuestionFromRow(row, index + 2, usedIds, {
+          metadata: metadataPreview,
+          autoGenerateMissingIds,
+        });
         staged.push({ rowNumber: index + 2, raw: row, question });
       } catch (error) {
         invalidRows.push({
@@ -2399,10 +2406,14 @@
       fileName: file.name || "import.csv",
       headers,
       metadata: metadataPreview,
+      autoGenerateMissingIds,
       rows: staged,
       invalidRows,
     });
-    setStatus(`Import preview ready: ${staged.length} staged row(s), ${invalidRows.length} parse issue(s). Review before merge.`, invalidRows.length ? "warn" : "ok");
+    setStatus(
+      `Import preview ready: ${staged.length} staged row(s), ${invalidRows.length} parse issue(s). ${autoGenerateMissingIds ? "Missing IDs were auto-generated where needed." : "Missing IDs were left blank for manual review."}`,
+      invalidRows.length ? "warn" : "ok"
+    );
   }
 
   function applyImportPreview() {
@@ -2744,6 +2755,7 @@
     els.templatePrefix = byId("template-prefix");
     els.templateNote = byId("template-note");
     els.templateGenerateIds = byId("template-generate-ids");
+    els.importGenerateMissingIds = byId("import-generate-missing-ids");
     els.templateFillDefaults = byId("template-fill-defaults");
     els.generateTemplateBtn = byId("generate-template-btn");
     els.importTemplateBtn = byId("import-template-btn");
