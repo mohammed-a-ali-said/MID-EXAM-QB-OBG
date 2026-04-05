@@ -289,7 +289,7 @@ function loadDeck(d){
   scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
   osceSubIdx={};
   let title='All Questions';
-  if(activeLec) title=activeLec+(activeLecType!=='all'?' â€” '+activeLecType:'');
+  if(activeLec) title=activeLec+(activeLecType!=='all'?' - '+activeLecType:'');
   else if(activeFilter!=='all') title=activeFilter;
   if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
   if(activeSrcExact) title+=' آ· '+exactSourceLabel(activeSrcExact);
@@ -341,7 +341,7 @@ function renderCard(){
   if(c.cardType==='MCQ'){
     fb.textContent='Select Answer'; fb.disabled=true;
   } else {
-    fb.textContent='Flip â†©'; fb.disabled=false;
+    fb.textContent='Flip'; fb.disabled=false;
     fb.onclick=flipCard;
   }
   updateProgress();
@@ -394,9 +394,9 @@ function renderMCQ(c){
   <div class="mcq-result" id="mcq-res-${c.id}"></div>
   <div class="mcq-footer">
     <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
     </div>
     <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
   </div>
@@ -465,13 +465,13 @@ function renderOSCE(c){
   <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
   <div class="mcq-footer">
     ${subs.length>1?`<div style="display:flex;gap:8px">
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>â†گ Part ${subIdx}</button>
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} â†’</button>
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>Prev Part ${subIdx}</button>
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} Next</button>
     </div>`:'<div></div>'}
     <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
     </div>
   </div>
 </div>`;
@@ -497,7 +497,7 @@ function renderFlipCard(c, type){
     ${tags?`<div class="mcq-tags">${tags}</div>`:''}
     <div class="q-hint">Click to reveal answer</div>
   </div>
-  <div class="flip-cta">ًں–±ï¸ڈ Click card or press <strong>Space</strong> to flip</div>
+  <div class="flip-cta">Click card or press <strong>Space</strong> to flip</div>
 </div>`;
   
   // BACK
@@ -520,9 +520,9 @@ function renderFlipCard(c, type){
   ${backContent}
   <div class="ans-footer">
     <div class="rate-btns">
-      <button class="rate-btn rb-again" onclick="rate('again')">â†؛ Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">â—ژ Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">âœ“ Easy</button>
+      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
     </div>
     <span style="font-size:.71rem;color:#6b7280">1/2/3 to rate</span>
   </div>
@@ -559,18 +559,18 @@ function pick(btn, chosen, correct){
   document.querySelectorAll('.choice-btn').forEach(b=>b.classList.add('locked'));
   const ok=(chosen===correct);
   btn.classList.add(ok?'chosen-correct':'chosen-wrong');
-  document.getElementById('ci'+chosen+'_'+c.id).textContent=ok?'âœ“':'âœ—';
+  document.getElementById('ci'+chosen+'_'+c.id).textContent=ok?'OK':'X';
   if(!ok && correct){
     const cb=document.querySelector('.choice-btn[data-l="'+correct+'"]');
     if(cb){cb.classList.add('reveal-correct');
       const ci=document.getElementById('ci'+correct+'_'+c.id);
-      if(ci) ci.textContent='âœ“';
+      if(ci) ci.textContent='OK';
     }
   }
   const res=document.getElementById('mcq-res-'+c.id);
   if(res){
     if(ok){res.className='mcq-result ok';res.textContent='Correct!';mcqRes.correct++;}
-    else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
+    else{res.className='mcq-result ng';res.innerHTML='Incorrect - Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   const hint=document.getElementById('mcq-hint-'+c.id);
   if(hint) hint.style.display='none';
@@ -588,17 +588,17 @@ function pickOSCE(btn, chosen, correct, cardId, subIdx){
   const cid=cardId+'_'+subIdx;
   const ok=(chosen===correct);
   btn.classList.add(ok?'chosen-correct':'chosen-wrong');
-  document.getElementById('oci'+chosen+'_'+cid).textContent=ok?'âœ“':'âœ—';
+  document.getElementById('oci'+chosen+'_'+cid).textContent=ok?'OK':'X';
   if(!ok && correct){
     const cb=document.querySelector('#osce-choices-'+cardId+' .choice-btn[data-l="'+correct+'"]');
     if(cb){cb.classList.add('reveal-correct');
-      const ci=document.getElementById('oci'+correct+'_'+cid); if(ci) ci.textContent='âœ“';
+      const ci=document.getElementById('oci'+correct+'_'+cid); if(ci) ci.textContent='OK';
     }
   }
   const res=document.getElementById('osce-res-'+cid);
   if(res){
     if(ok){res.className='mcq-result ok';res.textContent='Correct!';mcqRes.correct++;}
-    else{res.className='mcq-result ng';res.innerHTML='âœ— Incorrect â€” Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
+    else{res.className='mcq-result ng';res.innerHTML='Incorrect - Answer: <strong>'+correct+'</strong>';mcqRes.wrong++;}
   }
   if(!osceResults[cardId]) osceResults[cardId]={};
   osceResults[cardId][subIdx]=ok?'correct':'wrong';
@@ -668,7 +668,7 @@ function updateStats(){
   document.getElementById('s-rev').textContent=reviewed;
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const done=mcqRes.correct+mcqRes.wrong;
-  document.getElementById('s-score').textContent=nm&&done?mcqRes.correct+'/'+done:'â€”';
+  document.getElementById('s-score').textContent=nm&&done?mcqRes.correct+'/'+done:'-';
 }
 
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -739,7 +739,7 @@ function buildSidebar(){
     if(nO) subtabs.push(`<button class="s-stab osce-t" onclick="setST(event,'${esc(lec)}','OSCE')">OSCE(${nO})</button>`);
     if(nF) subtabs.push(`<button class="s-stab flash-t" onclick="setST(event,'${esc(lec)}','FLASHCARD')">Flash(${nF})</button>`);
     if(nS) subtabs.push(`<button class="s-stab saq-t" onclick="setST(event,'${esc(lec)}','SAQ')">SAQ(${nS})</button>`);
-    if(hasNotes) subtabs.push(`<button class="notes-btn" onclick="openNotes('${esc(lec)}',event)">ًں“‌ Notes</button>`);
+    if(hasNotes) subtabs.push(`<button class="notes-btn" onclick="openNotes('${esc(lec)}',event)">Notes</button>`);
     html+=`<li class="sb-item" data-k="${esc(lec)}" onclick="setSL('${esc(lec)}')">
       <div class="s-main">
         <span class="s-name">${esc2(lec)}</span>
@@ -770,8 +770,8 @@ function showScore(){
   const nm=deck.filter(c=>c.cardType==='MCQ'||c.cardType==='OSCE').length;
   const ns=deck.filter(c=>c.cardType==='FLASHCARD'||c.cardType==='SAQ').length;
   const pct=nm?(mcqRes.correct/nm):0;
-  document.getElementById('sc-emoji').textContent=pct>.75?'ًںڈ†':pct>.5?'â­گ':'ًں“–';
-  document.getElementById('sc-sub').textContent=deck.length+' cards reviewed ('+nm+' MCQ/OSCE آ· '+ns+' Flash/SAQ)';
+  document.getElementById('sc-emoji').textContent=pct>.75?'Excellent':pct>.5?'Good':'Keep Going';
+  document.getElementById('sc-sub').textContent=deck.length+' cards reviewed ('+nm+' MCQ/OSCE | '+ns+' Flash/SAQ)';
   let g='';
   if(nm) g+=`<div class="sc-stat ok"><div class="sc-n">${mcqRes.correct}</div><div class="sc-l">Correct</div></div>
     <div class="sc-stat ng"><div class="sc-n">${mcqRes.wrong}</div><div class="sc-l">Wrong</div></div>`;
@@ -942,12 +942,12 @@ function showStats(){
   const wList = document.getElementById('ss-wrong-list');
   const practiceBtn = document.getElementById('practice-wrong-btn');
   practiceBtn.textContent = wrongCards.length
-    ? 'ًں”پ Practice ' + wrongCards.length + ' Wrong Question' + (wrongCards.length>1?'s':'')
+    ? 'Practice ' + wrongCards.length + ' Wrong Question' + (wrongCards.length>1?'s':'')
     : 'No Wrong Answers Yet';
   practiceBtn.disabled = wrongCards.length === 0;
   wList.innerHTML = '';
   if(wrongCards.length === 0){
-    wList.innerHTML = '<div class="wq-empty">ًںژ‰ No wrong answers yet â€” keep going!</div>';
+    wList.innerHTML = '<div class="wq-empty">No wrong answers yet - keep going!</div>';
   } else {
     wrongCards.forEach(c => {
       const yourAns  = mcqAnswers[c.id];
@@ -955,16 +955,16 @@ function showStats(){
       const choices  = c.displayChoices || c.choices || [];
       const yourTxt  = choices[yourAns.charCodeAt(0)-65] || yourAns;
       const corrTxt  = choices[corrAns.charCodeAt(0)-65] || corrAns;
-      const stem     = (c.q || c.stem || '').substring(0, 120) + ((c.q||c.stem||'').length > 120 ? 'â€¦' : '');
+      const stem     = (c.q || c.stem || '').substring(0, 120) + ((c.q||c.stem||'').length > 120 ? '...' : '');
       const div = document.createElement('div');
       div.className = 'wrong-q-item';
       div.title = 'Click to go to this question';
       div.innerHTML =
-        '<div class="wq-num">' + c.num + ' آ· ' + c.cardType + '</div>' +
-        '<div class="wq-lec">ًں“ڑ ' + (c.lecture||'') + '</div>' +
+        '<div class="wq-num">' + c.num + ' | ' + c.cardType + '</div>' +
+        '<div class="wq-lec">' + (c.lecture||'') + '</div>' +
         '<div class="wq-q">' + stem + '</div>' +
         '<div class="wq-ans">' +
-          '<span class="wq-your">â‌Œ Your: ' + yourAns + ') ' + yourTxt.substring(0,60) + '</span>' +
+          '<span class="wq-your">Your: ' + yourAns + ') ' + yourTxt.substring(0,60) + '</span>' +
           '<span class="wq-correct">Correct: ' + corrAns + ') ' + corrTxt.substring(0,60) + '</span>' +
         '</div>';
       div.onclick = () => { goToCard(c.id); };
@@ -994,7 +994,7 @@ function practiceWrong(){
   persistPracticePreferences();
   syncSidebarSelection();
   syncPracticeControls();
-  document.getElementById('deck-title').textContent = 'â‌Œ Practice: Wrong Questions (' + wrongCards.length + ')';
+  document.getElementById('deck-title').textContent = 'Practice: Wrong Questions (' + wrongCards.length + ')';
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
