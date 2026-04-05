@@ -30,6 +30,9 @@
     importPreviewTab: "summary",
     savedSnapshots: {},
     confirmResolver: null,
+    historyPast: [],
+    historyFuture: [],
+    isRestoringHistory: false,
   };
 
   const els = {};
@@ -40,6 +43,124 @@
 
   function deepClone(value) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+  function createHistorySnapshot() {
+    return {
+      working: deepClone(state.working),
+      metadata: deepClone(state.metadata),
+      selectedId: state.selectedId,
+      savedSnapshots: deepClone(state.savedSnapshots || {}),
+      dirty: !!state.dirty,
+    };
+  }
+
+  function getHistorySignature(snapshot) {
+    return JSON.stringify({
+      working: snapshot?.working || [],
+      metadata: snapshot?.metadata || { lectures: [], exams: [] },
+      selectedId: snapshot?.selectedId || "",
+      dirty: !!snapshot?.dirty,
+    });
+  }
+
+  function pushHistoryEntry(entry, options = {}) {
+    if (!entry?.snapshot) return;
+    state.historyPast.push(entry);
+    if (state.historyPast.length > 80) {
+      state.historyPast.shift();
+    }
+    if (options.clearFuture !== false) {
+      state.historyFuture = [];
+    }
+  }
+
+  function captureHistoryBeforeMutation(label, options = {}) {
+    if (state.isRestoringHistory) return;
+    const now = Date.now();
+    const mergeWindowMs = Number.isFinite(options.mergeWindowMs) ? options.mergeWindowMs : 2500;
+    const snapshot = createHistorySnapshot();
+    const signature = getHistorySignature(snapshot);
+    const last = state.historyPast[state.historyPast.length - 1];
+    if (last && last.signature === signature) return;
+    if (last && last.label === label && now - last.at < mergeWindowMs) return;
+    pushHistoryEntry({
+      label,
+      at: now,
+      signature,
+      snapshot,
+    });
+  }
+
+  function restoreHistorySnapshot(snapshot) {
+    state.working = deepClone(snapshot?.working || []);
+    state.metadata = normalizeMetadata(snapshot?.metadata || { lectures: [], exams: [] });
+    state.selectedId = snapshot?.selectedId || state.working[0]?.id || null;
+    state.savedSnapshots = deepClone(snapshot?.savedSnapshots || {});
+    setDirty(!!snapshot?.dirty);
+    renderAll();
+  }
+
+  function renderHistory() {
+    const canUndo = state.historyPast.length > 0;
+    const canRedo = state.historyFuture.length > 0;
+    [els.undoBtn, els.redoBtn].forEach((button, index) => {
+      if (!button) return;
+      const enabled = index === 0 ? canUndo : canRedo;
+      button.disabled = !enabled;
+      button.classList.toggle("is-disabled-look", !enabled);
+    });
+    if (els.historyMeta) {
+      const undoText = canUndo ? `Undo: ${state.historyPast[state.historyPast.length - 1].label}` : "Nothing to undo yet.";
+      const redoText = canRedo ? `Redo: ${state.historyFuture[state.historyFuture.length - 1].label}` : "Nothing queued to redo.";
+      els.historyMeta.textContent = `${undoText} ${redoText}`;
+    }
+    if (els.historyList) {
+      const items = [];
+      const future = state.historyFuture.slice(-3).reverse().map((entry) => ({ entry, mode: "redo" }));
+      const past = state.historyPast.slice(-6).reverse().map((entry, index) => ({ entry, mode: index === 0 ? "undo" : "past" }));
+      future.forEach(({ entry }) => {
+        items.push(`<div class="history-item"><div class="history-item-title">Redo available: ${escapeHtml(entry.label)}</div><div class="history-item-copy">${escapeHtml(new Date(entry.at).toLocaleTimeString())}</div></div>`);
+      });
+      past.forEach(({ entry, mode }) => {
+        items.push(`<div class="history-item ${mode === "undo" ? "current" : ""}"><div class="history-item-title">${mode === "undo" ? `Undo next: ${escapeHtml(entry.label)}` : escapeHtml(entry.label)}</div><div class="history-item-copy">${escapeHtml(new Date(entry.at).toLocaleTimeString())}</div></div>`);
+      });
+      els.historyList.innerHTML = items.length ? items.join("") : '<div class="history-item"><div class="history-item-title">No draft history yet</div><div class="history-item-copy">Edits, imports, deletes, and bucket changes will appear here.</div></div>';
+    }
+  }
+
+  function undoHistory() {
+    if (!state.historyPast.length) return;
+    const current = {
+      label: "Current draft",
+      at: Date.now(),
+      signature: getHistorySignature(createHistorySnapshot()),
+      snapshot: createHistorySnapshot(),
+    };
+    const previous = state.historyPast.pop();
+    state.historyFuture.push(current);
+    state.isRestoringHistory = true;
+    restoreHistorySnapshot(previous.snapshot);
+    state.isRestoringHistory = false;
+    renderHistory();
+    setStatus(`Undid: ${previous.label}.`, "ok");
+  }
+
+  function redoHistory() {
+    if (!state.historyFuture.length) return;
+    const current = {
+      label: "Current draft",
+      at: Date.now(),
+      signature: getHistorySignature(createHistorySnapshot()),
+      snapshot: createHistorySnapshot(),
+    };
+    const next = state.historyFuture.pop();
+    pushHistoryEntry(current, { clearFuture: false });
+    state.isRestoringHistory = true;
+    restoreHistorySnapshot(next.snapshot);
+    state.isRestoringHistory = false;
+    renderHistory();
+    setStatus(`Redid: ${next.label}.`, "ok");
   }
 
   function uniqueStrings(values) {
@@ -341,6 +462,7 @@
 
   function applyTextReplacementAcrossBank(oldText, newText, sourceQuestionId) {
     if (!oldText || oldText === newText) return 0;
+    captureHistoryBeforeMutation(`Replace "${oldText}" across the bank`, { mergeWindowMs: 0 });
     let replacements = 0;
     state.working = state.working.map((question) => {
       if (!question || question.id === sourceQuestionId) return question;
@@ -416,6 +538,7 @@
       els.dirtyBadge.textContent = state.dirty ? "Unsaved changes" : "Saved";
       els.dirtyBadge.classList.toggle("dirty", state.dirty);
     }
+    renderHistory();
   }
 
   function ensureConfirmModalElements() {
@@ -557,6 +680,8 @@
     state.metadata = normalizeMetadata(payload.metadata);
     state.selectedId = state.working[0]?.id || null;
     state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
+    state.historyPast = [];
+    state.historyFuture = [];
     setDirty(false);
   }
 
@@ -1001,6 +1126,7 @@
     renderQuestionList();
     renderBucketLists();
     renderEditor();
+    renderHistory();
   }
 
   function getImportPreviewValidation(preview, rowQuestion) {
@@ -1242,6 +1368,10 @@
   function updateQuestion(mutator, options = {}) {
     const index = state.working.findIndex((question) => question.id === state.selectedId);
     if (index < 0) return;
+    if (options.historyLabel !== false) {
+      const selected = state.working[index];
+      captureHistoryBeforeMutation(options.historyLabel || `Edit ${selected?.id || "question"}`);
+    }
     const draft = deepClone(state.working[index]);
     mutator(draft);
     if (draft.lecture) {
@@ -1321,6 +1451,7 @@
   }
 
   function createQuestion(type) {
+    captureHistoryBeforeMutation("Create new question", { mergeWindowMs: 0 });
     const lecture = ensureLecture((els.templateLecture?.value || "").trim() || getLectureOptions()[0] || "New Lecture");
     const exam = ensureExam((els.templateExam?.value || "").trim() || getExamOptions()[0] || "mid");
     const question = normalizeQuestion({
@@ -1350,6 +1481,7 @@
   function duplicateCurrentQuestion() {
     const selected = getSelectedQuestion();
     if (!selected) return;
+    captureHistoryBeforeMutation(`Duplicate ${selected.id}`, { mergeWindowMs: 0 });
     const duplicate = normalizeQuestion({
       ...deepClone(selected),
       id: nextQuestionId(),
@@ -1639,6 +1771,7 @@
         cancelLabel: "Cancel",
       });
       if (!shouldDelete) return;
+      captureHistoryBeforeMutation(`Delete ${selected.id}`, { mergeWindowMs: 0 });
       state.working = state.working.filter((question) => question.id !== selected.id);
       state.selectedId = state.working[0]?.id || null;
       setDirty(true);
@@ -1648,7 +1781,7 @@
     }
     updateQuestion((draft) => {
       draft.active = false;
-    });
+    }, { historyLabel: `Soft delete ${selected.id}` });
     setStatus(`Soft-deleted ${selected.id}. It will be hidden after export/save.`, "warn");
   }
 
@@ -1657,7 +1790,7 @@
     if (!selected) return;
     updateQuestion((draft) => {
       draft.active = true;
-    });
+    }, { historyLabel: `Restore ${selected.id}` });
     setStatus(`Restored ${selected.id}.`, "ok");
   }
 
@@ -1867,6 +2000,7 @@
       return;
     }
 
+    captureHistoryBeforeMutation(`Apply import (${preview.fileName || "CSV"})`, { mergeWindowMs: 0 });
     const indexById = new Map(state.working.map((question, index) => [question.id, index]));
     let created = 0;
     let updated = 0;
@@ -1957,6 +2091,8 @@
     els.deleteBtn.addEventListener("click", handleDelete);
     els.exportBtn.addEventListener("click", downloadJson);
     els.saveGithubBtn.addEventListener("click", saveToGitHub);
+    if (els.undoBtn) els.undoBtn.addEventListener("click", undoHistory);
+    if (els.redoBtn) els.redoBtn.addEventListener("click", redoHistory);
     els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
     els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
     if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.newQuestionType?.value || "MCQ"));
@@ -1964,6 +2100,7 @@
     if (els.addLectureBtn) els.addLectureBtn.addEventListener("click", () => {
       const value = els.newLectureInput.value.trim();
       if (!value) return;
+      captureHistoryBeforeMutation(`Add lecture bucket "${value}"`, { mergeWindowMs: 0 });
       ensureLecture(value);
       els.newLectureInput.value = "";
       setDirty(true);
@@ -1973,6 +2110,7 @@
     if (els.addExamBtn) els.addExamBtn.addEventListener("click", () => {
       const value = els.newExamInput.value.trim();
       if (!value) return;
+      captureHistoryBeforeMutation(`Add exam section "${value}"`, { mergeWindowMs: 0 });
       ensureExam(value);
       els.newExamInput.value = "";
       setDirty(true);
@@ -2007,7 +2145,13 @@
       if (!trigger) return;
       const lecture = state.metadata.lectures.find((item) => item.id === trigger.dataset.bucketId);
       if (!lecture) return;
-      if (trigger.dataset.bucketAction === "toggle-lecture") lecture.active = lecture.active === false;
+      const historyLabel = trigger.dataset.bucketAction === "rename-lecture" ? `Rename lecture "${lecture.name}"` : `${lecture.active === false ? "Show" : "Hide"} lecture "${lecture.name}"`;
+      let changed = false;
+      captureHistoryBeforeMutation(historyLabel, { mergeWindowMs: 0 });
+      if (trigger.dataset.bucketAction === "toggle-lecture") {
+        lecture.active = lecture.active === false;
+        changed = true;
+      }
       if (trigger.dataset.bucketAction === "rename-lecture") {
         const nextName = prompt("Rename lecture", lecture.name);
         if (nextName && nextName.trim()) {
@@ -2018,7 +2162,14 @@
             lecture: question.lecture === previousName ? lecture.name : question.lecture,
             alsoInLectures: (question.alsoInLectures || []).map((value) => value === previousName ? lecture.name : value),
           }));
+          changed = true;
         }
+      }
+      if (!changed) {
+        const last = state.historyPast[state.historyPast.length - 1];
+        if (last?.label === historyLabel) state.historyPast.pop();
+        renderHistory();
+        return;
       }
       setDirty(true);
       renderAll();
@@ -2028,7 +2179,13 @@
       if (!trigger) return;
       const exam = state.metadata.exams.find((item) => item.id === trigger.dataset.bucketId);
       if (!exam) return;
-      if (trigger.dataset.bucketAction === "toggle-exam") exam.active = exam.active === false;
+      const historyLabel = trigger.dataset.bucketAction === "rename-exam" ? `Rename exam "${exam.label}"` : `${exam.active === false ? "Enable" : "Disable"} exam "${exam.label}"`;
+      let changed = false;
+      captureHistoryBeforeMutation(historyLabel, { mergeWindowMs: 0 });
+      if (trigger.dataset.bucketAction === "toggle-exam") {
+        exam.active = exam.active === false;
+        changed = true;
+      }
       if (trigger.dataset.bucketAction === "rename-exam") {
         const nextLabel = prompt("Rename exam section", exam.label);
         if (nextLabel && nextLabel.trim()) {
@@ -2038,7 +2195,14 @@
             ...question,
             exam: question.exam === previousLabel ? exam.label : question.exam,
           }));
+          changed = true;
         }
+      }
+      if (!changed) {
+        const last = state.historyPast[state.historyPast.length - 1];
+        if (last?.label === historyLabel) state.historyPast.pop();
+        renderHistory();
+        return;
       }
       setDirty(true);
       renderAll();
@@ -2052,6 +2216,16 @@
     });
 
     document.addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key.toLowerCase() === "z") {
+        event.preventDefault();
+        undoHistory();
+        return;
+      }
+      if ((event.ctrlKey || event.metaKey) && (event.key.toLowerCase() === "y" || (event.shiftKey && event.key.toLowerCase() === "z"))) {
+        event.preventDefault();
+        redoHistory();
+        return;
+      }
       if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "s") return;
       event.preventDefault();
       if (event.shiftKey) {
@@ -2104,8 +2278,12 @@
     els.validationSummary = byId("validation-summary");
     els.validationList = byId("validation-list");
     els.saveStatus = byId("save-status");
+    els.historyMeta = byId("history-meta");
+    els.historyList = byId("history-list");
     els.validateAllBtn = byId("validate-all-btn");
     els.exportBtn = byId("export-btn");
+    els.undoBtn = byId("undo-btn");
+    els.redoBtn = byId("redo-btn");
     els.saveGithubBtn = byId("save-github-btn");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");

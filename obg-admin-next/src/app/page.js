@@ -44,6 +44,8 @@ function AdminView({ user }) {
           </div>
           <div className="header-actions">
             <a className="btn btn-ghost" href="/api/auth/logout">Sign out</a>
+            <button className="btn btn-ghost" id="undo-btn" type="button">Undo</button>
+            <button className="btn btn-ghost" id="redo-btn" type="button">Redo</button>
             <button className="btn btn-ghost" id="validate-all-btn" type="button">Validate</button>
             <button className="btn btn-ghost" id="export-btn" type="button">Export JSON</button>
             <button className="btn btn-primary" id="save-github-btn" type="button">Save to GitHub</button>
@@ -329,6 +331,11 @@ function AdminView({ user }) {
             <div className="validation-box">
               <div className="validation-title">Activity Log</div>
               <div className="save-status" id="save-status">No save/export action yet.</div>
+            </div>
+            <div className="validation-box">
+              <div className="validation-title">History & Undo</div>
+              <div id="history-meta" className="history-meta">No draft changes yet.</div>
+              <div id="history-list" className="history-list"></div>
             </div>
           </aside>
         </main>
