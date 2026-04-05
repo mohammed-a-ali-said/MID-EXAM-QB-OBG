@@ -55,6 +55,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
 .template-help code{font-family:var(--font-m);font-size:.72rem;color:var(--navy);background:#fff;border:1px solid #dce6f4;border-radius:6px;padding:2px 5px}
 .media-upload-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:12px 14px;border:1px solid #dce7f6;border-radius:14px;background:#f8fbff}
 .media-upload-meta{font-size:.76rem;line-height:1.6;color:#607184;flex:1 1 260px}
+.media-upload-bar select{flex:1 1 260px}
+.media-upload-meta.is-ok{color:#166534}
+.media-upload-meta.is-warn{color:#8a5a00}
+.media-upload-meta.is-error{color:#991b1b}
 .bucket-list{display:flex;flex-direction:column;gap:8px}
 .bucket-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:#fafbfd}
 .bucket-item.inactive{opacity:.7;background:#fff6f6}
@@ -260,6 +264,9 @@ body.admin-theme-dark textarea:focus{border-color:#66a7ff;box-shadow:0 0 0 4px r
 body.admin-theme-dark .btn-ghost,
 body.admin-theme-dark .mini-btn{background:#12213a;color:#eaf1fb;border-color:#28405e}
 body.admin-theme-dark .media-upload-bar{background:#102033;border-color:#28405e}
+body.admin-theme-dark .media-upload-meta.is-ok{color:#9ce0af}
+body.admin-theme-dark .media-upload-meta.is-warn{color:#f2d08a}
+body.admin-theme-dark .media-upload-meta.is-error{color:#ffb7b7}
 body.admin-theme-dark .btn-primary{background:#66a7ff;color:#081424}
 body.admin-theme-dark .btn-danger{background:#30151b;color:#ffb7b7;border-color:#6e2d3a}
 body.admin-theme-dark .question-item:hover,

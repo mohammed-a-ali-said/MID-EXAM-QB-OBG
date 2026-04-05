@@ -298,6 +298,13 @@ function AdminView({ user }) {
                     <button className="btn btn-ghost" id="image-upload-btn" type="button">Upload to GitHub</button>
                     <div className="media-upload-meta" id="image-upload-meta">No image file selected yet.</div>
                   </div>
+                  <div className="media-upload-bar">
+                    <select id="existing-image-select">
+                      <option value="">Choose existing repo image...</option>
+                    </select>
+                    <button className="btn btn-ghost" id="use-existing-image-btn" type="button">Use Existing Image</button>
+                    <div className="media-upload-meta" id="image-effectiveness-meta">Image status: no image selected.</div>
+                  </div>
                   <label>
                     Image source
                     <textarea id="field-image" rows="3" placeholder="https://... or data:image/png;base64,..."></textarea>

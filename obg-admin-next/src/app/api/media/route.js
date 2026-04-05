@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { uploadRepoImage } from "@/lib/github";
+import { listRepoImages, uploadRepoImage } from "@/lib/github";
 import { getSession } from "@/lib/session";
 
 function unauthorized() {
@@ -13,6 +13,19 @@ const ALLOWED_TYPES = new Set([
   "image/gif",
   "image/svg+xml",
 ]);
+
+export async function GET() {
+  const session = await getSession();
+  if (!session?.accessToken) return unauthorized();
+
+  try {
+    const images = await listRepoImages(session.accessToken);
+    return NextResponse.json({ ok: true, images });
+  } catch (error) {
+    console.error("[api/media][GET]", error);
+    return NextResponse.json({ error: error.message || "Failed to load repo images." }, { status: 500 });
+  }
+}
 
 export async function POST(request) {
   const session = await getSession();

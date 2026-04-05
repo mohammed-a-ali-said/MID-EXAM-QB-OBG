@@ -98,6 +98,15 @@ async function fetchRepoFileSha(token, repoPath) {
   return String(payload?.sha || "").trim();
 }
 
+async function listRepoDirectory(token, repoPath) {
+  const env = assertEnv();
+  const encodedPath = encodeRepoPath(repoPath);
+  const url = `https://api.github.com/repos/${encodeURIComponent(env.repoOwner)}/${encodeURIComponent(env.repoName)}/contents/${encodedPath}?ref=${encodeURIComponent(env.repoBranch)}`;
+  const response = await githubFetch(url, token);
+  const payload = await response.json();
+  return Array.isArray(payload) ? payload : [];
+}
+
 async function saveRepoJsonFile(token, { repoPath, content, sha, message }) {
   const env = assertEnv();
   const encodedPath = encodeRepoPath(repoPath);
@@ -283,4 +292,20 @@ export async function uploadRepoImage(token, { questionId, fileName, contentType
     repoPath,
     publicPath: repoPath,
   };
+}
+
+export async function listRepoImages(token) {
+  const env = assertEnv();
+  const entries = await listRepoDirectory(token, env.imageBasePath);
+  return entries
+    .filter((entry) => entry && entry.type === "file")
+    .filter((entry) => /\.(png|jpe?g|webp|gif|svg)$/i.test(String(entry.name || "")))
+    .map((entry) => ({
+      name: String(entry.name || "").trim(),
+      path: String(entry.path || "").trim(),
+      sha: String(entry.sha || "").trim(),
+      size: Number(entry.size || 0) || 0,
+      downloadUrl: String(entry.download_url || "").trim(),
+    }))
+    .sort((left, right) => String(right.name || "").localeCompare(String(left.name || "")));
 }

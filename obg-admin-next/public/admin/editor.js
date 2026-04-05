@@ -48,6 +48,7 @@
     theme: "light",
     pendingImageFile: null,
     uploadingImage: false,
+    availableImages: [],
   };
 
   const els = {};
@@ -767,6 +768,53 @@
     setImageUploading(state.uploadingImage);
   }
 
+  function renderExistingImageOptions() {
+    if (!els.existingImageSelect) return;
+    const options = ['<option value="">Choose existing repo image...</option>']
+      .concat((state.availableImages || []).map((image) => (
+        `<option value="${escapeHtml(image.path)}">${escapeHtml(image.name)}</option>`
+      )));
+    els.existingImageSelect.innerHTML = options.join("");
+  }
+
+  function getImageEffectiveness(question) {
+    const image = String(question?.image || "").trim();
+    if (!image) {
+      return { tone: "", text: "Image status: no image selected." };
+    }
+    if (!isValidImageValue(image)) {
+      return { tone: "is-error", text: "Image status: invalid source. Use HTTPS, base64, or a repo image path." };
+    }
+    if (/^https:\/\/\S+/i.test(image) || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(image)) {
+      return { tone: "is-ok", text: "Image status: effective. The current source is directly renderable." };
+    }
+    const repoMatch = (state.availableImages || []).some((entry) => String(entry.path || "").trim() === image.replace(/^\.\//, "").replace(/^\/+/, ""));
+    if (repoMatch) {
+      return { tone: "is-ok", text: "Image status: effective. The selected repo image exists and is ready to render." };
+    }
+    return { tone: "is-warn", text: "Image status: path looks valid, but this repo image was not found in the current image library." };
+  }
+
+  function updateImageEffectivenessMeta(question = getSelectedQuestion()) {
+    if (!els.imageEffectivenessMeta) return;
+    const selectedExisting = String(els.existingImageSelect?.value || "").trim();
+    let status;
+    if (selectedExisting && selectedExisting !== String(question?.image || "").trim()) {
+      const exists = (state.availableImages || []).some((entry) => String(entry.path || "").trim() === selectedExisting);
+      status = exists
+        ? { tone: "is-ok", text: "Image status: effective. The selected existing repo image is available and ready to attach." }
+        : { tone: "is-warn", text: "Image status: the selected repo image was not found in the current image library." };
+    } else {
+      status = getImageEffectiveness(question);
+    }
+    els.imageEffectivenessMeta.textContent = status.text;
+    els.imageEffectivenessMeta.classList.remove("is-ok", "is-warn", "is-error");
+    if (status.tone) els.imageEffectivenessMeta.classList.add(status.tone);
+    if (els.useExistingImageBtn) {
+      els.useExistingImageBtn.disabled = !els.existingImageSelect?.value || !getSelectedQuestion();
+    }
+  }
+
   function redirectToLogin() {
     window.location.href = "/";
   }
@@ -797,6 +845,23 @@
     state.historyFuture = [];
     setDirty(false);
     updateUndoPublishButton();
+  }
+
+  async function loadMediaLibrary() {
+    const response = await fetch(MEDIA_UPLOAD_URL, { cache: "no-store" });
+    if (response.status === 401) {
+      redirectToLogin();
+      throw new Error("Session expired. Please sign in again.");
+    }
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null);
+      const detail = payload?.error || `Failed to load repo images (${response.status})`;
+      throw new Error(detail);
+    }
+    const payload = await response.json();
+    state.availableImages = Array.isArray(payload?.images) ? payload.images : [];
+    renderExistingImageOptions();
+    updateImageEffectivenessMeta();
   }
 
   function summaryCard(label, value, sub) {
@@ -1250,6 +1315,11 @@
 
     renderTypeEditor(question);
     updateImageUploadMeta();
+    if (els.existingImageSelect) {
+      const normalizedImage = String(question.image || "").trim().replace(/^\.\//, "").replace(/^\/+/, "");
+      els.existingImageSelect.value = (state.availableImages || []).some((entry) => entry.path === normalizedImage) ? normalizedImage : "";
+    }
+    updateImageEffectivenessMeta(question);
     renderPreview(question);
     renderValidation();
   }
@@ -1916,6 +1986,7 @@
       }, { fullRender: true, historyLabel: false });
       state.pendingImageFile = null;
       if (els.imageUploadInput) els.imageUploadInput.value = "";
+      await loadMediaLibrary().catch(() => {});
       updateImageUploadMeta(payload.imagePath ? `Uploaded to ${payload.imagePath}` : "Image uploaded.");
       if (payload.url) {
         setStatusHtml(
@@ -1930,6 +2001,24 @@
     } finally {
       setImageUploading(false);
     }
+  }
+
+  function useExistingImage() {
+    const question = getSelectedQuestion();
+    const selectedPath = String(els.existingImageSelect?.value || "").trim();
+    if (!question) {
+      setStatus("Select a question before choosing an existing image.", "warn");
+      return;
+    }
+    if (!selectedPath) {
+      setStatus("Choose an existing repo image first.", "warn");
+      return;
+    }
+    updateQuestion((draft) => {
+      draft.image = selectedPath;
+      draft.imagePlaceholder = false;
+    }, { fullRender: true });
+    setStatus(`Attached existing repo image to ${question.id}.`, "ok");
   }
 
   async function undoLastPublish() {
@@ -2427,6 +2516,8 @@
     if (els.imagePickBtn) els.imagePickBtn.addEventListener("click", () => els.imageUploadInput?.click());
     if (els.imageUploadBtn) els.imageUploadBtn.addEventListener("click", uploadSelectedImage);
     if (els.imageUploadInput) els.imageUploadInput.addEventListener("change", handleImageFileSelection);
+    if (els.existingImageSelect) els.existingImageSelect.addEventListener("change", () => updateImageEffectivenessMeta());
+    if (els.useExistingImageBtn) els.useExistingImageBtn.addEventListener("click", useExistingImage);
     if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.newQuestionType?.value || "MCQ"));
     if (els.duplicateQuestionBtn) els.duplicateQuestionBtn.addEventListener("click", duplicateCurrentQuestion);
     if (els.addLectureBtn) els.addLectureBtn.addEventListener("click", () => {
@@ -2606,6 +2697,9 @@
     els.imagePickBtn = byId("image-pick-btn");
     els.imageUploadBtn = byId("image-upload-btn");
     els.imageUploadMeta = byId("image-upload-meta");
+    els.existingImageSelect = byId("existing-image-select");
+    els.useExistingImageBtn = byId("use-existing-image-btn");
+    els.imageEffectivenessMeta = byId("image-effectiveness-meta");
     els.repeatLectures = byId("repeat-lectures");
     els.typeEditor = byId("type-editor");
     els.deleteMode = byId("delete-mode");
@@ -2686,6 +2780,7 @@
     try {
       setStatus("Loading question bank...", "progress");
       await loadQuestions();
+      await loadMediaLibrary();
       renderAll();
       setStatus("Question bank loaded. You can now edit, export, or save to GitHub.", "ok");
     } catch (error) {
