@@ -14,6 +14,7 @@ export function getEnv() {
     repoBranch: read("GITHUB_REPO_BRANCH", "main"),
     repoPath: read("GITHUB_REPO_PATH", "data/questions.json"),
     metadataPath: read("GITHUB_METADATA_PATH", "data/content-metadata.json"),
+    imageBasePath: read("GITHUB_IMAGE_BASE_PATH", "images/questions"),
     oauthScope: read("GITHUB_OAUTH_SCOPE", "public_repo"),
     allowedUsers: read("ADMIN_ALLOWED_USERS", "mohammed-a-ali-said")
       .split(",")

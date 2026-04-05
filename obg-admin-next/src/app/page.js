@@ -292,6 +292,12 @@ function AdminView({ user }) {
                   <div className="section-copy">
                     Add either a public HTTPS image URL or a base64 <code>data:image/...</code> string. Placeholder text stays available for questions where the original image is still pending.
                   </div>
+                  <div className="media-upload-bar">
+                    <input id="image-upload-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" className="hidden" />
+                    <button className="btn btn-ghost" id="image-pick-btn" type="button">Choose Image</button>
+                    <button className="btn btn-ghost" id="image-upload-btn" type="button">Upload to GitHub</button>
+                    <div className="media-upload-meta" id="image-upload-meta">No image file selected yet.</div>
+                  </div>
                   <label>
                     Image source
                     <textarea id="field-image" rows="3" placeholder="https://... or data:image/png;base64,..."></textarea>

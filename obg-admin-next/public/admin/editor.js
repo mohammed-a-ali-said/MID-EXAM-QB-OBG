@@ -1,5 +1,6 @@
 ﻿(function () {
   const DATA_URL = "/api/questions";
+  const MEDIA_UPLOAD_URL = "/api/media";
   const TYPE_OPTIONS = ["MCQ", "FLASHCARD", "SAQ", "OSCE"];
   const TEMPLATE_CHOICE_HEADERS = ["choiceA", "choiceB", "choiceC", "choiceD", "choiceE", "choiceF"];
   const LAST_PUBLISH_UNDO_KEY = "obg-admin-last-publish-undo";
@@ -45,6 +46,8 @@
     isRestoringHistory: false,
     lastPublishedUndo: null,
     theme: "light",
+    pendingImageFile: null,
+    uploadingImage: false,
   };
 
   const els = {};
@@ -319,17 +322,34 @@
   function isValidImageValue(value) {
     const trimmed = String(value || "").trim();
     if (!trimmed) return true;
-    return /^https:\/\/\S+/i.test(trimmed) || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(trimmed);
+    return /^https:\/\/\S+/i.test(trimmed)
+      || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(trimmed)
+      || /^(?:\.\/)?images\/[^\s]+$/i.test(trimmed)
+      || /^\/images\/[^\s]+$/i.test(trimmed);
   }
 
   function hasRenderableImage(question) {
     return !!String(question?.image || "").trim() && isValidImageValue(question.image);
   }
 
+  function resolvePreviewImageSource(value) {
+    const trimmed = String(value || "").trim();
+    if (!trimmed) return "";
+    if (/^https:\/\/\S+/i.test(trimmed) || /^data:image\/[a-zA-Z0-9.+-]+;base64,/i.test(trimmed)) {
+      return trimmed;
+    }
+    const relative = trimmed.replace(/^\.\//, "").replace(/^\/+/, "");
+    if (!/^images\//i.test(relative)) return trimmed;
+    const owner = String(state.repo?.owner || "").trim();
+    const repo = String(state.repo?.repo || "").trim();
+    if (!owner || !repo) return `/${relative}`;
+    return `https://${owner}.github.io/${repo}/${relative}`;
+  }
+
   function renderPreviewMedia(question) {
     if (hasRenderableImage(question)) {
       return `<div class="preview-media">
-        <img src="${escapeHtml(String(question.image || "").trim())}" alt="${escapeHtml(question.imageAlt || "Question image")}" loading="lazy">
+        <img src="${escapeHtml(resolvePreviewImageSource(question.image))}" alt="${escapeHtml(question.imageAlt || "Question image")}" loading="lazy">
         ${question.imageAlt ? `<div class="preview-media-caption">${escapeHtml(question.imageAlt)}</div>` : ""}
       </div>`;
     }
@@ -718,6 +738,33 @@
       button.classList.toggle("is-busy", state.saving);
     });
     updateUndoPublishButton();
+  }
+
+  function setImageUploading(nextUploading) {
+    state.uploadingImage = !!nextUploading;
+    if (els.imageUploadBtn) {
+      els.imageUploadBtn.disabled = state.uploadingImage || !state.pendingImageFile || !getSelectedQuestion();
+      els.imageUploadBtn.textContent = state.uploadingImage ? "Uploading..." : "Upload to GitHub";
+      els.imageUploadBtn.classList.toggle("is-busy", state.uploadingImage);
+    }
+    if (els.imagePickBtn) {
+      els.imagePickBtn.disabled = state.uploadingImage;
+      els.imagePickBtn.classList.toggle("is-busy", state.uploadingImage);
+    }
+  }
+
+  function updateImageUploadMeta(message = "") {
+    if (!els.imageUploadMeta) return;
+    const question = getSelectedQuestion();
+    if (message) {
+      els.imageUploadMeta.textContent = message;
+    } else if (state.pendingImageFile) {
+      const sizeKb = Math.max(1, Math.round(Number(state.pendingImageFile.size || 0) / 1024));
+      els.imageUploadMeta.textContent = `Selected: ${state.pendingImageFile.name} (${sizeKb} KB)${question ? ` for ${question.id}` : ""}`;
+    } else {
+      els.imageUploadMeta.textContent = "No image file selected yet.";
+    }
+    setImageUploading(state.uploadingImage);
   }
 
   function redirectToLogin() {
@@ -1202,6 +1249,7 @@
     els.repeatLectures.innerHTML = renderRepeatGrid(question);
 
     renderTypeEditor(question);
+    updateImageUploadMeta();
     renderPreview(question);
     renderValidation();
   }
@@ -1820,6 +1868,70 @@
     }
   }
 
+  function handleImageFileSelection(event) {
+    const [file] = event.target?.files || [];
+    state.pendingImageFile = file || null;
+    updateImageUploadMeta(file ? "" : "No image file selected yet.");
+    if (file) {
+      setStatus(`Selected ${file.name}. Upload it to GitHub when you're ready.`, "ok");
+    }
+  }
+
+  async function uploadSelectedImage() {
+    const question = getSelectedQuestion();
+    if (!question) {
+      setStatus("Select a question before uploading an image.", "warn");
+      return;
+    }
+    if (!state.pendingImageFile) {
+      setStatus("Choose an image file first.", "warn");
+      return;
+    }
+
+    try {
+      setImageUploading(true);
+      setStatus(`Uploading ${state.pendingImageFile.name} to GitHub...`, "progress");
+      const formData = new FormData();
+      formData.set("file", state.pendingImageFile);
+      formData.set("questionId", question.id);
+
+      const response = await fetch(MEDIA_UPLOAD_URL, {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        const payload = await response.json().catch(() => null);
+        if (response.status === 401) {
+          redirectToLogin();
+          throw new Error("Session expired. Please sign in again.");
+        }
+        throw new Error(payload?.error || `Image upload failed (${response.status}).`);
+      }
+
+      const payload = await response.json();
+      captureHistoryBeforeMutation(`Upload image for ${question.id}`, { mergeWindowMs: 0 });
+      updateQuestion((draft) => {
+        draft.image = String(payload.imagePath || "").trim();
+        draft.imagePlaceholder = false;
+      }, { fullRender: true, historyLabel: false });
+      state.pendingImageFile = null;
+      if (els.imageUploadInput) els.imageUploadInput.value = "";
+      updateImageUploadMeta(payload.imagePath ? `Uploaded to ${payload.imagePath}` : "Image uploaded.");
+      if (payload.url) {
+        setStatusHtml(
+          `Uploaded image for <strong>${escapeHtml(question.id)}</strong>. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
+          "ok"
+        );
+      } else {
+        setStatus(`Uploaded image for ${question.id}. Save the question to keep the image path in questions.json.`, "ok");
+      }
+    } catch (error) {
+      setStatus(error.message || "Image upload failed.", "error");
+    } finally {
+      setImageUploading(false);
+    }
+  }
+
   async function undoLastPublish() {
     if (!state.lastPublishedUndo) {
       setStatus("There is no published snapshot to restore yet.", "warn");
@@ -2312,6 +2424,9 @@
     if (els.undoPublishBtn) els.undoPublishBtn.addEventListener("click", undoLastPublish);
     els.saveQuestionBtn.addEventListener("click", saveQuestionDraft);
     els.saveQuestionGithubBtn.addEventListener("click", saveToGitHub);
+    if (els.imagePickBtn) els.imagePickBtn.addEventListener("click", () => els.imageUploadInput?.click());
+    if (els.imageUploadBtn) els.imageUploadBtn.addEventListener("click", uploadSelectedImage);
+    if (els.imageUploadInput) els.imageUploadInput.addEventListener("change", handleImageFileSelection);
     if (els.newQuestionBtn) els.newQuestionBtn.addEventListener("click", () => createQuestion(els.newQuestionType?.value || "MCQ"));
     if (els.duplicateQuestionBtn) els.duplicateQuestionBtn.addEventListener("click", duplicateCurrentQuestion);
     if (els.addLectureBtn) els.addLectureBtn.addEventListener("click", () => {
@@ -2487,6 +2602,10 @@
     els.fieldImageAlt = byId("field-image-alt");
     els.fieldImagePlaceholder = byId("field-image-placeholder");
     els.fieldImagePlaceholderText = byId("field-image-placeholder-text");
+    els.imageUploadInput = byId("image-upload-input");
+    els.imagePickBtn = byId("image-pick-btn");
+    els.imageUploadBtn = byId("image-upload-btn");
+    els.imageUploadMeta = byId("image-upload-meta");
     els.repeatLectures = byId("repeat-lectures");
     els.typeEditor = byId("type-editor");
     els.deleteMode = byId("delete-mode");

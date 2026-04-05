@@ -136,6 +136,45 @@ async function saveRepoJsonFile(token, { repoPath, content, sha, message }) {
   };
 }
 
+async function saveRepoBase64File(token, { repoPath, base64Content, sha, message }) {
+  const env = assertEnv();
+  const encodedPath = encodeRepoPath(repoPath);
+  const url = `https://api.github.com/repos/${encodeURIComponent(env.repoOwner)}/${encodeURIComponent(env.repoName)}/contents/${encodedPath}`;
+
+  async function commitWithSha(currentSha) {
+    const response = await githubFetch(url, token, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        branch: env.repoBranch,
+        sha: currentSha || undefined,
+        content: base64Content,
+      }),
+    });
+    return response.json();
+  }
+
+  let effectiveSha = String(sha || "").trim();
+  let payload;
+  try {
+    payload = await commitWithSha(effectiveSha);
+  } catch (error) {
+    if (error?.status !== 409) throw error;
+    effectiveSha = await fetchRepoFileSha(token, repoPath).catch(() => "");
+    payload = await commitWithSha(effectiveSha);
+  }
+
+  return {
+    sha: payload.content?.sha || "",
+    commitSha: payload.commit?.sha || "",
+    url: payload.commit?.html_url || "",
+    path: payload.content?.path || repoPath,
+  };
+}
+
 export async function exchangeCodeForToken({ code, redirectUri }) {
   const env = assertEnv();
   const response = await fetch("https://github.com/login/oauth/access_token", {
@@ -216,5 +255,32 @@ export async function saveRepoContent(token, { questionsContent, questionsSha, m
     metadataSha: metadataSaved.sha,
     commitSha: metadataSaved.commitSha || questionsSaved.commitSha,
     url: metadataSaved.url || questionsSaved.url,
+  };
+}
+
+export async function uploadRepoImage(token, { questionId, fileName, contentType, base64Content }) {
+  const env = assertEnv();
+  const safeQuestionId = String(questionId || "question").trim().replace(/[^a-z0-9_-]+/gi, "-") || "question";
+  const safeName = String(fileName || "image").trim().replace(/[^a-z0-9._-]+/gi, "-") || "image";
+  const extensionMatch = safeName.match(/(\.[a-z0-9]+)$/i);
+  const mimeExtensionMap = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+    "image/svg+xml": ".svg",
+  };
+  const extension = extensionMatch?.[1]?.toLowerCase() || mimeExtensionMap[String(contentType || "").toLowerCase()] || ".png";
+  const timestamp = new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  const repoPath = `${String(env.imageBasePath || "images/questions").replace(/^\/+|\/+$/g, "")}/${safeQuestionId}-${timestamp}${extension}`;
+  const saved = await saveRepoBase64File(token, {
+    repoPath,
+    base64Content,
+    message: `Upload image for ${safeQuestionId} from admin dashboard`,
+  });
+  return {
+    ...saved,
+    repoPath,
+    publicPath: repoPath,
   };
 }

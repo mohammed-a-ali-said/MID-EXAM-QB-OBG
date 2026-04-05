@@ -53,6 +53,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
 .media-toggle{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:#fbfcff;justify-content:space-between;align-items:center}
 .template-help{margin-top:10px;padding:12px 14px;border-radius:12px;background:#f6f9fe;border:1px solid #dce7f6;font-size:.77rem;line-height:1.7;color:#566577}
 .template-help code{font-family:var(--font-m);font-size:.72rem;color:var(--navy);background:#fff;border:1px solid #dce6f4;border-radius:6px;padding:2px 5px}
+.media-upload-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:12px 14px;border:1px solid #dce7f6;border-radius:14px;background:#f8fbff}
+.media-upload-meta{font-size:.76rem;line-height:1.6;color:#607184;flex:1 1 260px}
 .bucket-list{display:flex;flex-direction:column;gap:8px}
 .bucket-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:#fafbfd}
 .bucket-item.inactive{opacity:.7;background:#fff6f6}
@@ -241,6 +243,7 @@ body.admin-theme-dark .import-preview-header p,
 body.admin-theme-dark .confirm-dialog p,
 body.admin-theme-dark .section-copy,
 body.admin-theme-dark .template-help,
+body.admin-theme-dark .media-upload-meta,
 body.admin-theme-dark .subtle,
 body.admin-theme-dark label,
 body.admin-theme-dark .panel-title,
@@ -256,6 +259,7 @@ body.admin-theme-dark select:focus,
 body.admin-theme-dark textarea:focus{border-color:#66a7ff;box-shadow:0 0 0 4px rgba(102,167,255,.18)}
 body.admin-theme-dark .btn-ghost,
 body.admin-theme-dark .mini-btn{background:#12213a;color:#eaf1fb;border-color:#28405e}
+body.admin-theme-dark .media-upload-bar{background:#102033;border-color:#28405e}
 body.admin-theme-dark .btn-primary{background:#66a7ff;color:#081424}
 body.admin-theme-dark .btn-danger{background:#30151b;color:#ffb7b7;border-color:#6e2d3a}
 body.admin-theme-dark .question-item:hover,
