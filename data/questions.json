@@ -2618,7 +2618,8 @@
       "Ultrasound with doppler can help in diagnosis",
       "The safest form of delivery is cesarean section immediately after diagnosis regardless the gestational age"
     ],
-    "ans": "D"
+    "ans": "D",
+    "image": "images/questions/c214-20260405154453.png"
   },
   {
     "id": "c169",
@@ -3261,7 +3262,7 @@
       "Low lying placenta on 20-week anomaly scan"
     ],
     "ans": "A",
-    "imagePlaceholder": true,
+    "image": "images/questions/c206-20260405151104.png",
     "imagePlaceholderText": "Image: Placenta Previa diagram"
   },
   {
@@ -3278,7 +3279,8 @@
       "Uterine rupture",
       "Ectopic pregnancy"
     ],
-    "ans": "D"
+    "ans": "D",
+    "image": "images/questions/c209-20260405153854.png"
   },
   {
     "id": "c210",
@@ -3312,7 +3314,7 @@
       "Instrumental delivery"
     ],
     "ans": "A",
-    "imagePlaceholder": true,
+    "image": "images/questions/c209-20260405153854.png",
     "imagePlaceholderText": "[IMAGE - Placenta previa diagram at 36 weeks]"
   },
   {
@@ -3331,7 +3333,7 @@
       "History of previous abruptions"
     ],
     "ans": "B",
-    "imagePlaceholder": true,
+    "image": "images/questions/c212-20260405154153.png",
     "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
@@ -3349,7 +3351,7 @@
       "Dizziness and/or loss of consciousness"
     ],
     "ans": "B",
-    "imagePlaceholder": true,
+    "image": "images/questions/c212-20260405154153.png",
     "imagePlaceholderText": "Image: Placental Abruption"
   },
   {
@@ -3367,7 +3369,7 @@
       "Negatively correlates"
     ],
     "ans": "A",
-    "imagePlaceholder": true,
+    "image": "images/questions/c214-20260405154453.png",
     "imagePlaceholderText": "[IMAGE - Concealed vs revealed abruption diagram]"
   },
   {
@@ -3385,7 +3387,7 @@
       "Severe vaginal bleeding"
     ],
     "ans": "C",
-    "imagePlaceholder": true,
+    "image": "images/questions/c209-20260405153854.png",
     "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
@@ -3437,7 +3439,7 @@
       "Severe vaginal bleeding"
     ],
     "ans": "D",
-    "imagePlaceholder": true,
+    "image": "images/questions/c214-20260405154453.png",
     "imagePlaceholderText": "Image: Vasa Previa"
   },
   {
@@ -3454,7 +3456,8 @@
       "Related to uterine contraction",
       "Occurs before ROM"
     ],
-    "ans": "A"
+    "ans": "A",
+    "image": "images/questions/c214-20260405154453.png"
   },
   {
     "id": "c220",
