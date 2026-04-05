@@ -18,7 +18,12 @@ const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 let deck=[], idx=0, flipped=false, reviewed=0;
 let scores={again:0,good:0,easy:0}, mcqRes={correct:0,wrong:0};
-let activeFilter='all', activeSrc='', activeSrcExact='', activeType='', activeLec=null, activeLecType='all';
+const filterState = {
+  exam: 'all',
+  src: '',
+  type: '',
+  lecture: null,
+};
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
@@ -224,39 +229,53 @@ function storedRandomMode(){
 }
 function persistPracticePreferences(){
   try{
-    localStorage.setItem(PRACTICE_LECTURE_KEY, normalizeLectureFilter(activeLec || 'all'));
+    localStorage.setItem(PRACTICE_LECTURE_KEY, normalizeLectureFilter(filterState.lecture || 'all'));
     localStorage.setItem(RANDOM_MODE_KEY, String(!!randomMode));
   }catch(e){}
 }
 function syncSidebarSelection(){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>{
-    el.classList.toggle('active', !!activeLec && el.dataset.k===activeLec);
+    const isActive = !!filterState.lecture && el.dataset.k===filterState.lecture;
+    el.classList.toggle('active', isActive);
+    const sub=el.querySelector('.s-subtabs');
+    if(!sub) return;
+    sub.querySelectorAll('.s-stab').forEach(b=>b.classList.remove('on'));
+    if(!isActive) return;
+    const targetType = filterState.type || 'all';
+    const btn = Array.from(sub.querySelectorAll('.s-stab')).find(b=>String(b.textContent||'').trim().toUpperCase().startsWith(targetType.toUpperCase()));
+    if(btn) btn.classList.add('on');
+    else if(sub.querySelector('.s-stab')) sub.querySelector('.s-stab').classList.add('on');
   });
 }
 function syncPracticeControls(){
   const select=document.getElementById('practice-lecture-select');
   if(select){
-    const options=['<option value="all">All Lectures</option>']
-      .concat(getLectureOptions().map(lecture=>`<option value="${esc(lecture)}">${esc2(lecture)}</option>`));
+    const options=['<option value="all">All Lectures</option>'].concat(getLectureOptions().map(function(lecture){return '<option value="'+esc(lecture)+'">'+esc2(lecture)+'</option>'; }));
     select.innerHTML=options.join('');
-    select.value=normalizeLectureFilter(activeLec || 'all');
+    select.value=normalizeLectureFilter(filterState.lecture || 'all');
   }
   const toggle=document.getElementById('practice-random-toggle');
   if(toggle) toggle.checked=!!randomMode;
 }
-function applyLectureSelection(value, opts={}){
-  const lecture = normalizeLectureFilter(value);
-  if(opts.resetFilters){
-    activeFilter='all';
-    activeSrc='';
-    activeType='';
-  }
-  activeLec = lecture === 'all' ? null : lecture;
-  activeLecType='all';
-  if(opts.persist !== false) persistPracticePreferences();
+function syncAllFilterUI(){
+  document.querySelectorAll('[data-f]').forEach(btn=>btn.classList.toggle('active', btn.dataset.f===filterState.exam));
+  document.querySelectorAll('[data-src]').forEach(btn=>btn.classList.toggle('active', btn.dataset.src===filterState.src));
+  document.querySelectorAll('[data-type]').forEach(btn=>btn.classList.toggle('active', btn.dataset.type===filterState.type));
   syncSidebarSelection();
   syncPracticeControls();
-  if(opts.apply !== false) applyFilter();
+}
+function setFilters(patch, config){
+  const options = config || {};
+  const triggerRender = options.triggerRender !== false;
+  Object.assign(filterState, patch);
+  syncAllFilterUI();
+  persistPracticePreferences();
+  if(triggerRender) applyFilter();
+}
+function applyLectureSelection(value, opts={}){
+  const lecture = normalizeLectureFilter(value);
+  // Dropdown selection intentionally performs a clean reset.
+  setFilters({ lecture: lecture === 'all' ? null : lecture, src: '', type: '' }, { triggerRender: opts.apply !== false });
 }
 function handlePracticeLectureChange(value){
   applyLectureSelection(value);
@@ -269,7 +288,7 @@ function handleRandomModeToggle(checked){
 }
 function practiceSelectedLecture(){
   applyLectureSelection(document.getElementById('practice-lecture-select')?.value || 'all', { resetFilters:true });
-  const label = activeLec || 'All Lectures';
+  const label = filterState.lecture || 'All Lectures';
   const message = `Starting Practice: ${label} (${deck.length} cards)`;
   if(window.SRS_UI && typeof window.SRS_UI.toast === 'function') window.SRS_UI.toast(message);
 }
@@ -279,7 +298,7 @@ window.OBG_QB_Utils = {
   filterQuestionsByLecture,
   normalizeLectureFilter,
   getVisibleCards,
-  getSelectedLecture: () => normalizeLectureFilter(activeLec || 'all'),
+  getSelectedLecture: () => normalizeLectureFilter(filterState.lecture || 'all'),
   setSelectedLecture: (lecture) => applyLectureSelection(lecture),
   isRandomModeEnabled: () => !!randomMode,
   ...questionResolutionHelpers
@@ -312,38 +331,15 @@ function srcClass(s){
 // FILTERS
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function setFilter(btn, f){
-  document.querySelectorAll('[data-f]').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  activeFilter = f; activeLecType='all';
-  if(f==='all'){
-    activeSrc='';
-    activeSrcExact='';
-    activeType='';
-    activeLec=null;
-    document.querySelectorAll('[data-src]').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('[data-type]').forEach(b=>b.classList.remove('active'));
-  }
-  syncSidebarSelection();
-  syncPracticeControls();
-  applyFilter();
+  setFilters({ exam: f, lecture: null, src: '', type: '' });
 }
 function setSrcFilter(btn){
   const src = btn.dataset.src;
-  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeSrc=''; }
-  else {
-    document.querySelectorAll('[data-src]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active'); activeSrc=src;
-  }
-  applyFilter();
+  setFilters({ src: filterState.src === src ? '' : src });
 }
 function setTypeFilter(btn){
   const t = btn.dataset.type;
-  if(btn.classList.contains('active')){ btn.classList.remove('active'); activeType=''; }
-  else {
-    document.querySelectorAll('[data-type]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active'); activeType=t;
-  }
-  applyFilter();
+  setFilters({ type: filterState.type === t ? '' : t });
 }
 function setExactSourceFilter(){ return; }
 function runLectureSwitch(callback, activeItem){
@@ -371,41 +367,22 @@ function runLectureSwitch(callback, activeItem){
   });
 }
 function setSL(k){
-  document.querySelectorAll('.sb-item[data-k]').forEach(el=>el.classList.remove('active'));
-  const el=document.querySelector('.sb-item[data-k="'+k+'"]'); if(el)el.classList.add('active');
-  activeLec=k; activeLecType='all';
-  const sid='sub_'+k.replace(/[^a-z0-9]/gi,'_');
-  const sub=document.getElementById(sid);
-  if(sub)sub.querySelectorAll('.s-stab').forEach((b,i)=>b.classList.toggle('on',i===0));
-  persistPracticePreferences();
-  syncPracticeControls();
-  runLectureSwitch(()=>applyFilter(), el);
+  const el=document.querySelector('.sb-item[data-k="'+k+'"]');
+  runLectureSwitch(function(){ setFilters({ lecture: k, type: '' }); }, el);
 }
 function setST(e,k,t){
   e.stopPropagation();
-  const sid='sub_'+k.replace(/[^a-z0-9]/gi,'_');
-  const sub=document.getElementById(sid);
-  if(sub){sub.querySelectorAll('.s-stab').forEach(b=>b.classList.remove('on'));e.target.classList.add('on');}
-  activeLec=k; activeLecType=t;
-  persistPracticePreferences();
-  syncPracticeControls();
   const activeItem=document.querySelector('.sb-item[data-k="'+k+'"]');
-  runLectureSwitch(()=>applyFilter(), activeItem);
+  runLectureSwitch(function(){ setFilters({ lecture: k, type: t === 'all' ? '' : t }); }, activeItem);
 }
 function applyFilter(){
   pendingCardDirection = 'next';
   let d=getVisibleCards({ dedupe:false });
-  if(activeFilter!=='all') d=d.filter(c=>String(c.exam||'')===activeFilter);
-  if(activeSrc) d=d.filter(c=>cardMatchesSourceGroup(c, activeSrc));
-  if(activeType) d=d.filter(c=>c.cardType===activeType);
-  if(activeLec){
-    d=filterCardsByLecture(d, activeLec);
-    if(activeLecType==='MCQ')       d=d.filter(c=>c.cardType==='MCQ');
-    if(activeLecType==='OSCE')      d=d.filter(c=>c.cardType==='OSCE');
-    if(activeLecType==='FLASHCARD') d=d.filter(c=>c.cardType==='FLASHCARD');
-    if(activeLecType==='SAQ')       d=d.filter(c=>c.cardType==='SAQ');
-  }
-  d=questionResolutionHelpers.getStudyEligibleCards({cards:d, lecture:activeLec || 'all', dedupe:true});
+  if(filterState.exam!=='all') d=d.filter(c=>String(c.exam||'')===filterState.exam);
+  if(filterState.src) d=d.filter(c=>exactSourceGroupFor(c.source||'')===filterState.src || (filterState.src==='lectures_2026' && getCardTagTexts(c).includes("2026 Lectures Q's")));
+  if(filterState.type) d=d.filter(c=>c.cardType===filterState.type);
+  if(filterState.lecture) d=filterCardsByLecture(d, filterState.lecture);
+  d=questionResolutionHelpers.getStudyEligibleCards({cards:d, lecture:filterState.lecture || 'all', dedupe:true});
   if(randomMode) d=shuffleArray(d);
   loadDeck(d);
 }
@@ -414,19 +391,17 @@ function loadDeck(d){
   scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
   osceSubIdx={};
   let title='All Questions';
-  if(activeLec) title=activeLec+(activeLecType!=='all'?' - '+activeLecType:'');
-  else if(activeFilter!=='all') title=activeFilter;
-  if(activeSrc) title+=' آ· '+srcLabel(activeSrc);
-  if(activeSrcExact) title+=' آ· '+exactSourceLabel(activeSrcExact);
-  if(activeType) title+=' آ· '+activeType;
+  if(filterState.lecture) title=filterState.lecture+(filterState.type?' - '+filterState.type:'');
+  else if(filterState.exam!=='all') title=filterState.exam;
+  if(filterState.src) title+=' | '+srcLabel(filterState.src);
+  if(filterState.type) title+=' | '+filterState.type;
   document.getElementById('deck-title').textContent=title;
   const nm=d.filter(c=>c.cardType==='MCQ').length;
   const no=d.filter(c=>c.cardType==='OSCE').length;
   const nf=d.filter(c=>c.cardType==='FLASHCARD').length;
   const ns=d.filter(c=>c.cardType==='SAQ').length;
-  const lectureNote = activeLec ? ` &nbsp;آ·&nbsp; Lecture filter: ${esc2(activeLec)}` : '';
-  const sourceExactNote = activeSrcExact ? ` &nbsp;آ·&nbsp; Exact source: ${esc2(exactSourceLabel(activeSrcExact))}` : '';
-  renderDeckMeta(d.length, nm, no, nf, ns, (randomMode ? 'Randomized order' : 'Sequential order') + lectureNote + sourceExactNote);
+  const lectureNote = filterState.lecture ? ` &nbsp;|&nbsp; Lecture filter: ${esc2(filterState.lecture)}` : '';
+  renderDeckMeta(d.length, nm, no, nf, ns, (randomMode ? 'Randomized order' : 'Sequential order') + lectureNote);
   syncPracticeControls();
 }
 function shuffleDeck(){
@@ -948,7 +923,7 @@ function saveProgress(){
   const data = {
     mcqAnswers, osceResults, flashRatings,
     reviewed, scores, mcqRes, idx,
-    activeFilter, activeSrc, activeSrcExact, activeType, activeLec, activeLecType,
+    filterState,
     sidebarScrollTop: sidebar ? sidebar.scrollTop : 0
   };
   try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
@@ -964,12 +939,12 @@ function loadProgress(){
       mcqAnswers   = d.mcqAnswers   || {};
       osceResults  = d.osceResults  || {};
       flashRatings = d.flashRatings || {};
-      activeFilter = d.activeFilter || 'all';
-      activeSrc    = d.activeSrc    || '';
-      activeSrcExact = d.activeSrcExact || '';
-      activeType   = d.activeType   || '';
-      activeLec    = d.activeLec    || null;
-      activeLecType= d.activeLecType|| 'all';
+      Object.assign(filterState, d.filterState || {
+        exam: d.activeFilter || 'all',
+        src: d.activeSrc || '',
+        type: d.activeType || '',
+        lecture: d.activeLec || null,
+      });
       reviewed     = d.reviewed     || 0;
       scores       = d.scores       || {again:0, good:0, easy:0};
       mcqRes       = d.mcqRes       || {correct:0, wrong:0};
@@ -978,18 +953,15 @@ function loadProgress(){
     }
     const preferredLecture = storedLecturePreference();
     if(preferredLecture === 'all'){
-      activeLec = null;
-      activeLecType = 'all';
+      filterState.lecture = null;
     }else{
-      activeLec = preferredLecture;
-      activeLecType = 'all';
+      filterState.lecture = preferredLecture;
     }
     renderExactSourceTabs();
     const _savedIdx = idx || 0; // capture BEFORE applyFilter resets idx to 0
     applyFilter();
     idx = Math.min(_savedIdx, Math.max(0, deck.length - 1)); // restore position
-    syncSidebarSelection();
-    syncPracticeControls();
+    syncAllFilterUI();
     renderCard(); updateNav(); updateStats(); updateProgress();
     if(sidebarScrollTop){
       const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
@@ -1003,11 +975,11 @@ function renderExamTabs(){
   const exams=getExamOptions();
   const labelMap={mid:'Mid',paper1:'Paper 1',paper2:'Paper 2'};
   const html=[
-    `<button class="ftab ${activeFilter==='all'?'active':''}" data-f="all" onclick="setFilter(this,'all')">All <span class="cnt" id="c-all">0</span></button>`
+    `<button class="ftab ${filterState.exam==='all'?'active':''}" data-f="all" onclick="setFilter(this,'all')">All <span class="cnt" id="c-all">0</span></button>`
   ].concat(exams.map(exam=>{
     const safe=String(exam).toLowerCase().replace(/[^a-z0-9]+/g,'-');
     const label=labelMap[exam] || exam;
-    return `<button class="ftab ${activeFilter===exam?'active':''}" data-f="${esc(exam)}" onclick="setFilter(this,'${esc(exam)}')">${esc2(label)} <span class="cnt" id="c-exam-${safe}">0</span></button>`;
+    return `<button class="ftab ${filterState.exam===exam?'active':''}" data-f="${esc(exam)}" onclick="setFilter(this,'${esc(exam)}')">${esc2(label)} <span class="cnt" id="c-exam-${safe}">0</span></button>`;
   })).join('');
   tabs.innerHTML=html;
 }
@@ -1018,10 +990,9 @@ function clearProgress(){
   localStorage.removeItem(LS_KEY);
   mcqAnswers={}; osceResults={}; flashRatings={};
   reviewed=0; scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
-  activeFilter='all'; activeSrc=''; activeSrcExact=''; activeType=''; activeLec=storedLecturePreference()==='all'?null:storedLecturePreference(); activeLecType='all';
+  Object.assign(filterState,{ exam:'all', src:'', type:'', lecture:storedLecturePreference()==='all'?null:storedLecturePreference() });
   randomMode = storedRandomMode();
-  syncSidebarSelection();
-  syncPracticeControls();
+  syncAllFilterUI();
   renderExactSourceTabs();
   applyFilter();
 }
@@ -1032,7 +1003,7 @@ buildSidebar();
 renderExamTabs();
 renderExactSourceTabs();
 try{ updateCounts(); }catch(e){ console.warn('updateCounts error',e); }
-syncPracticeControls();
+syncAllFilterUI();
 loadProgress();
 window.addEventListener('pagehide', saveProgress);
 
@@ -1131,10 +1102,7 @@ function practiceWrong(){
   deck = wrongCards;
   idx = 0; flipped = false; reviewed = 0;
   scores = {again:0,good:0,easy:0}; mcqRes = {correct:0,wrong:0};
-  activeLec = null; activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = '';
-  persistPracticePreferences();
-  syncSidebarSelection();
-  syncPracticeControls();
+  setFilters({ lecture:null, exam:'all', src:'', type:'' }, { triggerRender:false });
   document.getElementById('deck-title').textContent = 'Practice: Wrong Questions (' + wrongCards.length + ')';
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
@@ -1153,8 +1121,7 @@ function goToCard(cardId){
       cardIdx = ALL_CARDS.findIndex(c=>c.id===card.id);
     }
   }
-  activeLec = card.lecture; activeLecType = 'all';
-  activeFilter = 'all'; activeSrc = ''; activeSrcExact = ''; activeType = '';
+  setFilters({ lecture:card.lecture, exam:'all', src:'', type:'' }, { triggerRender:false });
   applyFilter();
   const deckIdx = deck.findIndex(c=>c.id===card.id || (c.canonicalSourceId && c.canonicalSourceId === card.canonicalSourceId));
   if(deckIdx !== -1){ idx = deckIdx; }
