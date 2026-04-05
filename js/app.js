@@ -290,6 +290,9 @@ function setFilters(patch, config){
   persistPracticePreferences();
   if(triggerRender) applyFilter();
 }
+function clearAllFilters() {
+  setFilters({ exam: 'all', src: '', type: '', lecture: null });
+}
 
 function applyLectureSelection(value, opts={}){
   const lecture = normalizeLectureFilter(value);
@@ -410,12 +413,39 @@ function resetDeck(){ applyFilter(); }
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // RENDER
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+function renderEmptyState() {
+  const reasons = [];
+  if (filterState.lecture) reasons.push('lecture: <strong>' + esc2(filterState.lecture) + '</strong>');
+  if (filterState.exam !== 'all') reasons.push('exam: <strong>' + esc2(String(filterState.exam).toUpperCase()) + '</strong>');
+  if (filterState.src) reasons.push('source: <strong>' + esc2(srcLabel(filterState.src)) + '</strong>');
+  if (filterState.type) reasons.push('type: <strong>' + esc2(filterState.type) + '</strong>');
+
+  const why = reasons.length
+    ? 'No questions match the combination of ' + reasons.join(' + ') + '.'
+    : 'No questions found.';
+
+  const suggestion = filterState.type
+    ? 'Try removing the <strong>' + esc2(filterState.type) + '</strong> type filter ? this lecture may not have that card type.'
+    : filterState.src
+    ? 'Try removing the <strong>' + esc2(srcLabel(filterState.src)) + '</strong> source filter.'
+    : '';
+
+  return '<div class="empty-state">'
+    + '<div class="empty-icon">??</div>'
+    + '<h3>No questions found</h3>'
+    + '<p>' + why + '</p>'
+    + (suggestion ? '<p class="empty-hint">' + suggestion + '</p>' : '')
+    + '<button class="btn-primary" onclick="clearAllFilters()">Clear all filters</button>'
+    + (filterState.lecture ? '<button class="btn-secondary" onclick="setFilters({type:\'\',src:\'\'})">Keep lecture, clear rest</button>' : '')
+    + '</div>';
+}
+
 function renderCard(){
   const stage=document.getElementById('card-stage');
   if(!stage) return;
   let newHTML='';
   if(!deck.length){
-    newHTML='<div class="empty"><h3>No cards match</h3><p>Try a different filter.</p></div>';
+    newHTML=renderEmptyState();
     transitionCard(newHTML, pendingCardDirection);
     document.getElementById('btn-flip').style.display='none'; return;
   }

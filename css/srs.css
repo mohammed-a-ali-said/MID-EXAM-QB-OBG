@@ -613,3 +613,16 @@
 .sb-all .s-name { font-style: italic; color: #6b7280; }
 .sb-all.active .s-name { color: #fff; font-style: normal; }
 .sb-all { border-bottom: 2px solid var(--border) !important; }
+
+
+.empty-state { text-align:center; padding:48px 24px; }
+.empty-icon { font-size:2.5rem; margin-bottom:12px; }
+.empty-state h3 { font-size:1.1rem; color:var(--navy); margin-bottom:8px; }
+.empty-state p { color:#6b7280; font-size:.85rem; margin-bottom:6px; }
+.empty-hint { color:#92400e; background:#fffbeb; padding:8px 14px; border-radius:8px; display:inline-block; }
+.btn-primary, .btn-secondary {
+  margin-top:14px; margin-right:8px; padding:8px 18px; border-radius:8px;
+  font-weight:600; font-size:.8rem; cursor:pointer; border:none; font-family:var(--font-b);
+}
+.btn-primary { background:var(--navy); color:#fff; }
+.btn-secondary { background:#f1f5f9; color:var(--navy); border:1.5px solid var(--border); }
