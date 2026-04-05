@@ -1,7 +1,7 @@
 [
   {
     "id": "c1",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -18,7 +18,7 @@
   },
   {
     "id": "c2",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -34,7 +34,7 @@
   },
   {
     "id": "c3",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -50,7 +50,7 @@
   },
   {
     "id": "c4",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -66,7 +66,7 @@
   },
   {
     "id": "c5",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -82,7 +82,7 @@
   },
   {
     "id": "c6",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -98,7 +98,7 @@
   },
   {
     "id": "c7",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -114,7 +114,7 @@
   },
   {
     "id": "c8",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -130,7 +130,7 @@
   },
   {
     "id": "c9",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -146,7 +146,7 @@
   },
   {
     "id": "c10",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -162,7 +162,7 @@
   },
   {
     "id": "c11",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -178,7 +178,7 @@
   },
   {
     "id": "c12",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -194,7 +194,7 @@
   },
   {
     "id": "c13",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -210,7 +210,7 @@
   },
   {
     "id": "c14",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -226,7 +226,7 @@
   },
   {
     "id": "c15",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -242,7 +242,7 @@
   },
   {
     "id": "c16",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -258,7 +258,7 @@
   },
   {
     "id": "c17",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -274,7 +274,7 @@
   },
   {
     "id": "c18",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "FLASHCARD",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -284,7 +284,7 @@
   },
   {
     "id": "c19",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "FLASHCARD",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -294,7 +294,7 @@
   },
   {
     "id": "c20",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "FLASHCARD",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -304,7 +304,7 @@
   },
   {
     "id": "c21",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -320,7 +320,7 @@
   },
   {
     "id": "c22",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -336,7 +336,7 @@
   },
   {
     "id": "c23",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -352,7 +352,7 @@
   },
   {
     "id": "c24",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -368,7 +368,7 @@
   },
   {
     "id": "c25",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -384,7 +384,7 @@
   },
   {
     "id": "c26",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -406,7 +406,7 @@
   },
   {
     "id": "c27",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -428,7 +428,7 @@
   },
   {
     "id": "c28",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -450,7 +450,7 @@
   },
   {
     "id": "c29",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -466,7 +466,7 @@
   },
   {
     "id": "c30",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -482,7 +482,7 @@
   },
   {
     "id": "c31",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -498,7 +498,7 @@
   },
   {
     "id": "c32",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -514,7 +514,7 @@
   },
   {
     "id": "c33",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -530,7 +530,7 @@
   },
   {
     "id": "c34",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -546,7 +546,7 @@
   },
   {
     "id": "c35",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -562,7 +562,7 @@
   },
   {
     "id": "c36",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -578,7 +578,7 @@
   },
   {
     "id": "c37",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -594,7 +594,7 @@
   },
   {
     "id": "c38",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -610,7 +610,7 @@
   },
   {
     "id": "c39",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -626,7 +626,7 @@
   },
   {
     "id": "c40",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -642,7 +642,7 @@
   },
   {
     "id": "c41",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -658,7 +658,7 @@
   },
   {
     "id": "c42",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -674,7 +674,7 @@
   },
   {
     "id": "c43",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -690,7 +690,7 @@
   },
   {
     "id": "c44",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -706,7 +706,7 @@
   },
   {
     "id": "c45",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -722,7 +722,7 @@
   },
   {
     "id": "c46",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -738,7 +738,7 @@
   },
   {
     "id": "c47",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -754,7 +754,7 @@
   },
   {
     "id": "c48",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -770,7 +770,7 @@
   },
   {
     "id": "c49",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -786,7 +786,7 @@
   },
   {
     "id": "c50",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -796,7 +796,7 @@
   },
   {
     "id": "c51",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -806,7 +806,7 @@
   },
   {
     "id": "c52",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -822,7 +822,7 @@
   },
   {
     "id": "c53",
-    "num": "Q28.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -838,7 +838,7 @@
   },
   {
     "id": "c54",
-    "num": "Q29.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -853,7 +853,7 @@
   },
   {
     "id": "c55",
-    "num": "Q30.",
+    "num": "Q30",
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -863,7 +863,7 @@
   },
   {
     "id": "c56",
-    "num": "Q31.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -880,7 +880,7 @@
   },
   {
     "id": "c57",
-    "num": "Q32.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -896,7 +896,7 @@
   },
   {
     "id": "c58",
-    "num": "Q33.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -912,7 +912,7 @@
   },
   {
     "id": "c59",
-    "num": "Q34.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -928,7 +928,7 @@
   },
   {
     "id": "c60",
-    "num": "Q35.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -944,7 +944,7 @@
   },
   {
     "id": "c61",
-    "num": "Q36.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -961,7 +961,7 @@
   },
   {
     "id": "c62",
-    "num": "Q37.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -978,7 +978,7 @@
   },
   {
     "id": "c63",
-    "num": "Q38.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -994,7 +994,7 @@
   },
   {
     "id": "c64",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1020,7 +1020,7 @@
   },
   {
     "id": "c65",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1036,7 +1036,7 @@
   },
   {
     "id": "c66",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1052,7 +1052,7 @@
   },
   {
     "id": "c67",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1068,7 +1068,7 @@
   },
   {
     "id": "c68",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1084,7 +1084,7 @@
   },
   {
     "id": "c69",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1100,7 +1100,7 @@
   },
   {
     "id": "c70",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1126,7 +1126,7 @@
   },
   {
     "id": "c71",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1152,7 +1152,7 @@
   },
   {
     "id": "c72",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1168,7 +1168,7 @@
   },
   {
     "id": "c73",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1184,7 +1184,7 @@
   },
   {
     "id": "c74",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1200,7 +1200,7 @@
   },
   {
     "id": "c75",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1216,7 +1216,7 @@
   },
   {
     "id": "c76",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1232,7 +1232,7 @@
   },
   {
     "id": "c77",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1248,7 +1248,7 @@
   },
   {
     "id": "c78",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1264,7 +1264,7 @@
   },
   {
     "id": "c79",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1280,7 +1280,7 @@
   },
   {
     "id": "c80",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1296,7 +1296,7 @@
   },
   {
     "id": "c81",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "FLASHCARD",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1306,7 +1306,7 @@
   },
   {
     "id": "c82",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "FLASHCARD",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1316,7 +1316,7 @@
   },
   {
     "id": "c83",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "FLASHCARD",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1326,7 +1326,7 @@
   },
   {
     "id": "c84",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1341,7 +1341,7 @@
   },
   {
     "id": "c85",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1355,7 +1355,7 @@
   },
   {
     "id": "c86",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "FLASHCARD",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1365,7 +1365,7 @@
   },
   {
     "id": "c87",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1381,7 +1381,7 @@
   },
   {
     "id": "c88",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1397,7 +1397,7 @@
   },
   {
     "id": "c89",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1413,7 +1413,7 @@
   },
   {
     "id": "c90",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1429,7 +1429,7 @@
   },
   {
     "id": "c91",
-    "num": "Q28.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1445,7 +1445,7 @@
   },
   {
     "id": "c92",
-    "num": "Q29.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1461,7 +1461,7 @@
   },
   {
     "id": "c93",
-    "num": "Q30.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1477,7 +1477,7 @@
   },
   {
     "id": "c94",
-    "num": "Q31.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1494,7 +1494,7 @@
   },
   {
     "id": "c95",
-    "num": "Q32.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1511,7 +1511,7 @@
   },
   {
     "id": "c96",
-    "num": "Q33.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1527,7 +1527,7 @@
   },
   {
     "id": "c97",
-    "num": "Q34.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1543,7 +1543,7 @@
   },
   {
     "id": "c98",
-    "num": "Q35.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1559,7 +1559,7 @@
   },
   {
     "id": "c99",
-    "num": "Q36.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1575,7 +1575,7 @@
   },
   {
     "id": "c100",
-    "num": "Q37.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -1591,7 +1591,7 @@
   },
   {
     "id": "c101",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1607,7 +1607,7 @@
   },
   {
     "id": "c102",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1623,7 +1623,7 @@
   },
   {
     "id": "c103",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1639,7 +1639,7 @@
   },
   {
     "id": "c104",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1655,7 +1655,7 @@
   },
   {
     "id": "c105",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1671,7 +1671,7 @@
   },
   {
     "id": "c106",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1687,7 +1687,7 @@
   },
   {
     "id": "c107",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1703,7 +1703,7 @@
   },
   {
     "id": "c108",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1719,7 +1719,7 @@
   },
   {
     "id": "c109",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1735,7 +1735,7 @@
   },
   {
     "id": "c110",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1751,7 +1751,7 @@
   },
   {
     "id": "c111",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1767,7 +1767,7 @@
   },
   {
     "id": "c112",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1783,7 +1783,7 @@
   },
   {
     "id": "c113",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1799,7 +1799,7 @@
   },
   {
     "id": "c114",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1815,7 +1815,7 @@
   },
   {
     "id": "c115",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1831,7 +1831,7 @@
   },
   {
     "id": "c116",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1847,7 +1847,7 @@
   },
   {
     "id": "c117",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1862,7 +1862,7 @@
   },
   {
     "id": "c118",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "FLASHCARD",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1872,7 +1872,7 @@
   },
   {
     "id": "c119",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1888,7 +1888,7 @@
   },
   {
     "id": "c120",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1904,7 +1904,7 @@
   },
   {
     "id": "c121",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1920,7 +1920,7 @@
   },
   {
     "id": "c122",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -1937,7 +1937,7 @@
   },
   {
     "id": "c123",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -1953,7 +1953,7 @@
   },
   {
     "id": "c124",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -1969,7 +1969,7 @@
   },
   {
     "id": "c125",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -1985,7 +1985,7 @@
   },
   {
     "id": "c126",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2001,7 +2001,7 @@
   },
   {
     "id": "c127",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2017,7 +2017,7 @@
   },
   {
     "id": "c128",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2033,7 +2033,7 @@
   },
   {
     "id": "c129",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2049,7 +2049,7 @@
   },
   {
     "id": "c130",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2065,7 +2065,7 @@
   },
   {
     "id": "c131",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2081,7 +2081,7 @@
   },
   {
     "id": "c132",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2097,7 +2097,7 @@
   },
   {
     "id": "c133",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2113,7 +2113,7 @@
   },
   {
     "id": "c134",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2129,7 +2129,7 @@
   },
   {
     "id": "c135",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2145,7 +2145,7 @@
   },
   {
     "id": "c136",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2161,7 +2161,7 @@
   },
   {
     "id": "c137",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2177,7 +2177,7 @@
   },
   {
     "id": "c138",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2193,7 +2193,7 @@
   },
   {
     "id": "c139",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2209,7 +2209,7 @@
   },
   {
     "id": "c140",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2221,27 +2221,12 @@
       "cesarean section",
       "tocolysis and rest"
     ],
-    "ans": "A"
-  },
-  {
-    "id": "c141",
-    "num": "Q19.",
-    "cardType": "MCQ",
-    "lecture": "Abortion & Vesicular Mole",
-    "exam": "mid",
-    "source": "Old Formatives (from 38",
-    "q": "Inevitable abortion at 20 weeks' gestation is managed by: )",
-    "choices": [
-      "Evacuation and curettage.",
-      "Cesarean section.",
-      "Progesterone administration.",
-      "Medical Evacuation."
-    ],
-    "ans": "D"
+    "ans": "A",
+    "note": "duplicate of deleted c141 - conflicting answer version removed"
   },
   {
     "id": "c142",
-    "num": "Q20.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2257,7 +2242,7 @@
   },
   {
     "id": "c143",
-    "num": "Q21.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2273,7 +2258,7 @@
   },
   {
     "id": "c144",
-    "num": "Q22.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2289,7 +2274,7 @@
   },
   {
     "id": "c145",
-    "num": "Q23.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2305,7 +2290,7 @@
   },
   {
     "id": "c146",
-    "num": "Q24.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2321,7 +2306,7 @@
   },
   {
     "id": "c147",
-    "num": "Q25.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2337,7 +2322,7 @@
   },
   {
     "id": "c148",
-    "num": "Q26.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2353,7 +2338,7 @@
   },
   {
     "id": "c149",
-    "num": "Q27.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2369,7 +2354,7 @@
   },
   {
     "id": "c150",
-    "num": "Q28.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2385,7 +2370,7 @@
   },
   {
     "id": "c151",
-    "num": "Q29.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2399,7 +2384,7 @@
   },
   {
     "id": "c152",
-    "num": "Q30.",
+    "num": "Q29",
     "cardType": "FLASHCARD",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2409,7 +2394,7 @@
   },
   {
     "id": "c153",
-    "num": "Q31.",
+    "num": "Q30",
     "cardType": "FLASHCARD",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2419,7 +2404,7 @@
   },
   {
     "id": "c154",
-    "num": "Q32.",
+    "num": "Q31",
     "cardType": "FLASHCARD",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2429,7 +2414,7 @@
   },
   {
     "id": "c155",
-    "num": "Q33.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2445,7 +2430,7 @@
   },
   {
     "id": "c156",
-    "num": "Q34.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2461,7 +2446,7 @@
   },
   {
     "id": "c157",
-    "num": "Q35.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2477,7 +2462,7 @@
   },
   {
     "id": "c158",
-    "num": "Q36.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2493,7 +2478,7 @@
   },
   {
     "id": "c159",
-    "num": "Q37.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2509,7 +2494,7 @@
   },
   {
     "id": "c160",
-    "num": "Q38.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2525,7 +2510,7 @@
   },
   {
     "id": "c161",
-    "num": "Q39.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -2541,7 +2526,7 @@
   },
   {
     "id": "c162",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2557,7 +2542,7 @@
   },
   {
     "id": "c163",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2573,7 +2558,7 @@
   },
   {
     "id": "c164",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2589,7 +2574,7 @@
   },
   {
     "id": "c165",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2605,7 +2590,7 @@
   },
   {
     "id": "c166",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2620,24 +2605,8 @@
     "ans": "D"
   },
   {
-    "id": "c167",
-    "num": "Q6.",
-    "cardType": "MCQ",
-    "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "mid",
-    "source": "New Formatives",
-    "q": "The following statement is FALSE regarding placental abruption:",
-    "choices": [
-      "Mild abruption during labour can be augmented and delivered vaginally",
-      "Moderate abruption with a live baby in early labour better to be delivered by CS",
-      "Severe abruption, IUFD with or without DIC can be delivered vaginally",
-      "Couvelaire uterus is an indication for hysterectomy"
-    ],
-    "ans": "D"
-  },
-  {
     "id": "c168",
-    "num": "Q7.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2653,7 +2622,7 @@
   },
   {
     "id": "c169",
-    "num": "Q8.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2669,7 +2638,7 @@
   },
   {
     "id": "c170",
-    "num": "Q9.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2685,7 +2654,7 @@
   },
   {
     "id": "c171",
-    "num": "Q10.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2701,7 +2670,7 @@
   },
   {
     "id": "c172",
-    "num": "Q11.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2716,7 +2685,7 @@
   },
   {
     "id": "c173",
-    "num": "Q12.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2732,7 +2701,7 @@
   },
   {
     "id": "c174",
-    "num": "Q13.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2746,7 +2715,7 @@
   },
   {
     "id": "c175",
-    "num": "Q14.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2762,7 +2731,7 @@
   },
   {
     "id": "c176",
-    "num": "Q15.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2778,7 +2747,7 @@
   },
   {
     "id": "c177",
-    "num": "Q16.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2794,7 +2763,7 @@
   },
   {
     "id": "c178",
-    "num": "Q17.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2810,7 +2779,7 @@
   },
   {
     "id": "c179",
-    "num": "Q18.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2826,7 +2795,7 @@
   },
   {
     "id": "c180",
-    "num": "Q19.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2838,11 +2807,12 @@
       "Conservative management up to 38 weeks",
       "Wait for spontaneous onset of labor"
     ],
-    "ans": "A"
+    "ans": "A",
+    "note": "also appeared as MU-MED 39 Q23 (c657)"
   },
   {
     "id": "c181",
-    "num": "Q20.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2858,7 +2828,7 @@
   },
   {
     "id": "c182",
-    "num": "Q21.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2874,7 +2844,7 @@
   },
   {
     "id": "c183",
-    "num": "Q22.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2890,7 +2860,7 @@
   },
   {
     "id": "c184",
-    "num": "Q23.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2906,7 +2876,7 @@
   },
   {
     "id": "c185",
-    "num": "Q24.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2922,7 +2892,7 @@
   },
   {
     "id": "c186",
-    "num": "Q25.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2938,7 +2908,7 @@
   },
   {
     "id": "c187",
-    "num": "Q26.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2954,7 +2924,7 @@
   },
   {
     "id": "c188",
-    "num": "Q27.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2970,7 +2940,7 @@
   },
   {
     "id": "c189",
-    "num": "Q28.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -2986,7 +2956,7 @@
   },
   {
     "id": "c190",
-    "num": "Q29.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3002,7 +2972,7 @@
   },
   {
     "id": "c191",
-    "num": "Q30.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3018,7 +2988,7 @@
   },
   {
     "id": "c192",
-    "num": "Q31.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3034,7 +3004,7 @@
   },
   {
     "id": "c193",
-    "num": "Q32.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3050,7 +3020,7 @@
   },
   {
     "id": "c194",
-    "num": "Q33.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3066,7 +3036,7 @@
   },
   {
     "id": "c195",
-    "num": "Q34.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3082,7 +3052,7 @@
   },
   {
     "id": "c196",
-    "num": "Q35.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3098,7 +3068,7 @@
   },
   {
     "id": "c197",
-    "num": "Q36.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3114,7 +3084,7 @@
   },
   {
     "id": "c198",
-    "num": "Q37.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3130,7 +3100,7 @@
   },
   {
     "id": "c199",
-    "num": "Q38.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3146,7 +3116,7 @@
   },
   {
     "id": "c200",
-    "num": "Q39.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3162,7 +3132,7 @@
   },
   {
     "id": "c201",
-    "num": "Q40.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3179,7 +3149,7 @@
   },
   {
     "id": "c202",
-    "num": "Q41.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3195,7 +3165,7 @@
   },
   {
     "id": "c203",
-    "num": "Q42.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3211,7 +3181,7 @@
   },
   {
     "id": "c204",
-    "num": "Q43.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3227,7 +3197,7 @@
   },
   {
     "id": "c205",
-    "num": "Q44.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3243,7 +3213,7 @@
   },
   {
     "id": "c206",
-    "num": "Q45.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3255,11 +3225,13 @@
       "Advanced maternal age (over 40)",
       "Deficient endometrium (e.g. due to manual removal of the placenta)"
     ],
-    "ans": "B"
+    "ans": "B",
+    "imagePlaceholder": true,
+    "imagePlaceholderText": "Image: Placenta Previa diagram"
   },
   {
     "id": "c207",
-    "num": "Q46.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3275,7 +3247,7 @@
   },
   {
     "id": "c208",
-    "num": "Q47.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3287,11 +3259,13 @@
       "Lie and presentation may be abnormal",
       "Low lying placenta on 20-week anomaly scan"
     ],
-    "ans": "A"
+    "ans": "A",
+    "imagePlaceholder": true,
+    "imagePlaceholderText": "Image: Placenta Previa diagram"
   },
   {
     "id": "c209",
-    "num": "Q48.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3307,7 +3281,7 @@
   },
   {
     "id": "c210",
-    "num": "Q49.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3319,11 +3293,12 @@
       "32 wks",
       "34 wks"
     ],
-    "ans": "C"
+    "ans": "C",
+    "note": "??????? ???????"
   },
   {
     "id": "c211",
-    "num": "Q50.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3341,7 +3316,7 @@
   },
   {
     "id": "c212",
-    "num": "Q53.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3354,11 +3329,13 @@
       "History of hypertension",
       "History of previous abruptions"
     ],
-    "ans": "B"
+    "ans": "B",
+    "imagePlaceholder": true,
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
     "id": "c213",
-    "num": "Q54.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3372,11 +3349,11 @@
     ],
     "ans": "B",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE - Placental abruption retroplacental clot]"
+    "imagePlaceholderText": "Image: Placental Abruption"
   },
   {
     "id": "c214",
-    "num": "Q55.",
+    "num": "Q52",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3394,7 +3371,7 @@
   },
   {
     "id": "c215",
-    "num": "Q56.",
+    "num": "Q53",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3408,11 +3385,11 @@
     ],
     "ans": "C",
     "imagePlaceholder": true,
-    "imagePlaceholderText": "[IMAGE - Placental abruption ultrasound]"
+    "imagePlaceholderText": "Image: Placental Abruption with Retroplacental Hematoma"
   },
   {
     "id": "c216",
-    "num": "Q57.",
+    "num": "Q54",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3430,7 +3407,7 @@
   },
   {
     "id": "c217",
-    "num": "Q58.",
+    "num": "Q55",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3446,7 +3423,7 @@
   },
   {
     "id": "c218",
-    "num": "Q61.",
+    "num": "Q56",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3458,11 +3435,13 @@
       "Fetal bradycardia",
       "Severe vaginal bleeding"
     ],
-    "ans": "D"
+    "ans": "D",
+    "imagePlaceholder": true,
+    "imagePlaceholderText": "Image: Vasa Previa"
   },
   {
     "id": "c219",
-    "num": "Q62.",
+    "num": "Q57",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3478,7 +3457,7 @@
   },
   {
     "id": "c220",
-    "num": "Q63.",
+    "num": "Q58",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -3496,7 +3475,7 @@
   },
   {
     "id": "c221",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3512,7 +3491,7 @@
   },
   {
     "id": "c222",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3528,7 +3507,7 @@
   },
   {
     "id": "c223",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3544,7 +3523,7 @@
   },
   {
     "id": "c224",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3560,7 +3539,7 @@
   },
   {
     "id": "c225",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3576,7 +3555,7 @@
   },
   {
     "id": "c226",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3592,7 +3571,7 @@
   },
   {
     "id": "c227",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3608,7 +3587,7 @@
   },
   {
     "id": "c228",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3625,7 +3604,7 @@
   },
   {
     "id": "c229",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3641,37 +3620,31 @@
   },
   {
     "id": "c230",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "FLASHCARD",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "which is wrong regard hyperemesis gravidarum",
-    "a": "More in multigravida"
-  },
-  {
-    "id": "c231",
-    "num": "Q11.",
-    "cardType": "SAQ",
-    "lecture": "Hyperemesis Gravidarum (HEG)",
-    "exam": "mid",
-    "source": "Old Formatives",
-    "q": "definition of hyperemesis gravidarum",
-    "a": "Answer not included"
+    "a": "More in multigravida",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c232",
-    "num": "Q12.",
+    "num": "Q11",
     "cardType": "SAQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "definition of emesis gravidarum",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c233",
-    "num": "Q13.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3687,7 +3660,7 @@
   },
   {
     "id": "c234",
-    "num": "Q14.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -3703,7 +3676,7 @@
   },
   {
     "id": "c235",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3719,7 +3692,7 @@
   },
   {
     "id": "c236",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3735,7 +3708,7 @@
   },
   {
     "id": "c237",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3751,7 +3724,7 @@
   },
   {
     "id": "c238",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3767,7 +3740,7 @@
   },
   {
     "id": "c239",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3783,7 +3756,7 @@
   },
   {
     "id": "c240",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3799,7 +3772,7 @@
   },
   {
     "id": "c241",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3815,7 +3788,7 @@
   },
   {
     "id": "c242",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3831,7 +3804,7 @@
   },
   {
     "id": "c243",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3847,7 +3820,7 @@
   },
   {
     "id": "c244",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3863,7 +3836,7 @@
   },
   {
     "id": "c245",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3879,7 +3852,7 @@
   },
   {
     "id": "c246",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3895,7 +3868,7 @@
   },
   {
     "id": "c247",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3911,7 +3884,7 @@
   },
   {
     "id": "c248",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3927,7 +3900,7 @@
   },
   {
     "id": "c249",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3943,7 +3916,7 @@
   },
   {
     "id": "c250",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3959,7 +3932,7 @@
   },
   {
     "id": "c251",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3975,7 +3948,7 @@
   },
   {
     "id": "c252",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -3991,7 +3964,7 @@
   },
   {
     "id": "c253",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4007,7 +3980,7 @@
   },
   {
     "id": "c254",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4023,7 +3996,7 @@
   },
   {
     "id": "c255",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4039,7 +4012,7 @@
   },
   {
     "id": "c256",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4055,7 +4028,7 @@
   },
   {
     "id": "c257",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4071,7 +4044,7 @@
   },
   {
     "id": "c258",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4087,7 +4060,7 @@
   },
   {
     "id": "c259",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4103,7 +4076,7 @@
   },
   {
     "id": "c260",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4119,7 +4092,7 @@
   },
   {
     "id": "c261",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4135,7 +4108,7 @@
   },
   {
     "id": "c262",
-    "num": "Q28.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4151,7 +4124,7 @@
   },
   {
     "id": "c263",
-    "num": "Q29.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4167,7 +4140,7 @@
   },
   {
     "id": "c264",
-    "num": "Q30.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4183,7 +4156,7 @@
   },
   {
     "id": "c265",
-    "num": "Q31.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4199,7 +4172,7 @@
   },
   {
     "id": "c266",
-    "num": "Q32.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4215,7 +4188,7 @@
   },
   {
     "id": "c267",
-    "num": "Q33.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4231,7 +4204,7 @@
   },
   {
     "id": "c268",
-    "num": "Q34.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4247,7 +4220,7 @@
   },
   {
     "id": "c269",
-    "num": "Q35.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4264,7 +4237,7 @@
   },
   {
     "id": "c270",
-    "num": "Q36.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4281,7 +4254,7 @@
   },
   {
     "id": "c271",
-    "num": "Q37.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4298,7 +4271,7 @@
   },
   {
     "id": "c272",
-    "num": "Q38.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4314,7 +4287,7 @@
   },
   {
     "id": "c273",
-    "num": "Q39.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4330,7 +4303,7 @@
   },
   {
     "id": "c274",
-    "num": "Q40.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4346,7 +4319,7 @@
   },
   {
     "id": "c275",
-    "num": "Q41.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4362,7 +4335,7 @@
   },
   {
     "id": "c276",
-    "num": "Q42.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4379,7 +4352,7 @@
   },
   {
     "id": "c277",
-    "num": "Q43.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4396,7 +4369,7 @@
   },
   {
     "id": "c278",
-    "num": "Q44.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4412,7 +4385,7 @@
   },
   {
     "id": "c279",
-    "num": "Q45.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4429,7 +4402,7 @@
   },
   {
     "id": "c280",
-    "num": "Q46.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4445,7 +4418,7 @@
   },
   {
     "id": "c281",
-    "num": "Q47.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4462,7 +4435,7 @@
   },
   {
     "id": "c282",
-    "num": "Q48.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4478,7 +4451,7 @@
   },
   {
     "id": "c283",
-    "num": "Q49.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4494,7 +4467,7 @@
   },
   {
     "id": "c284",
-    "num": "Q50.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4510,7 +4483,7 @@
   },
   {
     "id": "c285",
-    "num": "Q51.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4526,7 +4499,7 @@
   },
   {
     "id": "c286",
-    "num": "Q52.",
+    "num": "Q52",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4542,7 +4515,7 @@
   },
   {
     "id": "c287",
-    "num": "Q53.",
+    "num": "Q53",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4558,7 +4531,7 @@
   },
   {
     "id": "c288",
-    "num": "Q54.",
+    "num": "Q54",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4574,7 +4547,7 @@
   },
   {
     "id": "c289",
-    "num": "Q55.",
+    "num": "Q55",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -4590,7 +4563,7 @@
   },
   {
     "id": "c290",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4606,7 +4579,7 @@
   },
   {
     "id": "c291",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4628,7 +4601,7 @@
   },
   {
     "id": "c292",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4644,7 +4617,7 @@
   },
   {
     "id": "c293",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4660,7 +4633,7 @@
   },
   {
     "id": "c294",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4676,7 +4649,7 @@
   },
   {
     "id": "c295",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4692,7 +4665,7 @@
   },
   {
     "id": "c296",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4708,7 +4681,7 @@
   },
   {
     "id": "c297",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4724,7 +4697,7 @@
   },
   {
     "id": "c298",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4740,7 +4713,7 @@
   },
   {
     "id": "c299",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4756,7 +4729,7 @@
   },
   {
     "id": "c300",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4772,7 +4745,7 @@
   },
   {
     "id": "c301",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4788,7 +4761,7 @@
   },
   {
     "id": "c302",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4804,7 +4777,7 @@
   },
   {
     "id": "c303",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4820,7 +4793,7 @@
   },
   {
     "id": "c304",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4836,7 +4809,7 @@
   },
   {
     "id": "c305",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4852,7 +4825,7 @@
   },
   {
     "id": "c306",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4868,7 +4841,7 @@
   },
   {
     "id": "c307",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4884,7 +4857,7 @@
   },
   {
     "id": "c308",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4900,7 +4873,7 @@
   },
   {
     "id": "c309",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4916,7 +4889,7 @@
   },
   {
     "id": "c310",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4932,7 +4905,7 @@
   },
   {
     "id": "c311",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4948,7 +4921,7 @@
   },
   {
     "id": "c312",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4964,7 +4937,7 @@
   },
   {
     "id": "c313",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4980,7 +4953,7 @@
   },
   {
     "id": "c314",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -4996,7 +4969,7 @@
   },
   {
     "id": "c315",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5012,7 +4985,7 @@
   },
   {
     "id": "c316",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5028,7 +5001,7 @@
   },
   {
     "id": "c317",
-    "num": "Q28.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5044,7 +5017,7 @@
   },
   {
     "id": "c318",
-    "num": "Q29.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5060,7 +5033,7 @@
   },
   {
     "id": "c319",
-    "num": "Q30.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5076,7 +5049,7 @@
   },
   {
     "id": "c320",
-    "num": "Q31.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5092,7 +5065,7 @@
   },
   {
     "id": "c321",
-    "num": "Q32.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5108,7 +5081,7 @@
   },
   {
     "id": "c322",
-    "num": "Q33.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5124,7 +5097,7 @@
   },
   {
     "id": "c323",
-    "num": "Q34.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5140,7 +5113,7 @@
   },
   {
     "id": "c324",
-    "num": "Q35.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5156,7 +5129,7 @@
   },
   {
     "id": "c325",
-    "num": "Q36.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5172,7 +5145,7 @@
   },
   {
     "id": "c326",
-    "num": "Q37.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5188,7 +5161,7 @@
   },
   {
     "id": "c327",
-    "num": "Q38.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5204,7 +5177,7 @@
   },
   {
     "id": "c328",
-    "num": "Q39.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5220,7 +5193,7 @@
   },
   {
     "id": "c329",
-    "num": "Q40.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5236,7 +5209,7 @@
   },
   {
     "id": "c330",
-    "num": "Q41.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5252,7 +5225,7 @@
   },
   {
     "id": "c331",
-    "num": "Q42.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5268,7 +5241,7 @@
   },
   {
     "id": "c332",
-    "num": "Q43.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5284,7 +5257,7 @@
   },
   {
     "id": "c333",
-    "num": "Q44.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5300,7 +5273,7 @@
   },
   {
     "id": "c334",
-    "num": "Q45.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5316,7 +5289,7 @@
   },
   {
     "id": "c335",
-    "num": "Q46.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5332,7 +5305,7 @@
   },
   {
     "id": "c336",
-    "num": "Q47.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5348,7 +5321,7 @@
   },
   {
     "id": "c337",
-    "num": "Q48.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5364,7 +5337,7 @@
   },
   {
     "id": "c338",
-    "num": "Q49.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5380,7 +5353,7 @@
   },
   {
     "id": "c339",
-    "num": "Q50.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5397,7 +5370,7 @@
   },
   {
     "id": "c340",
-    "num": "Q51.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5413,7 +5386,7 @@
   },
   {
     "id": "c341",
-    "num": "Q52.",
+    "num": "Q52",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5428,7 +5401,7 @@
   },
   {
     "id": "c342",
-    "num": "Q53.",
+    "num": "Q53",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5444,7 +5417,7 @@
   },
   {
     "id": "c343",
-    "num": "Q54.",
+    "num": "Q54",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5460,7 +5433,7 @@
   },
   {
     "id": "c344",
-    "num": "Q55.",
+    "num": "Q55",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5476,7 +5449,7 @@
   },
   {
     "id": "c345",
-    "num": "Q56.",
+    "num": "Q56",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5492,7 +5465,7 @@
   },
   {
     "id": "c346",
-    "num": "Q57.",
+    "num": "Q57",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5508,7 +5481,7 @@
   },
   {
     "id": "c347",
-    "num": "Q58.",
+    "num": "Q58",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5524,7 +5497,7 @@
   },
   {
     "id": "c348",
-    "num": "Q59.",
+    "num": "Q59",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5540,7 +5513,7 @@
   },
   {
     "id": "c349",
-    "num": "Q60.",
+    "num": "Q60",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5557,7 +5530,7 @@
   },
   {
     "id": "c350",
-    "num": "Q61.",
+    "num": "Q61",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5573,7 +5546,7 @@
   },
   {
     "id": "c351",
-    "num": "Q62.",
+    "num": "Q62",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5589,7 +5562,7 @@
   },
   {
     "id": "c352",
-    "num": "Q63.",
+    "num": "Q63",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5604,7 +5577,7 @@
   },
   {
     "id": "c353",
-    "num": "Q64.",
+    "num": "Q64",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -5620,7 +5593,7 @@
   },
   {
     "id": "c354",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5636,7 +5609,7 @@
   },
   {
     "id": "c355",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5652,7 +5625,7 @@
   },
   {
     "id": "c356",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5668,7 +5641,7 @@
   },
   {
     "id": "c357",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5684,7 +5657,7 @@
   },
   {
     "id": "c358",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5700,7 +5673,7 @@
   },
   {
     "id": "c359",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5716,7 +5689,7 @@
   },
   {
     "id": "c360",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5732,7 +5705,7 @@
   },
   {
     "id": "c361",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5748,7 +5721,7 @@
   },
   {
     "id": "c362",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5764,7 +5737,7 @@
   },
   {
     "id": "c363",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5780,7 +5753,7 @@
   },
   {
     "id": "c364",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5796,7 +5769,7 @@
   },
   {
     "id": "c365",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5812,7 +5785,7 @@
   },
   {
     "id": "c366",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5828,7 +5801,7 @@
   },
   {
     "id": "c367",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5844,7 +5817,7 @@
   },
   {
     "id": "c368",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5860,7 +5833,7 @@
   },
   {
     "id": "c369",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5882,7 +5855,7 @@
   },
   {
     "id": "c370",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5898,7 +5871,7 @@
   },
   {
     "id": "c371",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5914,7 +5887,7 @@
   },
   {
     "id": "c372",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5930,7 +5903,7 @@
   },
   {
     "id": "c373",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5946,7 +5919,7 @@
   },
   {
     "id": "c374",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5962,7 +5935,7 @@
   },
   {
     "id": "c375",
-    "num": "Q25.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5978,7 +5951,7 @@
   },
   {
     "id": "c376",
-    "num": "Q26.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -5994,7 +5967,7 @@
   },
   {
     "id": "c377",
-    "num": "Q27.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6010,7 +5983,7 @@
   },
   {
     "id": "c378",
-    "num": "Q28.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6026,7 +5999,7 @@
   },
   {
     "id": "c379",
-    "num": "Q29.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6042,7 +6015,7 @@
   },
   {
     "id": "c380",
-    "num": "Q30.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6058,7 +6031,7 @@
   },
   {
     "id": "c381",
-    "num": "Q32.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6074,7 +6047,7 @@
   },
   {
     "id": "c382",
-    "num": "Q33.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6090,7 +6063,7 @@
   },
   {
     "id": "c383",
-    "num": "Q34.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6106,7 +6079,7 @@
   },
   {
     "id": "c384",
-    "num": "Q35.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6122,7 +6095,7 @@
   },
   {
     "id": "c385",
-    "num": "Q36.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6139,7 +6112,7 @@
   },
   {
     "id": "c386",
-    "num": "Q37.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6155,7 +6128,7 @@
   },
   {
     "id": "c387",
-    "num": "Q38.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6171,7 +6144,7 @@
   },
   {
     "id": "c388",
-    "num": "Q39.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6187,7 +6160,7 @@
   },
   {
     "id": "c389",
-    "num": "Q40.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6203,7 +6176,7 @@
   },
   {
     "id": "c390",
-    "num": "Q41.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6219,7 +6192,7 @@
   },
   {
     "id": "c391",
-    "num": "Q42.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6235,7 +6208,7 @@
   },
   {
     "id": "c392",
-    "num": "Q44.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6251,7 +6224,7 @@
   },
   {
     "id": "c393",
-    "num": "Q45.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6267,7 +6240,7 @@
   },
   {
     "id": "c394",
-    "num": "Q46.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6283,7 +6256,7 @@
   },
   {
     "id": "c395",
-    "num": "Q47.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6299,7 +6272,7 @@
   },
   {
     "id": "c396",
-    "num": "Q48.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6316,7 +6289,7 @@
   },
   {
     "id": "c397",
-    "num": "Q49.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6333,7 +6306,7 @@
   },
   {
     "id": "c398",
-    "num": "Q50.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6350,7 +6323,7 @@
   },
   {
     "id": "c399",
-    "num": "Q51.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6367,7 +6340,7 @@
   },
   {
     "id": "c400",
-    "num": "Q52.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6383,7 +6356,7 @@
   },
   {
     "id": "c401",
-    "num": "Q53.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6400,7 +6373,7 @@
   },
   {
     "id": "c402",
-    "num": "Q54.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6416,7 +6389,7 @@
   },
   {
     "id": "c403",
-    "num": "Q55.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6432,7 +6405,7 @@
   },
   {
     "id": "c404",
-    "num": "Q56.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -6448,7 +6421,7 @@
   },
   {
     "id": "c405",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6464,7 +6437,7 @@
   },
   {
     "id": "c406",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6480,7 +6453,7 @@
   },
   {
     "id": "c407",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6496,7 +6469,7 @@
   },
   {
     "id": "c408",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6512,7 +6485,7 @@
   },
   {
     "id": "c409",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6528,7 +6501,7 @@
   },
   {
     "id": "c410",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6544,7 +6517,7 @@
   },
   {
     "id": "c411",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6560,7 +6533,7 @@
   },
   {
     "id": "c412",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6576,7 +6549,7 @@
   },
   {
     "id": "c413",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6592,7 +6565,7 @@
   },
   {
     "id": "c414",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6608,7 +6581,7 @@
   },
   {
     "id": "c415",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6624,7 +6597,7 @@
   },
   {
     "id": "c416",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6640,7 +6613,7 @@
   },
   {
     "id": "c417",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6656,7 +6629,7 @@
   },
   {
     "id": "c418",
-    "num": "Q15.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6672,7 +6645,7 @@
   },
   {
     "id": "c419",
-    "num": "Q16.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6688,7 +6661,7 @@
   },
   {
     "id": "c420",
-    "num": "Q17.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6702,7 +6675,7 @@
   },
   {
     "id": "c421",
-    "num": "Q18.",
+    "num": "Q17",
     "cardType": "FLASHCARD",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6712,7 +6685,7 @@
   },
   {
     "id": "c422",
-    "num": "Q19.",
+    "num": "Q18",
     "cardType": "FLASHCARD",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6722,7 +6695,7 @@
   },
   {
     "id": "c423",
-    "num": "Q20.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6738,7 +6711,7 @@
   },
   {
     "id": "c424",
-    "num": "Q21.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6754,7 +6727,7 @@
   },
   {
     "id": "c425",
-    "num": "Q22.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6770,7 +6743,7 @@
   },
   {
     "id": "c426",
-    "num": "Q23.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6786,7 +6759,7 @@
   },
   {
     "id": "c427",
-    "num": "Q24.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6802,7 +6775,7 @@
   },
   {
     "id": "c428",
-    "num": "Q25.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6818,7 +6791,7 @@
   },
   {
     "id": "c429",
-    "num": "Q26.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6834,7 +6807,7 @@
   },
   {
     "id": "c430",
-    "num": "Q27.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6850,7 +6823,7 @@
   },
   {
     "id": "c431",
-    "num": "Q28.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6866,7 +6839,7 @@
   },
   {
     "id": "c432",
-    "num": "Q29.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6882,7 +6855,7 @@
   },
   {
     "id": "c433",
-    "num": "Q30.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6898,7 +6871,7 @@
   },
   {
     "id": "c434",
-    "num": "Q31.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6914,7 +6887,7 @@
   },
   {
     "id": "c435",
-    "num": "Q32.",
+    "num": "Q31",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6930,7 +6903,7 @@
   },
   {
     "id": "c436",
-    "num": "Q33.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6946,7 +6919,7 @@
   },
   {
     "id": "c437",
-    "num": "Q34.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6962,7 +6935,7 @@
   },
   {
     "id": "c438",
-    "num": "Q35.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6978,7 +6951,7 @@
   },
   {
     "id": "c439",
-    "num": "Q36.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -6994,7 +6967,7 @@
   },
   {
     "id": "c440",
-    "num": "Q37.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7010,7 +6983,7 @@
   },
   {
     "id": "c441",
-    "num": "Q38.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7026,7 +6999,7 @@
   },
   {
     "id": "c442",
-    "num": "Q39.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7042,7 +7015,7 @@
   },
   {
     "id": "c443",
-    "num": "Q40.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7058,7 +7031,7 @@
   },
   {
     "id": "c444",
-    "num": "Q41.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7074,7 +7047,7 @@
   },
   {
     "id": "c445",
-    "num": "Q42.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7090,7 +7063,7 @@
   },
   {
     "id": "c446",
-    "num": "Q43.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -7106,7 +7079,7 @@
   },
   {
     "id": "c447",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7122,7 +7095,7 @@
   },
   {
     "id": "c448",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7138,7 +7111,7 @@
   },
   {
     "id": "c449",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7154,7 +7127,7 @@
   },
   {
     "id": "c450",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7170,7 +7143,7 @@
   },
   {
     "id": "c451",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7186,7 +7159,7 @@
   },
   {
     "id": "c452",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7202,7 +7175,7 @@
   },
   {
     "id": "c453",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7218,7 +7191,7 @@
   },
   {
     "id": "c454",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7234,7 +7207,7 @@
   },
   {
     "id": "c455",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7250,7 +7223,7 @@
   },
   {
     "id": "c456",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7266,7 +7239,7 @@
   },
   {
     "id": "c457",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7282,7 +7255,7 @@
   },
   {
     "id": "c458",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7298,7 +7271,7 @@
   },
   {
     "id": "c459",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7314,7 +7287,7 @@
   },
   {
     "id": "c460",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7330,7 +7303,7 @@
   },
   {
     "id": "c461",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7346,7 +7319,7 @@
   },
   {
     "id": "c462",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7362,7 +7335,7 @@
   },
   {
     "id": "c463",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7378,7 +7351,7 @@
   },
   {
     "id": "c464",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7394,7 +7367,7 @@
   },
   {
     "id": "c465",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7410,7 +7383,7 @@
   },
   {
     "id": "c466",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7426,7 +7399,7 @@
   },
   {
     "id": "c467",
-    "num": "Q21.",
+    "num": "Q21",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7442,7 +7415,7 @@
   },
   {
     "id": "c468",
-    "num": "Q22.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7458,7 +7431,7 @@
   },
   {
     "id": "c469",
-    "num": "Q23.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7474,7 +7447,7 @@
   },
   {
     "id": "c470",
-    "num": "Q24.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7490,7 +7463,7 @@
   },
   {
     "id": "c471",
-    "num": "Q25.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7506,97 +7479,79 @@
   },
   {
     "id": "c472",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "sure sign of labor onset",
-    "a": "�� Answer: Cervical effacement and dilation"
+    "a": "�� Answer: Cervical effacement and dilation",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c473",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "anterior asynclitism mean",
-    "a": "sagittal near to promontory"
-  },
-  {
-    "id": "c474",
-    "num": "Q28.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Old Formatives",
-    "q": "most common female pelvis",
-    "a": "Gynecoid"
-  },
-  {
-    "id": "c475",
-    "num": "Q29.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Old Formatives",
-    "q": "descent of baby head & relief of maternal breathing is called",
-    "a": "lightening"
+    "a": "sagittal near to promontory",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c476",
-    "num": "Q30.",
+    "num": "Q28",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "fetal position",
-    "a": "relation between bony landmark of dependent part & maternal pelvis"
+    "a": "relation between bony landmark of dependent part & maternal pelvis",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c477",
-    "num": "Q31.",
+    "num": "Q29",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "Schultz method is",
-    "a": "more physiological"
+    "a": "more physiological",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c478",
-    "num": "Q32.",
+    "num": "Q30",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "end of first stage is marked by",
-    "a": "cervical dilation & effacement"
+    "a": "cervical dilation & effacement",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c479",
-    "num": "Q33.",
+    "num": "Q31",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "normal labor includes",
-    "a": "37-42 weeks"
-  },
-  {
-    "id": "c480",
-    "num": "Q34.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Old Formatives",
-    "q": "time of episiotomy",
-    "a": "after crowning"
+    "a": "37-42 weeks",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c481",
-    "num": "Q35.",
+    "num": "Q32",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7612,7 +7567,7 @@
   },
   {
     "id": "c482",
-    "num": "Q36.",
+    "num": "Q33",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7628,7 +7583,7 @@
   },
   {
     "id": "c483",
-    "num": "Q37.",
+    "num": "Q34",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7645,7 +7600,7 @@
   },
   {
     "id": "c484",
-    "num": "Q38.",
+    "num": "Q35",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7662,7 +7617,7 @@
   },
   {
     "id": "c485",
-    "num": "Q39.",
+    "num": "Q36",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7679,7 +7634,7 @@
   },
   {
     "id": "c486",
-    "num": "Q40.",
+    "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7695,7 +7650,7 @@
   },
   {
     "id": "c487",
-    "num": "Q41.",
+    "num": "Q38",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7711,7 +7666,7 @@
   },
   {
     "id": "c488",
-    "num": "Q42.",
+    "num": "Q39",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7727,7 +7682,7 @@
   },
   {
     "id": "c489",
-    "num": "Q43.",
+    "num": "Q40",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7743,7 +7698,7 @@
   },
   {
     "id": "c490",
-    "num": "Q44.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7759,7 +7714,7 @@
   },
   {
     "id": "c491",
-    "num": "Q45.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7775,7 +7730,7 @@
   },
   {
     "id": "c492",
-    "num": "Q46.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7791,7 +7746,7 @@
   },
   {
     "id": "c493",
-    "num": "Q47.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7807,7 +7762,7 @@
   },
   {
     "id": "c494",
-    "num": "Q48.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7823,7 +7778,7 @@
   },
   {
     "id": "c495",
-    "num": "Q49.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7839,7 +7794,7 @@
   },
   {
     "id": "c496",
-    "num": "Q50.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7855,7 +7810,7 @@
   },
   {
     "id": "c497",
-    "num": "Q51.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7871,7 +7826,7 @@
   },
   {
     "id": "c498",
-    "num": "Q52.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7887,7 +7842,7 @@
   },
   {
     "id": "c499",
-    "num": "Q53.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7903,7 +7858,7 @@
   },
   {
     "id": "c500",
-    "num": "Q54.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7919,7 +7874,7 @@
   },
   {
     "id": "c501",
-    "num": "Q55.",
+    "num": "Q52",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7935,7 +7890,7 @@
   },
   {
     "id": "c502",
-    "num": "Q56.",
+    "num": "Q53",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7951,7 +7906,7 @@
   },
   {
     "id": "c503",
-    "num": "Q57.",
+    "num": "Q54",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7967,7 +7922,7 @@
   },
   {
     "id": "c504",
-    "num": "Q58.",
+    "num": "Q55",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7983,7 +7938,7 @@
   },
   {
     "id": "c505",
-    "num": "Q59.",
+    "num": "Q56",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -7999,7 +7954,7 @@
   },
   {
     "id": "c506",
-    "num": "Q61.",
+    "num": "Q57",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -8015,7 +7970,7 @@
   },
   {
     "id": "c507",
-    "num": "Q62.",
+    "num": "Q58",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -8033,7 +7988,7 @@
   },
   {
     "id": "c508",
-    "num": "Q63.",
+    "num": "Q59",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -8051,7 +8006,7 @@
   },
   {
     "id": "c509",
-    "num": "Q64.",
+    "num": "Q60",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -8069,7 +8024,7 @@
   },
   {
     "id": "c510",
-    "num": "Q65.",
+    "num": "Q61",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -8087,7 +8042,7 @@
   },
   {
     "id": "c511",
-    "num": "Q1.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8099,11 +8054,14 @@
       "Fetal hypoxia",
       "Fetal sleeping"
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c512",
-    "num": "Q2.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8115,11 +8073,14 @@
       "Cord compression",
       "Fetal hypoxia"
     ],
-    "ans": "D"
+    "ans": "D",
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c513",
-    "num": "Q3.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8131,11 +8092,14 @@
       "Cord compression",
       "Fetal sleeping"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c514",
-    "num": "Q4.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8151,7 +8115,7 @@
   },
   {
     "id": "c515",
-    "num": "Q5.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8167,7 +8131,7 @@
   },
   {
     "id": "c516",
-    "num": "Q6.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8183,7 +8147,7 @@
   },
   {
     "id": "c517",
-    "num": "Q7.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8199,7 +8163,7 @@
   },
   {
     "id": "c518",
-    "num": "Q8.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8215,7 +8179,7 @@
   },
   {
     "id": "c519",
-    "num": "Q9.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8231,7 +8195,7 @@
   },
   {
     "id": "c520",
-    "num": "Q10.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8243,11 +8207,14 @@
       "110-130 bpm",
       "130-150 bpm"
     ],
-    "ans": "A"
+    "ans": "A",
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c521",
-    "num": "Q11.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8263,7 +8230,7 @@
   },
   {
     "id": "c522",
-    "num": "Q12.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8275,11 +8242,14 @@
       "FHR increased by 15 beats/min and persists for 15 seconds after 32 weeks",
       "FHR not affected by fetal movements"
     ],
-    "ans": "C"
+    "ans": "C",
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c523",
-    "num": "Q13.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8295,7 +8265,7 @@
   },
   {
     "id": "c524",
-    "num": "Q14.",
+    "num": "Q14",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8311,7 +8281,7 @@
   },
   {
     "id": "c525",
-    "num": "Q15.",
+    "num": "Q15",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8327,7 +8297,7 @@
   },
   {
     "id": "c526",
-    "num": "Q16.",
+    "num": "Q16",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8343,7 +8313,7 @@
   },
   {
     "id": "c527",
-    "num": "Q17.",
+    "num": "Q17",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8359,7 +8329,7 @@
   },
   {
     "id": "c528",
-    "num": "Q18.",
+    "num": "Q18",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8376,7 +8346,7 @@
   },
   {
     "id": "c529",
-    "num": "Q19.",
+    "num": "Q19",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8394,7 +8364,7 @@
   },
   {
     "id": "c530",
-    "num": "Q20.",
+    "num": "Q20",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -8682,7 +8652,7 @@
   },
   {
     "id": "c540",
-    "num": "Q40",
+    "num": "Q39",
     "cardType": "OSCE",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -8727,7 +8697,7 @@
   },
   {
     "id": "c541",
-    "num": "Q41",
+    "num": "Q40",
     "cardType": "OSCE",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -8772,7 +8742,7 @@
   },
   {
     "id": "c542",
-    "num": "Q42",
+    "num": "Q41",
     "cardType": "OSCE",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -8824,7 +8794,7 @@
   },
   {
     "id": "c543",
-    "num": "Q43",
+    "num": "Q42",
     "cardType": "OSCE",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -8846,7 +8816,7 @@
   },
   {
     "id": "c544",
-    "num": "Q51",
+    "num": "Q59",
     "cardType": "OSCE",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -8888,7 +8858,7 @@
   },
   {
     "id": "c545",
-    "num": "Q52",
+    "num": "Q60",
     "cardType": "OSCE",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -8920,7 +8890,7 @@
   },
   {
     "id": "c546",
-    "num": "Q59",
+    "num": "Q61",
     "cardType": "OSCE",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -8992,7 +8962,7 @@
   },
   {
     "id": "c547",
-    "num": "Q60",
+    "num": "Q62",
     "cardType": "OSCE",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9014,7 +8984,7 @@
   },
   {
     "id": "c548",
-    "num": "Q15",
+    "num": "Q14",
     "cardType": "OSCE",
     "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
@@ -9269,7 +9239,7 @@
   },
   {
     "id": "c554",
-    "num": "Q31",
+    "num": "Q52",
     "cardType": "OSCE",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9291,7 +9261,7 @@
   },
   {
     "id": "c555",
-    "num": "Q43",
+    "num": "Q53",
     "cardType": "OSCE",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9333,7 +9303,7 @@
   },
   {
     "id": "c556",
-    "num": "Q57",
+    "num": "Q54",
     "cardType": "OSCE",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9365,7 +9335,7 @@
   },
   {
     "id": "c557",
-    "num": "Q60",
+    "num": "Q62",
     "cardType": "OSCE",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -9453,7 +9423,7 @@
   },
   {
     "id": "c559",
-    "num": "Q26.",
+    "num": "Q26",
     "cardType": "SAQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -9463,7 +9433,7 @@
   },
   {
     "id": "c560",
-    "num": "Q27.",
+    "num": "Q27",
     "cardType": "SAQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -9473,7 +9443,7 @@
   },
   {
     "id": "c561",
-    "num": "Q39.",
+    "num": "Q39",
     "cardType": "SAQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -9483,7 +9453,7 @@
   },
   {
     "id": "c562",
-    "num": "Q40.",
+    "num": "Q40",
     "cardType": "SAQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -9493,7 +9463,7 @@
   },
   {
     "id": "c563",
-    "num": "Q38.",
+    "num": "Q38",
     "cardType": "SAQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -9503,7 +9473,7 @@
   },
   {
     "id": "c564",
-    "num": "Q39.",
+    "num": "Q39",
     "cardType": "SAQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -9513,7 +9483,7 @@
   },
   {
     "id": "c565",
-    "num": "Q40.",
+    "num": "Q40",
     "cardType": "SAQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -9523,7 +9493,7 @@
   },
   {
     "id": "c566",
-    "num": "Q41.",
+    "num": "Q41",
     "cardType": "SAQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -9533,7 +9503,7 @@
   },
   {
     "id": "c567",
-    "num": "Q42.",
+    "num": "Q42",
     "cardType": "SAQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -9543,7 +9513,7 @@
   },
   {
     "id": "c568",
-    "num": "Q32.",
+    "num": "Q32",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9553,7 +9523,7 @@
   },
   {
     "id": "c569",
-    "num": "Q33.",
+    "num": "Q33",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9563,7 +9533,7 @@
   },
   {
     "id": "c570",
-    "num": "Q34.",
+    "num": "Q34",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9573,7 +9543,7 @@
   },
   {
     "id": "c571",
-    "num": "Q35.",
+    "num": "Q35",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9583,7 +9553,7 @@
   },
   {
     "id": "c572",
-    "num": "Q36.",
+    "num": "Q36",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9593,7 +9563,7 @@
   },
   {
     "id": "c573",
-    "num": "Q37.",
+    "num": "Q37",
     "cardType": "SAQ",
     "lecture": "Ectopic Pregnancy",
     "exam": "mid",
@@ -9603,7 +9573,7 @@
   },
   {
     "id": "c574",
-    "num": "Q44.",
+    "num": "Q43",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9613,7 +9583,7 @@
   },
   {
     "id": "c575",
-    "num": "Q45.",
+    "num": "Q44",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9623,7 +9593,7 @@
   },
   {
     "id": "c576",
-    "num": "Q46.",
+    "num": "Q45",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9633,7 +9603,7 @@
   },
   {
     "id": "c577",
-    "num": "Q47.",
+    "num": "Q46",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9643,7 +9613,7 @@
   },
   {
     "id": "c578",
-    "num": "Q48.",
+    "num": "Q47",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9653,7 +9623,7 @@
   },
   {
     "id": "c579",
-    "num": "Q49.",
+    "num": "Q48",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9663,7 +9633,7 @@
   },
   {
     "id": "c580",
-    "num": "Q50.",
+    "num": "Q49",
     "cardType": "SAQ",
     "lecture": "Abortion & Vesicular Mole",
     "exam": "mid",
@@ -9673,7 +9643,7 @@
   },
   {
     "id": "c581",
-    "num": "Q64.",
+    "num": "Q63",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9683,7 +9653,7 @@
   },
   {
     "id": "c582",
-    "num": "Q65.",
+    "num": "Q64",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9693,7 +9663,7 @@
   },
   {
     "id": "c583",
-    "num": "Q66.",
+    "num": "Q65",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9703,7 +9673,7 @@
   },
   {
     "id": "c584",
-    "num": "Q67.",
+    "num": "Q66",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9713,7 +9683,7 @@
   },
   {
     "id": "c585",
-    "num": "Q68.",
+    "num": "Q67",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9723,7 +9693,7 @@
   },
   {
     "id": "c586",
-    "num": "Q69.",
+    "num": "Q68",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9733,7 +9703,7 @@
   },
   {
     "id": "c587",
-    "num": "Q70.",
+    "num": "Q69",
     "cardType": "SAQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -9743,7 +9713,7 @@
   },
   {
     "id": "c588",
-    "num": "Q60.",
+    "num": "Q60",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9753,7 +9723,7 @@
   },
   {
     "id": "c589",
-    "num": "Q61.",
+    "num": "Q61",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9763,7 +9733,7 @@
   },
   {
     "id": "c590",
-    "num": "Q62.",
+    "num": "Q62",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9773,7 +9743,7 @@
   },
   {
     "id": "c591",
-    "num": "Q63.",
+    "num": "Q63",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9783,7 +9753,7 @@
   },
   {
     "id": "c592",
-    "num": "Q64.",
+    "num": "Q64",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9793,7 +9763,7 @@
   },
   {
     "id": "c593",
-    "num": "Q65.",
+    "num": "Q65",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9803,7 +9773,7 @@
   },
   {
     "id": "c594",
-    "num": "Q66.",
+    "num": "Q66",
     "cardType": "SAQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -9813,7 +9783,7 @@
   },
   {
     "id": "c595",
-    "num": "Q30.",
+    "num": "Q66",
     "cardType": "SAQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -9823,7 +9793,7 @@
   },
   {
     "id": "c596",
-    "num": "Q31.",
+    "num": "Q67",
     "cardType": "SAQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -9833,7 +9803,7 @@
   },
   {
     "id": "c597",
-    "num": "Q32.",
+    "num": "Q68",
     "cardType": "SAQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -9843,7 +9813,7 @@
   },
   {
     "id": "c598",
-    "num": "Q22.",
+    "num": "Q55",
     "cardType": "SAQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9853,7 +9823,7 @@
   },
   {
     "id": "c599",
-    "num": "Q23.",
+    "num": "Q56",
     "cardType": "SAQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9863,7 +9833,7 @@
   },
   {
     "id": "c600",
-    "num": "Q24.",
+    "num": "Q57",
     "cardType": "SAQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -9873,7 +9843,7 @@
   },
   {
     "id": "c601",
-    "num": "Q14.",
+    "num": "Q43",
     "cardType": "SAQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -9883,27 +9853,33 @@
   },
   {
     "id": "c602",
-    "num": "Q15.",
+    "num": "Q63",
     "cardType": "SAQ",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "SAQ",
     "q": "Define non-engagement head and mention its cause (4 fetal & 3 maternal causes).  ★ REPEATED ↔ ALSO IN: Also in ANC",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "also_in:Antenatal Care (ANC)"
+    ]
   },
   {
     "id": "c603",
-    "num": "Q16.",
+    "num": "Q64",
     "cardType": "SAQ",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "SAQ",
     "q": "Mention 4 differences between true and false labour pain.  ★ REPEATED ↔ ALSO IN: Also in ANC",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "tags": [
+      "also_in:Antenatal Care (ANC)"
+    ]
   },
   {
     "id": "c604",
-    "num": "Q17.",
+    "num": "Q65",
     "cardType": "SAQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -9913,7 +9889,7 @@
   },
   {
     "id": "c605",
-    "num": "Q1.",
+    "num": "Q28",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -9930,7 +9906,7 @@
   },
   {
     "id": "c606",
-    "num": "Q26.",
+    "num": "Q29",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -9947,7 +9923,7 @@
   },
   {
     "id": "c607",
-    "num": "Q7.",
+    "num": "Q30",
     "cardType": "MCQ",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -9964,7 +9940,7 @@
   },
   {
     "id": "c610",
-    "num": "Q17.",
+    "num": "Q41",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -9981,7 +9957,7 @@
   },
   {
     "id": "c612",
-    "num": "Q41.",
+    "num": "Q42",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -9998,7 +9974,7 @@
   },
   {
     "id": "c615",
-    "num": "Q15.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10015,7 +9991,7 @@
   },
   {
     "id": "c616",
-    "num": "Q33.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10032,7 +10008,7 @@
   },
   {
     "id": "c614",
-    "num": "Q10.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10049,7 +10025,7 @@
   },
   {
     "id": "c611",
-    "num": "Q29.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10066,7 +10042,7 @@
   },
   {
     "id": "c613",
-    "num": "Q5.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10083,7 +10059,7 @@
   },
   {
     "id": "c617",
-    "num": "Q41.",
+    "num": "Q58",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10100,7 +10076,7 @@
   },
   {
     "id": "c618",
-    "num": "Q61.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -10117,7 +10093,7 @@
   },
   {
     "id": "c630",
-    "num": "Q56.",
+    "num": "Q43",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10134,7 +10110,7 @@
   },
   {
     "id": "c626",
-    "num": "Q20.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10151,7 +10127,7 @@
   },
   {
     "id": "c627",
-    "num": "Q21.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10168,7 +10144,7 @@
   },
   {
     "id": "c624",
-    "num": "Q42.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10185,7 +10161,7 @@
   },
   {
     "id": "c629",
-    "num": "Q38.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10202,7 +10178,7 @@
   },
   {
     "id": "c631",
-    "num": "Q62.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10219,7 +10195,7 @@
   },
   {
     "id": "c628",
-    "num": "Q31.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10236,7 +10212,7 @@
   },
   {
     "id": "c622",
-    "num": "Q16.",
+    "num": "Q50",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -10253,7 +10229,7 @@
   },
   {
     "id": "c641",
-    "num": "Q49.",
+    "num": "Q1",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10270,7 +10246,7 @@
   },
   {
     "id": "c638",
-    "num": "Q7.",
+    "num": "Q2",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10287,7 +10263,7 @@
   },
   {
     "id": "c632",
-    "num": "Q18.",
+    "num": "Q3",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10304,7 +10280,7 @@
   },
   {
     "id": "c633",
-    "num": "Q26.",
+    "num": "Q4",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10321,7 +10297,7 @@
   },
   {
     "id": "c634",
-    "num": "Q30.",
+    "num": "Q5",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10337,7 +10313,7 @@
   },
   {
     "id": "c635",
-    "num": "Q14.",
+    "num": "Q6",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10354,7 +10330,7 @@
   },
   {
     "id": "c636",
-    "num": "Q33.",
+    "num": "Q7",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10369,7 +10345,7 @@
   },
   {
     "id": "c644",
-    "num": "Q42.",
+    "num": "Q8",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10386,7 +10362,7 @@
   },
   {
     "id": "c645",
-    "num": "Q65.",
+    "num": "Q9",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10403,7 +10379,7 @@
   },
   {
     "id": "c646",
-    "num": "Q73.",
+    "num": "Q10",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10420,7 +10396,7 @@
   },
   {
     "id": "c647",
-    "num": "Q8.",
+    "num": "Q11",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10437,7 +10413,7 @@
   },
   {
     "id": "c637",
-    "num": "Q44.",
+    "num": "Q12",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10453,7 +10429,7 @@
   },
   {
     "id": "c643",
-    "num": "Q3.",
+    "num": "Q13",
     "cardType": "MCQ",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -10470,7 +10446,7 @@
   },
   {
     "id": "c650",
-    "num": "Q64.",
+    "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -10487,7 +10463,7 @@
   },
   {
     "id": "c651",
-    "num": "Q67.",
+    "num": "Q71",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -10502,25 +10478,8 @@
     "_mergedPrevExam": true
   },
   {
-    "id": "c657",
-    "num": "Q23.",
-    "cardType": "MCQ",
-    "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "mid",
-    "source": "Previous Exams Added — MU-MED 39 Q23",
-    "q": "A 34-year-old G3P2 at 36 weeks presents with vaginal bleeding, hypotension, and a tense tender uterus. Ultrasound shows retroplacental hematoma. What is the optimal management?",
-    "choices": [
-      "Immediate cesarean section after resuscitation",
-      "Induction of labor",
-      "Conservative management",
-      "Await spontaneous labor"
-    ],
-    "ans": "A",
-    "_mergedPrevExam": true
-  },
-  {
     "id": "c658",
-    "num": "Q25.",
+    "num": "Q72",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -10537,7 +10496,7 @@
   },
   {
     "id": "c659",
-    "num": "Q26.",
+    "num": "Q73",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -10554,7 +10513,7 @@
   },
   {
     "id": "c656",
-    "num": "Q14.",
+    "num": "Q74",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
     "exam": "mid",
@@ -10571,7 +10530,7 @@
   },
   {
     "id": "c661",
-    "num": "Q45.",
+    "num": "Q67",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -10586,7 +10545,7 @@
   },
   {
     "id": "c664",
-    "num": "Q12.",
+    "num": "Q68",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -10603,7 +10562,7 @@
   },
   {
     "id": "c665",
-    "num": "Q30.",
+    "num": "Q69",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -10620,7 +10579,7 @@
   },
   {
     "id": "c666",
-    "num": "Q35.",
+    "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -10637,7 +10596,7 @@
   },
   {
     "id": "c667",
-    "num": "Q37.",
+    "num": "Q71",
     "cardType": "MCQ",
     "lecture": "Hypertensive Disorders with Pregnancy",
     "exam": "mid",
@@ -10654,7 +10613,7 @@
   },
   {
     "id": "c671",
-    "num": "Q13.",
+    "num": "Q69",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10671,7 +10630,7 @@
   },
   {
     "id": "c673",
-    "num": "Q4.",
+    "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10688,7 +10647,7 @@
   },
   {
     "id": "c674",
-    "num": "Q50.",
+    "num": "Q71",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10705,7 +10664,7 @@
   },
   {
     "id": "c670",
-    "num": "Q32.",
+    "num": "Q72",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10722,7 +10681,7 @@
   },
   {
     "id": "c672",
-    "num": "Q18.",
+    "num": "Q73",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10739,7 +10698,7 @@
   },
   {
     "id": "c675",
-    "num": "Q52.",
+    "num": "Q74",
     "cardType": "MCQ",
     "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
@@ -10756,7 +10715,7 @@
   },
   {
     "id": "c676",
-    "num": "Q15.",
+    "num": "Q59",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10773,7 +10732,7 @@
   },
   {
     "id": "c677",
-    "num": "Q5.",
+    "num": "Q60",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10790,7 +10749,7 @@
   },
   {
     "id": "c678",
-    "num": "Q19.",
+    "num": "Q61",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10807,7 +10766,7 @@
   },
   {
     "id": "c679",
-    "num": "Q32.",
+    "num": "Q62",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10824,7 +10783,7 @@
   },
   {
     "id": "c680",
-    "num": "Q40.",
+    "num": "Q63",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10840,7 +10799,7 @@
   },
   {
     "id": "c681",
-    "num": "Q43.",
+    "num": "Q64",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10857,7 +10816,7 @@
   },
   {
     "id": "c682",
-    "num": "Q5.",
+    "num": "Q65",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10874,7 +10833,7 @@
   },
   {
     "id": "c683",
-    "num": "Q9.",
+    "num": "Q66",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -10891,7 +10850,7 @@
   },
   {
     "id": "c684",
-    "num": "Q8.",
+    "num": "Q44",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10908,7 +10867,7 @@
   },
   {
     "id": "c685",
-    "num": "Q1.",
+    "num": "Q45",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10925,7 +10884,7 @@
   },
   {
     "id": "c686",
-    "num": "Q19.",
+    "num": "Q46",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10942,7 +10901,7 @@
   },
   {
     "id": "c687",
-    "num": "Q2.",
+    "num": "Q47",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10959,7 +10918,7 @@
   },
   {
     "id": "c688",
-    "num": "Q58.",
+    "num": "Q48",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10976,7 +10935,7 @@
   },
   {
     "id": "c689",
-    "num": "Q6.",
+    "num": "Q49",
     "cardType": "MCQ",
     "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
@@ -10993,7 +10952,7 @@
   },
   {
     "id": "c701",
-    "num": "Q103.",
+    "num": "Q66",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -11010,7 +10969,7 @@
   },
   {
     "id": "c698",
-    "num": "Q4.",
+    "num": "Q67",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -11027,7 +10986,7 @@
   },
   {
     "id": "c699",
-    "num": "Q45.",
+    "num": "Q67",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -11044,7 +11003,7 @@
   },
   {
     "id": "c700",
-    "num": "Q53.",
+    "num": "Q51",
     "cardType": "MCQ",
     "lecture": "Antenatal Care (ANC)",
     "exam": "mid",
@@ -11061,7 +11020,7 @@
   },
   {
     "id": "c702",
-    "num": "Q105.",
+    "num": "Q68",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -11078,7 +11037,7 @@
   },
   {
     "id": "c695",
-    "num": "Q18.",
+    "num": "Q69",
     "cardType": "MCQ",
     "lecture": "Normal Labour",
     "exam": "mid",
@@ -11095,7 +11054,7 @@
   },
   {
     "id": "c703",
-    "num": "Q6.",
+    "num": "Q22",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11112,7 +11071,7 @@
   },
   {
     "id": "c704",
-    "num": "Q11.",
+    "num": "Q23",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11129,7 +11088,7 @@
   },
   {
     "id": "c705",
-    "num": "Q34.",
+    "num": "Q24",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11146,7 +11105,7 @@
   },
   {
     "id": "c706",
-    "num": "Q45.",
+    "num": "Q25",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11163,7 +11122,7 @@
   },
   {
     "id": "c707",
-    "num": "Q46.",
+    "num": "Q26",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11176,11 +11135,14 @@
       "Persistent bradycardia"
     ],
     "ans": "C",
-    "_mergedPrevExam": true
+    "_mergedPrevExam": true,
+    "tags": [
+      "also_in:Antenatal Assessment of Fetal Wellbeing"
+    ]
   },
   {
     "id": "c708",
-    "num": "Q48.",
+    "num": "Q27",
     "cardType": "MCQ",
     "lecture": "Intrapartum Fetal Monitoring",
     "exam": "mid",
@@ -11197,7 +11159,7 @@
   },
   {
     "id": "c709",
-    "num": "Q3.",
+    "num": "Q49",
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -11207,7 +11169,7 @@
   },
   {
     "id": "c710",
-    "num": "Q18.",
+    "num": "Q50",
     "cardType": "FLASHCARD",
     "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
@@ -11217,7 +11179,7 @@
   },
   {
     "id": "c711",
-    "num": "Q9.",
+    "num": "Q31",
     "cardType": "FLASHCARD",
     "lecture": "Placental Hormones & Maternal Physiological Changes",
     "exam": "mid",
@@ -11227,7 +11189,7 @@
   },
   {
     "id": "c712",
-    "num": "Q17.",
+    "num": "Q14",
     "cardType": "FLASHCARD",
     "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
@@ -11237,7 +11199,7 @@
   },
   {
     "id": "c713",
-    "num": "Q53.",
+    "num": "Q68",
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -11247,7 +11209,7 @@
   },
   {
     "id": "c714",
-    "num": "Q54.",
+    "num": "Q69",
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -11257,7 +11219,7 @@
   },
   {
     "id": "c715",
-    "num": "Q56.",
+    "num": "Q70",
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -11267,7 +11229,7 @@
   },
   {
     "id": "c716",
-    "num": "Q43.",
+    "num": "Q71",
     "cardType": "FLASHCARD",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
@@ -11276,64 +11238,28 @@
     "a": "Answer not included"
   },
   {
-    "id": "c717",
-    "num": "Q84.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q84",
-    "q": "Biparietal diameter equals ...",
-    "a": "Answer not included"
-  },
-  {
     "id": "c718",
-    "num": "Q86.",
+    "num": "Q70",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Source: MU-MED 35 — Mid-Term Exam — Q86",
     "q": "Diameter of engagement of brow ...",
-    "a": "Answer not included"
-  },
-  {
-    "id": "c719",
-    "num": "Q92.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q92",
-    "q": "Duration of third stage of labor",
-    "a": "Answer not included"
-  },
-  {
-    "id": "c720",
-    "num": "Q98.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Source: MU-MED 35 — Mid-Term Exam — Q98",
-    "q": "Advantage of mediolateral episiotomy",
-    "a": "Answer not included"
-  },
-  {
-    "id": "c721",
-    "num": "Q38.",
-    "cardType": "FLASHCARD",
-    "lecture": "Normal Labour",
-    "exam": "mid",
-    "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q38",
-    "q": "Number of vault sutures",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c722",
-    "num": "Q61.",
+    "num": "Q71",
     "cardType": "FLASHCARD",
     "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q61",
     "q": "Drug not used in third stage of labor in cardiac patient",
-    "a": "Answer not included"
+    "a": "Answer not included",
+    "active": false,
+    "note": "incomplete - needs manual completion"
   },
   {
     "id": "c735",
@@ -11665,7 +11591,7 @@
     "id": "c757",
     "num": "Q1",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Which fetal hemoglobin type predominates at term?",
@@ -11681,7 +11607,7 @@
     "id": "c758",
     "num": "Q2",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Hb F has:",
@@ -11697,7 +11623,7 @@
     "id": "c759",
     "num": "Q3",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal breathing movements typically begin at:",
@@ -11713,7 +11639,7 @@
     "id": "c760",
     "num": "Q4",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal heart rate reactivity begins at:",
@@ -11729,7 +11655,7 @@
     "id": "c761",
     "num": "Q5",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "The Cardiff \"Rule of 10\" refers to:",
@@ -11745,7 +11671,7 @@
     "id": "c762",
     "num": "Q7",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Fetal tachycardia is defined as FHR above:",
@@ -11761,7 +11687,7 @@
     "id": "c763",
     "num": "Q8",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Absent variability is defined as:",
@@ -11777,7 +11703,7 @@
     "id": "c764",
     "num": "Q9",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Moderate variability is:",
@@ -11793,7 +11719,7 @@
     "id": "c765",
     "num": "Q15",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Which FHR category requires immediate evaluation for possible delivery?",
@@ -11809,7 +11735,7 @@
     "id": "c766",
     "num": "Q16",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "A sinusoidal fetal heart rate pattern is:",
@@ -11825,7 +11751,7 @@
     "id": "c767",
     "num": "Q17",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "A Biophysical Profile score of 8–10 indicates:",
@@ -11841,7 +11767,7 @@
     "id": "c768",
     "num": "Q18",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Delivery is indicated for a BPP score of:",
@@ -11857,7 +11783,7 @@
     "id": "c769",
     "num": "Q19",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Umbilical artery Doppler is mostly useful in:",
@@ -11873,7 +11799,7 @@
     "id": "c770",
     "num": "Q20",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Antenatal Assessment of Fetal Wellbeing",
     "exam": "mid",
     "source": "2026 Lectures Q's",
     "q": "Reversed diastolic flow in umbilical artery Doppler indicates:",
