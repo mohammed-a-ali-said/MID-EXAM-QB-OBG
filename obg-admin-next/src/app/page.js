@@ -371,6 +371,18 @@ function AdminView({ user }) {
           </div>
         </section>
       </div>
+      <div id="confirm-modal" className="confirm-modal hidden" aria-hidden="true">
+        <div className="confirm-backdrop" data-confirm-dismiss="true"></div>
+        <section className="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+          <div className="confirm-kicker" id="confirm-kicker">Confirm action</div>
+          <h2 id="confirm-title">Apply this change?</h2>
+          <p id="confirm-message">Review this action before continuing.</p>
+          <div className="confirm-actions">
+            <button className="btn btn-ghost" id="confirm-cancel-btn" type="button">Cancel</button>
+            <button className="btn btn-primary" id="confirm-accept-btn" type="button">Continue</button>
+          </div>
+        </section>
+      </div>
       <div id="toast-viewport" className="toast-viewport" aria-live="polite" aria-atomic="true"></div>
       <div
         id="admin-user-data"

@@ -29,6 +29,7 @@
     importPreview: null,
     importPreviewTab: "summary",
     savedSnapshots: {},
+    confirmResolver: null,
   };
 
   const els = {};
@@ -376,7 +377,7 @@
     return replacements;
   }
 
-  function suggestRelatedReplacements(question) {
+  async function suggestRelatedReplacements(question) {
     const baseline = getSavedSnapshot(question?.id);
     if (!question || !baseline) return 0;
     const suggestions = [];
@@ -395,13 +396,17 @@
     });
 
     let applied = 0;
-    suggestions.slice(0, 3).forEach((suggestion) => {
-      const shouldApply = window.confirm(
-        `You changed "${suggestion.oldText}" to "${suggestion.newText}".\n\nApply this to ${suggestion.hits.length} other place(s) in the bank too?`
-      );
-      if (!shouldApply) return;
+    for (const suggestion of suggestions.slice(0, 3)) {
+      const shouldApply = await openConfirmDialog({
+        kicker: "Smart Replace",
+        title: "Apply this change to the rest of the bank?",
+        message: `You changed "${suggestion.oldText}" to "${suggestion.newText}". Apply this to ${suggestion.hits.length} other place(s) too?`,
+        confirmLabel: "Apply change",
+        cancelLabel: "Keep only this one",
+      });
+      if (!shouldApply) continue;
       applied += applyTextReplacementAcrossBank(suggestion.oldText, suggestion.newText, question.id);
-    });
+    }
     return applied;
   }
 
@@ -411,6 +416,34 @@
       els.dirtyBadge.textContent = state.dirty ? "Unsaved changes" : "Saved";
       els.dirtyBadge.classList.toggle("dirty", state.dirty);
     }
+  }
+
+  function closeConfirmDialog(result) {
+    if (els.confirmModal) {
+      els.confirmModal.classList.add("hidden");
+      els.confirmModal.setAttribute("aria-hidden", "true");
+    }
+    const resolver = state.confirmResolver;
+    state.confirmResolver = null;
+    if (resolver) resolver(!!result);
+  }
+
+  function openConfirmDialog(options = {}) {
+    if (!els.confirmModal) return Promise.resolve(window.confirm(String(options.message || "Continue?")));
+    if (state.confirmResolver) {
+      state.confirmResolver(false);
+      state.confirmResolver = null;
+    }
+    if (els.confirmKicker) els.confirmKicker.textContent = options.kicker || "Confirm action";
+    if (els.confirmTitle) els.confirmTitle.textContent = options.title || "Apply this change?";
+    if (els.confirmMessage) els.confirmMessage.textContent = options.message || "Review this action before continuing.";
+    if (els.confirmAcceptBtn) els.confirmAcceptBtn.textContent = options.confirmLabel || "Continue";
+    if (els.confirmCancelBtn) els.confirmCancelBtn.textContent = options.cancelLabel || "Cancel";
+    els.confirmModal.classList.remove("hidden");
+    els.confirmModal.setAttribute("aria-hidden", "false");
+    return new Promise((resolve) => {
+      state.confirmResolver = resolve;
+    });
   }
 
   function pushToast(message, tone = "ok", title = "") {
@@ -989,7 +1022,7 @@
     return !!summary.parseErrors || !!summary.errorRows || !(summary.created || summary.updated);
   }
 
-  function maybeApplyImportPreviewChange(field, previousValue, nextValue, rowIndex) {
+  async function maybeApplyImportPreviewChange(field, previousValue, nextValue, rowIndex) {
     if (!state.importPreview || !previousValue || !nextValue || previousValue === nextValue) return;
 
     if (field === "lecture" || field === "exam") {
@@ -998,9 +1031,13 @@
       ));
       if (!matches.length) return;
       const bucketLabel = field === "lecture" ? "lecture" : "exam section";
-      const shouldApply = window.confirm(
-        `You changed ${bucketLabel} "${previousValue}" to "${nextValue}".\n\nApply this to ${matches.length} other imported row(s) too?`
-      );
+      const shouldApply = await openConfirmDialog({
+        kicker: "Import Review",
+        title: "Apply this bucket change to the other imported rows?",
+        message: `You changed the ${bucketLabel} "${previousValue}" to "${nextValue}". Apply this to ${matches.length} other imported row(s) too?`,
+        confirmLabel: "Apply to all",
+        cancelLabel: "Only this row",
+      });
       if (!shouldApply) return;
       matches.forEach((row) => {
         if (field === "lecture") row.question.lecture = ensureLecture(nextValue, { metadata: state.importPreview.metadata });
@@ -1017,9 +1054,13 @@
         index !== rowIndex && String(row.question?.q || "").includes(replacement.oldText)
       ));
       if (!matches.length) return;
-      const shouldApply = window.confirm(
-        `You changed "${replacement.oldText}" to "${replacement.newText}" in this imported question.\n\nApply this to ${matches.length} other imported row(s) too?`
-      );
+      const shouldApply = await openConfirmDialog({
+        kicker: "Import Review",
+        title: "Apply this wording change to the other imported rows?",
+        message: `You changed "${replacement.oldText}" to "${replacement.newText}". Apply this to ${matches.length} other imported row(s) too?`,
+        confirmLabel: "Apply wording",
+        cancelLabel: "Only this row",
+      });
       if (!shouldApply) return;
       matches.forEach((row) => {
         row.question.q = replaceLiteralText(row.question.q, replacement.oldText, replacement.newText);
@@ -1359,7 +1400,7 @@
     setStatus(`Exported questions.json at ${new Date().toLocaleTimeString()}.`, "ok");
   }
 
-  function saveQuestionDraft() {
+  async function saveQuestionDraft() {
     const question = getSelectedQuestion();
     if (!question) return;
     const lectureOptions = getLectureOptions();
@@ -1370,7 +1411,7 @@
       setStatus(`Question ${question.id} still has ${validation.errors.length} validation error(s).`, "error");
       return;
     }
-    const propagated = suggestRelatedReplacements(question);
+    const propagated = await suggestRelatedReplacements(question);
     rememberQuestionSnapshot(getSelectedQuestion() || question);
     if (propagated) {
       setDirty(true);
@@ -1390,7 +1431,7 @@
   async function saveToGitHub() {
     const selectedBeforeSave = getSelectedQuestion();
     if (selectedBeforeSave) {
-      const propagated = suggestRelatedReplacements(selectedBeforeSave);
+      const propagated = await suggestRelatedReplacements(selectedBeforeSave);
       rememberQuestionSnapshot(getSelectedQuestion() || selectedBeforeSave);
       if (propagated) {
         setDirty(true);
@@ -1542,12 +1583,19 @@
     });
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     const selected = getSelectedQuestion();
     if (!selected) return;
     const mode = els.deleteMode.value || "soft";
     if (mode === "hard") {
-      if (!window.confirm(`Permanently delete ${selected.id}? This cannot be undone after export/save.`)) return;
+      const shouldDelete = await openConfirmDialog({
+        kicker: "Delete Question",
+        title: "Permanently delete this question?",
+        message: `${selected.id} will be removed from the working copy and cannot be restored after export or save.`,
+        confirmLabel: "Delete permanently",
+        cancelLabel: "Cancel",
+      });
+      if (!shouldDelete) return;
       state.working = state.working.filter((question) => question.id !== selected.id);
       state.selectedId = state.working[0]?.id || null;
       setDirty(true);
@@ -1804,7 +1852,7 @@
     renderImportPreview();
   }
 
-  function handleImportPreviewFieldChange(event) {
+  async function handleImportPreviewFieldChange(event) {
     const target = event.target;
     if (!target || target.dataset.importRow == null || !state.importPreview) return;
     const row = state.importPreview.rows[Number(target.dataset.importRow)];
@@ -1826,7 +1874,7 @@
     }
     row.question = normalizeQuestion(row.question);
     if (event.type === "change") {
-      maybeApplyImportPreviewChange(field, previousValue, String(row.question?.[field] || ""), Number(target.dataset.importRow));
+      await maybeApplyImportPreviewChange(field, previousValue, String(row.question?.[field] || ""), Number(target.dataset.importRow));
       renderImportPreview();
       return;
     }
@@ -1901,6 +1949,13 @@
     if (els.importPreviewModal) {
       els.importPreviewModal.addEventListener("click", (event) => {
         if (event.target?.dataset?.importDismiss === "true") closeImportPreview();
+      });
+    }
+    if (els.confirmAcceptBtn) els.confirmAcceptBtn.addEventListener("click", () => closeConfirmDialog(true));
+    if (els.confirmCancelBtn) els.confirmCancelBtn.addEventListener("click", () => closeConfirmDialog(false));
+    if (els.confirmModal) {
+      els.confirmModal.addEventListener("click", (event) => {
+        if (event.target?.dataset?.confirmDismiss === "true") closeConfirmDialog(false);
       });
     }
     if (els.lectureBuckets) els.lectureBuckets.addEventListener("click", (event) => {
@@ -2047,6 +2102,12 @@
     els.importPreviewSummaryGrid = byId("import-preview-summary-grid");
     els.importPreviewIssuesList = byId("import-preview-issues-list");
     els.importPreviewRows = byId("import-preview-rows");
+    els.confirmModal = byId("confirm-modal");
+    els.confirmKicker = byId("confirm-kicker");
+    els.confirmTitle = byId("confirm-title");
+    els.confirmMessage = byId("confirm-message");
+    els.confirmAcceptBtn = byId("confirm-accept-btn");
+    els.confirmCancelBtn = byId("confirm-cancel-btn");
     els.toastViewport = byId("toast-viewport");
   }
 

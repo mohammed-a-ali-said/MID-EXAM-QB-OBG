@@ -166,6 +166,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
 .import-preview-row textarea{min-height:82px}
 .import-preview-row-issues{display:flex;flex-direction:column;gap:8px;margin-top:12px}
 .import-preview-empty{padding:18px;border:1px dashed #d9e4f2;border-radius:16px;background:#fff;color:#5f6e80;text-align:center}
+.confirm-modal{position:fixed;inset:0;z-index:10020;display:grid;place-items:center;padding:20px}
+.confirm-backdrop{position:absolute;inset:0;background:rgba(13,24,45,.44);backdrop-filter:blur(4px)}
+.confirm-dialog{position:relative;z-index:1;width:min(520px,calc(100vw - 28px));padding:24px;background:#fff;border:1px solid #dfe8f3;border-radius:22px;box-shadow:0 28px 80px rgba(18,39,74,.28);animation:fadeUp .18s ease}
+.confirm-kicker{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1A6B5A}
+.confirm-dialog h2{margin:10px 0 10px;font-size:1.45rem;line-height:1.2;color:var(--navy)}
+.confirm-dialog p{margin:0;color:#607184;line-height:1.75}
+.confirm-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:20px}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeUp{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes toastIn{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -188,4 +195,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-mid
   .import-preview-header,.import-preview-toolbar,.import-preview-body{padding-left:16px;padding-right:16px}
   .import-preview-header,.import-preview-toolbar,.import-preview-row-head{flex-direction:column}
   .import-preview-grid,.import-preview-form{grid-template-columns:1fr}
+  .confirm-modal{padding:12px}
+  .confirm-dialog{width:100%}
 }
