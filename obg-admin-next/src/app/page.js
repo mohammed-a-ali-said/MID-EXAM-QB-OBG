@@ -333,6 +333,44 @@ function AdminView({ user }) {
           </aside>
         </main>
       </div>
+      <div id="import-preview-modal" className="import-preview-modal hidden" aria-hidden="true">
+        <div className="import-preview-backdrop" data-import-dismiss="true"></div>
+        <section className="import-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="import-preview-title">
+          <header className="import-preview-header">
+            <div>
+              <div className="admin-kicker">Import Review</div>
+              <h2 id="import-preview-title">Preview imported CSV before merge</h2>
+              <p>Review the staged rows, fix quick issues, then apply the import when everything looks right.</p>
+            </div>
+            <button className="btn btn-ghost" id="import-preview-close-btn" type="button">Close</button>
+          </header>
+          <div className="import-preview-toolbar">
+            <div className="import-preview-tabs" id="import-preview-tabs">
+              <button className="mini-btn is-active" id="import-preview-summary-tab" data-import-tab="summary" type="button">Summary</button>
+              <button className="mini-btn" id="import-preview-rows-tab" data-import-tab="rows" type="button">Rows</button>
+            </div>
+            <div className="import-preview-actions">
+              <button className="btn btn-ghost" id="import-preview-cancel-btn" type="button">Cancel</button>
+              <button className="btn btn-primary" id="import-preview-apply-btn" type="button">Apply Import</button>
+            </div>
+          </div>
+          <div className="import-preview-body">
+            <section id="import-preview-summary-panel" className="import-preview-panel">
+              <div className="import-preview-grid" id="import-preview-summary-grid"></div>
+              <div className="import-preview-issues">
+                <div className="panel-title">Import Issues</div>
+                <div id="import-preview-issues-list" className="validation-list"></div>
+              </div>
+            </section>
+            <section id="import-preview-rows-panel" className="import-preview-panel hidden">
+              <div className="section-copy" style={{ marginBottom: 12 }}>
+                Quick-edit the most important row fields here before import. If a row still has blocking issues, the import button stays disabled.
+              </div>
+              <div id="import-preview-rows" className="import-preview-rows"></div>
+            </section>
+          </div>
+        </section>
+      </div>
       <div id="toast-viewport" className="toast-viewport" aria-live="polite" aria-atomic="true"></div>
       <div
         id="admin-user-data"

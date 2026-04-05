@@ -26,6 +26,8 @@
     repo: null,
     user: readBootUser(),
     saving: false,
+    importPreview: null,
+    importPreviewTab: "summary",
   };
 
   const els = {};
@@ -185,21 +187,29 @@
   }
 
   function getLectureOptions() {
-    return uniqueStrings(
-      (state.metadata.lectures || []).map((lecture) => lecture.name)
-        .concat(state.working.flatMap((question) => [question.lecture].concat(question.alsoInLectures || [])))
-    ).sort((a, b) => a.localeCompare(b));
+    return getLectureOptionsForMetadata(state.metadata, state.working);
   }
 
   function getExamOptions() {
-    return uniqueStrings(
-      (state.metadata.exams || []).map((exam) => exam.label)
-        .concat(state.working.map((question) => question.exam))
-    ).sort((a, b) => a.localeCompare(b));
+    return getExamOptionsForMetadata(state.metadata, state.working);
   }
 
   function getSelectedQuestion() {
     return state.working.find((question) => question.id === state.selectedId) || null;
+  }
+
+  function getLectureOptionsForMetadata(metadata, questions = []) {
+    return uniqueStrings(
+      (metadata?.lectures || []).map((lecture) => lecture.name)
+        .concat((questions || []).flatMap((question) => [question.lecture].concat(question.alsoInLectures || [])))
+    ).sort((a, b) => a.localeCompare(b));
+  }
+
+  function getExamOptionsForMetadata(metadata, questions = []) {
+    return uniqueStrings(
+      (metadata?.exams || []).map((exam) => exam.label)
+        .concat((questions || []).map((question) => question.exam))
+    ).sort((a, b) => a.localeCompare(b));
   }
 
   function setDirty(nextDirty) {
@@ -723,6 +733,167 @@
     renderEditor();
   }
 
+  function getImportPreviewValidation(preview, rowQuestion) {
+    const lectureOptions = getLectureOptionsForMetadata(preview.metadata, preview.rows.map((row) => row.question).concat(state.working, rowQuestion || []));
+    const examOptions = getExamOptionsForMetadata(preview.metadata, preview.rows.map((row) => row.question).concat(state.working, rowQuestion || []));
+    return validateQuestion(rowQuestion, lectureOptions.concat(rowQuestion?.lecture || []), examOptions.concat(rowQuestion?.exam || []));
+  }
+
+  function summarizeImportPreview(preview) {
+    const existingIds = new Set(state.working.map((question) => question.id));
+    const stagedCounts = new Map();
+    preview.rows.forEach((row) => {
+      const id = String(row.question?.id || "").trim();
+      if (id) stagedCounts.set(id, (stagedCounts.get(id) || 0) + 1);
+    });
+
+    let created = 0;
+    let updated = 0;
+    let errorRows = 0;
+    let warningRows = 0;
+
+    preview.rows.forEach((row) => {
+      const validation = getImportPreviewValidation(preview, row.question);
+      const errors = [...validation.errors];
+      if ((stagedCounts.get(String(row.question?.id || "").trim()) || 0) > 1) {
+        errors.unshift("Duplicate imported ID in preview.");
+      }
+      row.validation = { errors, warnings: [...validation.warnings] };
+      row.mode = existingIds.has(row.question.id) ? "update" : "create";
+      if (row.mode === "update") updated += 1;
+      else created += 1;
+      if (row.validation.errors.length) errorRows += 1;
+      else if (row.validation.warnings.length) warningRows += 1;
+    });
+
+    preview.summary = {
+      fileName: preview.fileName,
+      totalRows: preview.rows.length,
+      created,
+      updated,
+      parseErrors: preview.invalidRows.length,
+      errorRows,
+      warningRows,
+      readyRows: Math.max(0, preview.rows.length - errorRows),
+    };
+    return preview.summary;
+  }
+
+  function importPreviewHasBlockingIssues(preview) {
+    if (!preview) return true;
+    const summary = summarizeImportPreview(preview);
+    return !!summary.parseErrors || !!summary.errorRows || !(summary.created || summary.updated);
+  }
+
+  function renderImportPreview() {
+    const preview = state.importPreview;
+    if (!els.importPreviewModal) return;
+    if (!preview) {
+      els.importPreviewModal.classList.add("hidden");
+      els.importPreviewModal.setAttribute("aria-hidden", "true");
+      return;
+    }
+
+    const summary = summarizeImportPreview(preview);
+    els.importPreviewModal.classList.remove("hidden");
+    els.importPreviewModal.setAttribute("aria-hidden", "false");
+    els.importPreviewSummaryPanel.classList.toggle("hidden", state.importPreviewTab !== "summary");
+    els.importPreviewRowsPanel.classList.toggle("hidden", state.importPreviewTab !== "rows");
+    [els.importPreviewSummaryTab, els.importPreviewRowsTab].forEach((button) => {
+      if (!button) return;
+      button.classList.toggle("is-active", button.dataset.importTab === state.importPreviewTab);
+    });
+    if (els.importPreviewApplyBtn) {
+      const blocked = importPreviewHasBlockingIssues(preview);
+      els.importPreviewApplyBtn.disabled = blocked;
+      els.importPreviewApplyBtn.textContent = blocked ? "Fix Issues Before Import" : "Apply Import";
+    }
+
+    if (els.importPreviewSummaryGrid) {
+      const cards = [
+        ["File", summary.fileName || "Imported CSV", "The staged import file currently under review."],
+        ["Rows", String(summary.totalRows), `${summary.readyRows} ready rows staged for import.`],
+        ["Create", String(summary.created), "Rows that will create brand-new questions."],
+        ["Update", String(summary.updated), "Rows that will replace existing IDs."],
+        ["Needs attention", String(summary.parseErrors + summary.errorRows), "Blocking issues that must be fixed before import."],
+      ];
+      els.importPreviewSummaryGrid.innerHTML = cards.map(([label, value, copy]) => `
+        <div class="import-preview-stat">
+          <div class="import-preview-stat-label">${escapeHtml(label)}</div>
+          <div class="import-preview-stat-value">${escapeHtml(value)}</div>
+          <div class="import-preview-stat-copy">${escapeHtml(copy)}</div>
+        </div>
+      `).join("");
+    }
+
+    if (els.importPreviewIssuesList) {
+      const issues = [];
+      preview.invalidRows.forEach((row) => {
+        issues.push(`<div class="validation-item error"><strong>Row ${escapeHtml(row.rowNumber)}</strong>: ${escapeHtml(row.message)}</div>`);
+      });
+      preview.rows.forEach((row) => {
+        row.validation.errors.forEach((message) => {
+          issues.push(`<div class="validation-item error"><strong>${escapeHtml(row.question.id)}</strong>: ${escapeHtml(message)}</div>`);
+        });
+        row.validation.warnings.forEach((message) => {
+          issues.push(`<div class="validation-item warning"><strong>${escapeHtml(row.question.id)}</strong>: ${escapeHtml(message)}</div>`);
+        });
+      });
+      els.importPreviewIssuesList.innerHTML = issues.length
+        ? issues.join("")
+        : '<div class="validation-item">No import issues found. This file is ready to merge.</div>';
+    }
+
+    if (els.importPreviewRows) {
+      els.importPreviewRows.innerHTML = preview.rows.length
+        ? preview.rows.map((row, index) => {
+          const tone = row.validation.errors.length ? "error" : row.validation.warnings.length ? "warn" : "ok";
+          const issueMarkup = row.validation.errors.concat(row.validation.warnings).map((message) => `
+            <div class="validation-item ${row.validation.errors.includes(message) ? "error" : "warning"}">${escapeHtml(message)}</div>
+          `).join("");
+          return `
+            <article class="import-preview-row">
+              <div class="import-preview-row-head">
+                <div>
+                  <div class="import-preview-row-title">Row ${escapeHtml(row.rowNumber)} · ${escapeHtml(row.question.id)}</div>
+                  <div class="import-preview-row-meta">${escapeHtml(row.question.lecture || "No lecture")} · ${escapeHtml(row.question.cardType || "Question")} · ${escapeHtml(row.mode)}</div>
+                </div>
+                <span class="import-preview-chip ${tone}">${row.validation.errors.length ? "Needs fix" : row.validation.warnings.length ? "Review warnings" : row.mode === "update" ? "Will update" : "Ready to create"}</span>
+              </div>
+              <div class="import-preview-form">
+                <label>ID<input type="text" data-import-row="${index}" data-field="id" value="${escapeHtml(row.question.id || "")}" /></label>
+                <label>Lecture<input type="text" data-import-row="${index}" data-field="lecture" value="${escapeHtml(row.question.lecture || "")}" /></label>
+                <label>Exam<input type="text" data-import-row="${index}" data-field="exam" value="${escapeHtml(row.question.exam || "")}" /></label>
+                <label>Type
+                  <select data-import-row="${index}" data-field="cardType">
+                    ${TYPE_OPTIONS.map((type) => `<option value="${type}" ${row.question.cardType === type ? "selected" : ""}>${type}</option>`).join("")}
+                  </select>
+                </label>
+                <label>Question / stem<textarea rows="3" data-import-row="${index}" data-field="q">${escapeHtml(row.question.q || "")}</textarea></label>
+              </div>
+              <div class="import-preview-row-issues">
+                ${issueMarkup || '<div class="validation-item">No blocking issues on this row.</div>'}
+              </div>
+            </article>
+          `;
+        }).join("")
+        : '<div class="import-preview-empty">No usable rows were found in this CSV yet.</div>';
+    }
+  }
+
+  function openImportPreview(preview) {
+    state.importPreview = preview;
+    state.importPreviewTab = "summary";
+    renderImportPreview();
+  }
+
+  function closeImportPreview() {
+    state.importPreview = null;
+    state.importPreviewTab = "summary";
+    if (els.templateFileInput) els.templateFileInput.value = "";
+    renderImportPreview();
+  }
+
   function updateQuestion(mutator, options = {}) {
     const index = state.working.findIndex((question) => question.id === state.selectedId);
     if (index < 0) return;
@@ -772,30 +943,34 @@
     return `c${(ids.length ? Math.max(...ids) : 0) + 1}`;
   }
 
-  function ensureLecture(name) {
+  function ensureLecture(name, options = {}) {
+    const metadata = options.metadata || state.metadata;
     const trimmed = String(name || "").trim();
     if (!trimmed) return "";
-    const existing = (state.metadata.lectures || []).find((lecture) => lecture.name.toLowerCase() === trimmed.toLowerCase());
+    metadata.lectures = Array.isArray(metadata.lectures) ? metadata.lectures : [];
+    const existing = metadata.lectures.find((lecture) => lecture.name.toLowerCase() === trimmed.toLowerCase());
     if (existing) return existing.name;
-    state.metadata.lectures.push({
-      id: slugify(trimmed) || `lecture-${state.metadata.lectures.length + 1}`,
+    metadata.lectures.push({
+      id: slugify(trimmed) || `lecture-${metadata.lectures.length + 1}`,
       name: trimmed,
       active: true,
-      order: state.metadata.lectures.length + 1,
+      order: metadata.lectures.length + 1,
     });
     return trimmed;
   }
 
-  function ensureExam(label) {
+  function ensureExam(label, options = {}) {
+    const metadata = options.metadata || state.metadata;
     const trimmed = String(label || "").trim();
     if (!trimmed) return "";
-    const existing = (state.metadata.exams || []).find((exam) => exam.label.toLowerCase() === trimmed.toLowerCase());
+    metadata.exams = Array.isArray(metadata.exams) ? metadata.exams : [];
+    const existing = metadata.exams.find((exam) => exam.label.toLowerCase() === trimmed.toLowerCase());
     if (existing) return existing.label;
-    state.metadata.exams.push({
-      id: slugify(trimmed) || `exam-${state.metadata.exams.length + 1}`,
+    metadata.exams.push({
+      id: slugify(trimmed) || `exam-${metadata.exams.length + 1}`,
       label: trimmed,
       active: true,
-      order: state.metadata.exams.length + 1,
+      order: metadata.exams.length + 1,
     });
     return trimmed;
   }
@@ -1137,7 +1312,8 @@
     return values.length ? values : ["", ""];
   }
 
-  function buildTemplateQuestionFromRow(row, rowNumber, usedIds) {
+  function buildTemplateQuestionFromRow(row, rowNumber, usedIds, options = {}) {
+    const metadata = options.metadata || state.metadata;
     const requestedId = String(pickTemplateValue(row, ["id"])).trim();
     const generatedId = requestedId || allocateNextQuestionId(usedIds);
     if (requestedId) usedIds.add(requestedId);
@@ -1164,8 +1340,8 @@
     const question = normalizeQuestion({
       id: generatedId,
       num: String(pickTemplateValue(row, ["num", "number"])).trim(),
-      lecture: ensureLecture(String(pickTemplateValue(row, ["lecture"])).trim()),
-      exam: ensureExam(String(pickTemplateValue(row, ["exam", "examsection"])).trim() || "mid"),
+      lecture: ensureLecture(String(pickTemplateValue(row, ["lecture"])).trim(), { metadata }),
+      exam: ensureExam(String(pickTemplateValue(row, ["exam", "examsection"])).trim() || "mid", { metadata }),
       cardType: inferredType,
       source: String(pickTemplateValue(row, ["source"])).trim(),
       doctor: String(pickTemplateValue(row, ["doctor"])).trim(),
@@ -1258,60 +1434,98 @@
     }
     const headers = parseCsvLine(lines[0]).map((header) => String(header || "").trim());
     const normalizedHeaders = headers.map((header) => normalizeHeaderKey(header));
-    const indexById = new Map(state.working.map((question, index) => [question.id, index]));
     const usedIds = new Set(state.working.map((question) => question.id));
+    const metadataPreview = normalizeMetadata(deepClone(state.metadata));
     const staged = [];
-    const importErrors = [];
-    let created = 0;
-    let updated = 0;
+    const invalidRows = [];
     for (const [index, line] of lines.slice(1).entries()) {
       const cells = parseCsvLine(line);
       const row = Object.fromEntries(normalizedHeaders.map((header, cellIndex) => [header, cells[cellIndex] ?? ""]));
       const isBlankRow = Object.values(row).every((value) => String(value || "").trim() === "");
       if (isBlankRow) continue;
       try {
-        const question = buildTemplateQuestionFromRow(row, index + 2, usedIds);
-        const perQuestionValidation = validateQuestion(question, getLectureOptions().concat(question.lecture || []), getExamOptions().concat(question.exam || []));
-        if (perQuestionValidation.errors.length) {
-          importErrors.push(...perQuestionValidation.errors.map((message) => `Row ${index + 2} (${question.id}): ${message}`));
-          continue;
-        }
-        staged.push(question);
+        const question = buildTemplateQuestionFromRow(row, index + 2, usedIds, { metadata: metadataPreview });
+        staged.push({ rowNumber: index + 2, raw: row, question });
       } catch (error) {
-        importErrors.push(error.message || `Row ${index + 2}: import failed.`);
+        invalidRows.push({
+          rowNumber: index + 2,
+          message: error.message || `Row ${index + 2}: import failed.`,
+          raw,
+        });
       }
     }
-    const stagedIds = new Map();
-    staged.forEach((question) => {
-      stagedIds.set(question.id, (stagedIds.get(question.id) || 0) + 1);
-    });
-    staged.forEach((question) => {
-      if ((stagedIds.get(question.id) || 0) > 1) {
-        importErrors.push(`Duplicate imported ID detected: ${question.id}`);
-      }
-    });
-    if (importErrors.length) {
-      setStatus(`Template import blocked. ${importErrors[0]}${importErrors.length > 1 ? ` (+${importErrors.length - 1} more)` : ""}`, "error");
-      return;
-    }
-    staged.forEach((question) => {
-      if (indexById.has(question.id)) {
-        state.working[indexById.get(question.id)] = question;
-        updated += 1;
-      } else {
-        state.working.push(question);
-        indexById.set(question.id, state.working.length - 1);
-        created += 1;
-      }
-    });
-    if (!created && !updated) {
+    if (!staged.length && !invalidRows.length) {
       setStatus("Template import finished, but no non-empty rows were found.", "warn");
       return;
     }
-    state.selectedId = state.working[0]?.id || null;
+    openImportPreview({
+      fileName: file.name || "import.csv",
+      headers,
+      metadata: metadataPreview,
+      rows: staged,
+      invalidRows,
+    });
+    setStatus(`Import preview ready: ${staged.length} staged row(s), ${invalidRows.length} parse issue(s). Review before merge.`, invalidRows.length ? "warn" : "ok");
+  }
+
+  function applyImportPreview() {
+    const preview = state.importPreview;
+    if (!preview) return;
+    const summary = summarizeImportPreview(preview);
+    if (importPreviewHasBlockingIssues(preview)) {
+      state.importPreviewTab = summary.parseErrors ? "summary" : "rows";
+      renderImportPreview();
+      setStatus(`Import blocked: fix ${summary.parseErrors + summary.errorRows} issue(s) in the preview first.`, "error");
+      return;
+    }
+
+    const indexById = new Map(state.working.map((question, index) => [question.id, index]));
+    let created = 0;
+    let updated = 0;
+    preview.rows.forEach((row) => {
+      if (indexById.has(row.question.id)) {
+        state.working[indexById.get(row.question.id)] = normalizeQuestion(row.question);
+        updated += 1;
+      } else {
+        state.working.push(normalizeQuestion(row.question));
+        indexById.set(row.question.id, state.working.length - 1);
+        created += 1;
+      }
+    });
+    state.metadata = normalizeMetadata(preview.metadata);
+    state.selectedId = preview.rows[0]?.question?.id || state.working[0]?.id || null;
     setDirty(true);
+    closeImportPreview();
     renderAll();
-    setStatus(`Imported completed CSV: ${created} created, ${updated} updated. New lecture and exam values were added automatically where needed.`, "ok");
+    setStatus(`Imported reviewed CSV: ${created} created, ${updated} updated. The staged lectures and exam sections were applied too.`, "ok");
+  }
+
+  function handleImportPreviewTabClick(event) {
+    const trigger = event.target.closest("[data-import-tab]");
+    if (!trigger || !state.importPreview) return;
+    state.importPreviewTab = trigger.dataset.importTab || "summary";
+    renderImportPreview();
+  }
+
+  function handleImportPreviewFieldChange(event) {
+    const target = event.target;
+    if (!target || target.dataset.importRow == null || !state.importPreview) return;
+    const row = state.importPreview.rows[Number(target.dataset.importRow)];
+    if (!row) return;
+    const field = target.dataset.field;
+    if (field === "cardType") {
+      row.question = convertQuestionType(row.question, target.value);
+    } else if (field === "lecture") {
+      row.question.lecture = ensureLecture(target.value, { metadata: state.importPreview.metadata });
+    } else if (field === "exam") {
+      row.question.exam = ensureExam(target.value, { metadata: state.importPreview.metadata });
+    } else if (field === "id") {
+      row.question.id = String(target.value || "").trim();
+    } else if (field === "q") {
+      row.question.q = target.value;
+    }
+    row.question = normalizeQuestion(row.question);
+    renderImportPreview();
   }
 
   function bindEvents() {
@@ -1370,6 +1584,20 @@
     if (els.generateTemplateBtn) els.generateTemplateBtn.addEventListener("click", exportTemplateCsv);
     if (els.importTemplateBtn) els.importTemplateBtn.addEventListener("click", () => els.templateFileInput?.click());
     if (els.templateFileInput) els.templateFileInput.addEventListener("change", (event) => importTemplateCsv(event.target.files?.[0]));
+    if (els.importPreviewTabs) els.importPreviewTabs.addEventListener("click", handleImportPreviewTabClick);
+    if (els.importPreviewRows) {
+      els.importPreviewRows.addEventListener("input", handleImportPreviewFieldChange);
+      els.importPreviewRows.addEventListener("change", handleImportPreviewFieldChange);
+    }
+    [els.importPreviewCloseBtn, els.importPreviewCancelBtn].forEach((button) => {
+      if (button) button.addEventListener("click", closeImportPreview);
+    });
+    if (els.importPreviewApplyBtn) els.importPreviewApplyBtn.addEventListener("click", applyImportPreview);
+    if (els.importPreviewModal) {
+      els.importPreviewModal.addEventListener("click", (event) => {
+        if (event.target?.dataset?.importDismiss === "true") closeImportPreview();
+      });
+    }
     if (els.lectureBuckets) els.lectureBuckets.addEventListener("click", (event) => {
       const trigger = event.target.closest("[data-bucket-action]");
       if (!trigger) return;
@@ -1502,6 +1730,18 @@
     els.generateTemplateBtn = byId("generate-template-btn");
     els.importTemplateBtn = byId("import-template-btn");
     els.templateFileInput = byId("template-file-input");
+    els.importPreviewModal = byId("import-preview-modal");
+    els.importPreviewCloseBtn = byId("import-preview-close-btn");
+    els.importPreviewCancelBtn = byId("import-preview-cancel-btn");
+    els.importPreviewApplyBtn = byId("import-preview-apply-btn");
+    els.importPreviewTabs = byId("import-preview-tabs");
+    els.importPreviewSummaryTab = byId("import-preview-summary-tab");
+    els.importPreviewRowsTab = byId("import-preview-rows-tab");
+    els.importPreviewSummaryPanel = byId("import-preview-summary-panel");
+    els.importPreviewRowsPanel = byId("import-preview-rows-panel");
+    els.importPreviewSummaryGrid = byId("import-preview-summary-grid");
+    els.importPreviewIssuesList = byId("import-preview-issues-list");
+    els.importPreviewRows = byId("import-preview-rows");
     els.toastViewport = byId("toast-viewport");
   }
 
