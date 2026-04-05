@@ -224,6 +224,14 @@ function setFilter(btn, f){
   document.querySelectorAll('[data-f]').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   activeFilter = f; activeLecType='all';
+  if(f==='all'){
+    activeSrc='';
+    activeSrcExact='';
+    activeType='';
+    activeLec=null;
+    document.querySelectorAll('[data-src]').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('[data-type]').forEach(b=>b.classList.remove('active'));
+  }
   syncSidebarSelection();
   syncPracticeControls();
   applyFilter();
