@@ -989,6 +989,45 @@
     return !!summary.parseErrors || !!summary.errorRows || !(summary.created || summary.updated);
   }
 
+  function maybeApplyImportPreviewChange(field, previousValue, nextValue, rowIndex) {
+    if (!state.importPreview || !previousValue || !nextValue || previousValue === nextValue) return;
+
+    if (field === "lecture" || field === "exam") {
+      const matches = state.importPreview.rows.filter((row, index) => (
+        index !== rowIndex && String(row.question?.[field] || "").trim() === String(previousValue).trim()
+      ));
+      if (!matches.length) return;
+      const bucketLabel = field === "lecture" ? "lecture" : "exam section";
+      const shouldApply = window.confirm(
+        `You changed ${bucketLabel} "${previousValue}" to "${nextValue}".\n\nApply this to ${matches.length} other imported row(s) too?`
+      );
+      if (!shouldApply) return;
+      matches.forEach((row) => {
+        if (field === "lecture") row.question.lecture = ensureLecture(nextValue, { metadata: state.importPreview.metadata });
+        else row.question.exam = ensureExam(nextValue, { metadata: state.importPreview.metadata });
+        row.question = normalizeQuestion(row.question);
+      });
+      return;
+    }
+
+    if (field === "q") {
+      const replacement = buildReplacementSuggestion(previousValue, nextValue);
+      if (!replacement) return;
+      const matches = state.importPreview.rows.filter((row, index) => (
+        index !== rowIndex && String(row.question?.q || "").includes(replacement.oldText)
+      ));
+      if (!matches.length) return;
+      const shouldApply = window.confirm(
+        `You changed "${replacement.oldText}" to "${replacement.newText}" in this imported question.\n\nApply this to ${matches.length} other imported row(s) too?`
+      );
+      if (!shouldApply) return;
+      matches.forEach((row) => {
+        row.question.q = replaceLiteralText(row.question.q, replacement.oldText, replacement.newText);
+        row.question = normalizeQuestion(row.question);
+      });
+    }
+  }
+
   function renderImportPreview() {
     const preview = state.importPreview;
     if (!els.importPreviewModal) return;
@@ -1771,6 +1810,9 @@
     const row = state.importPreview.rows[Number(target.dataset.importRow)];
     if (!row) return;
     const field = target.dataset.field;
+    const previousValue = field === "lecture" || field === "exam" || field === "q"
+      ? String(row.question?.[field] || "")
+      : "";
     if (field === "cardType") {
       row.question = convertQuestionType(row.question, target.value);
     } else if (field === "lecture") {
@@ -1783,6 +1825,12 @@
       row.question.q = target.value;
     }
     row.question = normalizeQuestion(row.question);
+    if (event.type === "change") {
+      maybeApplyImportPreviewChange(field, previousValue, String(row.question?.[field] || ""), Number(target.dataset.importRow));
+      renderImportPreview();
+      return;
+    }
+    if (field === "q") return;
     renderImportPreview();
   }
 
