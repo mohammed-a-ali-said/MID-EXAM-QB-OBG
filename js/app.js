@@ -346,6 +346,30 @@ function setTypeFilter(btn){
   applyFilter();
 }
 function setExactSourceFilter(){ return; }
+function runLectureSwitch(callback, activeItem){
+  const container = document.querySelector('.main') || document.getElementById('stage-wrap');
+  const finish = () => {
+    if(activeItem){
+      activeItem.classList.remove('lec-highlight');
+      void activeItem.offsetWidth;
+      activeItem.classList.add('lec-highlight');
+      setTimeout(() => activeItem.classList.remove('lec-highlight'), 400);
+    }
+  };
+  if(!container){
+    callback();
+    finish();
+    return;
+  }
+  container.classList.add('lec-switching');
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      callback();
+      container.classList.remove('lec-switching');
+      finish();
+    }, 160);
+  });
+}
 function setSL(k){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>el.classList.remove('active'));
   const el=document.querySelector('.sb-item[data-k="'+k+'"]'); if(el)el.classList.add('active');
@@ -355,7 +379,7 @@ function setSL(k){
   if(sub)sub.querySelectorAll('.s-stab').forEach((b,i)=>b.classList.toggle('on',i===0));
   persistPracticePreferences();
   syncPracticeControls();
-  applyFilter();
+  runLectureSwitch(()=>applyFilter(), el);
 }
 function setST(e,k,t){
   e.stopPropagation();
@@ -365,7 +389,8 @@ function setST(e,k,t){
   activeLec=k; activeLecType=t;
   persistPracticePreferences();
   syncPracticeControls();
-  applyFilter();
+  const activeItem=document.querySelector('.sb-item[data-k="'+k+'"]');
+  runLectureSwitch(()=>applyFilter(), activeItem);
 }
 function applyFilter(){
   pendingCardDirection = 'next';

@@ -604,3 +604,12 @@
   -webkit-backface-visibility: hidden;
 }
 .flip-back { transform: rotateY(180deg); }
+
+
+.main { opacity: 1; transform: translateY(0); transition: all 200ms ease; }
+.lec-switching { opacity: 0; transform: translateY(6px); transition: all 160ms ease; }
+@keyframes lecPulse {
+  0%,100% { background: transparent; }
+  40% { background: var(--blue-lt); }
+}
+.lec-highlight { animation: lecPulse 0.4s ease; }
