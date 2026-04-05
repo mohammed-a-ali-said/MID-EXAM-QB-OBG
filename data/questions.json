@@ -11334,5 +11334,555 @@
     "source": "Source: MU-MED 36 — Additional Recall (Student Notes) — Q61",
     "q": "Drug not used in third stage of labor in cardiac patient",
     "a": "Answer not included"
+  },
+  {
+    "id": "c735",
+    "num": "Q1",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Hyperextension of the fetal head is found in:",
+    "choices": [
+      "Vertex presentation",
+      "Face presentation",
+      "Shoulder presentation",
+      "Breech presentation",
+      "Hydrocephalic baby"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c736",
+    "num": "Q2",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "All the following characteristics are applied to a pelvis favorable to vaginal delivery EXCEPT:",
+    "choices": [
+      "Sacral promontory can not be felt",
+      "Obstetric conjugate is less than 10 cm",
+      "Ischial spines are not prominent",
+      "Subpubic arch accepts 2 fingers",
+      "Intertuberous diameter accepts 4 knuckles on pelvic exam"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c737",
+    "num": "Q5",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Signs of placental separation after delivery include:",
+    "choices": [
+      "Bleeding",
+      "Changes of uterine shape from discoid to globular",
+      "Lengthening of the umbilical cord",
+      "Presentation of the placenta at the cervical os",
+      "All of the above"
+    ],
+    "ans": "E"
+  },
+  {
+    "id": "c738",
+    "num": "Q8",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Methods of determining fetal presentation & position include:",
+    "choices": [
+      "Cullen's sign",
+      "Leopold's maneuver",
+      "Mauriceau-Smelli-Veit maneuver",
+      "Careful history taking"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c739",
+    "num": "Q12",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The heart rate of a normal fetus at term is:",
+    "choices": [
+      "80–100 bpm",
+      "100–120 bpm",
+      "120–160 bpm",
+      "160–180 bpm",
+      "There is no baseline heart rate"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c740",
+    "num": "Q13",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is NOT a characteristic of normal labor?",
+    "choices": [
+      "Progressive cervical dilation",
+      "Increasing intensity of contractions",
+      "Uterine relaxation between contractions",
+      "Moderate bleeding"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c741",
+    "num": "Q15",
+    "cardType": "MCQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The most common pelvis is the:",
+    "choices": [
+      "Android pelvis",
+      "Gynecoid pelvis",
+      "Anthropoid pelvis",
+      "Platyploid pelvis"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c742",
+    "num": "W1",
+    "cardType": "SAQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Definition of normal labor?",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c743",
+    "num": "W2",
+    "cardType": "SAQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Signs of placental separation?",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c744",
+    "num": "W3",
+    "cardType": "SAQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Diagnosis of labor?",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c745",
+    "num": "W4",
+    "cardType": "SAQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Compare between true and false labor pain?",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c746",
+    "num": "W5",
+    "cardType": "SAQ",
+    "lecture": "Normal Labour",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Stages of labor?",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c747",
+    "num": "Q1",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is a part of definition of hyperemesis gravidarum (HG):",
+    "choices": [
+      "Repeated vomiting in early pregnancy affecting the general condition of the mother.",
+      "Vomiting that appears after the 20th week of pregnancy.",
+      "Repeated vomiting in late pregnancy.",
+      "Vomiting that persists for the entire pregnancy."
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c748",
+    "num": "Q2",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following gestational hormones is hypothesized to be correlated with hyperemesis gravidarum (HG):",
+    "choices": [
+      "Estrogen",
+      "Testosterone",
+      "Progesterone",
+      "Human chorionic gonadotrophin"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c749",
+    "num": "Q3",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The following are proofs that increased (HCG) is an aetiology of hyperemesis gravidarum (HG) except:",
+    "choices": [
+      "Hyperemesis gravidarum increases in multiple pregnancy.",
+      "Hyperemesis gravidarum increases in cases of vesicular mole.",
+      "The course of hyperemesis gravidarum correlates with the course of (HCG).",
+      "Hyperemesis gravidarum increases in placenta praevia."
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c750",
+    "num": "Q4",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Recommendations regarding eating in mild cases of hyperemesis gravidarum include the following except:",
+    "choices": [
+      "Cut short fat.",
+      "Diet rich in carbohydrates.",
+      "Eating in the early morning.",
+      "Small frequent meals."
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c751",
+    "num": "Q5",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Ketone bodies include the following except:",
+    "choices": [
+      "Acetoacetic acid",
+      "Acetyl choline",
+      "B-hydroxyl buteric acid",
+      "Acetone"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c752",
+    "num": "Q6",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Aetiology of hyperemesis gravidarum (HG), may include the following except:",
+    "choices": [
+      "Hypersensitivity to (BHCG)",
+      "Psychic factor",
+      "Cholycystitis",
+      "Vit. B₁ & B₆ deficiency"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c753",
+    "num": "Q7",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Regarding I.V. fluids in cases of severe hyperemesis gravidarum (HG), it should include the following except:",
+    "choices": [
+      "Glucose 5%",
+      "Lipid emulsion",
+      "Lactated ringer",
+      "Normal saline"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c754",
+    "num": "Q8",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "In cases of hyperemesis gravidarum (HG), we test urine for which of the following:",
+    "choices": [
+      "Ketonuria",
+      "Glucosuria",
+      "Proteinuria",
+      "Albuminuria"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c755",
+    "num": "Q9",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Treatment of mild cases of hyperemesis gravidarum (HG), includes the following except:",
+    "choices": [
+      "Psychic support",
+      "Small frequent meals rich in carbohydrates",
+      "Sodium bicarbonates injection",
+      "Safe oral antiemetics and antihistaminics"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c756",
+    "num": "Q10",
+    "cardType": "MCQ",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Treatment of severe cases of hyperemesis gravidarum (HG), includes the following except:",
+    "choices": [
+      "NPO (Nil per oral)",
+      "IV fluids",
+      "Oral fatty meals",
+      "Safe parenteral tranquilizers, antiemetics"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c757",
+    "num": "Q1",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which fetal hemoglobin type predominates at term?",
+    "choices": [
+      "Hb A",
+      "Hb S",
+      "Hb F",
+      "Hb A2"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c758",
+    "num": "Q2",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Hb F has:",
+    "choices": [
+      "Low oxygen affinity",
+      "High oxygen affinity",
+      "Same affinity as Hb A",
+      "No effect on oxygen delivery"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c759",
+    "num": "Q3",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Fetal breathing movements typically begin at:",
+    "choices": [
+      "10–12 weeks",
+      "20–22 weeks",
+      "28–30 weeks",
+      "32–34 weeks"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c760",
+    "num": "Q4",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Fetal heart rate reactivity begins at:",
+    "choices": [
+      "10 weeks",
+      "18 weeks",
+      "28–30 weeks",
+      "36 weeks"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c761",
+    "num": "Q5",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The Cardiff \"Rule of 10\" refers to:",
+    "choices": [
+      "10 movements per 1 hour",
+      "10 movements per 10 minutes",
+      "10 movements per 10 hours",
+      "10 movements per 24 hours"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c762",
+    "num": "Q7",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Fetal tachycardia is defined as FHR above:",
+    "choices": [
+      "120 bpm",
+      "140 bpm",
+      "150 bpm",
+      "160 bpm"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c763",
+    "num": "Q8",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Absent variability is defined as:",
+    "choices": [
+      "< 5 bpm",
+      "5–25 bpm",
+      "> 25 bpm",
+      "Undetectable amplitude"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c764",
+    "num": "Q9",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Moderate variability is:",
+    "choices": [
+      "0–2 bpm",
+      "3–5 bpm",
+      "6–25 bpm",
+      "> 25 bpm"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c765",
+    "num": "Q15",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which FHR category requires immediate evaluation for possible delivery?",
+    "choices": [
+      "Category I",
+      "Category II",
+      "Category III",
+      "Modified Category II"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c766",
+    "num": "Q16",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A sinusoidal fetal heart rate pattern is:",
+    "choices": [
+      "Normal",
+      "Category I",
+      "Category II",
+      "Category III"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c767",
+    "num": "Q17",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A Biophysical Profile score of 8–10 indicates:",
+    "choices": [
+      "Severe hypoxia",
+      "Chronic distress",
+      "Normal fetal status",
+      "Immediate delivery"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c768",
+    "num": "Q18",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Delivery is indicated for a BPP score of:",
+    "choices": [
+      "10",
+      "8",
+      "6 (normal fluid)",
+      "0–2"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c769",
+    "num": "Q19",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Umbilical artery Doppler is mostly useful in:",
+    "choices": [
+      "Normal fetus",
+      "Post-term fetus",
+      "IUGR fetus",
+      "Macrosomic fetus"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c770",
+    "num": "Q20",
+    "cardType": "MCQ",
+    "lecture": "Antenatal Care (ANC)",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Reversed diastolic flow in umbilical artery Doppler indicates:",
+    "choices": [
+      "Normal blood flow",
+      "Mild compromise",
+      "Severe compromise requiring delivery",
+      "Not clinically relevant"
+    ],
+    "ans": "C"
   }
 ]
