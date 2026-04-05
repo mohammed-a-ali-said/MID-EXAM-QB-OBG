@@ -26,6 +26,7 @@ let flashRatings = {};  // cardId -> 'again'|'good'|'easy'
 const PRACTICE_LECTURE_KEY = 'obg_selected_lecture';
 const RANDOM_MODE_KEY = 'obg_random_mode';
 let randomMode = true;
+let pendingCardDirection = 'next';
 
 function animateCount(el, targetValue, duration = 350) {
   const start = parseInt(el.textContent) || 0;
@@ -57,6 +58,34 @@ function animateSidebarCounts(){
     animateCount(el, el.dataset.targetCount);
   });
 }
+function transitionCard(newHTML, direction = 'next'){
+  const stage = document.getElementById('card-stage');
+  if(!stage) return;
+  const exitClass = direction === 'prev' ? 'card-exit-right' : 'card-exit-left';
+  const enterClass = direction === 'prev' ? 'card-enter-left' : 'card-enter-right';
+  const clearClasses = () => stage.classList.remove('card-exit-left','card-exit-right','card-enter-left','card-enter-right');
+  const mount = () => {
+    stage.innerHTML = newHTML;
+    clearClasses();
+    stage.classList.add(enterClass);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        stage.classList.remove(enterClass);
+      });
+    });
+  };
+  const hasContent = stage.childElementCount > 0 || String(stage.textContent || '').trim().length > 0;
+  if(!hasContent){
+    mount();
+    return;
+  }
+  clearClasses();
+  requestAnimationFrame(() => {
+    stage.classList.add(exitClass);
+    setTimeout(mount, 180);
+  });
+}
+
 function renderDeckMeta(total, mcq, osce, flash, saq, suffix){
   const el = document.getElementById('deck-meta');
   if(!el) return;
@@ -339,6 +368,7 @@ function setST(e,k,t){
   applyFilter();
 }
 function applyFilter(){
+  pendingCardDirection = 'next';
   let d=getVisibleCards({ dedupe:false });
   if(activeFilter!=='all') d=d.filter(c=>String(c.exam||'')===activeFilter);
   if(activeSrc) d=d.filter(c=>cardMatchesSourceGroup(c, activeSrc));
@@ -385,14 +415,18 @@ function resetDeck(){ applyFilter(); }
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 function renderCard(){
   const stage=document.getElementById('card-stage');
+  if(!stage) return;
+  let newHTML='';
   if(!deck.length){
-    stage.innerHTML='<div class="empty"><h3>No cards match</h3><p>Try a different filter.</p></div>';
+    newHTML='<div class="empty"><h3>No cards match</h3><p>Try a different filter.</p></div>';
+    transitionCard(newHTML, pendingCardDirection);
     document.getElementById('btn-flip').style.display='none'; return;
   }
   document.getElementById('btn-flip').style.display='';
   const c=deck[idx]; flipped=false;
   if(c.unresolvedStub){
-    stage.innerHTML=renderUnresolvedStub(c);
+    newHTML=renderUnresolvedStub(c);
+    transitionCard(newHTML, pendingCardDirection);
     const fb=document.getElementById('btn-flip');
     fb.textContent='Unavailable';
     fb.disabled=true;
@@ -401,10 +435,11 @@ function renderCard(){
   }
   document.getElementById('nav-ctr').textContent=(idx+1)+' / '+deck.length;
   
-  if(c.cardType==='MCQ') stage.innerHTML=renderMCQ(c);
-  else if(c.cardType==='OSCE') stage.innerHTML=renderOSCE(c);
-  else if(c.cardType==='FLASHCARD') stage.innerHTML=renderFlipCard(c,'FLASHCARD');
-  else if(c.cardType==='SAQ') stage.innerHTML=renderFlipCard(c,'SAQ');
+  if(c.cardType==='MCQ') newHTML=renderMCQ(c);
+  else if(c.cardType==='OSCE') newHTML=renderOSCE(c);
+  else if(c.cardType==='FLASHCARD') newHTML=renderFlipCard(c,'FLASHCARD');
+  else if(c.cardType==='SAQ') newHTML=renderFlipCard(c,'SAQ');
+  transitionCard(newHTML, pendingCardDirection);
   
   const fb=document.getElementById('btn-flip');
   if(c.cardType==='MCQ'){
@@ -715,8 +750,8 @@ function rate(r){
   if(deck[idx]) flashRatings[deck[idx].id]=r; saveProgress();
   nextCard();
 }
-function nextCard(){ if(idx<deck.length-1){idx++;flipped=false;renderCard();updateNav();saveProgress();}else{showScore();} }
-function prevCard(){ if(idx>0){idx--;flipped=false;renderCard();updateNav();saveProgress();} }
+function nextCard(){ if(idx<deck.length-1){idx++;flipped=false;pendingCardDirection='next';renderCard();updateNav();saveProgress();}else{showScore();} }
+function prevCard(){ if(idx>0){idx--;flipped=false;pendingCardDirection='prev';renderCard();updateNav();saveProgress();} }
 function updateNav(){
   document.getElementById('btn-prev').disabled=idx<=0;
   document.getElementById('btn-next').disabled=idx>=deck.length-1;

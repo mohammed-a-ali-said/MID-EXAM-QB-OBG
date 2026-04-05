@@ -560,3 +560,32 @@
 .q-text[dir="auto"] {
   font-family: 'Noto Naskh Arabic', 'Playfair Display', serif;
 }
+
+
+#card-stage {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 200ms ease;
+}
+
+#card-stage.card-exit-left {
+  transform: translateX(-28px);
+  opacity: 0;
+  transition: all 180ms ease;
+}
+
+#card-stage.card-exit-right {
+  transform: translateX(28px);
+  opacity: 0;
+  transition: all 180ms ease;
+}
+
+#card-stage.card-enter-right {
+  transform: translateX(28px);
+  opacity: 0;
+}
+
+#card-stage.card-enter-left {
+  transform: translateX(-28px);
+  opacity: 0;
+}
