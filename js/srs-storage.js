@@ -331,7 +331,7 @@
       };
       Object.entries(parsed.meta.activity).forEach(([key, count]) => {
         const current = Number(state.meta.activity[key] || 0);
-        state.meta.activity[key] = current + Number(count || 0);
+        state.meta.activity[key] = Math.max(current, Number(count || 0));
       });
       writeStorage();
       return this.getAllCards();

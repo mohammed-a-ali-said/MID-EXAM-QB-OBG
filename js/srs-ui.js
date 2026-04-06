@@ -205,7 +205,7 @@
     clearInjectedRatings();
 
     const intervalText = window.SRS_Algorithm.getIntervalDisplay(updated.interval);
-    toast(updated.interval === 0 ? "Card reset â€” you'll see it again soon." : `Next review in ${intervalText}.`);
+    toast(updated.interval === 0 ? "Card reset - you'll see it again soon." : `Next review in ${intervalText}.`);
 
     if (window.SRS_Review && window.SRS_Review.isActive()) {
       window.SRS_Review.recordRating(question, rating, updated);
@@ -280,8 +280,8 @@
     const group = document.createElement("div");
     group.className = "srs-toolbar";
     group.innerHTML = `
-      <button class="btn srs-btn-nav" type="button">ًں”„ Start Review</button>
-      <button class="btn srs-btn-dash" type="button">ًں“ٹ SRS Dashboard</button>
+      <button class="btn srs-btn-nav" type="button">Start Review</button>
+      <button class="btn srs-btn-dash" type="button">SRS Dashboard</button>
     `;
     actions.appendChild(group);
     group.querySelector(".srs-btn-nav").addEventListener("click", () => window.SRS_Review.openLauncher());

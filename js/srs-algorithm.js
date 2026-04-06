@@ -108,7 +108,7 @@
         next.interval = GRADUATING_STEPS[stepIndex];
         next.status = "learning";
       } else {
-        next.interval = Math.max(next.interval, 1);
+        next.interval = Math.max(1, Math.round(next.interval * 1.2));
         next.status = next.interval >= MASTERED_THRESHOLD ? "mastered" : "review";
       }
       next.nextReviewDate = addDays(now, next.interval).toISOString();

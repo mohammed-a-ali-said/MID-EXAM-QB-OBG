@@ -152,7 +152,8 @@
     try {
       const d = JSON.parse(raw);
       if (!d.idx || d.idx < 1) return "";
-      const lec = d.activeLec ? `in ${d.activeLec}` : "across all lectures";
+      const lecture = d.filterState && typeof d.filterState === "object" ? d.filterState.lecture : d.activeLec;
+      const lec = lecture ? `in ${lecture}` : "across all lectures";
       return `
         <div class="srs-resume-banner">
           <span>You were at card ${d.idx + 1} ${lec}</span>
