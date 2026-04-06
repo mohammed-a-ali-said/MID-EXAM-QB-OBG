@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { fetchRepoContent, saveRepoContent } from "@/lib/github";
-import { normalizeMetadata, validateMetadataPayload, validateQuestionsPayload } from "@/lib/questions";
+import { computePublicStudyStats, normalizeMetadata, validateMetadataPayload, validateQuestionsPayload } from "@/lib/questions";
 import { getSession } from "@/lib/session";
 
 function unauthorized() {
@@ -12,9 +12,11 @@ export async function GET() {
   if (!session?.accessToken) return unauthorized();
   try {
     const payload = await fetchRepoContent(session.accessToken);
+    const metadata = normalizeMetadata(payload.metadata, payload.questions);
     return NextResponse.json({
       ...payload,
-      metadata: normalizeMetadata(payload.metadata, payload.questions),
+      metadata,
+      publicStats: computePublicStudyStats(payload.questions, metadata),
     });
   } catch (error) {
     console.error("[api/questions][GET]", error);
@@ -51,7 +53,12 @@ export async function PUT(request) {
       metadataContent,
       metadataSha,
     });
-    return NextResponse.json({ ok: true, metadata, ...saved });
+    return NextResponse.json({
+      ok: true,
+      metadata,
+      publicStats: computePublicStudyStats(questions, metadata),
+      ...saved,
+    });
   } catch (error) {
     console.error("[api/questions][PUT]", error);
     return NextResponse.json({ error: error.message || "Failed to save questions." }, { status: 500 });

@@ -51,6 +51,7 @@
     original: [],
     working: [],
     metadata: { lectures: [], exams: [] },
+    publicStats: null,
     selectedId: null,
     dirty: false,
     fileSha: "",
@@ -607,36 +608,7 @@
   }
 
   async function suggestRelatedReplacements(question) {
-    const baseline = getSavedSnapshot(question?.id);
-    if (!question || !baseline) return 0;
-    const suggestions = [];
-    const seen = new Set();
-    const baselineEntries = new Map(collectQuestionTextEntries(baseline).map((entry) => [entry.path, entry.value]));
-    collectQuestionTextEntries(question).forEach((entry) => {
-      const previous = baselineEntries.get(entry.path);
-      const replacement = buildReplacementSuggestion(previous, entry.value);
-      if (!replacement) return;
-      const key = `${replacement.oldText}=>${replacement.newText}`;
-      if (seen.has(key)) return;
-      const hits = findReplacementTargets(replacement.oldText, question.id);
-      if (!hits.length) return;
-      seen.add(key);
-      suggestions.push({ ...replacement, hits });
-    });
-
-    let applied = 0;
-    for (const suggestion of suggestions.slice(0, 3)) {
-      const shouldApply = await openConfirmDialog({
-        kicker: "Smart Replace",
-        title: "Apply this change to the rest of the bank?",
-        message: `You changed "${suggestion.oldText}" to "${suggestion.newText}". Apply this to ${suggestion.hits.length} other place(s) too?`,
-        confirmLabel: "Apply change",
-        cancelLabel: "Keep only this one",
-      });
-      if (!shouldApply) continue;
-      applied += applyTextReplacementAcrossBank(suggestion.oldText, suggestion.newText, question.id);
-    }
-    return applied;
+    return 0;
   }
 
   function setDirty(nextDirty) {
@@ -857,6 +829,7 @@
     state.fileSha = String(payload.sha || "");
     state.metadataSha = String(payload.metadataSha || "");
     state.repo = payload.repo || null;
+    state.publicStats = payload.publicStats || null;
     state.original = payload.questions.map((question) => normalizeQuestion(question));
     state.working = deepClone(state.original);
     state.metadata = normalizeMetadata(payload.metadata);
@@ -938,11 +911,17 @@
     const total = state.working.length;
     const active = state.working.filter((question) => question.active !== false).length;
     const inactive = total - active;
+    const playableCount = Number.isFinite(Number(state.publicStats?.playableCount))
+      ? Number(state.publicStats.playableCount)
+      : active;
+    const collapsedCount = Number.isFinite(Number(state.publicStats?.collapsedCount))
+      ? Number(state.publicStats.collapsedCount)
+      : Math.max(0, active - playableCount);
     const repeated = state.working.filter((question) => Array.isArray(question.alsoInLectures) && question.alsoInLectures.length > 0).length;
     const hiddenLectures = (state.metadata.lectures || []).filter((lecture) => lecture.active === false).length;
     const validation = validateAll();
     els.summaryGrid.innerHTML = [
-      summaryCard("Questions", total, `${active} active, ${inactive} inactive`),
+      summaryCard("Questions", playableCount, collapsedCount ? `${active} active rows, ${inactive} inactive, ${collapsedCount} merged in website study view` : `${active} active rows, ${inactive} inactive`),
       summaryCard("Repeated", repeated, "Cross-lecture links"),
       summaryCard("Lectures", getLectureOptions().length, `${hiddenLectures} hidden`),
       summaryCard("Validation", `${validation.errorCount} errors`, `${validation.warningCount} warnings`),
@@ -1949,6 +1928,7 @@
       state.fileSha = String(payload.sha || state.fileSha || "");
       state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
       if (payload.metadata) state.metadata = normalizeMetadata(payload.metadata);
+      state.publicStats = payload.publicStats || state.publicStats;
       state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
       state.lastPublishedUndo = publishUndoSnapshot;
       persistLastPublishedUndo();
@@ -2447,7 +2427,7 @@
     );
   }
 
-  function applyImportPreview() {
+  async function applyImportPreview() {
     const preview = state.importPreview;
     if (!preview) return;
     const summary = summarizeImportPreview(preview);
@@ -2456,6 +2436,44 @@
       renderImportPreview();
       setStatus(`Import blocked: fix ${summary.parseErrors + summary.errorRows} issue(s) in the preview first.`, "error");
       return;
+    }
+
+    if (summary.updated) {
+      const shouldUpdate = await openConfirmDialog({
+        kicker: "Import IDs already exist",
+        title: "Update the existing questions with these imported rows?",
+        message: `${summary.updated} imported row(s) use ID(s) that already exist in the bank. Choose Update if you want those rows to replace the existing questions. Choose Keep separate if you want new IDs instead.`,
+        confirmLabel: "Update existing",
+        cancelLabel: "Keep separate",
+      });
+      if (!shouldUpdate) {
+        const shouldAutoRename = await openConfirmDialog({
+          kicker: "Keep imported rows separate",
+          title: "Change those duplicate IDs automatically?",
+          message: "Continue to auto-generate fresh IDs for the conflicting import rows, or cancel and edit those IDs manually in the preview first.",
+          confirmLabel: "Auto change IDs",
+          cancelLabel: "I'll edit manually",
+        });
+        if (!shouldAutoRename) {
+          state.importPreviewTab = "rows";
+          renderImportPreview();
+          setStatus("Import paused. Edit the duplicate IDs in the preview rows, or apply again and choose automatic ID changes.", "warn");
+          return;
+        }
+        const usedIds = new Set(state.working.map((question) => question.id));
+        let renamed = 0;
+        preview.rows.forEach((row) => {
+          const existingId = String(row.question?.id || "").trim();
+          if (!existingId || !usedIds.has(existingId)) return;
+          row.question.id = allocateNextQuestionId(usedIds);
+          row.question = normalizeQuestion(row.question);
+          renamed += 1;
+        });
+        state.importPreviewTab = "rows";
+        renderImportPreview();
+        setStatus(`Generated new IDs for ${renamed} imported row(s). Review the preview, then click Apply Import again.`, "ok");
+        return;
+      }
     }
 
     captureHistoryBeforeMutation(`Apply import (${preview.fileName || "CSV"})`, { mergeWindowMs: 0 });

@@ -1,3 +1,7 @@
+import fs from "node:fs";
+import path from "node:path";
+import vm from "node:vm";
+
 const TYPE_OPTIONS = new Set(["MCQ", "FLASHCARD", "SAQ", "OSCE"]);
 
 function slugify(value) {
@@ -166,4 +170,52 @@ export function validateMetadataPayload(metadata) {
   });
 
   return { normalized, errors };
+}
+
+export function computePublicStudyStats(questions = [], metadata = {}) {
+  const safeQuestions = Array.isArray(questions) ? JSON.parse(JSON.stringify(questions)) : [];
+  const safeMetadata = normalizeMetadata(metadata, safeQuestions);
+  const fallbackActive = safeQuestions.filter((question) => question && question.active !== false).length;
+  const fallback = {
+    playableCount: fallbackActive,
+    activeRows: fallbackActive,
+    inactiveRows: Math.max(0, safeQuestions.length - fallbackActive),
+    rawTotal: safeQuestions.length,
+    collapsedCount: 0,
+  };
+
+  try {
+    const resolverPath = path.resolve(process.cwd(), "..", "js", "question-resolution.js");
+    const source = fs.readFileSync(resolverPath, "utf8");
+    const context = {
+      window: {},
+      console: {
+        info() {},
+        warn() {},
+        error() {},
+        log() {},
+      },
+    };
+    vm.createContext(context);
+    vm.runInContext(source, context);
+    const initialize = context.window?.initializeQuestionResolution;
+    if (typeof initialize !== "function") return fallback;
+    const helpers = initialize(safeQuestions, safeMetadata);
+    const activeRows = safeQuestions.filter((question) => helpers.questionIsActive(question)).length;
+    const playableCount = helpers.getStudyEligibleCards({
+      cards: safeQuestions,
+      lecture: "all",
+      dedupe: true,
+    }).length;
+    return {
+      playableCount,
+      activeRows,
+      inactiveRows: Math.max(0, safeQuestions.length - activeRows),
+      rawTotal: safeQuestions.length,
+      collapsedCount: Math.max(0, activeRows - playableCount),
+    };
+  } catch (error) {
+    console.warn("[questions] Falling back to raw admin counts.", error);
+    return fallback;
+  }
 }
