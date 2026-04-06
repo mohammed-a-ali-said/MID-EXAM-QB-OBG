@@ -29,6 +29,8 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .hdr-in{max-width:1340px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .hdr-title{font-family:var(--font-h);font-size:1.3rem;font-weight:700}
 .hdr-sub{font-size:.71rem;opacity:.7;margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.sidebar-toggle{display:none;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:4px 10px;font-size:1rem;cursor:pointer;font-family:var(--font-b)}
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:190}
 .stats{display:flex;gap:10px;flex-wrap:wrap}
 .stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:20px;
   padding:3px 11px;font-size:.72rem;white-space:nowrap}
@@ -422,6 +424,14 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 .footer-site .footer-credit span{
   color:#7ee8d0;
 }
+@media (max-width: 767px) {
+  .layout{grid-template-columns:1fr !important;}
+  .sidebar-toggle{display:inline-flex;align-items:center;justify-content:center;}
+  .sidebar { position: fixed !important; left: -280px; top: 0; height: 100vh; width:272px; z-index: 200; transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1); max-height:none !important; border-radius:0; }
+  .sidebar.open { left: 0; box-shadow: 4px 0 24px rgba(0,0,0,.18); }
+  .sidebar-backdrop.open{display:block;}
+}
+
 @media (max-width:700px){
   .footer-site .footer-in{
     flex-direction:column;
@@ -490,6 +500,8 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   </div>
 </div>
 </div>
+
+<div id="sidebar-backdrop" class="sidebar-backdrop" onclick="closeSidebarDrawer()"></div>
 
 <!-- MAIN -->
 <div class="main">
