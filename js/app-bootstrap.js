@@ -1,7 +1,7 @@
 (function () {
   const DATA_URL = "./data/questions.json";
   const METADATA_URL = "./data/content-metadata.json";
-  const APP_URL = "./js/app.js";
+  const APP_URL = "./js/app.js?v=20260406a";
 
   function setStageStatus(title, detail, tone) {
     const stage = document.getElementById("card-stage");

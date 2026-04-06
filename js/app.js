@@ -864,7 +864,7 @@ function updateCounts(){
   const examCounts={};
   const srcCounts={old_form:0,new_form:0,prev_exam:0,osce:0,lectures_2026:0};
   const tagCounts={};
-  getVisibleCards({ dedupe:false }).forEach(c=>{
+  getVisibleCards({ dedupe:true }).forEach(c=>{
     ids.all++;
     const examKey=String(c.exam||'').trim() || 'mid';
     examCounts[examKey]=(examCounts[examKey]||0)+1;
@@ -902,7 +902,7 @@ function updateCounts(){
   });
 
   const basePool = (() => {
-    let d = getVisibleCards({ dedupe: false });
+    let d = getVisibleCards({ dedupe: true });
     if (filterState.exam !== 'all') d = d.filter(c => c.exam === filterState.exam);
     if (filterState.lecture) d = filterCardsByLecture(d, filterState.lecture);
     return d;
