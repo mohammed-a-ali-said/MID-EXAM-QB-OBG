@@ -1,7 +1,14 @@
 (function () {
   const DATA_URL = "./data/questions.json";
   const METADATA_URL = "./data/content-metadata.json";
-  const APP_URL = "./js/app.js?v=20260406a";
+  const APP_URL = "./js/app.js?v=20260406b";
+  const CSS_VERSION = "20260406b";
+
+  const srsStylesheet = document.querySelector('link[href*="./css/srs.css"], link[href*="css/srs.css"]');
+  if (srsStylesheet) {
+    const cleanHref = (srsStylesheet.getAttribute("href") || "./css/srs.css").split("?")[0];
+    srsStylesheet.setAttribute("href", `${cleanHref}?v=${CSS_VERSION}`);
+  }
 
   function setStageStatus(title, detail, tone) {
     const stage = document.getElementById("card-stage");

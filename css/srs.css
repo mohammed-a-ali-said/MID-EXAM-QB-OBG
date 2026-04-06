@@ -729,6 +729,16 @@
   text-align: right !important;
 }
 
+.mcq-card > .mcq-choices,
+.mcq-card > .mcq-result,
+.mcq-card > .mcq-footer,
+.osce-card > .mcq-choices,
+.osce-card > .mcq-result,
+.osce-card > .mcq-footer {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 @media (max-width: 700px) {
   .question-media-layout.has-media {
     gap: 12px !important;
