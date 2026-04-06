@@ -1,8 +1,8 @@
 (function () {
   const DATA_URL = "./data/questions.json";
   const METADATA_URL = "./data/content-metadata.json";
-  const APP_URL = "./js/app.js?v=20260406b";
-  const CSS_VERSION = "20260406b";
+  const APP_URL = "./js/app.js?v=20260406c";
+  const CSS_VERSION = "20260406c";
 
   const srsStylesheet = document.querySelector('link[href*="./css/srs.css"], link[href*="css/srs.css"]');
   if (srsStylesheet) {

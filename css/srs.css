@@ -768,3 +768,133 @@
     font-size: 0.55rem !important;
   }
 }
+
+@media (max-width: 640px) {
+  .hdr {
+    padding: 12px 12px 10px !important;
+  }
+
+  .hdr-in {
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  .hdr-title {
+    font-size: 1.08rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .hdr-sub {
+    font-size: 0.64rem !important;
+    margin-top: 4px !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .stats {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .stat {
+    min-width: 0 !important;
+    padding: 6px 8px !important;
+    border-radius: 16px !important;
+    font-size: 0.67rem !important;
+    text-align: center !important;
+  }
+
+  .main {
+    padding: 12px !important;
+  }
+
+  .deck-info {
+    margin-bottom: 12px !important;
+    gap: 8px !important;
+  }
+
+  .deck-actions {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  .mcq-card,
+  .osce-card {
+    border-radius: 16px !important;
+  }
+
+  .mcq-hdr,
+  .osce-hdr {
+    padding: 10px 14px !important;
+  }
+
+  .mcq-stem,
+  .osce-stem,
+  .q-text {
+    font-size: 0.96rem !important;
+    line-height: 1.38 !important;
+  }
+
+  .mcq-choices {
+    padding: 0 10px 8px !important;
+  }
+
+  .choice-btn {
+    padding: 10px 12px !important;
+    font-size: 0.81rem !important;
+  }
+
+  .mcq-result {
+    padding: 8px 12px 6px !important;
+  }
+
+  .mcq-footer,
+  .ans-footer {
+    padding: 10px 12px !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .mcq-footer > .srs-rating-container,
+  .ans-footer > .srs-rating-container {
+    width: 100% !important;
+    flex: 1 0 100% !important;
+  }
+
+  .srs-rating-container {
+    margin-top: 0 !important;
+    padding: 12px !important;
+    border-radius: 14px !important;
+  }
+
+  .srs-rating-prompt {
+    font-size: 0.74rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .srs-rating-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .srs-btn {
+    min-height: 74px !important;
+    padding: 12px 8px 10px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .srs-interval-preview {
+    font-size: 0.66rem !important;
+  }
+
+  .card-nav {
+    gap: 8px !important;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .nav-btn {
+    min-width: 74px !important;
+    padding: 8px 12px !important;
+  }
+}
