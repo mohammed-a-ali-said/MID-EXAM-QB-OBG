@@ -575,18 +575,18 @@ function renderMCQ(c){
       <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
       ${renderInlineNote(c)}
       ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-      <div class="mcq-choices">${choices}</div>
-      <div class="mcq-result" id="mcq-res-${c.id}"></div>
-      <div class="mcq-footer">
-        <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
-          <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
-          <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
-          <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
-        </div>
-        <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
-      </div>
     </div>
     ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
+  </div>
+  <div class="mcq-choices">${choices}</div>
+  <div class="mcq-result" id="mcq-res-${c.id}"></div>
+  <div class="mcq-footer">
+    <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
+      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+    </div>
+    <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
   </div>
 </div>`;
 }
@@ -640,21 +640,21 @@ function renderOSCE(c){
       ${tags?`<div class="mcq-tags">${tags}</div>`:''}
       ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
       ${subContent}
-      <div class="mcq-choices" id="osce-choices-${c.id}">${choices}</div>
-      <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
-      <div class="mcq-footer">
-        ${subs.length>1?`<div style="display:flex;gap:8px">
-          <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>Prev Part ${subIdx}</button>
-          <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} Next</button>
-        </div>`:'<div></div>'}
-        <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
-          <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
-          <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
-          <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
-        </div>
-      </div>
     </div>
     ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
+  </div>
+  <div class="mcq-choices" id="osce-choices-${c.id}">${choices}</div>
+  <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
+  <div class="mcq-footer">
+    ${subs.length>1?`<div style="display:flex;gap:8px">
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>Prev Part ${subIdx}</button>
+      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} Next</button>
+    </div>`:'<div></div>'}
+    <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
+      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+    </div>
   </div>
 </div>`;
 }

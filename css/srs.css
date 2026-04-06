@@ -683,7 +683,8 @@
 .question-media-layout.has-media {
   display: flex !important;
   align-items: flex-start !important;
-  gap: 16px !important;
+  gap: 20px !important;
+  padding: 16px 24px 8px !important;
 }
 
 .question-media-main {
@@ -705,6 +706,7 @@
   flex-direction: column !important;
   align-items: flex-end !important;
   gap: 8px !important;
+  padding-top: 4px !important;
 }
 
 .question-media-side .mcq-panel-img {
@@ -729,7 +731,8 @@
 
 @media (max-width: 700px) {
   .question-media-layout.has-media {
-    gap: 10px !important;
+    gap: 12px !important;
+    padding: 12px 14px 6px !important;
   }
 
   .question-media-side {
