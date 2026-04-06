@@ -571,7 +571,6 @@ function renderMCQ(c){
   </div>
   ${extraBanner}
   <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
-    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
     <div class="question-media-main">
       <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
       ${renderInlineNote(c)}
@@ -587,6 +586,7 @@ function renderMCQ(c){
         <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
       </div>
     </div>
+    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
   </div>
 </div>`;
 }
@@ -634,7 +634,6 @@ function renderOSCE(c){
   </div>
   ${extraBanner}
   <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
-    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
     <div class="question-media-main">
       <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
       ${renderInlineNote(c)}
@@ -655,6 +654,7 @@ function renderOSCE(c){
         </div>
       </div>
     </div>
+    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
   </div>
 </div>`;
 }
@@ -673,13 +673,13 @@ function renderFlipCard(c, type){
     <div class="q-lec">${srcBadge}</div>
     ${extraBanner}
     <div class="question-media-layout ${media ? 'has-media' : ''}">
-      ${media ? `<div class="question-media-side">${media}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
       <div class="question-media-main">
         <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
         ${renderInlineNote(c)}
         ${tags?`<div class="mcq-tags">${tags}</div>`:''}
         <div class="q-hint">Click to reveal answer</div>
       </div>
+      ${media ? `<div class="question-media-side">${media}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
     </div>
   </div>
   <div class="flip-cta">Click card or press <strong>Space</strong> to flip</div>
