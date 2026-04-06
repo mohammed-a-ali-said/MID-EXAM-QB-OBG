@@ -91,6 +91,12 @@
       "label": "mid",
       "active": true,
       "order": 1
+    },
+    {
+      "id": "paper-1",
+      "label": "Paper 1",
+      "active": true,
+      "order": 2
     }
   ]
 }
