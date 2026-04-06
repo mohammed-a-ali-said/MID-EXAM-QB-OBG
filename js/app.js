@@ -24,6 +24,23 @@ const filterState = {
   type: '',
   lecture: null,
 };
+function installLegacyFilterAliases(){
+  if(typeof window === 'undefined') return;
+  const defineAlias = (name, getter, setter) => {
+    Object.defineProperty(window, name, {
+      configurable: true,
+      enumerable: false,
+      get: getter,
+      set: setter,
+    });
+  };
+  defineAlias('activeFilter', () => filterState.exam, (value) => { filterState.exam = value || 'all'; });
+  defineAlias('activeSrc', () => filterState.src, (value) => { filterState.src = value || ''; });
+  defineAlias('activeType', () => filterState.type, (value) => { filterState.type = value || ''; });
+  defineAlias('activeLec', () => filterState.lecture, (value) => { filterState.lecture = value || null; });
+  defineAlias('activeLecType', () => filterState.type || 'all', (value) => { filterState.type = !value || value === 'all' ? '' : value; });
+}
+installLegacyFilterAliases();
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
@@ -522,10 +539,10 @@ function renderQuestionMedia(c){
   const image = String(c?.image || '').trim();
   const alt = esc(c?.imageAlt || 'Question image');
   if(image){
-    return `<div class="question-media"><img src="${esc(image)}" style="max-width:100%;max-height:360px;border-radius:12px;margin:10px auto 14px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.12);background:#fff" alt="${alt}">${c?.imageAlt?`<div style="text-align:center;font-size:.76rem;color:#64748b;margin-top:-4px;margin-bottom:12px">${esc2(c.imageAlt)}</div>`:''}</div>`;
+    return `<img class="mcq-panel-img" src="${esc(image)}" alt="${alt}" style="width:140px;height:140px;max-width:140px;max-height:140px;object-fit:contain;display:block;border-radius:12px;background:#fff;border:1px solid #dbe4f0;box-shadow:0 6px 18px rgba(27,58,107,.10);padding:6px;flex-shrink:0;">`;
   }
   if(c?.imagePlaceholder){
-    return `<div class="img-ph" dir="auto">${esc2(c.imagePlaceholderText||'Image')}</div>`;
+    return `<span class="img-ph-badge">🖼 ${esc2(c.imagePlaceholderText||'Image')}</span>`;
   }
   return '';
 }
@@ -543,7 +560,7 @@ function renderMCQ(c){
   }).join('');
   const imgPh = renderQuestionMedia(c);
   const extraBanner = c._extra ? `<div class="extra-banner">This question is from the study bank (not in printed source)</div>` : '';
-  return `<div class="mcq-card">
+  return `<div class="mcq-card ${imgPh ? 'mcq-has-img' : ''}">
   <div class="mcq-hdr">
     <div class="mcq-badge">
       <span class="mcq-qn">${esc2(c.num||'')}</span>
@@ -552,34 +569,35 @@ function renderMCQ(c){
     </div>
     <div class="mcq-lec">${esc2(c.lecture||'')}${c.doctor?` &nbsp;آ·&nbsp; ${esc2(c.doctor)}`:''}</div>
   </div>
-  ${imgPh}${extraBanner}
-  <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
-  ${renderInlineNote(c)}
-  ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-  <div class="mcq-choices">${choices}</div>
-  <div class="mcq-result" id="mcq-res-${c.id}"></div>
-  <div class="mcq-footer">
-    <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+  ${extraBanner}
+  <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
+    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
+    <div class="question-media-main">
+      <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+      ${renderInlineNote(c)}
+      ${tags?`<div class="mcq-tags">${tags}</div>`:''}
+      <div class="mcq-choices">${choices}</div>
+      <div class="mcq-result" id="mcq-res-${c.id}"></div>
+      <div class="mcq-footer">
+        <div class="rate-btns" id="rate-btns-${c.id}" style="display:none">
+          <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+          <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+          <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+        </div>
+        <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
+      </div>
     </div>
-    <span style="font-size:.71rem;color:#6b7280" id="mcq-hint-${c.id}">Click a choice to answer</span>
   </div>
 </div>`;
 }
-
 function renderOSCE(c){
   if(!osceSubIdx[c.id]) osceSubIdx[c.id]=0;
   const subIdx = osceSubIdx[c.id]||0;
   const subs = c.subParts||[];
   const cur = subs[subIdx]||{};
   const results = osceResults[c.id]||{};
-  
   const srcBadge=`<span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>`;
   const extraBanner = c._extra ? `<div class="extra-banner">From study bank (not in printed source)</div>` : '';
-  
-  // Progress dots
   const dots = subs.map((s,i)=>{
     let cls='osce-dot';
     if(results[i]==='correct') cls+=' answered-ok';
@@ -587,18 +605,13 @@ function renderOSCE(c){
     else if(i===subIdx) cls+=' current';
     return `<div class="${cls}" onclick="jumpOSCESub(${i})">${i+1}</div>`;
   }).join('');
-  
-  // Current sub question
   let subContent='';
   if(subs.length>1 || (subs.length===1 && subs[0].q)){
-    // Sub-question header
     const subQ = cur.q||'';
     const subQm = subQ.match(/Q\d+\.\d+[\.\s]*(.*)/);
     const subQText = subQm ? subQm[1] : subQ;
     subContent = subQ ? `<div class="osce-sub-hdr" dir="auto">Part ${subIdx+1}: ${esc2(subQText)}</div>` : '';
   }
-  
-  // Choices for current sub
   const choices = (cur.choices||[]).map((ch,i)=>{
     const l=String.fromCharCode(65+i);
     const cid=`${c.id}_${subIdx}`;
@@ -607,11 +620,9 @@ function renderOSCE(c){
       <span>${esc2(ch)}</span><span class="c-icon" id="oicon${l}_${cid}"></span>
     </button>`;
   }).join('');
-  
   const imgPh = renderQuestionMedia(c);
-  
   const tags=(c.displayTags||c.tags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
-  return `<div class="osce-card">
+  return `<div class="osce-card ${imgPh ? 'osce-has-media' : ''}">
   <div class="osce-hdr">
     <div class="mcq-badge">
       <span class="mcq-qn">${esc2(c.num||'')}</span>
@@ -621,28 +632,32 @@ function renderOSCE(c){
     </div>
     <div class="mcq-lec">${esc2(c.lecture||'')}</div>
   </div>
-  ${imgPh}${extraBanner}
-  <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
-  ${renderInlineNote(c)}
-  ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-  ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
-  ${subContent}
-  <div class="mcq-choices" id="osce-choices-${c.id}">${choices}</div>
-  <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
-  <div class="mcq-footer">
-    ${subs.length>1?`<div style="display:flex;gap:8px">
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>Prev Part ${subIdx}</button>
-      <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} Next</button>
-    </div>`:'<div></div>'}
-    <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
-      <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
-      <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
-      <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+  ${extraBanner}
+  <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
+    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
+    <div class="question-media-main">
+      <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
+      ${renderInlineNote(c)}
+      ${tags?`<div class="mcq-tags">${tags}</div>`:''}
+      ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
+      ${subContent}
+      <div class="mcq-choices" id="osce-choices-${c.id}">${choices}</div>
+      <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
+      <div class="mcq-footer">
+        ${subs.length>1?`<div style="display:flex;gap:8px">
+          <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="prevOSCESub('${c.id}')" ${subIdx===0?'disabled':''}>Prev Part ${subIdx}</button>
+          <button class="btn btn-out" style="font-size:.74rem;padding:4px 10px" onclick="nextOSCESub('${c.id}')" ${subIdx>=subs.length-1?'disabled':''}>Part ${subIdx+2} Next</button>
+        </div>`:'<div></div>'}
+        <div class="rate-btns" id="osce-rate-${c.id}" style="display:none">
+          <button class="rate-btn rb-again" onclick="rate('again')">Again</button>
+          <button class="rate-btn rb-good" onclick="rate('good')">Good</button>
+          <button class="rate-btn rb-easy" onclick="rate('easy')">Easy</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>`;
 }
-
 function renderFlipCard(c, type){
   const srcBadge=`<span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>`;
   const tclass = type==='FLASHCARD'?'ttype-flash':'ttype-saq';
@@ -657,11 +672,15 @@ function renderFlipCard(c, type){
     <div class="q-badge"><span>${esc2(c.num||'')}</span><span class="ttype ${tclass}">${tname}</span><span>${esc2(c.lecture||'')}</span></div>
     <div class="q-lec">${srcBadge}</div>
     ${extraBanner}
-    <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
-    ${media}
-    ${renderInlineNote(c)}
-    ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-    <div class="q-hint">Click to reveal answer</div>
+    <div class="question-media-layout ${media ? 'has-media' : ''}">
+      ${media ? `<div class="question-media-side">${media}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
+      <div class="question-media-main">
+        <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+        ${renderInlineNote(c)}
+        ${tags?`<div class="mcq-tags">${tags}</div>`:''}
+        <div class="q-hint">Click to reveal answer</div>
+      </div>
+    </div>
   </div>
   <div class="flip-cta">Click card or press <strong>Space</strong> to flip</div>
 </div>`;
@@ -1266,5 +1285,22 @@ function goToCard(cardId){
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
