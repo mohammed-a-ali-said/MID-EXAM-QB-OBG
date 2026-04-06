@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const supportedTypes = new Set(["MCQ", "FLASHCARD", "SAQ"]);
   const ratingMap = { 0: "again", 1: "hard", 2: "good", 3: "easy" };
 
@@ -65,7 +65,7 @@
       learning: "L",
       due: "!",
       review: "R",
-      mastered: "★",
+      mastered: "M",
     }[status] || "S";
   }
 
@@ -142,10 +142,10 @@
     wrap.innerHTML = `
       <div class="srs-rating-prompt">How well did you know this?</div>
       <div class="srs-rating-buttons">
-        ${makePreviewButton("❌ Again", 0, preview.again, suggestedRating)}
-        ${makePreviewButton("😐 Hard", 1, preview.hard, suggestedRating)}
-        ${makePreviewButton("✅ Good", 2, preview.good, suggestedRating)}
-        ${makePreviewButton("🌟 Easy", 3, preview.easy, suggestedRating)}
+        ${makePreviewButton("Again", 0, preview.again, suggestedRating)}
+        ${makePreviewButton("Hard", 1, preview.hard, suggestedRating)}
+        ${makePreviewButton("Good", 2, preview.good, suggestedRating)}
+        ${makePreviewButton("Easy", 3, preview.easy, suggestedRating)}
       </div>
     `;
 
@@ -205,7 +205,7 @@
     clearInjectedRatings();
 
     const intervalText = window.SRS_Algorithm.getIntervalDisplay(updated.interval);
-    toast(updated.interval === 0 ? "Card reset — you'll see it again soon." : `Next review in ${intervalText}.`);
+    toast(updated.interval === 0 ? "Card reset â€” you'll see it again soon." : `Next review in ${intervalText}.`);
 
     if (window.SRS_Review && window.SRS_Review.isActive()) {
       window.SRS_Review.recordRating(question, rating, updated);
@@ -280,8 +280,8 @@
     const group = document.createElement("div");
     group.className = "srs-toolbar";
     group.innerHTML = `
-      <button class="btn srs-btn-nav" type="button">🔄 Start Review</button>
-      <button class="btn srs-btn-dash" type="button">📊 SRS Dashboard</button>
+      <button class="btn srs-btn-nav" type="button">ًں”„ Start Review</button>
+      <button class="btn srs-btn-dash" type="button">ًں“ٹ SRS Dashboard</button>
     `;
     actions.appendChild(group);
     group.querySelector(".srs-btn-nav").addEventListener("click", () => window.SRS_Review.openLauncher());
@@ -308,3 +308,4 @@
     getCurrentCard,
   };
 })();
+

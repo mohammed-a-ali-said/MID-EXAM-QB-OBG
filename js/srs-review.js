@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const reviewState = {
     active: false,
     queue: [],
@@ -134,7 +134,7 @@
       return bucketQueue([wrongCards, overdueCards, lowEaseCards, remaining], options.maxCards, lecture);
     }
 
-    return bucketQueue([due, dueToday, againCards, newCards.slice(0, 10)], options.maxCards, lecture);
+    return bucketQueue([due, dueToday, againCards, newCards], options.maxCards, lecture);
   }
 
   function ensureMounts() {
@@ -161,7 +161,7 @@
             </select>
             <select class="srs-select" id="srs-launch-lecture"></select>
             <input class="srs-input" id="srs-launch-max" type="number" min="5" max="200" step="5" value="30">
-            <button class="srs-review-btn" type="button" id="srs-launch-start">▶ Start</button>
+            <button class="srs-review-btn" type="button" id="srs-launch-start">Start</button>
           </div>
           <div class="srs-empty" id="srs-launch-summary">Smart mode pulls overdue cards first, then due-today, reset cards, and up to 10 new cards.</div>
         </div>
@@ -192,7 +192,7 @@
       overlay.innerHTML = `
         <div class="srs-panel srs-session-complete">
           <button class="srs-panel-close" type="button" data-close-summary style="float:right">×</button>
-          <div class="big">🎉 Session Complete</div>
+          <div class="big">Session Complete</div>
           <div id="srs-summary-sub" class="srs-panel-subtitle"></div>
           <div class="srs-session-stats" id="srs-summary-stats"></div>
           <div class="srs-action-row" style="justify-content:center">
@@ -317,7 +317,7 @@
     const total = Math.max(1, reviewState.queue.length);
     const current = Math.min(total, idx + 1);
     const fill = ((current - 1) / total) * 100;
-    document.getElementById("srs-session-title").textContent = `SRS Review • ${reviewState.options.mode}`;
+    document.getElementById("srs-session-title").textContent = `SRS Review | ${reviewState.options.mode}`;
     const elapsedMin = Math.max(1, Math.round((Date.now() - reviewState.startTime) / 60000));
     document.getElementById("srs-session-meta").innerHTML = `
       <span>${current}/${total}</span>
@@ -365,7 +365,7 @@
     const elapsedMin = Math.max(1, Math.round((Date.now() - reviewState.startTime) / 60000));
     const accuracyBase = reviewState.results.good + reviewState.results.easy + reviewState.results.hard;
     const accuracy = total ? Math.round((accuracyBase / total) * 100) : 0;
-    document.getElementById("srs-summary-sub").textContent = `${total} cards reviewed in ${elapsedMin} minutes • Accuracy ${accuracy}%`;
+    document.getElementById("srs-summary-sub").textContent = `${total} cards reviewed in ${elapsedMin} minutes | Accuracy ${accuracy}%`;
     document.getElementById("srs-summary-stats").innerHTML = `
       <div class="tile"><strong>${reviewState.results.again}</strong><span>Again</span></div>
       <div class="tile"><strong>${reviewState.results.hard}</strong><span>Hard</span></div>
@@ -469,3 +469,5 @@
     syncBanner,
   };
 })();
+
+
