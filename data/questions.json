@@ -12006,5 +12006,2065 @@
     "tags": [
       "2026 Lectures Q's"
     ]
+  },
+  {
+    "id": "c771",
+    "num": "Q1",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Define preeclampsia.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c772",
+    "num": "Q2",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "List the features of severe preeclampsia [PE with severe features] (Write down at least 6 features).",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c773",
+    "num": "Q3",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Classify Hypertensive disorders during pregnancy.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c774",
+    "num": "Q4",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Mention 5 risk factors for preeclampsia.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c775",
+    "num": "Q5",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "List 5 complications of preeclampsia [maternal and fetal].",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c776",
+    "num": "Q6",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Differentiate between \"Gestational Hypertension\" and \"Preeclampsia\" based on the presence of proteinuria and the typical timing of resolution after delivery.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c777",
+    "num": "Q7",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Identify THREE clinical or laboratory \"Severe Features\" present in the following case: A 21-year-old at 32 weeks' gestation with BP 165/115 mmHg, 4+ proteinuria on dipstick, and severe occipital headache.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c778",
+    "num": "Q8",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Name THREE first-line oral antihypertensive medications used for managing non-severe hypertension in pregnant women.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c779",
+    "num": "Q9",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Compare the intravenous administration of Magnesium Sulfate for seizure prophylaxis in terms of the \"Loading Dose\" and the \"Maintenance Infusion\" rate.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c780",
+    "num": "Q10",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "List THREE high-risk factors that require the administration of low-dose aspirin (75–150 mg) for preeclampsia prevention.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c781",
+    "num": "Q11",
+    "cardType": "SAQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Give a reason why magnesium sulfate availability is considered a top priority in resource-limited healthcare settings.",
+    "a": "Answer not included"
+  },
+  {
+    "id": "c782",
+    "num": "Q12",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the prevalence of hypertensive disorders in pregnancy globally?",
+    "choices": [
+      "2–4%",
+      "5–8%",
+      "10–12%",
+      "15–20%"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c783",
+    "num": "Q13",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which antihypertensive medication is contraindicated in pregnancy due to teratogenic effects?",
+    "choices": [
+      "Methyldopa",
+      "Nifedipine",
+      "Labetalol",
+      "Enalapril"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c784",
+    "num": "Q14",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "In chronic hypertension with superimposed preeclampsia, the key feature is:",
+    "choices": [
+      "Hypertension without proteinuria",
+      "Worsening hypertension with new-onset proteinuria",
+      "Proteinuria only",
+      "Hypotension with normal protein levels"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c785",
+    "num": "Q15",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A primigravida at 32 weeks gestation presents with BP 150/95 mmHg and 2+ proteinuria. Which is the most likely diagnosis?",
+    "choices": [
+      "Chronic hypertension",
+      "Gestational hypertension",
+      "Preeclampsia",
+      "Eclampsia"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c786",
+    "num": "Q16",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Low-dose aspirin is recommended to prevent preeclampsia in high-risk women. When should it ideally be started?",
+    "choices": [
+      "Before 12 weeks of gestation",
+      "Between 12–16 weeks of gestation",
+      "Between 16–20 weeks of gestation",
+      "After 20 weeks of gestation"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c787",
+    "num": "Q17",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is not a risk factor for preeclampsia?",
+    "choices": [
+      "Obesity",
+      "Advanced maternal age",
+      "Multiparity",
+      "Chronic kidney disease"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c788",
+    "num": "Q18",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the minimum proteinuria level required for the diagnosis of preeclampsia according to WHO?",
+    "choices": [
+      "1+ on dipstick",
+      "Protein/creatinine ratio of 0.2",
+      "24-hour urinary protein of 200 mg",
+      "Protein/creatinine ratio of 0.3"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c789",
+    "num": "Q19",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A patient with preeclampsia develops a headache and blurred vision. What is the next best step?",
+    "choices": [
+      "Increase antihypertensive dose",
+      "Administer magnesium sulfate",
+      "Perform an urgent cesarean section",
+      "Repeat blood pressure measurement in 4 hours"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c790",
+    "num": "Q20",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which test is most specific for diagnosing hemolysis in HELLP syndrome?",
+    "choices": [
+      "Elevated liver enzymes",
+      "Elevated lactate dehydrogenase (LDH)",
+      "Low platelet count",
+      "Schistocytes on blood smear"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c791",
+    "num": "Q21",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the recommended target blood pressure range for pregnant women with chronic hypertension according to ACOG?",
+    "choices": [
+      "100–120/70–80 mmHg",
+      "120–155/80–105 mmHg",
+      "130–160/90–100 mmHg",
+      "140–170/90–110 mmHg"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c792",
+    "num": "Q22",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Calcium supplementation has been shown to reduce the risk of hypertensive disorders in pregnancy in which population?",
+    "choices": [
+      "Women with chronic hypertension",
+      "Women with low dietary calcium intake",
+      "Women with multiple pregnancies",
+      "Women with a history of preeclampsia"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c793",
+    "num": "Q23",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the primary mechanism of action of magnesium sulfate in eclampsia?",
+    "choices": [
+      "Vasodilation",
+      "Reducing BP",
+      "CNS depression",
+      "Smooth muscle relaxation"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c794",
+    "num": "Q24",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the recommended timing of delivery for women with preeclampsia without severe features?",
+    "choices": [
+      "34 weeks",
+      "36 weeks",
+      "37 weeks",
+      "39 weeks"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c795",
+    "num": "Q25",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is a severe feature of preeclampsia?",
+    "choices": [
+      "BP ≥150/90 mmHg",
+      "Protein/creatinine ratio ≥0.3",
+      "Platelet count <100,000/μL",
+      "Fetal growth at the 25th percentile"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c796",
+    "num": "Q26",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the next step in management for a pregnant woman at 28 weeks with severe preeclampsia and uncontrolled BP?",
+    "choices": [
+      "Continue monitoring until 34 weeks",
+      "Administer corticosteroids and prepare for delivery",
+      "Administer methyldopa and reevaluate in 24 hours",
+      "Perform an amniocentesis to assess lung maturity"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c797",
+    "num": "Q27",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the major cause of maternal mortality in eclampsia?",
+    "choices": [
+      "Intracranial hemorrhage",
+      "Pulmonary edema",
+      "Renal failure",
+      "Sepsis"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c798",
+    "num": "Q28",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What dose of magnesium sulfate is used as a loading dose in eclampsia management?",
+    "choices": [
+      "2 g IV",
+      "4 g IV",
+      "6 g IV",
+      "8 g IV"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c799",
+    "num": "Q29",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the mechanism behind abnormal placentation in preeclampsia?",
+    "choices": [
+      "Excessive trophoblastic invasion",
+      "Reduced remodeling of spiral arteries",
+      "Overproduction of growth factors",
+      "Increased angiogenesis"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c800",
+    "num": "Q30",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the most common time for eclamptic seizures to occur?",
+    "choices": [
+      "Antepartum",
+      "Intrapartum",
+      "Postpartum",
+      "All of the above"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c801",
+    "num": "Q31",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which guideline emphasizes the use of simplified diagnostic criteria in resource-limited settings?",
+    "choices": [
+      "ACOG",
+      "WHO",
+      "RCOG",
+      "FIGO"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c802",
+    "num": "Q32",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "For a woman with gestational hypertension at 38 weeks, what is the recommended management?",
+    "choices": [
+      "Immediate delivery",
+      "Continue monitoring until 40 weeks",
+      "Administer corticosteroids and observe",
+      "Induce labor"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c803",
+    "num": "Q33",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which fetal complication is most commonly associated with preeclampsia?",
+    "choices": [
+      "Macrosomia",
+      "Fetal anemia",
+      "Intrauterine growth restriction (IUGR)",
+      "Polyhydramnios"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c804",
+    "num": "Q34",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A woman at 38 weeks gestation with gestational hypertension develops sudden abdominal pain and vaginal bleeding. What complication should be suspected?",
+    "choices": [
+      "Placenta previa",
+      "Abruptio placentae",
+      "Uterine rupture",
+      "Vasa previa"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c805",
+    "num": "Q35",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which biomarker is most indicative of endothelial dysfunction in preeclampsia?",
+    "choices": [
+      "Human chorionic gonadotropin (hCG)",
+      "Placental growth factor (PlGF)",
+      "Alpha-fetoprotein (AFP)",
+      "Fetal fibronectin"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c806",
+    "num": "Q36",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the preferred drug for seizure prophylaxis in preeclampsia?",
+    "choices": [
+      "Phenytoin",
+      "Diazepam",
+      "Magnesium sulfate",
+      "Lorazepam"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c807",
+    "num": "Q37",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "When monitoring a woman on magnesium sulfate, which finding indicates toxicity?",
+    "choices": [
+      "Reduced deep tendon reflexes",
+      "Nausea",
+      "Headache",
+      "BP of 150/90 mmHg"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c808",
+    "num": "Q38",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the primary goal of antihypertensive therapy in pregnancy?",
+    "choices": [
+      "Normalize blood pressure",
+      "Prevent maternal stroke",
+      "Improve fetal growth",
+      "Prevent preterm labor"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c809",
+    "num": "Q39",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which investigation is essential to rule out HELLP syndrome in a patient with preeclampsia?",
+    "choices": [
+      "Coagulation profile",
+      "Complete blood count and liver enzymes",
+      "Renal function tests",
+      "Protein/creatinine ratio"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c810",
+    "num": "Q40",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the first-line antihypertensive medication for severe hypertension during pregnancy?",
+    "choices": [
+      "Labetalol",
+      "Aspirin",
+      "Magnesium sulfate",
+      "Hydralazine"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c811",
+    "num": "Q41",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which organization recommends the use of calcium supplementation in populations with low dietary calcium intake to prevent preeclampsia?",
+    "choices": [
+      "ACOG",
+      "WHO",
+      "RCOG",
+      "FIGO"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c812",
+    "num": "Q42",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which diagnostic test is most specific for assessing proteinuria in pregnancy?",
+    "choices": [
+      "Dipstick test",
+      "24-hour urine collection",
+      "Protein:Creatinine ratio",
+      "Serum albumin"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c813",
+    "num": "Q43",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the threshold blood pressure for diagnosing severe preeclampsia?",
+    "choices": [
+      "≥140/90 mmHg",
+      "≥150/100 mmHg",
+      "≥160/110 mmHg",
+      "≥170/120 mmHg"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c814",
+    "num": "Q44",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Magnesium sulfate is used in preeclampsia for:",
+    "choices": [
+      "Blood pressure control",
+      "Seizure prophylaxis",
+      "Reducing proteinuria",
+      "Preventing preterm labor"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c815",
+    "num": "Q45",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Low-dose aspirin for preeclampsia prevention should ideally begin by:",
+    "choices": [
+      "8 weeks' gestation",
+      "12 weeks' gestation",
+      "16 weeks' gestation",
+      "20 weeks' gestation"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c816",
+    "num": "Q46",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the primary pathophysiological mechanism in preeclampsia?",
+    "choices": [
+      "Hormonal imbalance",
+      "Endothelial dysfunction",
+      "Placental abruption",
+      "Fetal growth restriction"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c817",
+    "num": "Q47",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the typical dose of magnesium sulfate loading for seizure prophylaxis?",
+    "choices": [
+      "2 g IV",
+      "4–6 g IV",
+      "8 g IV",
+      "10 g IV"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c818",
+    "num": "Q48",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is a risk factor for preeclampsia?",
+    "choices": [
+      "Maternal age <20 or >40 years",
+      "High parity",
+      "Male fetus",
+      "Low BMI"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c819",
+    "num": "Q49",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which fetal monitoring modality is commonly used in hypertensive pregnancies?",
+    "choices": [
+      "MRI",
+      "Non-stress test (NST)",
+      "X-ray",
+      "Amniocentesis"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c820",
+    "num": "Q50",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Delivery timing for severe preeclampsia stabilized at 34 weeks is:",
+    "choices": [
+      "Continue pregnancy until term",
+      "Immediate delivery",
+      "Delivery at 37 weeks",
+      "Delivery at 36 weeks"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c821",
+    "num": "Q51",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The primary management goal in eclampsia is:",
+    "choices": [
+      "Controlling seizures",
+      "Monitoring proteinuria",
+      "Reducing fetal growth restriction",
+      "Administering corticosteroids"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c822",
+    "num": "Q52",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the mechanism of action for aspirin in preventing preeclampsia?",
+    "choices": [
+      "Enhancing placental blood flow",
+      "Reducing oxidative stress",
+      "Inhibiting platelet aggregation",
+      "Lowering blood pressure"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c823",
+    "num": "Q53",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following blood pressure thresholds is used to define severe hypertension in pregnancy?",
+    "choices": [
+      "≥140/90 mmHg",
+      "≥150/100 mmHg",
+      "≥160/110 mmHg",
+      "≥170/120 mmHg"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c824",
+    "num": "Q54",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which condition is a contraindication for magnesium sulfate?",
+    "choices": [
+      "Renal insufficiency",
+      "Severe preeclampsia",
+      "Eclampsia",
+      "Chronic hypertension"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c825",
+    "num": "Q55",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A pregnant woman presents with BP 165/110 mmHg and tonic-clonic seizures. The immediate step is:",
+    "choices": [
+      "Lower blood pressure",
+      "Administer magnesium sulfate",
+      "Induce labor",
+      "Perform a cesarean section"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c826",
+    "num": "Q56",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A woman at 30 weeks has BP 150/100 mmHg and proteinuria ≥300 mg/24 h. Most likely diagnosis:",
+    "choices": [
+      "Chronic hypertension",
+      "Gestational hypertension",
+      "Preeclampsia",
+      "White-coat hypertension"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c827",
+    "num": "Q57",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which class of drug is contraindicated in pregnancy due to fetotoxicity?",
+    "choices": [
+      "Labetalol",
+      "Nifedipine",
+      "ACE inhibitors",
+      "Hydralazine"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c828",
+    "num": "Q58",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which blood pressure threshold defines hypertension in pregnancy?",
+    "choices": [
+      "130/80 mmHg",
+      "135/85 mmHg",
+      "140/90 mmHg",
+      "150/95 mmHg"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c829",
+    "num": "Q59",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which antihypertensive is classically recommended as a first-line oral option in pregnancy?",
+    "choices": [
+      "Enalapril (ACE inhibitor)",
+      "Methyldopa",
+      "Spironolactone",
+      "Atenolol"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c830",
+    "num": "Q60",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which fetal complication is commonly linked to preeclampsia?",
+    "choices": [
+      "Hydrops fetalis",
+      "Intrauterine growth restriction (IUGR)",
+      "Fetal hypothyroidism",
+      "Polyuria"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c831",
+    "num": "Q61",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which maternal complication is most strongly associated with severe preeclampsia?",
+    "choices": [
+      "Polyhydramnios",
+      "HELLP syndrome",
+      "Hyperemesis gravidarum",
+      "Thyroid storm"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c832",
+    "num": "Q62",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is a recommended target BP range when treating chronic/non-severe hypertension in pregnancy?",
+    "choices": [
+      "<110/70 mmHg",
+      "110–135 / 70–85 mmHg",
+      "<140/90 mmHg",
+      "<160/100 mmHg"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c833",
+    "num": "Q63",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which is an indication for delivery in severe preeclampsia (maternal deterioration)?",
+    "choices": [
+      "Mild transient headache",
+      "Persistent epigastric/right-upper quadrant pain with rising liver enzymes",
+      "Occasional mild proteinuria only",
+      "Mild peripheral edema"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c834",
+    "num": "Q64",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which investigation is essential when evaluating a woman with suspected preeclampsia?",
+    "choices": [
+      "Serum amylase",
+      "Liver function tests (AST/ALT) and platelets",
+      "Fasting lipid profile",
+      "Thyroid function tests"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c835",
+    "num": "Q65",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which test best confirms significant proteinuria when preeclampsia is suspected?",
+    "choices": [
+      "Urine dipstick only",
+      "Spot urine protein/creatinine ratio (PCR) or 24-h collection",
+      "Random urine sodium",
+      "Serum uric acid alone"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c836",
+    "num": "Q66",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which drug is the drug of choice for seizure prophylaxis in severe preeclampsia/eclampsia?",
+    "choices": [
+      "Diazepam",
+      "Phenytoin",
+      "Magnesium sulphate",
+      "Phenobarbital"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c837",
+    "num": "Q67",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which is an appropriate immediate agent for acute severe hypertension in pregnancy?",
+    "choices": [
+      "IV labetalol",
+      "ACE inhibitor",
+      "Atenolol PO",
+      "High-dose diazoxide outpatient"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c838",
+    "num": "Q68",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which antihypertensive is considered compatible with breastfeeding (generally safe)?",
+    "choices": [
+      "Methyldopa",
+      "ACE inhibitors (e.g., enalapril) — select agents with caution",
+      "Atenolol (caution)",
+      "Spironolactone (avoid)"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c839",
+    "num": "Q69",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "When is low-dose aspirin for preeclampsia prevention recommended to start?",
+    "choices": [
+      "Immediately after positive pregnancy test (≈4 weeks)",
+      "12–16 weeks gestation",
+      "20–24 weeks",
+      "After 28 weeks only"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c840",
+    "num": "Q70",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A 28-week woman with severe hypertension develops blurred vision and severe headache. Next step:",
+    "choices": [
+      "Outpatient oral antihypertensive only",
+      "Immediate hospital stabilization, treat BP, consider magnesium and delivery planning",
+      "Reassure and repeat BP in clinic in 1 week",
+      "Give diuretics and discharge"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c841",
+    "num": "Q71",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which maternal factor increases the risk of preeclampsia?",
+    "choices": [
+      "Multiparity with same partner",
+      "Nulliparity (first pregnancy)",
+      "Regular exercise before pregnancy",
+      "Maternal short stature"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c842",
+    "num": "Q72",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which laboratory marker commonly rises with hemolysis/organ injury in HELLP?",
+    "choices": [
+      "LDH (lactate dehydrogenase)",
+      "Serum albumin",
+      "Amylase only",
+      "Calcium"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c843",
+    "num": "Q73",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Chronic hypertension in pregnancy typically prompts treatment when BP reaches:",
+    "choices": [
+      "130/80 mmHg",
+      "140/90 mmHg",
+      "150/95 mmHg or according to risk/individualized thresholds",
+      "170/110 mmHg only"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c844",
+    "num": "Q74",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which oral agent is commonly preferred for chronic BP control in pregnancy?",
+    "choices": [
+      "Methyldopa",
+      "ACE inhibitor (e.g., lisinopril)",
+      "Spironolactone",
+      "Warfarin"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c845",
+    "num": "Q75",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "At 35–36 weeks with preeclampsia and severe fetal growth restriction, guideline suggests:",
+    "choices": [
+      "Continue expectant management to 40 weeks",
+      "Consider delivery at ≥34–36+6 weeks depending on severity and maternal/fetal status",
+      "Immediate cesarean at any sign of proteinuria only",
+      "Stop all antihypertensives and monitor at home"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c846",
+    "num": "Q76",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which is not a diagnostic feature of preeclampsia?",
+    "choices": [
+      "New-onset hypertension after 20 weeks",
+      "Proteinuria or maternal end-organ dysfunction",
+      "Maternal persistent tachycardia alone",
+      "New-onset thrombocytopenia or elevated LFTs"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c847",
+    "num": "Q77",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Earliest sign of magnesium sulphate toxicity is:",
+    "choices": [
+      "Loss of deep tendon reflexes",
+      "Cardiac arrest",
+      "Polyuria",
+      "Hypertension"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c848",
+    "num": "Q78",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Antidote for magnesium sulphate toxicity is:",
+    "choices": [
+      "Potassium chloride",
+      "Calcium gluconate (IV)",
+      "Furosemide alone",
+      "Sodium bicarbonate"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c849",
+    "num": "Q79",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which combination most strongly predicts imminent eclampsia?",
+    "choices": [
+      "Mild BP elevation + ankle edema",
+      "Ongoing severe headaches + visual disturbance + hyperreflexia/clonus",
+      "Minimal proteinuria only",
+      "Low maternal weight only"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c850",
+    "num": "Q80",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Preferred approach to delivery at term (≥37 w) with preeclampsia without severe features:",
+    "choices": [
+      "Immediate cesarean regardless of labor status",
+      "Initiate birth (induction) at ≥37 weeks — discuss mode individualized",
+      "Delay delivery until 40 weeks always",
+      "Home induction without monitoring"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c851",
+    "num": "Q81",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A woman on methyldopa reports new severe depressive symptoms postpartum. Best next step:",
+    "choices": [
+      "Continue methyldopa regardless",
+      "Consider switching to labetalol and evaluate psychiatric treatment (shared decision)",
+      "Immediately stop all medications without replacement",
+      "Increase methyldopa dose"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c852",
+    "num": "Q82",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Postpartum, the risk period for eclampsia extends for approximately:",
+    "choices": [
+      "6–12 hours only",
+      "24 hours only",
+      "48–72 hours (peak risk immediate postpartum)",
+      "No risk after delivery"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c853",
+    "num": "Q83",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which is not a first-line agent for acute severe hypertension management?",
+    "choices": [
+      "IV labetalol",
+      "IV hydralazine",
+      "Immediate-release oral nifedipine",
+      "Atenolol PO single dose"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c854",
+    "num": "Q84",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Main fetal surveillance tools in maternal hypertension include:",
+    "choices": [
+      "Continuous maternal glucose monitoring only",
+      "CTG/NST and ultrasound Doppler studies for growth and placental function",
+      "Routine fetal MRI each visit",
+      "Maternal chest X-ray weekly"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c855",
+    "num": "Q85",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A patient with platelets 85,000/µL, AST/ALT >2×ULN and LDH >600 IU/L — most likely:",
+    "choices": [
+      "Uncomplicated preeclampsia",
+      "HELLP syndrome",
+      "Acute fatty liver of pregnancy (AFLP) only",
+      "Isolated viral hepatitis"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c856",
+    "num": "Q86",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which strategy is recommended for expectant management of severe preeclampsia <34 weeks when chosen?",
+    "choices": [
+      "Any hospital can manage expectantly without special resources",
+      "Only in tertiary centres with neonatal and maternal high-level care and strict selection criteria",
+      "Outpatient home monitoring is sufficient",
+      "Immediate delivery is always required regardless of gestation"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c857",
+    "num": "Q87",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "In HELLP syndrome with ongoing bleeding and platelet count falling rapidly, guideline suggests platelet transfusion threshold before cesarean when platelets are:",
+    "choices": [
+      "<20,000 /µL for cesarean",
+      "<50,000 /µL for cesarean delivery (or <20,000 for vaginal)",
+      "Always transfuse regardless of count",
+      "Never transfuse"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c858",
+    "num": "Q88",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which statement about corticosteroids in preeclampsia is consistent with the guideline?",
+    "choices": [
+      "Corticosteroids should always be given for maternal disease control in HELLP regardless of gestation",
+      "Antenatal corticosteroids are recommended when risk of delivery is <34 weeks to enhance fetal lung maturity",
+      "Steroids must be given routinely at 36 weeks for maternal benefit",
+      "Steroids are contraindicated in preeclampsia"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c859",
+    "num": "Q89",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which antihypertensive regimen is recommended for non-severe hypertension in pregnancy?",
+    "choices": [
+      "High-dose labetalol infusion immediately for all",
+      "Oral methyldopa, labetalol, or nifedipine as first-line options",
+      "Immediate ACE inhibitor therapy",
+      "No medication ever recommended"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c860",
+    "num": "Q90",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is true about magnesium sulphate regimens according to the guideline?",
+    "choices": [
+      "No monitoring is necessary during loading dose",
+      "Loading 4–6 g IV then maintenance 1–2 g/hr for 24 hours is recommended, with monitoring of reflexes/urine output/resps",
+      "IM regimen is never acceptable",
+      "Therapy should be stopped immediately after delivery in all cases"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c861",
+    "num": "Q91",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "When severe hypertension (sBP ≥160 or dBP ≥110) is identified, guideline advises BP measurement frequency in monitored setting:",
+    "choices": [
+      "Once daily only",
+      "Every 15–30 minutes until BP controlled, then at least 4 times daily as inpatient",
+      "Every 6 months postpartum only",
+      "No monitoring needed after starting oral agents"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c862",
+    "num": "Q92",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which resource-sensitive recommendation does the guideline make about expectant management in low-resource settings?",
+    "choices": [
+      "Expectant management is safe everywhere equally",
+      "GDG conditionally recommends against expectant management for preeclampsia with severe features where close monitoring/resources are lacking",
+      "Advise expectant management regardless of resources",
+      "Transfer is never needed"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c863",
+    "num": "Q93",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is TRUE regarding timing of birth in preeclampsia per guideline?",
+    "choices": [
+      "Always delay delivery to 40 weeks regardless of severity",
+      "Initiate birth at ≥37 weeks for preeclampsia without severe features; consider earlier (34–36+6) if severe features present",
+      "Immediate delivery is never indicated before 39 weeks",
+      "Timing is irrelevant to maternal/fetal condition"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c864",
+    "num": "Q94",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which statement about use of antihypertensives antepartum and postpartum is consistent with the guideline?",
+    "choices": [
+      "All antenatal antihypertensives must be stopped immediately after birth",
+      "Antihypertensive therapy given antenatally may be continued postpartum; choose agents considering breastfeeding and shared decision-making",
+      "ACE inhibitors are first-line immediately after birth for breastfeeding mothers without exception",
+      "Postpartum BP never requires treatment"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c865",
+    "num": "Q95",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A woman with pre-existing chronic hypertension develops new proteinuria and rising LFTs at 26 weeks. This is best described as:",
+    "choices": [
+      "Uncomplicated chronic hypertension",
+      "Preeclampsia superimposed on chronic hypertension",
+      "Gestational hypertension only",
+      "Eclampsia without seizures"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c866",
+    "num": "Q96",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the definition of hypertension in pregnancy?",
+    "choices": [
+      "A diastolic BP of 80 mmHg or above and/or a systolic BP of 120 mmHg or above",
+      "A diastolic BP of 90 mmHg or above and/or a systolic BP of 140 mmHg or above",
+      "A diastolic BP of 100 mmHg or above and/or a systolic BP of 160 mmHg or above",
+      "A rise in diastolic BP of 20 mmHg"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c867",
+    "num": "Q97",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the definition of significant proteinuria in pregnancy?",
+    "choices": [
+      "≥3 g/24h",
+      "≥300 mg/24h",
+      "≤300 mg/24h",
+      "<5 g/24h"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c868",
+    "num": "Q98",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "How should you define pre-eclampsia?",
+    "choices": [
+      "Hypertension and proteinuria presenting before the start of pregnancy",
+      "Hypertension and proteinuria presenting in the first half of pregnancy",
+      "Hypertension and proteinuria presenting in the second half of pregnancy",
+      "Hypertension and proteinuria presenting any time in pregnancy"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c869",
+    "num": "Q99",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the correct definition of chronic hypertension?",
+    "choices": [
+      "Hypertension, without proteinuria, that is present in the first half of pregnancy",
+      "Hypertension, together with proteinuria, that is present in the first half of pregnancy",
+      "Hypertension that is present in the first half of pregnancy, plus proteinuria that presents in the second half of pregnancy",
+      "Hypertension alone which is present at the time of booking at 28 weeks"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c870",
+    "num": "Q100",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "How common is pre-eclampsia?",
+    "choices": [
+      "Most pregnant women develop pre-eclampsia",
+      "About 25% of all pregnant women develop pre-eclampsia",
+      "About 5–6% of all pregnant women develop pre-eclampsia",
+      "Very rare"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c871",
+    "num": "Q101",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which fetal condition is common in pregnancies complicated by pre-eclampsia?",
+    "choices": [
+      "Congenital malformations",
+      "Heart failure due to hypertension",
+      "Haemorrhagic disease of the newborn",
+      "Intra-uterine growth restriction"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c872",
+    "num": "Q102",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Pre-eclampsia may cause fetal distress because it results in:",
+    "choices": [
+      "A decrease in placental blood flow",
+      "Fetal hypertension",
+      "Severe protein loss in the mother's urine",
+      "Congenital abnormalities caused by antihypertensive drugs"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c873",
+    "num": "Q103",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A patient with pre-eclampsia who develops a diastolic blood pressure of 105 mmHg and 2+ proteinuria at 36 weeks of pregnancy should be graded as having:",
+    "choices": [
+      "Pre-eclampsia",
+      "Pre-eclampsia with severe features",
+      "Chronic hypertension with superimposed pre-eclampsia",
+      "Eclampsia"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c874",
+    "num": "Q104",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is an important sign of pre-eclampsia with severe features?",
+    "choices": [
+      "3+ proteinuria",
+      "Decreased tendon reflexes",
+      "A diastolic blood pressure of 110 mmHg or more",
+      "Tenderness on palpating the calves"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c875",
+    "num": "Q105",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A patient with pre-eclampsia has a diastolic blood pressure of 95 mmHg and 1+ proteinuria. She complains of flashes of light in front of her eyes and upper abdominal pain. In which grade of pre-eclampsia should you put this patient?",
+    "choices": [
+      "Pre-eclampsia",
+      "Gestational hypertension",
+      "Pre-eclampsia with severe features",
+      "Eclampsia"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c876",
+    "num": "Q106",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following women has the highest risk of pre-eclampsia?",
+    "choices": [
+      "A patient with a history of pre-eclampsia starting early in the third trimester of a previous pregnancy",
+      "A patient with a history of a preterm delivery in her previous pregnancy",
+      "Grande multiparas",
+      "A patient who previously had a twin pregnancy"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c877",
+    "num": "Q107",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which one of the following may be an early warning sign of pre-eclampsia?",
+    "choices": [
+      "Weight loss during the last months of pregnancy",
+      "Generalised oedema especially of the face",
+      "Oedema of the feet at the end of the day",
+      "Pain on passing urine"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c878",
+    "num": "Q108",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the management of a patient with pre-eclampsia?",
+    "choices": [
+      "Oral antihypertensive drugs",
+      "Diuretics to reduce oedema",
+      "Hospitalisation",
+      "A loading dose of magnesium sulphate"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c879",
+    "num": "Q109",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which one of the following is the method of delivery usually chosen in a patient with pre-eclampsia?",
+    "choices": [
+      "Caesarean section",
+      "Induction followed by vaginal delivery at 32 weeks",
+      "Induction followed by vaginal delivery if 38 weeks gestation has been reached",
+      "Waiting until 40 weeks for a spontaneous onset of labour"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c880",
+    "num": "Q110",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is an important complication of pre-eclampsia?",
+    "choices": [
+      "Progression to preeclampsia with severe features",
+      "Oedema of the face",
+      "Glycosuria",
+      "Intracerebral haemorrhage"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c881",
+    "num": "Q111",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is the correct plan for a patient with pre-eclampsia with severe features?",
+    "choices": [
+      "The patient should be stabilized first, then be moved to a tertiary care hospital for further management",
+      "The patient should immediately be rushed to the nearest tertiary care hospital for stabilisation",
+      "The patient should be managed at a primary health care unit",
+      "The infant must immediately be delivered by Caesarean section at tertiary care hospital"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c882",
+    "num": "Q112",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the drug of first choice used to manage a diastolic blood pressure of 110 mmHg or more in a chronic hypertensive patient during pregnancy?",
+    "choices": [
+      "Alpha-methyldopa (Aldomet)",
+      "Nifedipine (Adalat)",
+      "Diazepam (Valium)",
+      "Propranolol (Inderal)"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c883",
+    "num": "Q113",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is an important sign of magnesium sulphate overdosage?",
+    "choices": [
+      "Vomiting",
+      "Hyperventilation",
+      "A urine output of less than 20 ml per hour",
+      "Depressed tendon reflexes"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c884",
+    "num": "Q114",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What drug is used to prevent and manage eclampsia?",
+    "choices": [
+      "Magnesium sulphate",
+      "Magnesium trisilicate",
+      "Alpha-methyldopa (Aldomet)",
+      "Diazepam (Valium)"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c885",
+    "num": "Q115",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "How should a patient, who feels well but has a diastolic blood pressure of 90 mmHg at 36 weeks gestation, be managed? At all her previous antenatal visits, her blood pressure was normal, and she has no proteinuria.",
+    "choices": [
+      "She must be given an intramuscular injection of dihydralazine (Nepresol)",
+      "She must be hospitalised",
+      "No oral antihypertensive drugs should be prescribed and weekly antenatal visits should be arranged with additional visits if necessary",
+      "A full blood count should be done to exclude a low platelet count"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c886",
+    "num": "Q116",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which one of the following is no longer considered a sign of severity of preeclampsia?",
+    "choices": [
+      "New onset elevation of liver transaminases",
+      "Intrauterine growth restriction",
+      "Pulmonary oedema",
+      "Thrombocytopenia"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c887",
+    "num": "Q117",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Which of the following is the correct method for treatment for a patient pregnant 32 weeks with pre-eclampsia with severe features?",
+    "choices": [
+      "Conservative inpatient management till 36 weeks gestation then delivery",
+      "Termination of pregnancy by emergency caesarean section is absolutely indicated",
+      "Attempt vaginal delivery if both the mother and fetus are stable",
+      "The patient can be managed on outpatient clinic till maturity"
+    ],
+    "ans": "C"
+  },
+  {
+    "id": "c888",
+    "num": "Q118",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "What is the drug of first choice used to manage a diastolic blood pressure of 110 mmHg or more in a preeclamptic patient with severe features?",
+    "choices": [
+      "Magnesium sulphate",
+      "Alpha-methyldopa (Aldomet)",
+      "Diazepam (Valium)",
+      "I.V. hydralazine"
+    ],
+    "ans": "D"
+  },
+  {
+    "id": "c889",
+    "num": "Q119",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The first line of management of a patient presented with an eclamptic fit is:",
+    "choices": [
+      "Immediate delivery by caesarean section",
+      "Ensure patent airways and breathing",
+      "Administration of I.V. MgSO4",
+      "Administration of I.V. hydralazine"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c890",
+    "num": "Q120",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The target to control blood pressure in a patient with preeclampsia with severe features presented to the emergency room with BP 180/120 is:",
+    "choices": [
+      "To lower systolic BP below 130 and diastolic BP below 80 mmHg",
+      "To keep diastolic BP not lower than 90–100 mmHg",
+      "To keep systolic BP above 160 mmHg",
+      "To lower BP to 120/80 mmHg"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c891",
+    "num": "Q121",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "In pre-eclamptic patient with severe features, perinatal outcome has been shown to most reliably relate to:",
+    "choices": [
+      "Severity of hypertension",
+      "Gestational age at delivery",
+      "Non-reactive non-stress test",
+      "Mode of delivery"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c892",
+    "num": "Q122",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The following statement is true regarding expectant management of pre-eclampsia with severe features:",
+    "choices": [
+      "It is safe for the mother and fetus when gestational age is 34–35 weeks",
+      "Intravenous magnesium sulfate given prophylactically reduces the risks of convulsions",
+      "Corticosteroids do not reduce neonatal morbidity when gestational age is 30–32 weeks in the presence of severe pre-eclampsia",
+      "Expectant management improves outcome when gestational age is 21–22 weeks"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c893",
+    "num": "Q123",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Magnesium sulfate administration decreases the chance of developing which one of the following?",
+    "choices": [
+      "Eclampsia",
+      "Liver rupture",
+      "Edema",
+      "Thrombocytopenia"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c894",
+    "num": "Q124",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "Regarding drugs used to control the blood pressure in patients with uncontrolled chronic hypertension with pregnancy:",
+    "choices": [
+      "Methyldopa is the first choice drug used for long-term treatment",
+      "Labetalol can only be given intravenously",
+      "ACE inhibitors are safe to use",
+      "Beta blockers are the first line of management"
+    ],
+    "ans": "A"
+  },
+  {
+    "id": "c895",
+    "num": "Q125",
+    "cardType": "MCQ",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "The most specific complications that occur in chronic hypertensive females continued on ACE inhibitors in their second and third trimester are:",
+    "choices": [
+      "Fetal hydrocephalus, spina bifida, and polyhydramnios",
+      "Fetal hypocalvaria, renal dysgenesis, and oligohydramnios",
+      "Fetal cardiac VSD, microcephaly, and intracranial calcifications",
+      "Fetal dextrocardia, gastroschisis, and polyhydramnios"
+    ],
+    "ans": "B"
+  },
+  {
+    "id": "c896",
+    "num": "Q126",
+    "cardType": "OSCE",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A 36-year-old primigravida at 35 weeks gestation with a spontaneous DCDA twin gestation presents with BP 150/100 mmHg. She denies contractions, bleeding, fluid leakage, vision changes, or headaches. NST is reactive for both fetuses. Labs: Hgb 12.5 g/dL, Hct 39%, Platelets 95,000/mm³, AST 810 U/L*, ALT 420 U/L*, Creatinine 1.7 mg/dL*, Urine protein/creatinine ratio 0.80*.",
+    "stem": "A 36-year-old primigravida at 35 weeks gestation with a spontaneous DCDA twin gestation presents with BP 150/100 mmHg. She denies contractions, bleeding, fluid leakage, vision changes, or headaches. NST is reactive for both fetuses. Labs: Hgb 12.5 g/dL, Hct 39%, Platelets 95,000/mm³, AST 810 U/L*, ALT 420 U/L*, Creatinine 1.7 mg/dL*, Urine protein/creatinine ratio 0.80*.",
+    "subParts": [
+      {
+        "q": "What diagnosis can be made from the above information?",
+        "choices": [
+          "Gestational hypertension",
+          "Preeclampsia with severe features (HELLP syndrome)",
+          "Chronic hypertension",
+          "Eclampsia"
+        ],
+        "ans": "B"
+      },
+      {
+        "q": "What is your management?",
+        "choices": [
+          "Outpatient monitoring and repeat labs in 1 week",
+          "Stabilize with MgSO4, antihypertensives, and plan delivery",
+          "Continue pregnancy to 37 weeks",
+          "Immediate cesarean section without further workup"
+        ],
+        "ans": "B"
+      },
+      {
+        "q": "What are the most common maternal and fetal complications to this case?",
+        "choices": [
+          "Placenta previa and fetal macrosomia",
+          "DIC, hepatic rupture, IUGR, preterm birth",
+          "Polyhydramnios and gestational diabetes",
+          "Preterm PROM and cord prolapse"
+        ],
+        "ans": "B"
+      }
+    ]
+  },
+  {
+    "id": "c897",
+    "num": "Q127",
+    "cardType": "OSCE",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "An 18-year-old primigravida at 37 weeks gestation is brought to the emergency department with disturbed consciousness, severe headache, blurred vision, vomiting, and 2 tonic-clonic seizures en route. She missed several prenatal visits. BP on admission: 190/100 mmHg; pulse 110/min. Urine dipstick: 4+ protein. Ankle clonus present. Labs: Hgb 8.0 g/dL, Platelets 60,000/mm³, AST 12 U/L, LDH 1648 U/L.",
+    "stem": "An 18-year-old primigravida at 37 weeks gestation is brought to the emergency department with disturbed consciousness, severe headache, blurred vision, vomiting, and 2 tonic-clonic seizures en route. She missed several prenatal visits. BP on admission: 190/100 mmHg; pulse 110/min. Urine dipstick: 4+ protein. Ankle clonus present. Labs: Hgb 8.0 g/dL, Platelets 60,000/mm³, AST 12 U/L, LDH 1648 U/L.",
+    "subParts": [
+      {
+        "q": "What is the diagnosis in this patient?",
+        "choices": [
+          "Gestational hypertension",
+          "Eclampsia with HELLP syndrome",
+          "Chronic hypertension with superimposed preeclampsia",
+          "Isolated thrombocytopenia"
+        ],
+        "ans": "B"
+      },
+      {
+        "q": "How to manage this case?",
+        "choices": [
+          "Admit, administer IV MgSO4 for seizure control and IV antihypertensive, plan delivery",
+          "Discharge with oral antihypertensives and follow up in clinic",
+          "Perform urgent cesarean section without stabilization",
+          "Administer diazepam and monitor at home"
+        ],
+        "ans": "A"
+      },
+      {
+        "q": "In your opinion, is this case preventable? If yes, how?",
+        "choices": [
+          "No, eclampsia is never preventable",
+          "Yes — regular antenatal care, early screening for preeclampsia risk, and prophylactic low-dose aspirin in high-risk women",
+          "Yes — only by dietary restriction of salt",
+          "Yes — by elective caesarean at 34 weeks for all primigravidas"
+        ],
+        "ans": "B"
+      }
+    ]
+  },
+  {
+    "id": "c898",
+    "num": "Q128",
+    "cardType": "OSCE",
+    "lecture": "Hypertensive Disorders with Pregnancy",
+    "exam": "mid",
+    "source": "2026 Lectures Q's",
+    "q": "A 22-year-old primigravida at 32 weeks gestation presents to the emergency room with sudden mild prune-juice coloured vaginal bleeding and severe agonizing abdominal pain. Examination: pale, cold clammy skin, BP 100/60 mmHg, pulse 120 bpm, RR 24/min, urine output 30 cc smoky urine with 4+ proteinuria. Obstetric exam: fundal height 36 weeks, board-like rigidity, absent fetal heart sounds. Cervix: 5 cm dilated, 70% effaced, intact membranes, mild dark red vaginal bleeding. Labs: Hgb 7.5 g/dL, Platelets 45,000/mm³, AST 810 U/L, ALT 420 U/L, Creatinine 1.7 mg/dL, PC <17%.",
+    "stem": "A 22-year-old primigravida at 32 weeks gestation presents to the emergency room with sudden mild prune-juice coloured vaginal bleeding and severe agonizing abdominal pain. Examination: pale, cold clammy skin, BP 100/60 mmHg, pulse 120 bpm, RR 24/min, urine output 30 cc smoky urine with 4+ proteinuria. Obstetric exam: fundal height 36 weeks, board-like rigidity, absent fetal heart sounds. Cervix: 5 cm dilated, 70% effaced, intact membranes, mild dark red vaginal bleeding. Labs: Hgb 7.5 g/dL, Platelets 45,000/mm³, AST 810 U/L, ALT 420 U/L, Creatinine 1.7 mg/dL, PC <17%.",
+    "subParts": [
+      {
+        "q": "What is the diagnosis of this case?",
+        "choices": [
+          "Placenta previa with fetal distress",
+          "Placental abruption with HELLP syndrome and intrauterine fetal death",
+          "Uterine rupture with DIC",
+          "Vasa previa with fetal anemia"
+        ],
+        "ans": "B"
+      },
+      {
+        "q": "How to manage this case?",
+        "choices": [
+          "Expectant management with bed rest and close monitoring",
+          "Immediate resuscitation (blood products, IV access), correct coagulopathy, proceed with delivery",
+          "Urgent MRI to confirm diagnosis before any intervention",
+          "Administer tocolytics to prolong pregnancy"
+        ],
+        "ans": "B"
+      },
+      {
+        "q": "What are the possible maternal complications to this case?",
+        "choices": [
+          "Gestational diabetes and macrosomia",
+          "DIC, acute renal failure, hepatic failure, pulmonary edema, maternal death",
+          "Placenta accreta and uterine atony only",
+          "Postpartum thyroiditis and anaemia"
+        ],
+        "ans": "B"
+      }
+    ]
   }
 ]
