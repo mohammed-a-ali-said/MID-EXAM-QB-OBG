@@ -1,5 +1,5 @@
 {
-  "offlineEnabled": true,
-  "offlineVersion": "v2",
-  "offlineDisableMode": "keep_existing"
+  "offlineEnabled": false,
+  "offlineVersion": "v1",
+  "offlineDisableMode": "purge_existing"
 }
