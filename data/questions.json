@@ -10959,7 +10959,7 @@
     "id": "c685",
     "num": "Q45",
     "cardType": "MCQ",
-    "lecture": "VTE, UTI & Thyroid",
+    "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q1",
     "q": "Which of the following does NOT typically occur during the first trimester of pregnancy?",
@@ -10970,7 +10970,10 @@
       "Significant increase in BMI"
     ],
     "ans": "D",
-    "_mergedPrevExam": true
+    "_mergedPrevExam": true,
+    "alsoInLectures": [
+      "Antenatal Care (ANC)"
+    ]
   },
   {
     "id": "c686",
