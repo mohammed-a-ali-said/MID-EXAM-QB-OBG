@@ -1258,13 +1258,7 @@ function renderOfflineControls(){
   }
   if(!offlineEnabled){
     if(button) button.classList.add('hidden');
-    if(installed && SITE_CONFIG.offlineDisableMode === 'keep_existing'){
-      setOfflineBanner('warn','Offline downloads are turned off by the admin. This device can still use the previously downloaded offline copy.');
-    }else if(getStoredOfflineStatus() === 'purged'){
-      setOfflineBanner('ok','Offline copies were removed from this device because the admin turned offline mode off.');
-    }else{
-      setOfflineBanner('', '');
-    }
+    setOfflineBanner('', '');
     return;
   }
   const updateAvailable = installed && installedVersion !== SITE_CONFIG.offlineVersion;
@@ -1363,7 +1357,6 @@ async function initOfflineMode(){
   try{
     offlineState.registration = await navigator.serviceWorker.register(OFFLINE_SW_URL);
     if(!SITE_CONFIG.offlineEnabled && SITE_CONFIG.offlineDisableMode === 'purge_existing' && hasInstalledOfflinePack() && navigator.onLine){
-      setOfflineBanner('warn','Offline mode has been turned off by the admin. Removing the downloaded offline copy from this device...');
       await removeOfflinePack({ unregister:true, silent:true });
     }
   }catch(error){

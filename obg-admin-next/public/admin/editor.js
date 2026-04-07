@@ -1814,11 +1814,7 @@
       els.siteSettingsStatus.textContent = `Offline mode is enabled for students. Current offline pack version: ${config.offlineVersion}.`;
       return;
     }
-    if (config.offlineDisableMode === "purge_existing") {
-      els.siteSettingsStatus.textContent = "Offline mode is off. Existing downloaded packs will be removed on the next online visit, and the download button stays hidden.";
-      return;
-    }
-    els.siteSettingsStatus.textContent = "Offline mode is off. Existing downloaded packs keep working, but students will not see download updates or a download button.";
+    els.siteSettingsStatus.textContent = "Offline mode is off.";
   }
 
   function createPublishUndoSnapshot() {
