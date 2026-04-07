@@ -10536,7 +10536,7 @@
     "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "mid",
+    "exam": "Paper 1",
     "source": "Previous Exams Added — MU-MED 35 Q64",
     "q": "Which not cause postpartum hemorrhage...",
     "choices": [
@@ -10546,7 +10546,8 @@
       "Forceps delivery"
     ],
     "ans": "C",
-    "_mergedPrevExam": true
+    "_mergedPrevExam": true,
+    "active": false
   },
   {
     "id": "c651",
