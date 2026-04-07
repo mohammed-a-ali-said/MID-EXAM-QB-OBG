@@ -1188,7 +1188,7 @@ function setStoredOfflineStatus(status){
   } catch(e){}
 }
 function hasInstalledOfflinePack(){
-  return !!getStoredOfflineVersion();
+  return getStoredOfflineStatus() === 'installed' && !!getStoredOfflineVersion();
 }
 function getOfflineButton(){
   return document.getElementById('offline-download-btn');
@@ -1240,7 +1240,7 @@ function setOfflineBanner(tone, message, action){
 function renderOfflineControls(){
   const button = getOfflineButton();
   const installedVersion = getStoredOfflineVersion();
-  const installed = !!installedVersion;
+  const installed = hasInstalledOfflinePack();
   const offlineEnabled = SITE_CONFIG.offlineEnabled;
   if(button){
     button.disabled = false;

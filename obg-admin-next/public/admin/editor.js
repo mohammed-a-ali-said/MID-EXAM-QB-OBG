@@ -1805,9 +1805,11 @@
     state.siteConfig = config;
     if (els.siteOfflineEnabled) els.siteOfflineEnabled.checked = config.offlineEnabled;
     if (els.siteOfflineVersion) els.siteOfflineVersion.value = config.offlineVersion || "v1";
-    if (els.siteOfflineDisableMode) {
-      els.siteOfflineDisableMode.value = config.offlineDisableMode;
-      els.siteOfflineDisableMode.disabled = config.offlineEnabled;
+    if (els.siteOfflineDisableModes?.length) {
+      els.siteOfflineDisableModes.forEach((input) => {
+        input.checked = input.value === config.offlineDisableMode;
+        input.disabled = config.offlineEnabled;
+      });
     }
     if (!els.siteSettingsStatus) return;
     if (config.offlineEnabled) {
@@ -2666,14 +2668,17 @@
       renderSummary();
       renderValidation();
     });
-    if (els.siteOfflineDisableMode) els.siteOfflineDisableMode.addEventListener("change", () => {
-      captureHistoryBeforeMutation("Change offline disable behavior", { mergeWindowMs: 0 });
-      state.siteConfig.offlineDisableMode = els.siteOfflineDisableMode.value === "purge_existing" ? "purge_existing" : "keep_existing";
-      setDirty(true);
-      renderWebsiteSettings();
-      renderSummary();
-      renderValidation();
-      setStatus(`Offline disable behavior set to ${state.siteConfig.offlineDisableMode === "purge_existing" ? "remove existing downloads" : "keep existing downloads"}.`, "ok");
+    if (els.siteOfflineDisableModes?.length) els.siteOfflineDisableModes.forEach((input) => {
+      input.addEventListener("change", () => {
+        if (!input.checked) return;
+        captureHistoryBeforeMutation("Change offline disable behavior", { mergeWindowMs: 0 });
+        state.siteConfig.offlineDisableMode = input.value === "purge_existing" ? "purge_existing" : "keep_existing";
+        setDirty(true);
+        renderWebsiteSettings();
+        renderSummary();
+        renderValidation();
+        setStatus(`Offline disable behavior set to ${state.siteConfig.offlineDisableMode === "purge_existing" ? "remove existing downloads" : "keep existing downloads"}.`, "ok");
+      });
     });
     if (els.bumpOfflineVersionBtn) els.bumpOfflineVersionBtn.addEventListener("click", () => {
       captureHistoryBeforeMutation("Bump offline version", { mergeWindowMs: 0 });
@@ -2876,7 +2881,7 @@
     els.siteOfflineEnabled = byId("site-offline-enabled");
     els.siteOfflineVersion = byId("site-offline-version");
     els.bumpOfflineVersionBtn = byId("bump-offline-version-btn");
-    els.siteOfflineDisableMode = byId("site-offline-disable-mode");
+    els.siteOfflineDisableModes = Array.from(document.querySelectorAll('input[name="site-offline-disable-mode"]'));
     els.siteSettingsStatus = byId("site-settings-status");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");

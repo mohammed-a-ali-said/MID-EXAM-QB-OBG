@@ -89,10 +89,18 @@ function AdminView({ user }) {
                   </label>
                   <label>
                     When turning offline off
-                    <select id="site-offline-disable-mode">
-                      <option value="keep_existing">Keep already-downloaded copies and stop updates</option>
-                      <option value="purge_existing">Delete already-downloaded copies and remove the button</option>
-                    </select>
+                    <div className="website-choice-group" id="site-offline-disable-mode-group">
+                      <label className="website-choice-card">
+                        <input name="site-offline-disable-mode" type="radio" value="keep_existing" defaultChecked />
+                        <span className="website-choice-title">Keep downloaded copies</span>
+                        <span className="website-choice-copy">Students who already downloaded the bank keep using it offline. New downloads and updates stay off.</span>
+                      </label>
+                      <label className="website-choice-card">
+                        <input name="site-offline-disable-mode" type="radio" value="purge_existing" />
+                        <span className="website-choice-title">Delete downloaded copies</span>
+                        <span className="website-choice-copy">Previously downloaded offline packs are removed on the next online visit, and the button stays hidden.</span>
+                      </label>
+                    </div>
                   </label>
                 </div>
                 <div className="github-help" id="site-settings-status">

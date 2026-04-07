@@ -34,6 +34,13 @@ body{margin:0;background:linear-gradient(180deg,#eef3fa,#f7f9fc 220px);font-fami
 .github-help{font-size:.76rem;color:#6b7280;line-height:1.6}
 .website-settings-card{padding:4px 0 0}
 .website-settings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:10px}
+.website-choice-group{display:grid;gap:10px}
+.website-choice-card{display:grid;gap:4px;padding:12px 14px;border:1px solid #d7e1ee;border-radius:14px;background:#f8fbff;cursor:pointer;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.website-choice-card:has(input:checked){border-color:#1b3a6b;background:#eef4ff;box-shadow:0 0 0 3px rgba(27,58,107,.08)}
+.website-choice-card:has(input:disabled){cursor:not-allowed;opacity:.6}
+.website-choice-card input{margin:0 0 4px}
+.website-choice-title{font-weight:700;color:#1b3a6b}
+.website-choice-copy{font-size:.84rem;line-height:1.55;color:#607184}
 label{display:flex;flex-direction:column;gap:6px;font-size:.78rem;font-weight:700;color:#455468}
 input,select,textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:var(--font-b);font-size:.86rem;color:#1f2937;background:#fff}
 input,select,textarea,label{min-width:0}
