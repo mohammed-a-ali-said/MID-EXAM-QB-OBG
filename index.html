@@ -39,6 +39,7 @@ window.OBG_GA_MEASUREMENT_ID = window.OBG_GA_MEASUREMENT_ID || "G-PLV42K5GT2";
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15px;line-height:1.6}
+.hidden{display:none !important}
 
 /* HEADER */
 .hdr{background:linear-gradient(135deg,var(--navy),#2a5298 60%,var(--blue));color:#fff;
@@ -368,6 +369,14 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   align-items:center;
   justify-content:flex-end;
 }
+.offline-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#f8fbff;color:#455468;font-size:.8rem;line-height:1.6}
+.offline-banner.hidden{display:none}
+.offline-banner.ok{background:#eefbf4;border-color:#cce8d5;color:#166534}
+.offline-banner.warn{background:#fff8e8;border-color:#f0dfb7;color:#8a5a00}
+.offline-banner.error{background:#fff4f4;border-color:#f0c9c9;color:#991b1b}
+.offline-banner.progress{background:#eef5ff;border-color:#d4e4ff;color:#1d4e89}
+.offline-banner-copy{flex:1 1 280px}
+.offline-banner-actions{display:flex;gap:8px;flex-wrap:wrap}
 .deck-control-group{
   display:flex;
   gap:8px;
@@ -460,6 +469,9 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   .deck-actions{
     justify-content:flex-start;
   }
+  .offline-banner{
+    align-items:flex-start;
+  }
   .deck-select{
     min-width:180px;
   }
@@ -542,12 +554,14 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
           <label class="deck-toggle"><input type="checkbox" id="practice-random-toggle" onchange="handleRandomModeToggle(this.checked)"> Random order</label>
           <button class="btn btn-out" type="button" onclick="practiceSelectedLecture()">Practice This Lecture</button>
         </div>
+        <button class="btn btn-out hidden" id="offline-download-btn" type="button">Download for offline use</button>
         <button class="btn btn-out" onclick="shuffleDeck()">Shuffle</button>
         <button class="btn btn-out" onclick="resetDeck()">Reset</button>
         <button class="btn btn-navy" onclick="showScore()">Score</button>
         <button class="btn btn-navy" onclick="showStats()" style="background:#5B21B6;">Stats</button>
       </div>
     </div>
+    <div id="offline-status-banner" class="offline-banner hidden" aria-live="polite"></div>
     <div class="prog-label"><span>Progress</span><strong id="prog-txt">0 / 0</strong></div>
     <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
 
@@ -600,7 +614,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <script src="./js/srs-ui.js?v=20260405c"></script>
 <script src="./js/srs-review.js?v=20260405c"></script>
 <script src="./js/srs-dashboard.js?v=20260405c"></script>
-<script src="./js/app-bootstrap.js?v=20260405c"></script>
+<script src="./js/app-bootstrap.js?v=20260407a"></script>
 
 <div id="stats-overlay" onclick="if(event.target===this)closeStats()">
 <div class="stats-box">

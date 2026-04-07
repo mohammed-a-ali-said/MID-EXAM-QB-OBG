@@ -10,6 +10,17 @@ const questionResolutionHelpers = window.questionResolutionHelpers || window.OBG
   contentMetadata: {},
 };
 const CONTENT_METADATA = window.OBG_CONTENT_METADATA || questionResolutionHelpers.contentMetadata || {};
+function normalizePublicSiteConfig(config){
+  const input = config && typeof config === 'object' ? config : {};
+  const rawVersion = String(input.offlineVersion || '').trim();
+  const rawDisableMode = String(input.offlineDisableMode || '').trim().toLowerCase();
+  return {
+    offlineEnabled: input.offlineEnabled === true,
+    offlineVersion: rawVersion || 'v1',
+    offlineDisableMode: rawDisableMode === 'purge_existing' ? 'purge_existing' : 'keep_existing'
+  };
+}
+const SITE_CONFIG = normalizePublicSiteConfig(window.OBG_SITE_CONFIG);
 
 const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ—‹ Immunizations: -\nâ†’ Safe immunizations (include antigens from killed or inactivated organisms):\nInfluenza (all pregnant women in flu season).\nTetanus, diphtheria, pertussis (Tdap)\nHepatitis B (pre- and postexposure).\nHepatitis A (pre- and postexposure).\nPneumococcus (only high-risk women).\nMeningococcus (in unusual outbreaks).\nTyphoid (not routinely recommended).\nâ†’ Unsafe immunizations (include antigens from live attenuated organisms):\nMMR (measles, mumps, rubella)\nPolio\nYellow fever\nVaricella","Note 23.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ€¢ Daily dietary requirement Of a woman during pregnancy (2nd half)\nFood element\nPregnancy\nKilocalories\n2500\nProtein\n60 gm\nIron\n40 gm\nFolic acid\n400 خ¼g\nCalcium\n1000 mg\nVitamin A\n6000 I.U."],"Cardiac Disorders & Anaemia with Pregnancy":["Important notes:\n*minimal level of Hb to allow delivery is\n10 gm/dl\n(ط¬طھ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ط§طھط©)\n*iron needed in pregnancy is\n27 mg/dl\n*anemia of chronic infection is\nnormocytic normochromic anemia\n*Iron absorption differs during pregnancy\n*There is threshold for iron absorption\n*Iron stores is 500 mg\n*Folic acid given in megaloblastic anemia"],"Normal Labour":["ظپظٹ ط§ظ„ظپظˆط±ظ…ط§طھظٹظپ ط¨طھط§ط¹ظƒظ… ظ„ط£ظ†ظ‡ ط¬ظ‡ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ظ†ط© ط±ط§ط¨ط¹ط© ط§ظ„ط³ظ†ط© ط§ظ„ظٹ ظپط§طھطھ ط­ط§ظˆظ„ظˆط§ طھطھط£ظƒط¯ظˆط§ ظ…ظ† ط§ط¬ط§ط¨ط© ط§ظ„ط³ط¤ط§ظ„ ط¯ظ‡"]};
 
@@ -1149,6 +1160,218 @@ function clearProgress(){
   renderExactSourceTabs();
   applyFilter();
 }
+
+const OFFLINE_VERSION_KEY = 'obg_offline_pack_version';
+const OFFLINE_STATUS_KEY = 'obg_offline_pack_status';
+const OFFLINE_SW_URL = './service-worker.js?v=20260407a';
+const offlineState = {
+  registration: null,
+  busy: false
+};
+
+function getStoredOfflineVersion(){
+  try { return String(localStorage.getItem(OFFLINE_VERSION_KEY) || '').trim(); } catch(e){ return ''; }
+}
+function setStoredOfflineVersion(version){
+  try {
+    if(version) localStorage.setItem(OFFLINE_VERSION_KEY, String(version));
+    else localStorage.removeItem(OFFLINE_VERSION_KEY);
+  } catch(e){}
+}
+function getStoredOfflineStatus(){
+  try { return String(localStorage.getItem(OFFLINE_STATUS_KEY) || '').trim(); } catch(e){ return ''; }
+}
+function setStoredOfflineStatus(status){
+  try {
+    if(status) localStorage.setItem(OFFLINE_STATUS_KEY, String(status));
+    else localStorage.removeItem(OFFLINE_STATUS_KEY);
+  } catch(e){}
+}
+function hasInstalledOfflinePack(){
+  return !!getStoredOfflineVersion();
+}
+function getOfflineButton(){
+  return document.getElementById('offline-download-btn');
+}
+function getOfflineBanner(){
+  return document.getElementById('offline-status-banner');
+}
+function isSameOriginAssetUrl(raw){
+  if(!raw) return false;
+  try{
+    const url = new URL(raw, window.location.href);
+    return url.origin === window.location.origin;
+  }catch(e){
+    return false;
+  }
+}
+function buildOfflineAssetList(){
+  const urls = new Set(['./','./index.html','./data/questions.json','./data/content-metadata.json','./data/site-config.json']);
+  document.querySelectorAll('script[src],link[rel="stylesheet"][href]').forEach((node)=>{
+    const raw = node.tagName === 'SCRIPT' ? node.getAttribute('src') : node.getAttribute('href');
+    if(!isSameOriginAssetUrl(raw)) return;
+    const url = new URL(raw, window.location.href);
+    urls.add(url.pathname + url.search);
+  });
+  ALL_CARDS.forEach((card)=>{
+    const raw = String(card?.image || '').trim();
+    if(!raw || /^https?:/i.test(raw) || /^data:/i.test(raw)) return;
+    if(!isSameOriginAssetUrl(raw)) return;
+    const url = new URL(raw, window.location.href);
+    urls.add(url.pathname + url.search);
+  });
+  return Array.from(urls);
+}
+function setOfflineBanner(tone, message, action){
+  const banner = getOfflineBanner();
+  if(!banner) return;
+  if(!message){
+    banner.className = 'offline-banner hidden';
+    banner.innerHTML = '';
+    return;
+  }
+  banner.className = `offline-banner${tone ? ` ${tone}` : ''}`;
+  banner.innerHTML = `<div class="offline-banner-copy">${message}</div>${action ? `<div class="offline-banner-actions">${action}</div>` : ''}`;
+  const actionBtn = banner.querySelector('[data-offline-action="refresh"]');
+  if(actionBtn){
+    actionBtn.addEventListener('click', ()=>window.location.reload());
+  }
+}
+function renderOfflineControls(){
+  const button = getOfflineButton();
+  const installedVersion = getStoredOfflineVersion();
+  const installed = !!installedVersion;
+  const offlineEnabled = SITE_CONFIG.offlineEnabled;
+  if(button){
+    button.disabled = false;
+    button.classList.add('hidden');
+    button.textContent = 'Download for offline use';
+  }
+  if(offlineState.busy){
+    if(button){
+      button.classList.remove('hidden');
+      button.disabled = true;
+      button.textContent = 'Downloading offline pack...';
+    }
+    setOfflineBanner('progress','Downloading the offline study pack for this device.');
+    return;
+  }
+  if(!offlineEnabled){
+    if(button) button.classList.add('hidden');
+    if(installed && SITE_CONFIG.offlineDisableMode === 'keep_existing'){
+      setOfflineBanner('warn','Offline downloads are turned off by the admin. This device can still use the previously downloaded offline copy.');
+    }else if(getStoredOfflineStatus() === 'purged'){
+      setOfflineBanner('ok','Offline copies were removed from this device because the admin turned offline mode off.');
+    }else{
+      setOfflineBanner('', '');
+    }
+    return;
+  }
+  const updateAvailable = installed && installedVersion !== SITE_CONFIG.offlineVersion;
+  if(button){
+    button.classList.remove('hidden');
+    button.textContent = updateAvailable ? 'Update offline pack' : installed ? 'Available offline' : 'Download for offline use';
+    button.disabled = installed && !updateAvailable;
+  }
+  if(updateAvailable){
+    setOfflineBanner('warn',`A newer offline pack is available for this site (${esc2(SITE_CONFIG.offlineVersion)}). Update this device to keep the latest content.`);
+  }else if(installed){
+    setOfflineBanner('ok',`This device has the offline study pack ready (${esc2(installedVersion)}).`);
+  }else{
+    setOfflineBanner('progress','Tap Download for offline use to store the study website, questions, and images on this device.');
+  }
+}
+function postOfflineWorkerMessage(message){
+  return new Promise(async (resolve, reject)=>{
+    if(!('serviceWorker' in navigator)) {
+      reject(new Error('This browser does not support offline caching.'));
+      return;
+    }
+    const registration = offlineState.registration || await navigator.serviceWorker.ready;
+    offlineState.registration = registration;
+    const worker = registration.active || registration.waiting || registration.installing;
+    if(!worker){
+      reject(new Error('Offline worker is not ready yet. Refresh and try again.'));
+      return;
+    }
+    const channel = new MessageChannel();
+    channel.port1.onmessage = (event)=>{
+      const data = event.data || {};
+      if(data.ok) resolve(data);
+      else reject(new Error(data.error || 'Offline operation failed.'));
+    };
+    worker.postMessage(message, [channel.port2]);
+  });
+}
+async function removeOfflinePack(options = {}){
+  try{
+    const registration = offlineState.registration || await navigator.serviceWorker.ready;
+    offlineState.registration = registration;
+    await postOfflineWorkerMessage({ type:'PURGE_OFFLINE_PACK' });
+    setStoredOfflineVersion('');
+    setStoredOfflineStatus('purged');
+    if(options.unregister && registration){
+      await registration.unregister();
+      offlineState.registration = null;
+    }
+    renderOfflineControls();
+  }catch(error){
+    console.warn('offline purge failed', error);
+    if(!options.silent){
+      setOfflineBanner('error', esc2(error.message || 'Failed to remove the offline pack from this device.'));
+    }
+  }
+}
+async function downloadOfflinePack(){
+  if(!SITE_CONFIG.offlineEnabled) return;
+  offlineState.busy = true;
+  renderOfflineControls();
+  try{
+    if(!navigator.onLine) throw new Error('Go online once to download the offline study pack.');
+    const payload = await postOfflineWorkerMessage({
+      type:'DOWNLOAD_OFFLINE_PACK',
+      version: SITE_CONFIG.offlineVersion,
+      urls: buildOfflineAssetList()
+    });
+    setStoredOfflineVersion(SITE_CONFIG.offlineVersion);
+    setStoredOfflineStatus('installed');
+    if(typeof window.trackStudyEvent === 'function'){
+      window.trackStudyEvent('offline_pack_downloaded', { version: SITE_CONFIG.offlineVersion, count: Number(payload.cached || 0) });
+    }
+    setOfflineBanner('ok',`Offline study pack downloaded for this device (${esc2(SITE_CONFIG.offlineVersion)}).`);
+  }catch(error){
+    setOfflineBanner('error', esc2(error.message || 'Offline download failed. Please try again while online.'));
+  }finally{
+    offlineState.busy = false;
+    renderOfflineControls();
+  }
+}
+async function initOfflineMode(){
+  const button = getOfflineButton();
+  if(button){
+    button.addEventListener('click', downloadOfflinePack);
+  }
+  if(!('serviceWorker' in navigator)){
+    renderOfflineControls();
+    return;
+  }
+  const shouldRegister = SITE_CONFIG.offlineEnabled || hasInstalledOfflinePack();
+  if(!shouldRegister){
+    renderOfflineControls();
+    return;
+  }
+  try{
+    offlineState.registration = await navigator.serviceWorker.register(OFFLINE_SW_URL);
+    if(!SITE_CONFIG.offlineEnabled && SITE_CONFIG.offlineDisableMode === 'purge_existing' && hasInstalledOfflinePack() && navigator.onLine){
+      setOfflineBanner('warn','Offline mode has been turned off by the admin. Removing the downloaded offline copy from this device...');
+      await removeOfflinePack({ unregister:true, silent:true });
+    }
+  }catch(error){
+    console.warn('service worker registration failed', error);
+  }
+  renderOfflineControls();
+}
+window.initOfflineMode = initOfflineMode;
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // INIT
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ

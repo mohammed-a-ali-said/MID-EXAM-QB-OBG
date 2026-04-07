@@ -1,8 +1,9 @@
 (function () {
   const DATA_URL = "./data/questions.json";
   const METADATA_URL = "./data/content-metadata.json";
-  const APP_URL = "./js/app.js?v=20260406c";
-  const CSS_VERSION = "20260406c";
+  const SITE_CONFIG_URL = "./data/site-config.json";
+  const APP_URL = "./js/app.js?v=20260407a";
+  const CSS_VERSION = "20260407a";
 
   const srsStylesheet = document.querySelector('link[href*="./css/srs.css"], link[href*="css/srs.css"]');
   if (srsStylesheet) {
@@ -47,6 +48,17 @@
     return JSON.parse(text);
   }
 
+  function normalizeSiteConfig(input) {
+    const value = input && typeof input === "object" ? input : {};
+    const rawVersion = String(value.offlineVersion || "").trim();
+    const rawDisableMode = String(value.offlineDisableMode || "").trim().toLowerCase();
+    return {
+      offlineEnabled: value.offlineEnabled === true,
+      offlineVersion: rawVersion || "v1",
+      offlineDisableMode: rawDisableMode === "purge_existing" ? "purge_existing" : "keep_existing",
+    };
+  }
+
   function deriveMetadata(cards) {
     const lectureNames = [...new Set((cards || []).map((card) => String(card?.lecture || "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
     const exams = [...new Set((cards || []).map((card) => String(card?.exam || "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -69,9 +81,18 @@
   async function boot() {
     try {
       setStageStatus("Loading question bank...", "Preparing the study deck and restoring your tools.");
-      const [cards, metadataPayload] = await Promise.all([
+      const [cards, metadataPayload, siteConfigPayload] = await Promise.all([
         loadJson(DATA_URL),
         loadJson(METADATA_URL, null).catch(() => null),
+        loadJson(SITE_CONFIG_URL, {
+          offlineEnabled: false,
+          offlineVersion: "v1",
+          offlineDisableMode: "keep_existing",
+        }).catch(() => ({
+          offlineEnabled: false,
+          offlineVersion: "v1",
+          offlineDisableMode: "keep_existing",
+        })),
       ]);
       if (!Array.isArray(cards)) {
         throw new Error("Question bank payload is not a JSON array.");
@@ -83,6 +104,7 @@
       window.OBG_CONTENT_METADATA = metadataPayload && typeof metadataPayload === "object"
         ? metadataPayload
         : deriveMetadata(cards);
+      window.OBG_SITE_CONFIG = normalizeSiteConfig(siteConfigPayload);
       if (typeof window.initializeQuestionResolution === "function") {
         window.initializeQuestionResolution(window.ALL_CARDS, window.OBG_CONTENT_METADATA);
       }
@@ -90,11 +112,19 @@
       if (window.SRS_Review) window.SRS_Review.init();
       if (window.SRS_Dashboard) window.SRS_Dashboard.init();
       if (window.SRS_UI) window.SRS_UI.init();
+      if (typeof window.initOfflineMode === "function") {
+        window.initOfflineMode();
+      }
     } catch (error) {
       console.error("[OBG bootstrap] Failed to initialize app", error);
+      const siteConfig = normalizeSiteConfig(window.OBG_SITE_CONFIG);
       setStageStatus(
         "Unable to load the question bank",
-        "Make sure you are using a local server or static host and that ./data/questions.json is available.",
+        !navigator.onLine
+          ? siteConfig.offlineEnabled
+            ? "You are offline. Go online once and use Download for offline use on this device first."
+            : "You are offline and offline mode is currently disabled by the admin."
+          : "Make sure you are using a local server or static host and that ./data/questions.json is available.",
         "error"
       );
     }

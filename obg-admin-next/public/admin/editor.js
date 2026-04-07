@@ -51,11 +51,13 @@
     original: [],
     working: [],
     metadata: { lectures: [], exams: [] },
+    siteConfig: { offlineEnabled: false, offlineVersion: "v1", offlineDisableMode: "keep_existing" },
     publicStats: null,
     selectedId: null,
     dirty: false,
     fileSha: "",
     metadataSha: "",
+    siteConfigSha: "",
     repo: null,
     user: readBootUser(),
     saving: false,
@@ -120,7 +122,7 @@
       const raw = window.sessionStorage.getItem(LAST_PUBLISH_UNDO_KEY);
       if (!raw) return null;
       const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed?.questions) || !parsed?.metadata) return null;
+      if (!Array.isArray(parsed?.questions) || !parsed?.metadata || !parsed?.siteConfig) return null;
       return parsed;
     } catch (error) {
       console.warn("Failed to restore publish undo state.", error);
@@ -132,6 +134,7 @@
     return {
       working: deepClone(state.working),
       metadata: deepClone(state.metadata),
+      siteConfig: deepClone(state.siteConfig),
       selectedId: state.selectedId,
       savedSnapshots: deepClone(state.savedSnapshots || {}),
       dirty: !!state.dirty,
@@ -142,6 +145,7 @@
     return JSON.stringify({
       working: snapshot?.working || [],
       metadata: snapshot?.metadata || { lectures: [], exams: [] },
+      siteConfig: snapshot?.siteConfig || { offlineEnabled: false, offlineVersion: "v1", offlineDisableMode: "keep_existing" },
       selectedId: snapshot?.selectedId || "",
       dirty: !!snapshot?.dirty,
     });
@@ -178,6 +182,7 @@
   function restoreHistorySnapshot(snapshot) {
     state.working = deepClone(snapshot?.working || []);
     state.metadata = normalizeMetadata(snapshot?.metadata || { lectures: [], exams: [] });
+    state.siteConfig = normalizeSiteConfig(snapshot?.siteConfig || { offlineEnabled: false, offlineVersion: "v1", offlineDisableMode: "keep_existing" });
     state.selectedId = snapshot?.selectedId || state.working[0]?.id || null;
     state.savedSnapshots = deepClone(snapshot?.savedSnapshots || {});
     persistSelectedQuestionId();
@@ -327,6 +332,17 @@
         active: exam?.active !== false,
         order: Number(exam?.order || index + 1),
       })).filter((exam) => exam.label) : [],
+    };
+  }
+
+  function normalizeSiteConfig(siteConfig) {
+    const input = siteConfig && typeof siteConfig === "object" ? siteConfig : {};
+    const rawVersion = String(input.offlineVersion || "").trim();
+    const rawDisableMode = String(input.offlineDisableMode || "").trim().toLowerCase();
+    return {
+      offlineEnabled: input.offlineEnabled === true,
+      offlineVersion: rawVersion || "v1",
+      offlineDisableMode: rawDisableMode === "purge_existing" ? "purge_existing" : "keep_existing",
     };
   }
 
@@ -828,11 +844,13 @@
     if (!Array.isArray(payload?.questions)) throw new Error("Question bank payload is invalid.");
     state.fileSha = String(payload.sha || "");
     state.metadataSha = String(payload.metadataSha || "");
+    state.siteConfigSha = String(payload.siteConfigSha || "");
     state.repo = payload.repo || null;
     state.publicStats = payload.publicStats || null;
     state.original = payload.questions.map((question) => normalizeQuestion(question));
     state.working = deepClone(state.original);
     state.metadata = normalizeMetadata(payload.metadata);
+    state.siteConfig = normalizeSiteConfig(payload.siteConfig);
     const persistedSelectedId = loadSelectedQuestionId();
     state.selectedId = state.working.some((question) => question.id === persistedSelectedId)
       ? persistedSelectedId
@@ -1232,6 +1250,11 @@
       if (exam.id && examIds.has(exam.id)) metadataErrors.push(`Duplicate exam id: ${exam.id}`);
       examIds.add(exam.id);
     });
+    const siteConfig = normalizeSiteConfig(state.siteConfig);
+    if (!String(siteConfig.offlineVersion || "").trim()) metadataErrors.push("Offline version is required.");
+    if (!["keep_existing", "purge_existing"].includes(siteConfig.offlineDisableMode)) {
+      metadataErrors.push("Offline disable mode is invalid.");
+    }
     state.working.forEach((question) => {
       const key = String(question.id || "").trim();
       idCounts.set(key, (idCounts.get(key) || 0) + 1);
@@ -1332,6 +1355,7 @@
 
   function renderAll() {
     renderSummary();
+    renderWebsiteSettings();
     renderSearchFilters();
     renderQuestionList();
     renderBucketLists();
@@ -1772,10 +1796,36 @@
     }, null, 2)}\n`;
   }
 
+  function getSerializedSiteConfig() {
+    return `${JSON.stringify(normalizeSiteConfig(state.siteConfig), null, 2)}\n`;
+  }
+
+  function renderWebsiteSettings() {
+    const config = normalizeSiteConfig(state.siteConfig);
+    state.siteConfig = config;
+    if (els.siteOfflineEnabled) els.siteOfflineEnabled.checked = config.offlineEnabled;
+    if (els.siteOfflineVersion) els.siteOfflineVersion.value = config.offlineVersion || "v1";
+    if (els.siteOfflineDisableMode) {
+      els.siteOfflineDisableMode.value = config.offlineDisableMode;
+      els.siteOfflineDisableMode.disabled = config.offlineEnabled;
+    }
+    if (!els.siteSettingsStatus) return;
+    if (config.offlineEnabled) {
+      els.siteSettingsStatus.textContent = `Offline mode is enabled for students. Current offline pack version: ${config.offlineVersion}.`;
+      return;
+    }
+    if (config.offlineDisableMode === "purge_existing") {
+      els.siteSettingsStatus.textContent = "Offline mode is off. Existing downloaded packs will be removed on the next online visit, and the download button stays hidden.";
+      return;
+    }
+    els.siteSettingsStatus.textContent = "Offline mode is off. Existing downloaded packs keep working, but students will not see download updates or a download button.";
+  }
+
   function createPublishUndoSnapshot() {
     return {
       questions: state.working.map((question) => normalizeForSave(question)),
       metadata: JSON.parse(getSerializedMetadata()),
+      siteConfig: JSON.parse(getSerializedSiteConfig()),
       selectedId: state.selectedId,
       at: Date.now(),
     };
@@ -1911,8 +1961,10 @@
         body: JSON.stringify({
           questions: state.working.map((question) => normalizeForSave(question)),
           metadata: JSON.parse(getSerializedMetadata()),
+          siteConfig: JSON.parse(getSerializedSiteConfig()),
           sha: state.fileSha,
           metadataSha: state.metadataSha,
+          siteConfigSha: state.siteConfigSha,
         }),
       });
       if (!saveResponse.ok) {
@@ -1927,7 +1979,9 @@
       const payload = await saveResponse.json();
       state.fileSha = String(payload.sha || state.fileSha || "");
       state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
+      state.siteConfigSha = String(payload.siteConfigSha || state.siteConfigSha || "");
       if (payload.metadata) state.metadata = normalizeMetadata(payload.metadata);
+      if (payload.siteConfig) state.siteConfig = normalizeSiteConfig(payload.siteConfig);
       state.publicStats = payload.publicStats || state.publicStats;
       state.savedSnapshots = Object.fromEntries(state.working.map((question) => [question.id, snapshotQuestion(question)]));
       state.lastPublishedUndo = publishUndoSnapshot;
@@ -1936,11 +1990,11 @@
       const location = state.repo ? `${state.repo.owner}/${state.repo.repo}@${state.repo.branch}` : "GitHub";
       if (payload.url) {
         setStatusHtml(
-          `Saved <strong>questions and metadata</strong> to ${escapeHtml(location)} at ${escapeHtml(new Date().toLocaleTimeString())}. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
+          `Saved <strong>questions, metadata, and website settings</strong> to ${escapeHtml(location)} at ${escapeHtml(new Date().toLocaleTimeString())}. <a href="${escapeHtml(payload.url)}" target="_blank" rel="noreferrer">Open commit</a>`,
           "ok"
         );
       } else {
-        setStatus(`Saved data/questions.json to ${location} at ${new Date().toLocaleTimeString()}.`, "ok");
+        setStatus(`Saved questions, metadata, and website settings to ${location} at ${new Date().toLocaleTimeString()}.`, "ok");
       }
     } catch (error) {
       setStatus(error.message || "GitHub save failed.", "error");
@@ -2057,8 +2111,10 @@
         body: JSON.stringify({
           questions: state.lastPublishedUndo.questions,
           metadata: state.lastPublishedUndo.metadata,
+          siteConfig: state.lastPublishedUndo.siteConfig,
           sha: state.fileSha,
           metadataSha: state.metadataSha,
+          siteConfigSha: state.siteConfigSha,
         }),
       });
       if (!restoreResponse.ok) {
@@ -2069,7 +2125,9 @@
       const payload = await restoreResponse.json();
       state.fileSha = String(payload.sha || state.fileSha || "");
       state.metadataSha = String(payload.metadataSha || state.metadataSha || "");
+      state.siteConfigSha = String(payload.siteConfigSha || state.siteConfigSha || "");
       state.metadata = normalizeMetadata(payload.metadata || state.lastPublishedUndo.metadata);
+      state.siteConfig = normalizeSiteConfig(payload.siteConfig || state.lastPublishedUndo.siteConfig);
       state.original = (state.lastPublishedUndo.questions || []).map((question) => normalizeQuestion(question));
       state.working = deepClone(state.original);
       state.selectedId = state.lastPublishedUndo.selectedId || state.working[0]?.id || null;
@@ -2593,6 +2651,45 @@
       setStatus(`Added lecture bucket "${value}".`, "ok");
     });
     if (els.mergeLectureBtn) els.mergeLectureBtn.addEventListener("click", mergeLectureBuckets);
+    if (els.siteOfflineEnabled) els.siteOfflineEnabled.addEventListener("change", () => {
+      captureHistoryBeforeMutation(`Turn offline mode ${els.siteOfflineEnabled.checked ? "on" : "off"}`, { mergeWindowMs: 0 });
+      state.siteConfig.offlineEnabled = els.siteOfflineEnabled.checked;
+      if (state.siteConfig.offlineEnabled) {
+        state.siteConfig.offlineDisableMode = "keep_existing";
+      }
+      setDirty(true);
+      renderWebsiteSettings();
+      renderSummary();
+      renderValidation();
+      setStatus(`Offline mode ${state.siteConfig.offlineEnabled ? "enabled" : "disabled"} in the working draft.`, "ok");
+    });
+    if (els.siteOfflineVersion) els.siteOfflineVersion.addEventListener("input", () => {
+      state.siteConfig.offlineVersion = String(els.siteOfflineVersion.value || "").trim() || "v1";
+      setDirty(true);
+      renderWebsiteSettings();
+      renderSummary();
+      renderValidation();
+    });
+    if (els.siteOfflineDisableMode) els.siteOfflineDisableMode.addEventListener("change", () => {
+      captureHistoryBeforeMutation("Change offline disable behavior", { mergeWindowMs: 0 });
+      state.siteConfig.offlineDisableMode = els.siteOfflineDisableMode.value === "purge_existing" ? "purge_existing" : "keep_existing";
+      setDirty(true);
+      renderWebsiteSettings();
+      renderSummary();
+      renderValidation();
+      setStatus(`Offline disable behavior set to ${state.siteConfig.offlineDisableMode === "purge_existing" ? "remove existing downloads" : "keep existing downloads"}.`, "ok");
+    });
+    if (els.bumpOfflineVersionBtn) els.bumpOfflineVersionBtn.addEventListener("click", () => {
+      captureHistoryBeforeMutation("Bump offline version", { mergeWindowMs: 0 });
+      const current = String(state.siteConfig.offlineVersion || "v1").trim();
+      const match = current.match(/^(.*?)(\d+)$/);
+      state.siteConfig.offlineVersion = match ? `${match[1]}${Number(match[2]) + 1}` : `${current}-2`;
+      setDirty(true);
+      renderWebsiteSettings();
+      renderSummary();
+      renderValidation();
+      setStatus(`Offline version bumped to ${state.siteConfig.offlineVersion}.`, "ok");
+    });
     if (els.addExamBtn) els.addExamBtn.addEventListener("click", () => {
       const value = els.newExamInput.value.trim();
       if (!value) return;
@@ -2780,6 +2877,11 @@
     els.redoBtn = byId("redo-btn");
     els.undoPublishBtn = byId("undo-publish-btn");
     els.saveGithubBtn = byId("save-github-btn");
+    els.siteOfflineEnabled = byId("site-offline-enabled");
+    els.siteOfflineVersion = byId("site-offline-version");
+    els.bumpOfflineVersionBtn = byId("bump-offline-version-btn");
+    els.siteOfflineDisableMode = byId("site-offline-disable-mode");
+    els.siteSettingsStatus = byId("site-settings-status");
     els.saveQuestionBtn = byId("save-question-btn");
     els.saveQuestionGithubBtn = byId("save-question-github-btn");
     els.newQuestionType = byId("new-question-type");

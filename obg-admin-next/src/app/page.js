@@ -72,6 +72,34 @@ function AdminView({ user }) {
                 <div className="github-help">Access is controlled by GitHub OAuth plus the <code>ADMIN_ALLOWED_USERS</code> allowlist. Temporary employee access is best handled by adding their GitHub username, giving repo write access, then removing both later.</div>
               </div>
             </div>
+            <div className="github-row" style={{ gridTemplateColumns: "1fr" }}>
+              <div className="website-settings-card">
+                <div className="panel-title" style={{ marginBottom: 8 }}>Website Settings</div>
+                <div className="website-settings-grid">
+                  <label className="toggle-label bulk-toggle">
+                    <span>Allow students to download offline mode</span>
+                    <input id="site-offline-enabled" type="checkbox" />
+                  </label>
+                  <label>
+                    Offline version
+                    <div className="inline-create">
+                      <input id="site-offline-version" type="text" placeholder="v1" />
+                      <button className="mini-btn" id="bump-offline-version-btn" type="button">Bump</button>
+                    </div>
+                  </label>
+                  <label>
+                    When turning offline off
+                    <select id="site-offline-disable-mode">
+                      <option value="keep_existing">Keep already-downloaded copies and stop updates</option>
+                      <option value="purge_existing">Delete already-downloaded copies and remove the button</option>
+                    </select>
+                  </label>
+                </div>
+                <div className="github-help" id="site-settings-status">
+                  Offline mode is off by default. Enable it here to let students download the public site for offline use.
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -84,6 +84,17 @@ export function normalizeMetadata(metadata, questions = []) {
   };
 }
 
+export function normalizeSiteConfig(siteConfig) {
+  const input = siteConfig && typeof siteConfig === "object" ? siteConfig : {};
+  const rawVersion = String(input.offlineVersion || "").trim();
+  const rawDisableMode = String(input.offlineDisableMode || "").trim().toLowerCase();
+  return {
+    offlineEnabled: input.offlineEnabled === true,
+    offlineVersion: rawVersion || "v1",
+    offlineDisableMode: rawDisableMode === "purge_existing" ? "purge_existing" : "keep_existing",
+  };
+}
+
 export function validateQuestionsPayload(questions) {
   const errors = [];
   if (!Array.isArray(questions)) {
@@ -169,6 +180,18 @@ export function validateMetadataPayload(metadata) {
     examLabels.add(exam.label.toLowerCase());
   });
 
+  return { normalized, errors };
+}
+
+export function validateSiteConfigPayload(siteConfig) {
+  const normalized = normalizeSiteConfig(siteConfig);
+  const errors = [];
+  if (!String(normalized.offlineVersion || "").trim()) {
+    errors.push("Site config: offline version is required.");
+  }
+  if (!["keep_existing", "purge_existing"].includes(String(normalized.offlineDisableMode || "").trim())) {
+    errors.push("Site config: offline disable mode is invalid.");
+  }
   return { normalized, errors };
 }
 

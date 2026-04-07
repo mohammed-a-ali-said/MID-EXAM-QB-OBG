@@ -73,6 +73,7 @@ function repoContext(env) {
     branch: env.repoBranch,
     path: env.repoPath,
     metadataPath: env.metadataPath,
+    siteConfigPath: env.siteConfigPath,
   };
 }
 
@@ -221,9 +222,13 @@ export async function fetchViewer(token) {
 
 export async function fetchRepoContent(token) {
   const env = assertEnv();
-  const [questionsFile, metadataFile] = await Promise.all([
+  const [questionsFile, metadataFile, siteConfigFile] = await Promise.all([
     fetchRepoJsonFile(token, env.repoPath, env.repoPath),
     fetchRepoJsonFile(token, env.metadataPath, env.metadataPath).catch(() => ({
+      payload: { sha: "" },
+      data: null,
+    })),
+    fetchRepoJsonFile(token, env.siteConfigPath, env.siteConfigPath).catch(() => ({
       payload: { sha: "" },
       data: null,
     })),
@@ -238,13 +243,15 @@ export async function fetchRepoContent(token) {
     sha: questionsFile.payload.sha,
     metadata: metadataFile.data,
     metadataSha: metadataFile.payload?.sha || "",
+    siteConfig: siteConfigFile.data,
+    siteConfigSha: siteConfigFile.payload?.sha || "",
     repo: repoContext(env),
   };
 }
 
-export async function saveRepoContent(token, { questionsContent, questionsSha, metadataContent, metadataSha }) {
+export async function saveRepoContent(token, { questionsContent, questionsSha, metadataContent, metadataSha, siteConfigContent, siteConfigSha }) {
   const env = assertEnv();
-  const [questionsSaved, metadataSaved] = await Promise.all([
+  const [questionsSaved, metadataSaved, siteConfigSaved] = await Promise.all([
     saveRepoJsonFile(token, {
       repoPath: env.repoPath,
       content: questionsContent,
@@ -257,13 +264,20 @@ export async function saveRepoContent(token, { questionsContent, questionsSha, m
       sha: metadataSha,
       message: "Update content metadata from admin dashboard",
     }),
+    saveRepoJsonFile(token, {
+      repoPath: env.siteConfigPath,
+      content: siteConfigContent,
+      sha: siteConfigSha,
+      message: "Update site config from admin dashboard",
+    }),
   ]);
 
   return {
     sha: questionsSaved.sha,
     metadataSha: metadataSaved.sha,
-    commitSha: metadataSaved.commitSha || questionsSaved.commitSha,
-    url: metadataSaved.url || questionsSaved.url,
+    siteConfigSha: siteConfigSaved.sha,
+    commitSha: siteConfigSaved.commitSha || metadataSaved.commitSha || questionsSaved.commitSha,
+    url: siteConfigSaved.url || metadataSaved.url || questionsSaved.url,
   };
 }
 
