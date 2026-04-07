@@ -1,11 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OBG Complete Study Bank + Unique Previous Exams — Mid Exam Interactive</title>
+<title>OBG Complete Study Bank + Unique Previous Exams â€” Mid Exam Interactive</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/srs.css?v=20260405c">
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 <style>
 :root{
   --navy:#1B3A6B;--blue:#2E6DAD;--blue-lt:#D9E8F5;--blue-mid:#4a90d9;
@@ -65,6 +71,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 /* LAYOUT */
 .main{max-width:1340px;margin:0 auto;padding:22px 28px;min-height:calc(100vh - 140px)}
 .layout{display:grid;grid-template-columns:272px 1fr;gap:24px;align-items:start}
+.card-wrap{display:flex;flex-direction:column}
 
 /* SIDEBAR */
 .sidebar{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;
@@ -127,14 +134,14 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .prog-wrap{background:var(--border);border-radius:20px;height:4px;margin-bottom:18px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-mid));border-radius:20px;transition:width .4s}
 
-/* ── MCQ CARD ── */
+/* â”€â”€ MCQ CARD â”€â”€ */
 .mcq-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);overflow:hidden;min-height:380px;display:flex;flex-direction:column}
 .mcq-hdr{background:linear-gradient(135deg,#1A5C3A,#2d8f5e);padding:12px 26px;color:#fff}
 .mcq-badge{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
 .mcq-qn{font-family:var(--font-m);font-size:.75rem;background:rgba(255,255,255,.2);border-radius:12px;padding:2px 9px}
 .mcq-tag-b{font-size:.62rem;font-weight:700;background:rgba(255,255,255,.15);border-radius:9px;padding:2px 7px;letter-spacing:.04em}
 .mcq-lec{font-size:.69rem;opacity:.82;display:flex;align-items:center;gap:5px}
-.mcq-lec::before{content:'📚';font-size:.68rem}
+.mcq-lec::before{content:'ًں“ڑ';font-size:.68rem}
 .mcq-stem{flex:1;padding:18px 26px 12px;font-family:var(--font-h);font-size:1.1rem;font-weight:600;color:var(--navy);line-height:1.42}
 .card-note{margin:0 26px 10px;padding:10px 12px;border-left:4px solid var(--gold);background:#fff8e6;
   color:#7b5e00;border-radius:8px;font-size:.8rem;line-height:1.6;max-width:620px;text-align:left}
@@ -174,12 +181,11 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .rb-easy{background:var(--teal-lt);color:var(--teal);border-color:#a8dcd3}
 .rb-easy:hover{background:var(--teal);color:#fff}
 
-/* ── IMAGE PLACEHOLDER ── */
-.img-ph{border:2px dashed #aaa;background:#f8f9fa;padding:18px;text-align:center;color:#666;
-  margin:8px 26px;border-radius:8px;font-size:.8rem}
-.img-ph::before{content:'🖼️ ';font-size:1.1rem}
+/* â”€â”€ IMAGE PLACEHOLDER â”€â”€ */
+.img-ph-badge{display:inline-flex;align-items:center;gap:5px;background:#f1f5f9;border:1.5px dashed #94a3b8;border-radius:20px;padding:3px 10px;font-size:.75rem;color:#64748b;margin:6px 0 10px;font-family:var(--font-b);}
+.img-ph::before{content:'ًں–¼ï¸ڈ ';font-size:1.1rem}
 
-/* ── OSCE CARD ── */
+/* â”€â”€ OSCE CARD â”€â”€ */
 .osce-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);overflow:hidden;min-height:400px;display:flex;flex-direction:column}
 .osce-hdr{background:linear-gradient(135deg,#5B21B6,#7C3AED);padding:12px 26px;color:#fff}
 .osce-stem{background:#F5F3FF;border-left:4px solid #7C3AED;padding:14px 20px;margin:14px 26px 10px;
@@ -194,8 +200,8 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .osce-dot.current{border-color:#7C3AED;color:#7C3AED;background:#F5F3FF}
 .osce-sub-hdr{padding:4px 26px 8px;font-size:.8rem;font-weight:700;color:#5B21B6}
 
-/* ── FLASHCARD ── */
-.card-stage{perspective:1200px;min-height:370px}
+/* â”€â”€ FLASHCARD â”€â”€ */
+.card-stage{perspective:1200px;min-height:420px;max-height:65vh;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;}
 .app-status-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);min-height:320px;
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
   padding:40px 32px;border:1px solid rgba(27,58,107,.08)}
@@ -230,14 +236,14 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .ans-footer{border-top:1px solid var(--border);padding:10px 26px;display:flex;align-items:center;
   justify-content:space-between;gap:8px;flex-wrap:wrap;background:#fafbfd;flex-shrink:0}
 
-/* SAQ back — same as SAQ flip from original */
+/* SAQ back â€” same as SAQ flip from original */
 .card-back-saq{background:#fff;display:flex;flex-direction:column}
 .saq-ans-body{flex:1;padding:20px 26px;overflow-y:auto;max-height:420px;
   display:flex;align-items:center;justify-content:center;
   font-style:italic;color:#6b7280;font-size:.9rem;text-align:center}
 
 /* NAV */
-.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:0;flex-wrap:wrap;padding:12px 0 6px;border-top:1px solid var(--border);background:#fff;position:sticky;bottom:0;z-index:5;}
 .nav-btn{display:flex;align-items:center;gap:5px;padding:8px 17px;border-radius:9px;
   font-family:var(--font-b);font-size:.8rem;font-weight:600;cursor:pointer;
   border:1.5px solid var(--border);background:#fff;color:var(--navy);transition:all .18s;box-shadow:0 2px 7px rgba(0,0,0,.06)}
@@ -301,7 +307,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   .hdr{padding:14px 16px 12px}
   .mcq-stem,.cf-body{padding:16px 18px 12px}
   .mcq-choices{padding:0 12px 8px}
-  .img-ph{margin:8px 14px}
+  .img-ph-badge{display:inline-flex;align-items:center;gap:5px;background:#f1f5f9;border:1.5px dashed #94a3b8;border-radius:20px;padding:3px 10px;font-size:.75rem;color:#64748b;margin:6px 0 10px;font-family:var(--font-b);}
 }
 
 #stats-overlay{display:none;position:fixed;inset:0;background:rgba(27,58,107,.6);backdrop-filter:blur(6px);z-index:250;align-items:center;justify-content:center;padding:20px;}
@@ -448,7 +454,105 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   }
 }
 
-</style>
+.mcq-body-row{display:flex;gap:18px;align-items:flex-start;padding:14px 26px 10px;}
+.mcq-img-col{flex-shrink:0;}
+.mcq-stem-col{flex:1;min-width:0;}
+.mcq-stem{font-family:var(--font-h);font-size:1.05rem;font-weight:600;color:var(--navy);line-height:1.42;padding:0;}
+@media(max-width:600px){
+  .mcq-body-row{flex-direction:column;}
+  .mcq-img-col img{width:100%!important;height:180px!important;}
+}
+  /* split panel layout for image questions */
+  .mcq-has-img .mcq-split {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 340px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .mcq-split-img {
+    position: relative;
+    overflow: hidden;
+    background: #1B3A6B;
+  }
+
+  .mcq-panel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.92;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  .mcq-split-img:hover .mcq-panel-img {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+
+  .mcq-split-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      transparent 55%,
+      rgba(255,255,255,0.95) 100%
+    );
+    pointer-events: none;
+  }
+
+  .mcq-split-img-label {
+    position: absolute;
+    bottom: 10px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: .62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: rgba(255,255,255,0.85);
+    background: rgba(27,58,107,0.55);
+    backdrop-filter: blur(4px);
+    padding: 4px 8px;
+  }
+
+  .mcq-split-content {
+    padding: 20px 22px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 640px) {
+    .mcq-has-img .mcq-split {
+      grid-template-columns: 1fr;
+      grid-template-rows: 160px auto;
+    }
+    .mcq-split-img-overlay {
+      background: linear-gradient(
+        to bottom,
+        transparent 55%,
+        rgba(255,255,255,0.95) 100%
+      );
+    }
+  }.question-media-layout{display:block;}
+.question-media-layout.has-media{display:flex;align-items:flex-start;gap:16px;padding:12px 22px 10px;}
+.question-media-side{position:relative;order:2;flex:0 0 140px;width:140px;align-self:flex-start;margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.question-media-side-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;text-align:right;width:100%;}
+.question-media-main{order:1;flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:10px;}
+.question-media-side .mcq-panel-img{width:140px!important;height:140px!important;max-width:140px;max-height:140px;object-fit:contain!important;display:block;border-radius:12px;background:#fff;border:1px solid #dbe4f0;box-shadow:0 6px 18px rgba(27,58,107,.10);padding:6px;margin:0 0 0 auto;}
+.question-media-side .img-ph-badge{max-width:140px;justify-content:center;margin:0 0 0 auto;}
+.mcq-card .question-media-layout:not(.has-media) .question-media-main,.osce-card .question-media-layout:not(.has-media) .question-media-main{display:block;}
+.mcq-card .question-media-layout:not(.has-media),.osce-card .question-media-layout:not(.has-media){padding:0;}
+@media (max-width: 700px){
+  .question-media-layout.has-media{gap:10px;padding:10px 14px 8px;}
+  .question-media-side{flex-basis:96px;width:96px;}
+  .question-media-side .mcq-panel-img{width:96px!important;height:96px!important;max-width:96px;max-height:96px;padding:4px;}
+  .question-media-side .img-ph-badge{max-width:96px;font-size:.68rem;padding:4px 8px;}
+  .question-media-side-label{font-size:.55rem;}
+}</style>
 </head>
 <body>
 
@@ -513,7 +617,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   </div>
 
   <!-- CONTENT -->
-  <div>
+  <div class="card-wrap">
     <div class="deck-info">
       <div>
         <div class="deck-title" id="deck-title">All Questions</div>
@@ -569,7 +673,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <!-- SCORE OVERLAY -->
 <div class="score-overlay" id="score-overlay" onclick="if(event.target===this)closeScore()">
 <div class="score-card">
-  <div class="score-emoji" id="sc-emoji">🏆</div>
+  <div class="score-emoji" id="sc-emoji">ًںڈ†</div>
   <div class="score-title">Session Complete!</div>
   <div class="score-sub" id="sc-sub"></div>
   <div class="score-grid" id="sc-grid"></div>
@@ -651,6 +755,12 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 </footer>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
