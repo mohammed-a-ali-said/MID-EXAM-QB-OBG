@@ -10536,7 +10536,7 @@
     "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "Paper 1",
+    "exam": "mid",
     "source": "Previous Exams Added — MU-MED 35 Q64",
     "q": "Which not cause postpartum hemorrhage...",
     "choices": [
@@ -10546,8 +10546,7 @@
       "Forceps delivery"
     ],
     "ans": "C",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c651",
@@ -10771,7 +10770,7 @@
     "id": "c672",
     "num": "Q73",
     "cardType": "MCQ",
-    "lecture": "VTE, UTI & Thyroid",
+    "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q18",
     "q": "A missed period in pregnancy is associated with increased risk of:",
@@ -10788,7 +10787,7 @@
     "id": "c675",
     "num": "Q74",
     "cardType": "MCQ",
-    "lecture": "VTE, UTI & Thyroid",
+    "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q52",
     "q": "Which of the following are components of Virchow's triad?",
@@ -10822,7 +10821,7 @@
     "id": "c677",
     "num": "Q60",
     "cardType": "MCQ",
-    "lecture": "Intrapartum Fetal Monitoring",
+    "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q5",
     "q": "30 years old lady, G4 P3+0 chronic HTN, pregnant 34 wks. by date while by US → BPD: 32wks & FL: 28 wks. Which of the following parameter in ultrasound will be most critical in your decision?",
@@ -10850,15 +10849,14 @@
       "Endometriosis"
     ],
     "ans": "B",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c679",
     "num": "Q62",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
-    "exam": "Paper 1",
+    "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q32",
     "q": "The nerve supply of levator ani muscle arises from:",
     "choices": [
@@ -10868,8 +10866,7 @@
       "S4–S5"
     ],
     "ans": "C",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c680",
