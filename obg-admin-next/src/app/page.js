@@ -72,46 +72,6 @@ function AdminView({ user }) {
                 <div className="github-help">Access is controlled by GitHub OAuth plus the <code>ADMIN_ALLOWED_USERS</code> allowlist. Temporary employee access is best handled by adding their GitHub username, giving repo write access, then removing both later.</div>
               </div>
             </div>
-            <div className="github-row" style={{ gridTemplateColumns: "1fr" }}>
-              <div className="website-settings-card">
-                <div className="panel-title" style={{ marginBottom: 8 }}>Website Settings</div>
-                <div className="website-settings-grid">
-                  <label className="toggle-label bulk-toggle">
-                    <span>Allow students to download offline mode</span>
-                    <input id="site-offline-enabled" type="checkbox" />
-                  </label>
-                  <label>
-                    Offline version
-                    <div className="inline-create">
-                      <input id="site-offline-version" type="text" placeholder="v1" />
-                      <button className="mini-btn" id="bump-offline-version-btn" type="button">Bump</button>
-                    </div>
-                  </label>
-                  <div className="website-field-span-full">
-                    <div className="website-choice-heading">When turning offline off</div>
-                    <div className="website-choice-group" id="site-offline-disable-mode-group">
-                      <label className="website-choice-card">
-                        <input name="site-offline-disable-mode" type="radio" value="keep_existing" defaultChecked />
-                        <span className="website-choice-body">
-                          <span className="website-choice-title">Keep downloaded copies</span>
-                          <span className="website-choice-copy">Students who already downloaded the bank keep using it offline. New downloads and updates stay off.</span>
-                        </span>
-                      </label>
-                      <label className="website-choice-card">
-                        <input name="site-offline-disable-mode" type="radio" value="purge_existing" />
-                        <span className="website-choice-body">
-                          <span className="website-choice-title">Delete downloaded copies</span>
-                          <span className="website-choice-copy">Previously downloaded offline packs are removed on the next online visit, and the button stays hidden.</span>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div className="github-help" id="site-settings-status">
-                  Offline mode is off by default. Enable it here to let students download the public site for offline use.
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -420,6 +380,46 @@ function AdminView({ user }) {
               <div className="validation-title">History & Undo</div>
               <div id="history-meta" className="history-meta">No draft changes yet.</div>
               <div id="history-list" className="history-list"></div>
+            </div>
+            <div className="validation-box website-settings-box">
+              <div className="validation-title">Website Settings</div>
+              <div className="website-settings-card">
+                <div className="website-settings-grid">
+                  <label className="toggle-label bulk-toggle">
+                    <span>Allow students to download offline mode</span>
+                    <input id="site-offline-enabled" type="checkbox" />
+                  </label>
+                  <label>
+                    Offline version
+                    <div className="inline-create">
+                      <input id="site-offline-version" type="text" placeholder="v1" />
+                      <button className="mini-btn" id="bump-offline-version-btn" type="button">Bump</button>
+                    </div>
+                  </label>
+                  <div className="website-field-span-full">
+                    <div className="website-choice-heading">When turning offline off</div>
+                    <div className="website-choice-group" id="site-offline-disable-mode-group">
+                      <label className="website-choice-card">
+                        <input name="site-offline-disable-mode" type="radio" value="keep_existing" defaultChecked />
+                        <span className="website-choice-body">
+                          <span className="website-choice-title">Keep downloaded copies</span>
+                          <span className="website-choice-copy">Students who already downloaded the bank keep using it offline. New downloads and updates stay off.</span>
+                        </span>
+                      </label>
+                      <label className="website-choice-card">
+                        <input name="site-offline-disable-mode" type="radio" value="purge_existing" />
+                        <span className="website-choice-body">
+                          <span className="website-choice-title">Delete downloaded copies</span>
+                          <span className="website-choice-copy">Previously downloaded offline packs are removed on the next online visit, and the button stays hidden.</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="github-help" id="site-settings-status">
+                  Offline mode is off by default. Enable it here to let students download the public site for offline use.
+                </div>
+              </div>
             </div>
           </aside>
         </main>
