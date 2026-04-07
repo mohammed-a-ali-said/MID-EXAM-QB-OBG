@@ -7,11 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/srs.css?v=20260405c">
 <script>
-window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+window.OBG_GA_MEASUREMENT_ID = window.OBG_GA_MEASUREMENT_ID || "G-XXXXXXXXXX";
+(function (measurementId) {
+  if (!measurementId || measurementId === "G-XXXXXXXXXX") return;
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId);
+  window.trackStudyEvent = window.trackStudyEvent || function(name, params){
+    window.gtag("event", name, params || {});
+  };
+})(window.OBG_GA_MEASUREMENT_ID);
 </script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
 <style>
 :root{
   --navy:#1B3A6B;--blue:#2E6DAD;--blue-lt:#D9E8F5;--blue-mid:#4a90d9;
