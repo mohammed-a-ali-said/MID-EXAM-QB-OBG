@@ -182,6 +182,8 @@
     els.themeToggleBtn = byId("settings-theme-toggle-btn");
     els.saveBtn = byId("settings-save-btn");
     els.saveBottomBtn = byId("settings-save-bottom-btn");
+    els.userName = byId("settings-user-name");
+    els.userLogin = byId("settings-user-login");
     els.offlineEnabled = byId("site-offline-enabled");
     els.offlineVersion = byId("site-offline-version");
     els.bumpBtn = byId("bump-offline-version-btn");
@@ -190,11 +192,26 @@
     els.saveStatus = byId("settings-save-status");
   }
 
+  async function loadSession() {
+    const response = await fetch("/api/session", { cache: "no-store" });
+    if (response.status === 401) {
+      window.location.href = "/";
+      throw new Error("Session expired. Please sign in again.");
+    }
+    if (!response.ok) {
+      throw new Error(`Failed to load session (${response.status}).`);
+    }
+    const payload = await response.json();
+    if (els.userName) els.userName.textContent = payload?.user?.name || payload?.user?.login || "Signed in";
+    if (els.userLogin) els.userLogin.textContent = payload?.user?.login ? `@${payload.user.login}` : "";
+  }
+
   async function init() {
     cacheElements();
     applyTheme(readThemePreference());
     bindEvents();
     try {
+      await loadSession();
       setStatus("Loading website settings...", "progress");
       await loadData();
       setStatus("Website settings loaded.", "ok");

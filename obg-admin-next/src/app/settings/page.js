@@ -1,37 +1,5 @@
-import { getSession } from "@/lib/session";
 import Script from "next/script";
-
-function LoginView({ error }) {
-  const messageMap = {
-    oauth_state: "The GitHub login state check failed. Please try again.",
-    oauth_failed: "GitHub login failed. Check your OAuth app settings and callback URL.",
-    unauthorized: "Your GitHub account is not on the admin allowlist.",
-  };
-
-  return (
-    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "32px" }}>
-      <div style={{ maxWidth: 680, width: "100%", background: "#fff", borderRadius: 24, padding: 32, boxShadow: "0 16px 48px rgba(27,58,107,.12)" }}>
-        <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: ".08em", textTransform: "uppercase", color: "#1A6B5A" }}>Protected Admin</div>
-        <h1 style={{ margin: "10px 0 12px", fontSize: 42, color: "#1B3A6B", lineHeight: 1.1 }}>OBG Content Dashboard</h1>
-        <p style={{ margin: 0, color: "#556274", lineHeight: 1.8 }}>
-          This editor is protected by GitHub OAuth and writes directly to <code>data/questions.json</code> in your repository.
-        </p>
-        {error ? (
-          <div style={{ marginTop: 18, padding: "12px 14px", borderRadius: 12, background: "#fff4f4", color: "#991b1b", border: "1px solid #f1c8c8" }}>
-            {messageMap[error] || "Login failed. Please try again."}
-          </div>
-        ) : null}
-        <div style={{ marginTop: 24, display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <a href="/api/auth/login" style={{ textDecoration: "none", background: "#1B3A6B", color: "#fff", padding: "12px 18px", borderRadius: 12, fontWeight: 700 }}>
-            Continue with GitHub
-          </a>
-        </div>
-      </div>
-    </main>
-  );
-}
-
-function SettingsView({ user }) {
+function SettingsView() {
   return (
     <>
       <link rel="stylesheet" href="/admin/editor.css" />
@@ -57,8 +25,8 @@ function SettingsView({ user }) {
               <a className="admin-side-link active" href="/settings">Website Settings</a>
             </nav>
             <div className="panel-title">Signed in as</div>
-            <div className="github-help" style={{ fontWeight: 800, color: "#1B3A6B", fontSize: ".95rem" }}>{user.name || user.login}</div>
-            <div className="github-help">@{user.login}</div>
+            <div className="github-help" id="settings-user-name" style={{ fontWeight: 800, color: "#1B3A6B", fontSize: ".95rem" }}>Loading...</div>
+            <div className="github-help" id="settings-user-login"></div>
           </aside>
 
           <section className="settings-main-panel">
@@ -116,11 +84,6 @@ function SettingsView({ user }) {
   );
 }
 
-export default async function SettingsPage({ searchParams }) {
-  const session = await getSession();
-  if (!session?.accessToken) {
-    return <LoginView error={searchParams?.error} />;
-  }
-
-  return <SettingsView user={session.user} />;
+export default function SettingsPage() {
+  return <SettingsView />;
 }
