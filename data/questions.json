@@ -10857,7 +10857,7 @@
     "num": "Q62",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
-    "exam": "mid",
+    "exam": "Paper 1",
     "source": "Previous Exams Added — MU-MED 39 Q32",
     "q": "The nerve supply of levator ani muscle arises from:",
     "choices": [
@@ -10867,7 +10867,8 @@
       "S4–S5"
     ],
     "ans": "C",
-    "_mergedPrevExam": true
+    "_mergedPrevExam": true,
+    "active": false
   },
   {
     "id": "c680",
