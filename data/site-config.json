@@ -1,5 +1,5 @@
 {
-  "offlineEnabled": true,
+  "offlineEnabled": false,
   "offlineVersion": "v1",
   "offlineDisableMode": "keep_existing"
 }
