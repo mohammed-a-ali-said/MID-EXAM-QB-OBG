@@ -10850,7 +10850,8 @@
       "Endometriosis"
     ],
     "ans": "B",
-    "_mergedPrevExam": true
+    "_mergedPrevExam": true,
+    "active": false
   },
   {
     "id": "c679",
