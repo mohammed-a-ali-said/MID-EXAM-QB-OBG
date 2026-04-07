@@ -3667,7 +3667,7 @@
     "id": "c229",
     "num": "Q9",
     "cardType": "MCQ",
-    "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
+    "lecture": "Hyperemesis Gravidarum (HEG)",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "The least risk of heart failure for this patient is at:",
@@ -6870,7 +6870,7 @@
     "id": "c430",
     "num": "Q26",
     "cardType": "MCQ",
-    "lecture": "Placental Hormones & Maternal Physiological Changes",
+    "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
     "source": "Lecture Q's (OLD",
     "q": "which is not a physiological change in pregnancy )",
@@ -7078,7 +7078,7 @@
     "id": "c443",
     "num": "Q39",
     "cardType": "MCQ",
-    "lecture": "Intrapartum Fetal Monitoring",
+    "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
     "source": "Old Formatives",
     "q": "As regard brain center development:",
@@ -10097,7 +10097,7 @@
     "id": "c614",
     "num": "Q45",
     "cardType": "MCQ",
-    "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
+    "lecture": "Diagnosis of Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q10",
     "q": "A 24-year-old woman develops persistently elevated hCG after molar evacuation and is diagnosed with invasive mole. What is the best management?",
@@ -10318,7 +10318,7 @@
     "id": "c641",
     "num": "Q1",
     "cardType": "MCQ",
-    "lecture": "Normal Labour",
+    "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q49",
     "q": "Normal duration of pregnancy is defined as:",
@@ -10335,7 +10335,7 @@
     "id": "c638",
     "num": "Q2",
     "cardType": "MCQ",
-    "lecture": "Antenatal Care (ANC)",
+    "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q7",
     "q": "Varivax III vaccine IS",
@@ -10518,7 +10518,7 @@
     "id": "c643",
     "num": "Q13",
     "cardType": "MCQ",
-    "lecture": "Diabetes with Pregnancy",
+    "lecture": "Ectopic Pregnancy, Abortion & Vesicular Mole",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q3",
     "q": "What is the most specific congenital anomaly associated with diabetic pregnancy?",
@@ -10536,7 +10536,7 @@
     "num": "Q70",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "Paper 1",
+    "exam": "mid",
     "source": "Previous Exams Added — MU-MED 35 Q64",
     "q": "Which not cause postpartum hemorrhage...",
     "choices": [
@@ -10546,8 +10546,7 @@
       "Forceps delivery"
     ],
     "ans": "C",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c651",
@@ -10771,7 +10770,7 @@
     "id": "c672",
     "num": "Q73",
     "cardType": "MCQ",
-    "lecture": "VTE, UTI & Thyroid",
+    "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q18",
     "q": "A missed period in pregnancy is associated with increased risk of:",
@@ -10788,7 +10787,7 @@
     "id": "c675",
     "num": "Q74",
     "cardType": "MCQ",
-    "lecture": "VTE, UTI & Thyroid",
+    "lecture": "Diabetes with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q52",
     "q": "Which of the following are components of Virchow's triad?",
@@ -10822,7 +10821,7 @@
     "id": "c677",
     "num": "Q60",
     "cardType": "MCQ",
-    "lecture": "Intrapartum Fetal Monitoring",
+    "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q5",
     "q": "30 years old lady, G4 P3+0 chronic HTN, pregnant 34 wks. by date while by US → BPD: 32wks & FL: 28 wks. Which of the following parameter in ultrasound will be most critical in your decision?",
@@ -10850,15 +10849,14 @@
       "Endometriosis"
     ],
     "ans": "B",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c679",
     "num": "Q62",
     "cardType": "MCQ",
     "lecture": "Cardiac Disorders & Anaemia with Pregnancy",
-    "exam": "Paper 1",
+    "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q32",
     "q": "The nerve supply of levator ani muscle arises from:",
     "choices": [
@@ -10868,8 +10866,7 @@
       "S4–S5"
     ],
     "ans": "C",
-    "_mergedPrevExam": true,
-    "active": false
+    "_mergedPrevExam": true
   },
   {
     "id": "c680",
@@ -10959,7 +10956,7 @@
     "id": "c685",
     "num": "Q45",
     "cardType": "MCQ",
-    "lecture": "Diagnosis of Pregnancy",
+    "lecture": "VTE, UTI & Thyroid",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 39 Q1",
     "q": "Which of the following does NOT typically occur during the first trimester of pregnancy?",
@@ -10970,10 +10967,7 @@
       "Significant increase in BMI"
     ],
     "ans": "D",
-    "_mergedPrevExam": true,
-    "alsoInLectures": [
-      "Antenatal Care (ANC)"
-    ]
+    "_mergedPrevExam": true
   },
   {
     "id": "c686",
@@ -11132,7 +11126,7 @@
     "id": "c695",
     "num": "Q69",
     "cardType": "MCQ",
-    "lecture": "Placental Hormones & Maternal Physiological Changes",
+    "lecture": "Normal Labour",
     "exam": "mid",
     "source": "Previous Exams Added — MU-MED 36 Q18",
     "q": "Arterial blood gases in normal pregnancy show:",
