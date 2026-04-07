@@ -251,26 +251,24 @@ export async function fetchRepoContent(token) {
 
 export async function saveRepoContent(token, { questionsContent, questionsSha, metadataContent, metadataSha, siteConfigContent, siteConfigSha }) {
   const env = assertEnv();
-  const [questionsSaved, metadataSaved, siteConfigSaved] = await Promise.all([
-    saveRepoJsonFile(token, {
-      repoPath: env.repoPath,
-      content: questionsContent,
-      sha: questionsSha,
-      message: "Update question bank from admin dashboard",
-    }),
-    saveRepoJsonFile(token, {
-      repoPath: env.metadataPath,
-      content: metadataContent,
-      sha: metadataSha,
-      message: "Update content metadata from admin dashboard",
-    }),
-    saveRepoJsonFile(token, {
-      repoPath: env.siteConfigPath,
-      content: siteConfigContent,
-      sha: siteConfigSha,
-      message: "Update site config from admin dashboard",
-    }),
-  ]);
+  const questionsSaved = await saveRepoJsonFile(token, {
+    repoPath: env.repoPath,
+    content: questionsContent,
+    sha: questionsSha,
+    message: "Update question bank from admin dashboard",
+  });
+  const metadataSaved = await saveRepoJsonFile(token, {
+    repoPath: env.metadataPath,
+    content: metadataContent,
+    sha: metadataSha,
+    message: "Update content metadata from admin dashboard",
+  });
+  const siteConfigSaved = await saveRepoJsonFile(token, {
+    repoPath: env.siteConfigPath,
+    content: siteConfigContent,
+    sha: siteConfigSha,
+    message: "Update site config from admin dashboard",
+  });
 
   return {
     sha: questionsSaved.sha,
