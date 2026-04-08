@@ -6,23 +6,6 @@
 <title>OBG Complete Study Bank + Unique Previous Exams — Mid Exam Interactive</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./css/srs.css?v=20260405c">
-<script>
-window.OBG_GA_MEASUREMENT_ID = window.OBG_GA_MEASUREMENT_ID || "G-PLV42K5GT2";
-(function (measurementId) {
-  if (!measurementId || measurementId === "G-XXXXXXXXXX") return;
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-  document.head.appendChild(script);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
-  window.gtag("js", new Date());
-  window.gtag("config", measurementId);
-  window.trackStudyEvent = window.trackStudyEvent || function(name, params){
-    window.gtag("event", name, params || {});
-  };
-})(window.OBG_GA_MEASUREMENT_ID);
-</script>
 <style>
 :root{
   --navy:#1B3A6B;--blue:#2E6DAD;--blue-lt:#D9E8F5;--blue-mid:#4a90d9;
@@ -39,7 +22,6 @@ window.OBG_GA_MEASUREMENT_ID = window.OBG_GA_MEASUREMENT_ID || "G-PLV42K5GT2";
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15px;line-height:1.6}
-.hidden{display:none !important}
 
 /* HEADER */
 .hdr{background:linear-gradient(135deg,var(--navy),#2a5298 60%,var(--blue));color:#fff;
@@ -83,6 +65,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 /* LAYOUT */
 .main{max-width:1340px;margin:0 auto;padding:22px 28px;min-height:calc(100vh - 140px)}
 .layout{display:grid;grid-template-columns:272px 1fr;gap:24px;align-items:start}
+.card-wrap{display:flex;flex-direction:column}
 
 /* SIDEBAR */
 .sidebar{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;
@@ -213,7 +196,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
 .osce-sub-hdr{padding:4px 26px 8px;font-size:.8rem;font-weight:700;color:#5B21B6}
 
 /* ── FLASHCARD ── */
-.card-stage{perspective:1200px;min-height:370px}
+.card-stage{perspective:1200px;min-height:420px}
 .app-status-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh-lg);min-height:320px;
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
   padding:40px 32px;border:1px solid rgba(27,58,107,.08)}
@@ -255,7 +238,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:#333;font-size:15
   font-style:italic;color:#6b7280;font-size:.9rem;text-align:center}
 
 /* NAV */
-.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:#fff;padding:12px 0 8px;border-top:1px solid var(--border);margin-top:12px;z-index:10}
 .nav-btn{display:flex;align-items:center;gap:5px;padding:8px 17px;border-radius:9px;
   font-family:var(--font-b);font-size:.8rem;font-weight:600;cursor:pointer;
   border:1.5px solid var(--border);background:#fff;color:var(--navy);transition:all .18s;box-shadow:0 2px 7px rgba(0,0,0,.06)}
@@ -369,14 +352,6 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   align-items:center;
   justify-content:flex-end;
 }
-.offline-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#f8fbff;color:#455468;font-size:.8rem;line-height:1.6}
-.offline-banner.hidden{display:none}
-.offline-banner.ok{background:#eefbf4;border-color:#cce8d5;color:#166534}
-.offline-banner.warn{background:#fff8e8;border-color:#f0dfb7;color:#8a5a00}
-.offline-banner.error{background:#fff4f4;border-color:#f0c9c9;color:#991b1b}
-.offline-banner.progress{background:#eef5ff;border-color:#d4e4ff;color:#1d4e89}
-.offline-banner-copy{flex:1 1 280px}
-.offline-banner-actions{display:flex;gap:8px;flex-wrap:wrap}
 .deck-control-group{
   display:flex;
   gap:8px;
@@ -412,6 +387,104 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 }
 .deck-toggle input{
   accent-color:var(--teal);
+}
+
+/* 3-DOT MENU */
+.menu-wrapper{
+  position:relative;
+  display:inline-flex;
+}
+.menu-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  padding:0;
+  border:1.5px solid var(--border);
+  border-radius:9px;
+  background:#fff;
+  color:var(--navy);
+  cursor:pointer;
+  transition:all .18s;
+}
+.menu-btn:hover{
+  background:var(--blue-lt);
+  border-color:var(--blue);
+}
+.menu-btn svg{
+  width:18px;
+  height:18px;
+}
+.menu-dropdown{
+  position:absolute;
+  top:100%;
+  right:0;
+  margin-top:6px;
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:0 8px 32px rgba(27,58,107,.15);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:all .2s ease;
+  z-index:50;
+}
+.menu-dropdown.open{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  font-size:.8rem;
+  color:#333;
+  cursor:pointer;
+  transition:background .15s;
+  border-bottom:1px solid #f0f2f7;
+}
+.menu-item:first-child{
+  border-radius:12px 12px 0 0;
+}
+.menu-item:last-child{
+  border-bottom:none;
+  border-radius:0 0 12px 12px;
+}
+.menu-item:hover{
+  background:var(--blue-lt);
+}
+.menu-item.danger:hover{
+  background:#fef2f2;
+  color:var(--red);
+}
+.menu-item svg{
+  width:16px;
+  height:16px;
+  flex-shrink:0;
+  opacity:.7;
+}
+.menu-item.danger svg{
+  opacity:.8;
+}
+.menu-item input[type="checkbox"]{
+  accent-color:var(--teal);
+  width:16px;
+  height:16px;
+  cursor:pointer;
+}
+.menu-item-label{
+  flex:1;
+  font-weight:500;
+}
+.menu-item-hint{
+  font-size:.68rem;
+  color:#6b7280;
+  margin-top:2px;
 }
 
 /* FOOTER */
@@ -469,11 +542,13 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   .deck-actions{
     justify-content:flex-start;
   }
-  .offline-banner{
-    align-items:flex-start;
-  }
   .deck-select{
     min-width:180px;
+  }
+  .menu-dropdown{
+    right:auto;
+    left:0;
+    min-width:200px;
   }
 }
 
@@ -485,8 +560,8 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <div class="hdr">
 <div class="hdr-in">
 <div>
-  <div class="hdr-title">OBG Question Bank</div>
-  <div class="hdr-sub">MU-MED 40 - Adrenaline</div>
+  <div class="hdr-title">Adrinaline OBG Question Bank</div>
+  <div class="hdr-sub">MU-MED 40</div>
 </div>
 <div class="stats">
   <div class="stat">Total <span id="s-total">-</span></div>
@@ -542,7 +617,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
   </div>
 
   <!-- CONTENT -->
-  <div>
+  <div class="card-wrap">
     <div class="deck-info">
       <div>
         <div class="deck-title" id="deck-title">All Questions</div>
@@ -554,14 +629,51 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
           <label class="deck-toggle"><input type="checkbox" id="practice-random-toggle" onchange="handleRandomModeToggle(this.checked)"> Random order</label>
           <button class="btn btn-out" type="button" onclick="practiceSelectedLecture()">Practice This Lecture</button>
         </div>
-        <button class="btn btn-out hidden" id="offline-download-btn" type="button">Download for offline use</button>
         <button class="btn btn-out" onclick="shuffleDeck()">Shuffle</button>
         <button class="btn btn-out" onclick="resetDeck()">Reset</button>
         <button class="btn btn-navy" onclick="showScore()">Score</button>
         <button class="btn btn-navy" onclick="showStats()" style="background:#5B21B6;">Stats</button>
+        <div class="menu-wrapper">
+          <button class="menu-btn" onclick="toggleMenu(this)" title="More options">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="12" cy="5" r="1"></circle>
+              <circle cx="12" cy="19" r="1"></circle>
+            </svg>
+          </button>
+          <div class="menu-dropdown" id="options-menu">
+            <label class="menu-item" onclick="event.stopPropagation()">
+              <input type="checkbox" id="persist-progress-toggle" onchange="handlePersistProgressToggle(this.checked)" checked>
+              <div>
+                <div class="menu-item-label">Persist Progress</div>
+                <div class="menu-item-hint">Save answers to browser storage</div>
+              </div>
+            </label>
+            <div class="menu-item" onclick="downloadForOffline()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <div>
+                <div class="menu-item-label">Offline Download</div>
+                <div class="menu-item-hint">Download questions for offline use</div>
+              </div>
+            </div>
+            <div class="menu-item danger" onclick="handleResetProgress()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+              <div>
+                <div class="menu-item-label">Reset Progress</div>
+                <div class="menu-item-hint">Clear all saved answers</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="offline-status-banner" class="offline-banner hidden" aria-live="polite"></div>
     <div class="prog-label"><span>Progress</span><strong id="prog-txt">0 / 0</strong></div>
     <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
 
@@ -614,7 +726,7 @@ kbd{background:#fff;border:1px solid var(--border);border-radius:4px;padding:2px
 <script src="./js/srs-ui.js?v=20260405c"></script>
 <script src="./js/srs-review.js?v=20260405c"></script>
 <script src="./js/srs-dashboard.js?v=20260405c"></script>
-<script src="./js/app-bootstrap.js?v=20260407a"></script>
+<script src="./js/app-bootstrap.js?v=20260405c"></script>
 
 <div id="stats-overlay" onclick="if(event.target===this)closeStats()">
 <div class="stats-box">

@@ -10,17 +10,6 @@ const questionResolutionHelpers = window.questionResolutionHelpers || window.OBG
   contentMetadata: {},
 };
 const CONTENT_METADATA = window.OBG_CONTENT_METADATA || questionResolutionHelpers.contentMetadata || {};
-function normalizePublicSiteConfig(config){
-  const input = config && typeof config === 'object' ? config : {};
-  const rawVersion = String(input.offlineVersion || '').trim();
-  const rawDisableMode = String(input.offlineDisableMode || '').trim().toLowerCase();
-  return {
-    offlineEnabled: input.offlineEnabled === true,
-    offlineVersion: rawVersion || 'v1',
-    offlineDisableMode: rawDisableMode === 'purge_existing' ? 'purge_existing' : 'keep_existing'
-  };
-}
-const SITE_CONFIG = normalizePublicSiteConfig(window.OBG_SITE_CONFIG);
 
 const NOTES = {"Antenatal Care (ANC)":["Note 22.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ—‹ Immunizations: -\nâ†’ Safe immunizations (include antigens from killed or inactivated organisms):\nInfluenza (all pregnant women in flu season).\nTetanus, diphtheria, pertussis (Tdap)\nHepatitis B (pre- and postexposure).\nHepatitis A (pre- and postexposure).\nPneumococcus (only high-risk women).\nMeningococcus (in unusual outbreaks).\nTyphoid (not routinely recommended).\nâ†’ Unsafe immunizations (include antigens from live attenuated organisms):\nMMR (measles, mumps, rubella)\nPolio\nYellow fever\nVaricella","Note 23.\nط¬ظ‡ ط¹ظ„ظٹظ‡ط§ ط§ط³ط¦ظ„ط© ظپظٹ ط§ظ„ط§ظ…طھط­ط§ظ†\nvery important note\nâ€¢ Daily dietary requirement Of a woman during pregnancy (2nd half)\nFood element\nPregnancy\nKilocalories\n2500\nProtein\n60 gm\nIron\n40 gm\nFolic acid\n400 خ¼g\nCalcium\n1000 mg\nVitamin A\n6000 I.U."],"Cardiac Disorders & Anaemia with Pregnancy":["Important notes:\n*minimal level of Hb to allow delivery is\n10 gm/dl\n(ط¬طھ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ط§طھط©)\n*iron needed in pregnancy is\n27 mg/dl\n*anemia of chronic infection is\nnormocytic normochromic anemia\n*Iron absorption differs during pregnancy\n*There is threshold for iron absorption\n*Iron stores is 500 mg\n*Folic acid given in megaloblastic anemia"],"Normal Labour":["ظپظٹ ط§ظ„ظپظˆط±ظ…ط§طھظٹظپ ط¨طھط§ط¹ظƒظ… ظ„ط£ظ†ظ‡ ط¬ظ‡ ظپظٹ ط§ظ…طھط­ط§ظ† ط³ظ†ط© ط±ط§ط¨ط¹ط© ط§ظ„ط³ظ†ط© ط§ظ„ظٹ ظپط§طھطھ ط­ط§ظˆظ„ظˆط§ طھطھط£ظƒط¯ظˆط§ ظ…ظ† ط§ط¬ط§ط¨ط© ط§ظ„ط³ط¤ط§ظ„ ط¯ظ‡"]};
 
@@ -35,30 +24,15 @@ const filterState = {
   type: '',
   lecture: null,
 };
-function installLegacyFilterAliases(){
-  if(typeof window === 'undefined') return;
-  const defineAlias = (name, getter, setter) => {
-    Object.defineProperty(window, name, {
-      configurable: true,
-      enumerable: false,
-      get: getter,
-      set: setter,
-    });
-  };
-  defineAlias('activeFilter', () => filterState.exam, (value) => { filterState.exam = value || 'all'; });
-  defineAlias('activeSrc', () => filterState.src, (value) => { filterState.src = value || ''; });
-  defineAlias('activeType', () => filterState.type, (value) => { filterState.type = value || ''; });
-  defineAlias('activeLec', () => filterState.lecture, (value) => { filterState.lecture = value || null; });
-  defineAlias('activeLecType', () => filterState.type || 'all', (value) => { filterState.type = !value || value === 'all' ? '' : value; });
-}
-installLegacyFilterAliases();
 let osceSubIdx = {};  // cardId -> current sub-question index
 let osceResults = {}; // cardId -> {subIdx -> 'correct'|'wrong'|'unanswered'}
 let mcqAnswers   = {};  // cardId -> chosen letter
 let flashRatings = {};  // cardId -> 'again'|'good'|'easy'
 const PRACTICE_LECTURE_KEY = 'obg_selected_lecture';
 const RANDOM_MODE_KEY = 'obg_random_mode';
+const PERSIST_PROGRESS_KEY = 'obg_persist_progress';
 let randomMode = true;
+let persistProgress = true;
 let pendingCardDirection = 'next';
 
 function animateCount(el, targetValue, duration = 350) {
@@ -255,11 +229,29 @@ function storedRandomMode(){
   const raw = localStorage.getItem(RANDOM_MODE_KEY);
   return raw === null ? true : raw !== 'false';
 }
+function storedPersistProgress(){
+  const raw = localStorage.getItem(PERSIST_PROGRESS_KEY);
+  return raw === null ? true : raw !== 'false';
+}
 function persistPracticePreferences(){
   try{
     localStorage.setItem(PRACTICE_LECTURE_KEY, normalizeLectureFilter(filterState.lecture || 'all'));
     localStorage.setItem(RANDOM_MODE_KEY, String(!!randomMode));
+    localStorage.setItem(PERSIST_PROGRESS_KEY, String(!!persistProgress));
   }catch(e){}
+}
+function handlePersistProgressToggle(checked){
+  persistProgress = !!checked;
+  persistPracticePreferences();
+  if(!persistProgress){
+    clearProgress(false);
+  }
+  syncPracticeControls();
+}
+function handleResetProgress(){
+  if(!confirm('Clear all saved progress? This cannot be undone.')) return;
+  clearProgress(true);
+  if(window.SRS_UI && typeof window.SRS_UI.toast === 'function') window.SRS_UI.toast('Progress cleared successfully');
 }
 function syncSidebarSelection(){
   document.querySelectorAll('.sb-item[data-k]').forEach(el=>{
@@ -287,6 +279,8 @@ function syncPracticeControls(){
   }
   const toggle=document.getElementById('practice-random-toggle');
   if(toggle) toggle.checked=!!randomMode;
+  const persistToggle=document.getElementById('persist-progress-toggle');
+  if(persistToggle) persistToggle.checked=!!persistProgress;
 }
 function syncAllFilterUI(){
   document.querySelectorAll('[data-f]').forEach(btn=>btn.classList.toggle('active', btn.dataset.f===filterState.exam));
@@ -550,10 +544,10 @@ function renderQuestionMedia(c){
   const image = String(c?.image || '').trim();
   const alt = esc(c?.imageAlt || 'Question image');
   if(image){
-    return `<img class="mcq-panel-img" src="${esc(image)}" alt="${alt}" style="width:140px;height:140px;max-width:140px;max-height:140px;object-fit:contain;display:block;border-radius:12px;background:#fff;border:1px solid #dbe4f0;box-shadow:0 6px 18px rgba(27,58,107,.10);padding:6px;flex-shrink:0;">`;
+    return `<div class="question-media"><img src="${esc(image)}" style="max-width:100%;max-height:360px;border-radius:12px;margin:10px auto 14px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.12);background:#fff" alt="${alt}">${c?.imageAlt?`<div style="text-align:center;font-size:.76rem;color:#64748b;margin-top:-4px;margin-bottom:12px">${esc2(c.imageAlt)}</div>`:''}</div>`;
   }
   if(c?.imagePlaceholder){
-    return `<span class="img-ph-badge">🖼 ${esc2(c.imagePlaceholderText||'Image')}</span>`;
+    return `<div class="img-ph" dir="auto">${esc2(c.imagePlaceholderText||'Image')}</div>`;
   }
   return '';
 }
@@ -571,7 +565,7 @@ function renderMCQ(c){
   }).join('');
   const imgPh = renderQuestionMedia(c);
   const extraBanner = c._extra ? `<div class="extra-banner">This question is from the study bank (not in printed source)</div>` : '';
-  return `<div class="mcq-card ${imgPh ? 'mcq-has-img' : ''}">
+  return `<div class="mcq-card">
   <div class="mcq-hdr">
     <div class="mcq-badge">
       <span class="mcq-qn">${esc2(c.num||'')}</span>
@@ -580,15 +574,10 @@ function renderMCQ(c){
     </div>
     <div class="mcq-lec">${esc2(c.lecture||'')}${c.doctor?` &nbsp;آ·&nbsp; ${esc2(c.doctor)}`:''}</div>
   </div>
-  ${extraBanner}
-  <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
-    <div class="question-media-main">
-      <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
-      ${renderInlineNote(c)}
-      ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-    </div>
-    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
-  </div>
+  ${imgPh}${extraBanner}
+  <div class="mcq-stem" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+  ${renderInlineNote(c)}
+  ${tags?`<div class="mcq-tags">${tags}</div>`:''}
   <div class="mcq-choices">${choices}</div>
   <div class="mcq-result" id="mcq-res-${c.id}"></div>
   <div class="mcq-footer">
@@ -601,14 +590,18 @@ function renderMCQ(c){
   </div>
 </div>`;
 }
+
 function renderOSCE(c){
   if(!osceSubIdx[c.id]) osceSubIdx[c.id]=0;
   const subIdx = osceSubIdx[c.id]||0;
   const subs = c.subParts||[];
   const cur = subs[subIdx]||{};
   const results = osceResults[c.id]||{};
+  
   const srcBadge=`<span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>`;
   const extraBanner = c._extra ? `<div class="extra-banner">From study bank (not in printed source)</div>` : '';
+  
+  // Progress dots
   const dots = subs.map((s,i)=>{
     let cls='osce-dot';
     if(results[i]==='correct') cls+=' answered-ok';
@@ -616,13 +609,18 @@ function renderOSCE(c){
     else if(i===subIdx) cls+=' current';
     return `<div class="${cls}" onclick="jumpOSCESub(${i})">${i+1}</div>`;
   }).join('');
+  
+  // Current sub question
   let subContent='';
   if(subs.length>1 || (subs.length===1 && subs[0].q)){
+    // Sub-question header
     const subQ = cur.q||'';
     const subQm = subQ.match(/Q\d+\.\d+[\.\s]*(.*)/);
     const subQText = subQm ? subQm[1] : subQ;
     subContent = subQ ? `<div class="osce-sub-hdr" dir="auto">Part ${subIdx+1}: ${esc2(subQText)}</div>` : '';
   }
+  
+  // Choices for current sub
   const choices = (cur.choices||[]).map((ch,i)=>{
     const l=String.fromCharCode(65+i);
     const cid=`${c.id}_${subIdx}`;
@@ -631,9 +629,11 @@ function renderOSCE(c){
       <span>${esc2(ch)}</span><span class="c-icon" id="oicon${l}_${cid}"></span>
     </button>`;
   }).join('');
+  
   const imgPh = renderQuestionMedia(c);
+  
   const tags=(c.displayTags||c.tags||[]).map(t=>`<span class="tag ${t.cls}">${esc2(t.txt)}</span>`).join('');
-  return `<div class="osce-card ${imgPh ? 'osce-has-media' : ''}">
+  return `<div class="osce-card">
   <div class="osce-hdr">
     <div class="mcq-badge">
       <span class="mcq-qn">${esc2(c.num||'')}</span>
@@ -643,17 +643,12 @@ function renderOSCE(c){
     </div>
     <div class="mcq-lec">${esc2(c.lecture||'')}</div>
   </div>
-  ${extraBanner}
-  <div class="question-media-layout ${imgPh ? 'has-media' : ''}">
-    <div class="question-media-main">
-      <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
-      ${renderInlineNote(c)}
-      ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-      ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
-      ${subContent}
-    </div>
-    ${imgPh ? `<div class="question-media-side">${imgPh}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
-  </div>
+  ${imgPh}${extraBanner}
+  <div class="osce-stem" dir="auto">${mdBold(esc2(c.displayStem||c.stem||c.q||''))}</div>
+  ${renderInlineNote(c)}
+  ${tags?`<div class="mcq-tags">${tags}</div>`:''}
+  ${subs.length>1?`<div class="osce-progress">${dots}</div>`:''}
+  ${subContent}
   <div class="mcq-choices" id="osce-choices-${c.id}">${choices}</div>
   <div class="mcq-result" id="osce-res-${c.id}_${subIdx}"></div>
   <div class="mcq-footer">
@@ -669,6 +664,7 @@ function renderOSCE(c){
   </div>
 </div>`;
 }
+
 function renderFlipCard(c, type){
   const srcBadge=`<span class="src-badge ${srcClass(c.source)}">${srcLabel(c.source)}</span>`;
   const tclass = type==='FLASHCARD'?'ttype-flash':'ttype-saq';
@@ -683,15 +679,11 @@ function renderFlipCard(c, type){
     <div class="q-badge"><span>${esc2(c.num||'')}</span><span class="ttype ${tclass}">${tname}</span><span>${esc2(c.lecture||'')}</span></div>
     <div class="q-lec">${srcBadge}</div>
     ${extraBanner}
-    <div class="question-media-layout ${media ? 'has-media' : ''}">
-      <div class="question-media-main">
-        <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
-        ${renderInlineNote(c)}
-        ${tags?`<div class="mcq-tags">${tags}</div>`:''}
-        <div class="q-hint">Click to reveal answer</div>
-      </div>
-      ${media ? `<div class="question-media-side">${media}<div class="question-media-side-label">${esc2(c.lecture||'')}</div></div>` : ''}
-    </div>
+    <div class="q-text" dir="auto">${mdBold(esc2(c.displayStem||c.q||''))}</div>
+    ${media}
+    ${renderInlineNote(c)}
+    ${tags?`<div class="mcq-tags">${tags}</div>`:''}
+    <div class="q-hint">Click to reveal answer</div>
   </div>
   <div class="flip-cta">Click card or press <strong>Space</strong> to flip</div>
 </div>`;
@@ -875,7 +867,7 @@ function updateCounts(){
   const examCounts={};
   const srcCounts={old_form:0,new_form:0,prev_exam:0,osce:0,lectures_2026:0};
   const tagCounts={};
-  getVisibleCards({ dedupe:true }).forEach(c=>{
+  getVisibleCards({ dedupe:false }).forEach(c=>{
     ids.all++;
     const examKey=String(c.exam||'').trim() || 'mid';
     examCounts[examKey]=(examCounts[examKey]||0)+1;
@@ -913,7 +905,7 @@ function updateCounts(){
   });
 
   const basePool = (() => {
-    let d = getVisibleCards({ dedupe: true });
+    let d = getVisibleCards({ dedupe: false });
     if (filterState.exam !== 'all') d = d.filter(c => c.exam === filterState.exam);
     if (filterState.lecture) d = filterCardsByLecture(d, filterState.lecture);
     return d;
@@ -1083,6 +1075,7 @@ function esc2(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 const LS_KEY = 'obg_progress_v1';
 
 function saveProgress(){
+  if(!persistProgress) return;
   const sidebar = document.getElementById('sidebar') || document.querySelector('.sidebar');
   const data = {
     mcqAnswers, osceResults, flashRatings,
@@ -1095,8 +1088,13 @@ function saveProgress(){
 
 function loadProgress(){
   try {
-    const raw = localStorage.getItem(LS_KEY);
     randomMode = storedRandomMode();
+    persistProgress = storedPersistProgress();
+    if(!persistProgress){
+      applyFilter();
+      return;
+    }
+    const raw = localStorage.getItem(LS_KEY);
     let sidebarScrollTop = 0;
     if(raw){
       const d = JSON.parse(raw);
@@ -1149,8 +1147,8 @@ function renderExamTabs(){
 }
 function renderExactSourceTabs(){ return; }
 
-function clearProgress(){
-  if(!confirm('Clear all saved progress?')) return;
+function clearProgress(showConfirm = true){
+  if(showConfirm && !confirm('Clear all saved progress?')) return;
   localStorage.removeItem(LS_KEY);
   mcqAnswers={}; osceResults={}; flashRatings={};
   reviewed=0; scores={again:0,good:0,easy:0}; mcqRes={correct:0,wrong:0};
@@ -1161,210 +1159,44 @@ function clearProgress(){
   applyFilter();
 }
 
-const OFFLINE_VERSION_KEY = 'obg_offline_pack_version';
-const OFFLINE_STATUS_KEY = 'obg_offline_pack_status';
-const OFFLINE_SW_URL = './service-worker.js?v=20260407a';
-const offlineState = {
-  registration: null,
-  busy: false
-};
-
-function getStoredOfflineVersion(){
-  try { return String(localStorage.getItem(OFFLINE_VERSION_KEY) || '').trim(); } catch(e){ return ''; }
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+// MENU & OFFLINE
+// â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+function toggleMenu(btn){
+  const dropdown = btn.nextElementSibling;
+  if(!dropdown) return;
+  const isOpen = dropdown.classList.contains('open');
+  document.querySelectorAll('.menu-dropdown.open').forEach(d => d.classList.remove('open'));
+  if(!isOpen) dropdown.classList.add('open');
 }
-function setStoredOfflineVersion(version){
-  try {
-    if(version) localStorage.setItem(OFFLINE_VERSION_KEY, String(version));
-    else localStorage.removeItem(OFFLINE_VERSION_KEY);
-  } catch(e){}
-}
-function getStoredOfflineStatus(){
-  try { return String(localStorage.getItem(OFFLINE_STATUS_KEY) || '').trim(); } catch(e){ return ''; }
-}
-function setStoredOfflineStatus(status){
-  try {
-    if(status) localStorage.setItem(OFFLINE_STATUS_KEY, String(status));
-    else localStorage.removeItem(OFFLINE_STATUS_KEY);
-  } catch(e){}
-}
-function hasInstalledOfflinePack(){
-  return getStoredOfflineStatus() === 'installed' && !!getStoredOfflineVersion();
-}
-function getOfflineButton(){
-  return document.getElementById('offline-download-btn');
-}
-function getOfflineBanner(){
-  return document.getElementById('offline-status-banner');
-}
-function isSameOriginAssetUrl(raw){
-  if(!raw) return false;
-  try{
-    const url = new URL(raw, window.location.href);
-    return url.origin === window.location.origin;
-  }catch(e){
-    return false;
+document.addEventListener('click', function(e){
+  if(!e.target.closest('.menu-wrapper')){
+    document.querySelectorAll('.menu-dropdown.open').forEach(d => d.classList.remove('open'));
   }
-}
-function buildOfflineAssetList(){
-  const urls = new Set(['./','./index.html','./data/questions.json','./data/content-metadata.json','./data/site-config.json']);
-  document.querySelectorAll('script[src],link[rel="stylesheet"][href]').forEach((node)=>{
-    const raw = node.tagName === 'SCRIPT' ? node.getAttribute('src') : node.getAttribute('href');
-    if(!isSameOriginAssetUrl(raw)) return;
-    const url = new URL(raw, window.location.href);
-    urls.add(url.pathname + url.search);
-  });
-  ALL_CARDS.forEach((card)=>{
-    const raw = String(card?.image || '').trim();
-    if(!raw || /^https?:/i.test(raw) || /^data:/i.test(raw)) return;
-    if(!isSameOriginAssetUrl(raw)) return;
-    const url = new URL(raw, window.location.href);
-    urls.add(url.pathname + url.search);
-  });
-  return Array.from(urls);
-}
-function setOfflineBanner(tone, message, action){
-  const banner = getOfflineBanner();
-  if(!banner) return;
-  if(!message){
-    banner.className = 'offline-banner hidden';
-    banner.innerHTML = '';
+});
+function downloadForOffline(){
+  const cards = window.ALL_CARDS || [];
+  if(!cards.length){
+    if(window.SRS_UI && typeof window.SRS_UI.toast === 'function') window.SRS_UI.toast('No questions available to download');
     return;
   }
-  banner.className = `offline-banner${tone ? ` ${tone}` : ''}`;
-  banner.innerHTML = `<div class="offline-banner-copy">${message}</div>${action ? `<div class="offline-banner-actions">${action}</div>` : ''}`;
-  const actionBtn = banner.querySelector('[data-offline-action="refresh"]');
-  if(actionBtn){
-    actionBtn.addEventListener('click', ()=>window.location.reload());
-  }
+  const exportData = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    totalQuestions: cards.length,
+    questions: cards
+  };
+  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'obg-questions-offline.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  if(window.SRS_UI && typeof window.SRS_UI.toast === 'function') window.SRS_UI.toast('Downloaded ' + cards.length + ' questions for offline use');
 }
-function renderOfflineControls(){
-  const button = getOfflineButton();
-  const installedVersion = getStoredOfflineVersion();
-  const installed = hasInstalledOfflinePack();
-  const offlineEnabled = SITE_CONFIG.offlineEnabled;
-  if(button){
-    button.disabled = false;
-    button.classList.add('hidden');
-    button.textContent = 'Download for offline use';
-  }
-  if(offlineState.busy){
-    if(button){
-      button.classList.remove('hidden');
-      button.disabled = true;
-      button.textContent = 'Downloading offline pack...';
-    }
-    setOfflineBanner('progress','Downloading the offline study pack for this device.');
-    return;
-  }
-  if(!offlineEnabled){
-    if(button) button.classList.add('hidden');
-    setOfflineBanner('', '');
-    return;
-  }
-  const updateAvailable = installed && installedVersion !== SITE_CONFIG.offlineVersion;
-  if(button){
-    button.classList.remove('hidden');
-    button.textContent = updateAvailable ? 'Update offline pack' : installed ? 'Available offline' : 'Download for offline use';
-    button.disabled = installed && !updateAvailable;
-  }
-  if(updateAvailable){
-    setOfflineBanner('warn',`A newer offline pack is available for this site (${esc2(SITE_CONFIG.offlineVersion)}). Update this device to keep the latest content.`);
-  }else if(installed){
-    setOfflineBanner('ok',`This device has the offline study pack ready (${esc2(installedVersion)}).`);
-  }else{
-    setOfflineBanner('progress','Tap Download for offline use to store the study website, questions, and images on this device.');
-  }
-}
-function postOfflineWorkerMessage(message){
-  return new Promise(async (resolve, reject)=>{
-    if(!('serviceWorker' in navigator)) {
-      reject(new Error('This browser does not support offline caching.'));
-      return;
-    }
-    const registration = offlineState.registration || await navigator.serviceWorker.ready;
-    offlineState.registration = registration;
-    const worker = registration.active || registration.waiting || registration.installing;
-    if(!worker){
-      reject(new Error('Offline worker is not ready yet. Refresh and try again.'));
-      return;
-    }
-    const channel = new MessageChannel();
-    channel.port1.onmessage = (event)=>{
-      const data = event.data || {};
-      if(data.ok) resolve(data);
-      else reject(new Error(data.error || 'Offline operation failed.'));
-    };
-    worker.postMessage(message, [channel.port2]);
-  });
-}
-async function removeOfflinePack(options = {}){
-  try{
-    const registration = offlineState.registration || await navigator.serviceWorker.ready;
-    offlineState.registration = registration;
-    await postOfflineWorkerMessage({ type:'PURGE_OFFLINE_PACK' });
-    setStoredOfflineVersion('');
-    setStoredOfflineStatus('purged');
-    if(options.unregister && registration){
-      await registration.unregister();
-      offlineState.registration = null;
-    }
-    renderOfflineControls();
-  }catch(error){
-    console.warn('offline purge failed', error);
-    if(!options.silent){
-      setOfflineBanner('error', esc2(error.message || 'Failed to remove the offline pack from this device.'));
-    }
-  }
-}
-async function downloadOfflinePack(){
-  if(!SITE_CONFIG.offlineEnabled) return;
-  offlineState.busy = true;
-  renderOfflineControls();
-  try{
-    if(!navigator.onLine) throw new Error('Go online once to download the offline study pack.');
-    const payload = await postOfflineWorkerMessage({
-      type:'DOWNLOAD_OFFLINE_PACK',
-      version: SITE_CONFIG.offlineVersion,
-      urls: buildOfflineAssetList()
-    });
-    setStoredOfflineVersion(SITE_CONFIG.offlineVersion);
-    setStoredOfflineStatus('installed');
-    if(typeof window.trackStudyEvent === 'function'){
-      window.trackStudyEvent('offline_pack_downloaded', { version: SITE_CONFIG.offlineVersion, count: Number(payload.cached || 0) });
-    }
-    setOfflineBanner('ok',`Offline study pack downloaded for this device (${esc2(SITE_CONFIG.offlineVersion)}).`);
-  }catch(error){
-    setOfflineBanner('error', esc2(error.message || 'Offline download failed. Please try again while online.'));
-  }finally{
-    offlineState.busy = false;
-    renderOfflineControls();
-  }
-}
-async function initOfflineMode(){
-  const button = getOfflineButton();
-  if(button){
-    button.addEventListener('click', downloadOfflinePack);
-  }
-  if(!('serviceWorker' in navigator)){
-    renderOfflineControls();
-    return;
-  }
-  const shouldRegister = SITE_CONFIG.offlineEnabled || hasInstalledOfflinePack();
-  if(!shouldRegister){
-    renderOfflineControls();
-    return;
-  }
-  try{
-    offlineState.registration = await navigator.serviceWorker.register(OFFLINE_SW_URL);
-    if(!SITE_CONFIG.offlineEnabled && SITE_CONFIG.offlineDisableMode === 'purge_existing' && hasInstalledOfflinePack() && navigator.onLine){
-      await removeOfflinePack({ unregister:true, silent:true });
-    }
-  }catch(error){
-    console.warn('service worker registration failed', error);
-  }
-  renderOfflineControls();
-}
-window.initOfflineMode = initOfflineMode;
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
 // INIT
 // â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
@@ -1501,22 +1333,5 @@ function goToCard(cardId){
   closeStats();
   renderCard(); updateNav(); updateStats(); updateProgress();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
