@@ -3129,7 +3129,7 @@
     "num": "Q37",
     "cardType": "MCQ",
     "lecture": "Antepartum Hemorrhage (APH)",
-    "exam": "mid",
+    "exam": "Paper 1",
     "source": "Lecture Q's (OLD",
     "q": "How should you manage a patient who presents at 30 weeks of gestation with a blood-stained vaginal discharge which is caused by vaginitis: )",
     "choices": [
@@ -3138,7 +3138,8 @@
       "A vaginal examination should be done in theatre as with any other patient who presents with an antepartum bleeding/haemorrhage.",
       "The patient and her partner must be treated with metronidazole (Flagyl)."
     ],
-    "ans": "D"
+    "ans": "D",
+    "active": false
   },
   {
     "id": "c200",
